@@ -35,6 +35,10 @@ const venueMapping = {
     'grand-palais': {
         title: 'Grand Palais',
         coordinates: [2.312156, 48.866096]
+    },
+    'chateau-de-versailles': {
+        title: 'Château de Versailles',
+        coordinates: [2.120728, 48.804694]
     }
 };
 

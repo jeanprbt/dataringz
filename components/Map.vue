@@ -38,7 +38,8 @@ const markers = [
     {
         coordinates: [2.120728, 48.804694] as [number, number],
         title: 'Château de Versailles',
-      }
+        slug: 'chateau-de-versailles'
+    }
 ];
 
 onMounted(() => {

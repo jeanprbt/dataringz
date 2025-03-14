@@ -1,6 +1,5 @@
 <template>
-    <div ref="mapContainer" class="map-container"></div>
-    <Popup v-if="showPopup" :title="popupData.title" @close="showPopup = false" />
+    <div ref="mapContainer" class="flex-1"></div>
 </template>
 
 <script setup lang="ts">
@@ -10,6 +9,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 // In Nuxt, we need to check if we're on the client side before using browser APIs
 const isClient = import.meta.client;
 const config = useRuntimeConfig();
+const router = useRouter();
 
 // Set Mapbox token
 if (isClient) {
@@ -18,8 +18,6 @@ if (isClient) {
 
 const mapContainer = ref<HTMLElement | null>(null);
 let map: mapboxgl.Map | null = null;
-const showPopup = ref(false);
-const popupData = ref({ title: '' });
 
 const bounds: [[number, number], [number, number]] = [
     [2.1521757561875177, 48.772008385801996],
@@ -29,11 +27,13 @@ const bounds: [[number, number], [number, number]] = [
 const markers = [
     {
         coordinates: [2.294694, 48.858093] as [number, number],
-        title: 'Eiffel Tower'
+        title: 'Eiffel Tower',
+        slug: 'eiffel-tower'
     },
     {
         coordinates: [2.312156, 48.866096] as [number, number],
         title: 'Grand Palais',
+        slug: 'grand-palais'
     }
 ];
 
@@ -63,10 +63,7 @@ onMounted(() => {
             .setLngLat(feat.coordinates)
             .addTo(map!)
             .getElement().addEventListener('click', () => {
-                popupData.value = {
-                    title: feat.title,
-                };
-                showPopup.value = true;
+                router.push(`/venue/${feat.slug}`);
             });
     });
 
@@ -146,9 +143,3 @@ onUnmounted(() => {
     }
 });
 </script>
-
-<style>
-.map-container {
-    flex: 1;
-}
-</style>

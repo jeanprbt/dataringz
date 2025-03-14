@@ -1,6 +1,6 @@
 <template>
-    <div v-if="showVenuePage" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 backdrop-blur-sm">
-        <div class="bg-white/90 dark:bg-gray-800 rounded-lg shadow-xl p-6 w-[90%] h-[90%] overflow-auto transform transition-all duration-300 ease-in-out">
+    <div v-if="showVenuePage" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 backdrop-blur-sm" @click="closePage">
+        <div class="bg-white/90 dark:bg-gray-800 rounded-lg shadow-xl p-6 w-[90%] h-[90%] overflow-auto transform transition-all duration-300 ease-in-out" @click.stop>
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-white">{{ venueData.title }}</h2>
                 <button @click="closePage" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">

@@ -1,59 +1,75 @@
-# Project of Data Visualization (COM-480)
+# Nuxt Minimal Starter
 
-| Student's name | SCIPER |
-| -------------- | ------ |
-| | |
-| | |
-| | |
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+## Setup
 
-## Milestone 1 (21st March, 5pm)
+Make sure to install dependencies:
 
-**10% of the final grade**
+```bash
+# npm
+npm install
 
-This is a preliminary milestone to let you set up goals for your final project and assess the feasibility of your ideas.
-Please, fill the following sections about your project.
+# pnpm
+pnpm install
 
-*(max. 2000 characters per section)*
+# yarn
+yarn install
 
-### Dataset
+# bun
+bun install
+```
 
-> Find a dataset (or multiple) that you will explore. Assess the quality of the data it contains and how much preprocessing / data-cleaning it will require before tackling visualization. We recommend using a standard dataset as this course is not about scraping nor data processing.
->
-> Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/) and [FiveThirtyEight](https://data.fivethirtyeight.com/)), you could use also the DataSets proposed by the ENAC (see the Announcements section on Zulip).
+## Development Server
 
-### Problematic
+Start the development server on `http://localhost:3000`:
 
-> Frame the general topic of your visualization and the main axis that you want to develop.
-> - What am I trying to show with my visualization?
-> - Think of an overview for the project, your motivation, and the target audience.
+```bash
+# npm
+npm run dev
 
-### Exploratory Data Analysis
+# pnpm
+pnpm dev
 
-> Pre-processing of the data set you chose
-> - Show some basic statistics and get insights about the data
+# yarn
+yarn dev
 
-### Related work
+# bun
+bun run dev
+```
 
+## Production
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+Build the application for production:
 
-## Milestone 2 (18th April, 5pm)
+```bash
+# npm
+npm run build
 
-**10% of the final grade**
+# pnpm
+pnpm build
 
+# yarn
+yarn build
 
-## Milestone 3 (30th May, 5pm)
+# bun
+bun run build
+```
 
-**80% of the final grade**
+Locally preview production build:
 
+```bash
+# npm
+npm run preview
 
-## Late policy
+# pnpm
+pnpm preview
 
-- < 24h: 80% of the grade for the milestone
-- < 48h: 70% of the grade for the milestone
+# yarn
+yarn preview
 
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

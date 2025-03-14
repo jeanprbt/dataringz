@@ -15,7 +15,18 @@ logs
 
 # Misc
 .DS_Store
+dist
+dist-ssr
+coverage
+*.local
+
+# Data files
+*.zip
+*.csv
 .fleet
+
+# Editor directories and files
+.vscode
 .idea
 
 # Local env files

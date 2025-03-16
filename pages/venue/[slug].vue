@@ -39,7 +39,19 @@ const venueMapping = {
     'chateau-de-versailles': {
         title: 'Château de Versailles',
         coordinates: [2.120728, 48.804694]
-    }
+    },
+    'stade-de-france': {
+        title: 'Stade de France',
+        coordinates: [2.359627, 48.924549]
+    },
+    'paris-la-defense-arena': {
+        title: 'Paris La Défense Arena',
+        coordinates: [2.229182, 48.895226],
+    },
+    'les-invalides': {
+        title: 'Les Invalides',
+        coordinates: [2.312772, 48.856091],
+}
 };
 
 // Get venue data based on the slug

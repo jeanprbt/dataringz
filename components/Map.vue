@@ -204,9 +204,9 @@ onMounted(async () => {
         let {bearing, altitude} = await flyInAndRotate(
             map!,
             targetLngLat,
-            5000,
-            3000000, 300000,
-            0, -20,
+            3000,
+            5000000, 300000,
+            400, 340,
             30, 50,
         );
 
@@ -217,6 +217,7 @@ onMounted(async () => {
             track, bearing,
             altitude, 50,
         );
+
 
         // Retrieve end point, to be used for animating a zoom-in from high altitude
         let trackLength = track.geometry.coordinates.length
@@ -230,15 +231,14 @@ onMounted(async () => {
             map!,
             targetLngLat,
             5000,
-            300000, 1000,
+            300000, 1510,
             bearing, 0,
             40, 50,
-        )
+        );
 
         // Set properties for final map
         map.dragRotate.disable();
         map.setMinZoom(10);
-        map.setZoom(15);
         map.setMaxBounds(bounds);
         map.removeLayer('line-layer');
         map.removeSource('line');

@@ -33,7 +33,7 @@ const animatePath = async (
             };
 
             // slowly rotate the map at a constant rate
-            const bearing = startBearing - animationPhase * 350.0;
+            const bearing = startBearing - animationPhase * 250.0;
 
             // when the duration is complete, resolve the promise and stop iterating
             if (animationPhase > 1) {
@@ -43,7 +43,7 @@ const animatePath = async (
 
             // Reduce the visible length of the line by using a line-gradient to cut off the line
             // animationPhase is a value between 0 and 1 that represents the progress of the animation
-            map.setPaintProperty(
+            map!.setPaintProperty(
                 "line-layer",
                 "line-gradient",
                 [
@@ -61,7 +61,7 @@ const animatePath = async (
                 bearing,
                 lngLat,
                 startAltitude,
-                true // smooth
+                true
             );
 
             // set the pitch and bearing of the camera

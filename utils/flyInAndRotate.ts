@@ -59,7 +59,7 @@ const flyInAndRotate = async (
             );
 
             // apply the new camera options
-            map.setFreeCameraOptions(camera);
+            map!.setFreeCameraOptions(camera);
 
             // when the animationPhase is done, resolve the promise so the parent function can move on to the next step in the sequence
             if (animationPhase === 1) {
@@ -114,7 +114,7 @@ const computeCameraPosition = (
 
     if (smooth) {
         if (previousCameraPosition) {
-            const SMOOTH_FACTOR = 0.95
+            const SMOOTH_FACTOR = 0.97
             newCameraPosition.lng = lerp(newCameraPosition.lng, previousCameraPosition.lng, SMOOTH_FACTOR);
             newCameraPosition.lat = lerp(newCameraPosition.lat, previousCameraPosition.lat, SMOOTH_FACTOR);
         }
@@ -125,37 +125,5 @@ const computeCameraPosition = (
     return newCameraPosition
 };
 
-const createGeoJSONCircle = (
-    center: [number, number],
-    radiusInKm: number,
-    points = 64
-): GeoJSON.Feature<GeoJSON.Polygon> => {
-    const coords = {
-        latitude: center[1],
-        longitude: center[0],
-    };
-    const km = radiusInKm;
-    const ret = [];
-    const distanceX = km / (111.320 * Math.cos((coords.latitude * Math.PI) / 180));
-    const distanceY = km / 110.574;
-    let theta;
-    let x;
-    let y;
-    for (let i = 0; i < points; i += 1) {
-        theta = (i / points) * (2 * Math.PI);
-        x = distanceX * Math.cos(theta);
-        y = distanceY * Math.sin(theta);
-        ret.push([coords.longitude + x, coords.latitude + y]);
-    }
-    ret.push(ret[0]);
-    return {
-        type: 'Feature',
-        geometry: {
-            type: 'Polygon',
-            coordinates: [ret],
-        },
-        properties: {}
-    };
-}
 
-export {computeCameraPosition, createGeoJSONCircle, flyInAndRotate};
+export {computeCameraPosition, flyInAndRotate};

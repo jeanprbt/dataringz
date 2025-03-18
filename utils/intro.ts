@@ -1,75 +1,44 @@
-import mapboxgl from "mapbox-gl";
 import * as turf from "turf";
 import * as d3 from "d3";
+import type {LineString} from "geojson";
 
 // ---------------------------------------------- FLY IN AND ROTATE ------------------------------------------------- //
 const flyInAndRotate = async (
     map: mapboxgl.Map,
     targetLngLat: { lng: number; lat: number },
     duration: number,
-    startAltitude: number,
-    endAltitude: number,
+    startZoom: number,
+    endZoom: number,
     startBearing: number,
     endBearing: number,
     startPitch: number,
     endPitch: number,
-): Promise<{ bearing: number; altitude: number }> => {
+): Promise<void> => {
     return new Promise(async (resolve) => {
         let start: number;
-
-        let currentAltitude: number;
+        let currentZoom: number;
         let currentBearing: number;
         let currentPitch: number;
 
-        // the animation frame will run as many times as necessary until the duration has been reached
         const frame = async (time: number): Promise<void> => {
-            if (!start) {
-                start = time;
-            }
-
-            // otherwise, use the current time to determine how far along in the duration we are
+            if (!start) start = time;
             let animationPhase = (time - start) / duration;
+            if (animationPhase > 1) animationPhase = 1;
 
-            // because the phase calculation is imprecise, the final zoom can vary
-            // if it ended up greater than 1, set it to 1 so that we get the exact endAltitude that was requested
-            if (animationPhase > 1) {
-                animationPhase = 1;
-            }
+            currentZoom = startZoom + (endZoom - startZoom) * d3.easeCubicOut(animationPhase);
+            currentBearing = startBearing + (endBearing - startBearing) * d3.easeCubicOut(animationPhase);
+            currentPitch = startPitch + (endPitch - startPitch) * d3.easeCubicOut(animationPhase);
 
-            currentAltitude = startAltitude + (endAltitude - startAltitude) * d3.easeCubicOut(animationPhase)
-            // rotate the camera between startBearing and endBearing
-            currentBearing = startBearing + (endBearing - startBearing) * d3.easeCubicOut(animationPhase)
+            map.easeTo({
+                center: targetLngLat,
+                zoom: currentZoom,
+                bearing: currentBearing,
+                pitch: currentPitch,
+                duration: 0
+            });
 
-            currentPitch = startPitch + (endPitch - startPitch) * d3.easeCubicOut(animationPhase)
-
-            // compute corrected camera ground position, so the start of the path is always in view
-            let correctedPosition = computeCameraPosition(
-                currentPitch,
-                currentBearing,
-                targetLngLat,
-                currentAltitude
-            );
-
-            // set the pitch and bearing of the camera
-            const camera = map?.getFreeCameraOptions();
-            camera?.setPitchBearing(currentPitch, currentBearing);
-
-            // set the position and altitude of the camera
-            camera.position = mapboxgl.MercatorCoordinate.fromLngLat(
-                correctedPosition,
-                currentAltitude
-            );
-
-            // apply the new camera options
-            map?.setFreeCameraOptions(camera);
-
-            // when the animationPhase is done, resolve the promise so the parent function can move on to the next step in the sequence
             if (animationPhase === 1) {
-                resolve({
-                    bearing: currentBearing,
-                    altitude: currentAltitude,
-                });
-                // return so there are no further iterations of this frame
+                resolve();
                 return;
             }
             window.requestAnimationFrame(frame);
@@ -82,44 +51,56 @@ const flyInAndRotate = async (
 const animatePath = async (
     map: mapboxgl.Map,
     duration: number,
-    track: GeoJSON.Feature<GeoJSON.LineString>,
-    startBearing: number,
-    startAltitude: number,
+    track: GeoJSON.Feature<LineString>,
+    zoom: number,
     pitch: number,
+    startBearing: number,
 ): Promise<number> => {
     return new Promise(async (resolve) => {
         const pathDistance = turf.lineDistance(track);
         let startTime: number;
 
+        // store previous camera state for smoothing
+        let prevLngLat: { lng: number, lat: number } | null = null;
+        let prevBearing = startBearing;
+
+        const SMOOTH_FACTOR = 0.15;
+
         const frame = async (currentTime: number) => {
             if (!startTime) startTime = currentTime;
             const animationPhase = (currentTime - startTime) / duration;
-
 
             // calculate the distance along the path based on the animationPhase
             const alongPath = (
                 turf
                     .along(track, pathDistance * animationPhase)
                     .geometry
-                    .   coordinates
+                    .coordinates
             );
 
-            const lngLat = {
+            const targetLngLat = {
                 lng: alongPath[0],
                 lat: alongPath[1],
             };
 
-            // slowly rotate the map at a constant rate
-            const bearing = startBearing - animationPhase * 250.0;
+            // interpolate bearing
+            const targetBearing = startBearing - animationPhase * 250.0;
+            prevBearing = smootherstep(prevBearing, targetBearing, SMOOTH_FACTOR);
 
-            // when the duration is complete, resolve the promise and stop iterating
+            // interpolate position
+            if (prevLngLat) {
+                targetLngLat.lng = smootherstep(prevLngLat.lng, targetLngLat.lng, SMOOTH_FACTOR);
+                targetLngLat.lat = smootherstep(prevLngLat.lat, targetLngLat.lat, SMOOTH_FACTOR);
+            }
+            prevLngLat = targetLngLat;
+
+            // When the duration is complete, resolve the promise and stop iterating
             if (animationPhase > 1) {
-                resolve(bearing);
+                resolve(prevBearing);
                 return;
             }
 
             // Reduce the visible length of the line by using a line-gradient to cut off the line
-            // animationPhase is a value between 0 and 1 that represents the progress of the animation
             map?.setPaintProperty(
                 "line-layer",
                 "line-gradient",
@@ -132,29 +113,16 @@ const animatePath = async (
                 ]
             );
 
-            // compute corrected camera ground position, so that the leading edge of the path is in view
-            let correctedPosition = computeCameraPosition(
-                pitch,
-                bearing,
-                lngLat,
-                startAltitude,
-                true
-            );
+            // Move the camera smoothly
+            map?.easeTo({
+                center: targetLngLat,
+                bearing: prevBearing,
+                pitch: pitch,
+                zoom: zoom,
+                duration: 0,
+            });
 
-            // set the pitch and bearing of the camera
-            const camera = map?.getFreeCameraOptions();
-            camera?.setPitchBearing(pitch, bearing);
-
-            // set the position and altitude of the camera
-            camera.position = mapboxgl.MercatorCoordinate.fromLngLat(
-                correctedPosition,
-                startAltitude
-            );
-
-            // apply the new camera options
-            map?.setFreeCameraOptions(camera);
-
-            // repeat!
+            // Repeat!
             window.requestAnimationFrame(frame);
         };
 
@@ -162,74 +130,12 @@ const animatePath = async (
     });
 };
 
-
-// ------------------------------------------ GET ALTITUDE FROM ZOOM ------------------------------------------------ //
-function getAltitudeFromZoom(
-    map: mapboxgl.Map,
-    zoom: number,
-    lat: number,
-    pitch: number,
-): number {
-    const pitchInRadians = pitch * (Math.PI / 180);
-    const cameraToCenterDistance = (0.5 / Math.tan(map.transform.fov / 2)) * map.transform.height;
-    const pixelAltitude = Math.abs(Math.cos(pitchInRadians) * cameraToCenterDistance);
-
-    const circumferenceAtEquator = 2 * Math.PI * 6378137;
-    const metersInWorldAtLat = circumferenceAtEquator * Math.abs(Math.cos(lat * (Math.PI / 180)));
-
-    const worldsize = map.transform.tileSize * Math.pow(2, zoom);
-    return (pixelAltitude * metersInWorldAtLat) / worldsize;
-}
-
-// -------------------------------------- COMPUTE CAMERA POSITION --------------------------------------------------- //
-// given a bearing, pitch, altitude, and a targetPosition on the ground to look at,
-// calculate the camera's targetPosition as lngLat
-let previousCameraPosition: { lng: number, lat: number } | undefined = undefined
-const computeCameraPosition = (
-    pitch: number,
-    bearing: number,
-    targetPosition: { lng: number, lat: number },
-    altitude: number,
-    smooth = false
-): { lng: number, lat: number } => {
-    let bearingInRadian = bearing / 57.29;
-    let pitchInRadian = (90 - pitch) / 57.29;
-
-    let lngDiff =
-        ((altitude / Math.tan(pitchInRadian)) *
-            Math.sin(-bearingInRadian)) /
-        70000; // ~70km/degree longitude
-    let latDiff =
-        ((altitude / Math.tan(pitchInRadian)) *
-            Math.cos(-bearingInRadian)) /
-        110000; // 110km/degree latitude
-
-    let correctedLng = targetPosition.lng + lngDiff;
-    let correctedLat = targetPosition.lat - latDiff;
-
-    const newCameraPosition = {
-        lng: correctedLng,
-        lat: correctedLat
-    };
-
-    if (smooth) {
-        if (previousCameraPosition) {
-            const SMOOTH_FACTOR = 0.97
-            newCameraPosition.lng = lerp(newCameraPosition.lng, previousCameraPosition.lng, SMOOTH_FACTOR);
-            newCameraPosition.lat = lerp(newCameraPosition.lat, previousCameraPosition.lat, SMOOTH_FACTOR);
-        }
-    }
-
-    previousCameraPosition = newCameraPosition
-
-    return newCameraPosition
+// ---------------------------------------- SMOOTHING FUNCTION  ----------------------------------------------------- //
+const smootherstep = (start: number, end: number, t: number): number => {
+    t = Math.max(0, Math.min(1, t));
+    t = t * t * t * (t * (t * 6 - 15) + 10);
+    return start + (end - start) * t;
 };
 
-// --------------------------------------------------- LERP --------------------------------------------------------- //
-// see https://codepen.io/ma77os/pen/OJPVrP
-const lerp = (start: number, end: number, amt: number): number => {
-    return (1 - amt) * start + amt * end
-}
 
-
-export { flyInAndRotate, animatePath, getAltitudeFromZoom };
+export { flyInAndRotate, animatePath };

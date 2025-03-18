@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import mapboxgl, {type MapOptions} from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { flyInAndRotate, animatePath, getAltitudeFromZoom } from "~/utils/intro";
+import {flyInAndRotate, animatePath} from "~/utils/intro";
 
 const isClient = import.meta.client;
 const config = useRuntimeConfig();
@@ -20,11 +20,16 @@ const intro = config.public.INTRO || '';
 const mapContainer = ref<HTMLElement | null>(null);
 let map: mapboxgl.Map;
 
+const color = computed(() => {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'mapbox://styles/mapbox/dark-v11'
+        : 'mapbox://styles/mapbox/light-v11';
+});
+
 const MAP_PARAMS = {
-    style: "mapbox://styles/mapbox/light-v11",
     center: [2.312772, 48.856091],
-    zoom: 15,
-    pitch: 50,
+    zoom: 15.5,
+    pitch: 55,
     bearing: 0,
     antialias: true,
     maxZoom: 16,
@@ -37,15 +42,15 @@ const MAP_PARAMS = {
 }
 
 const INTRO_PARAMS = {
-    duration_fly_1: 3000,
-    start_altitude_fly_1: 5000000,
-    start_bearing_fly_1: 400,
-    end_bearing_fly_1: 340,
-    start_pitch_fly_1: 30,
-    duration_path: 30000,
-    altitude_path: 300000,
-    pitch_path: 50,
-    duration_fly_2: 5000,
+    duration_1: 3000,
+    duration_2: 30000,
+    duration_3: 5000,
+    initial_zoom: 2,
+    mid_zoom: 7,
+    initial_bearing: 400,
+    mid_bearing: 340,
+    initial_pitch: 30,
+    mid_pitch: 50,
 }
 
 onMounted(async () => {
@@ -59,7 +64,7 @@ onMounted(async () => {
     if (intro) {
         map = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
-            style: "mapbox://styles/mapbox/light-v11",
+            style: color.value,
             center: [2.312772, 48.856091],
             zoom: 2,
             pitch: 30,
@@ -71,6 +76,7 @@ onMounted(async () => {
         map = new mapboxgl.Map({
             ...MAP_PARAMS as MapOptions,
             container: mapContainer.value as HTMLElement,
+            style: color.value,
         });
     }
 
@@ -150,26 +156,26 @@ onMounted(async () => {
         };
 
         // Animate zooming in to the start point, get the final bearing and altitude for use in the next animation
-        let {bearing, altitude} = await flyInAndRotate(
+        await flyInAndRotate(
             map,
             targetLngLat,
-            INTRO_PARAMS.duration_fly_1,
-            INTRO_PARAMS.start_altitude_fly_1,
-            INTRO_PARAMS.altitude_path,
-            INTRO_PARAMS.start_bearing_fly_1,
-            INTRO_PARAMS.end_bearing_fly_1,
-            INTRO_PARAMS.start_pitch_fly_1,
-            INTRO_PARAMS.pitch_path,
+            INTRO_PARAMS.duration_1,
+            INTRO_PARAMS.initial_zoom,
+            INTRO_PARAMS.mid_zoom,
+            INTRO_PARAMS.initial_bearing,
+            INTRO_PARAMS.mid_bearing,
+            INTRO_PARAMS.initial_pitch,
+            INTRO_PARAMS.mid_pitch,
         );
 
         // Follow the path while slowly rotating the camera, passing in the camera bearing and altitude from the previous animation
-        bearing = await animatePath(
+        let bearing = await animatePath(
             map,
-            INTRO_PARAMS.duration_path,
+            INTRO_PARAMS.duration_2,
             track,
-            bearing,
-            altitude,
-            INTRO_PARAMS.pitch_path,
+            INTRO_PARAMS.mid_zoom,
+            INTRO_PARAMS.mid_pitch,
+            INTRO_PARAMS.mid_bearing
         );
 
         // Retrieve end point, to be used for animating a zoom-in from high altitude
@@ -179,17 +185,17 @@ onMounted(async () => {
             lat: track.geometry.coordinates[trackLength - 1][1],
         };
 
+
         // Animate to a final view
-        const finalAltitude = getAltitudeFromZoom(map, MAP_PARAMS.zoom, targetLngLat.lat, MAP_PARAMS.pitch);
         await flyInAndRotate(
             map,
             targetLngLat,
-            INTRO_PARAMS.duration_fly_2,
-            INTRO_PARAMS.altitude_path,
-            finalAltitude,
+            INTRO_PARAMS.duration_3,
+            INTRO_PARAMS.mid_zoom,
+            MAP_PARAMS.zoom,
             bearing,
             MAP_PARAMS.bearing,
-            INTRO_PARAMS.pitch_path,
+            INTRO_PARAMS.mid_pitch,
             MAP_PARAMS.pitch,
         );
 

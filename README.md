@@ -94,8 +94,7 @@ This visualization is designed for:
 
 ### Exploratory Data Analysis
 
-> Pre-processing of the data set you chose
-> - Show some basic statistics and get insights about the data
+An exploratory data analysis is available in the `eda/` folder. Check `INSTRUCTIONS.md` for the run instructions!
 
 ### Related work
 

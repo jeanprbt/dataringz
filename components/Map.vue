@@ -5,6 +5,8 @@
 <script setup lang="ts">
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import {flyInAndRotate} from "~/utils/flyInAndRotate.ts";
+import {animatePath} from "~/utils/animatePath.ts";
 
 // check if the code is running on the client side
 const isClient = import.meta.client;
@@ -95,46 +97,36 @@ const buildingIds = [
     227662010, 227662029, 227662006, 664180362, 246135677, 246135679, 227662023, 227662026, 227662028, 227662027
 ];
 
-onMounted(() => {
+onMounted(async () => {
     if (!isClient) return;
 
     // ---------------------------------------------- CREATE MAP --------------------------------------------------- //
-    map = new mapboxgl.Map({
-        container: mapContainer.value as HTMLElement,
-        style: "mapbox://styles/mapbox/light-v11",
-        center: [2.312772, 48.856091],
-        zoom: 15,
-        pitch: 50,
-        bearing: 0,
-        antialias: true,
-        maxBounds: bounds,
-        minZoom: 10,
-        maxZoom: 16,
-        dragRotate: false,
-    });
-
-
-    // --------------------------------- DYNAMICALLY ADJUST PITCH ON ZOOM ------------------------------------------- //
-    map.on('zoom', () => {
-        // maps zoom range [10 -> 16] to pitch range [0 -> 60]
-        const zoom = map!.getZoom();
-        const pitch = (zoom - 10) * 10;
-        map!.setPitch(pitch);
-    })
-
-    // ---------------------------------------------- ADD MARKERS --------------------------------------------------- //
-    markers.forEach(function (feat) {
-        new mapboxgl.Marker({
-            color: '#FF0000',
-            draggable: false
-        })
-            .setLngLat(feat.coordinates)
-            .addTo(map!)
-            .getElement().addEventListener('click', () => {
-            router.push(`/venue/${feat.slug}`);
+    if (intro) {
+        map = new mapboxgl.Map({
+            container: mapContainer.value as HTMLElement,
+            style: "mapbox://styles/mapbox/light-v11",
+            center: [2.312772, 48.856091],
+            zoom: 2,
+            pitch: 30,
+            bearing: 0,
+            antialias: true,
+            maxZoom: 16,
         });
-    });
-
+    } else {
+        map = new mapboxgl.Map({
+            container: mapContainer.value as HTMLElement,
+            style: "mapbox://styles/mapbox/light-v11",
+            center: [2.312772, 48.856091],
+            zoom: 15,
+            pitch: 50,
+            bearing: 0,
+            antialias: true,
+            maxBounds: bounds,
+            minZoom: 10,
+            maxZoom: 16,
+            dragRotate: false,
+        });
+    }
 
     map.on('style.load', () => {
         // --------------------------- REMOVE SYMBOLS (e.g. street names, places, ...) ------------------------------ //
@@ -176,7 +168,105 @@ onMounted(() => {
         );
     });
 
-    // ------------------------------------------------- DEBUGGING ------------------------------------------------ //
+    // ---------------------------------------- PLAY INTRO ANIMATION ------------------------------------------------ //
+    if (intro) {
+        const track: GeoJSON.Feature<GeoJSON.LineString> = (
+            await fetch('/geojson/route.geojson').then((res) => res.json())
+        );
+
+        map?.addSource("line", {
+            type: "geojson",
+            lineMetrics: true,
+            data: track,
+        });
+        map?.addLayer({
+            id: "line-layer",
+            type: "line",
+            source: "line",
+            paint: {
+                "line-color": "rgba(0,0,0,0)",
+                "line-width": 9,
+                "line-opacity": 0.8,
+            },
+            layout: {
+                "line-cap": "round",
+                "line-join": "round",
+            },
+        });
+
+        // Retrieve starting point, to be used for animating a zoom-in from high altitude
+        let targetLngLat = {
+            lng: track.geometry.coordinates[0][0],
+            lat: track.geometry.coordinates[0][1],
+        };
+
+        // Animate zooming in to the start point, get the final bearing and altitude for use in the next animation
+        let {bearing, altitude} = await flyInAndRotate(
+            map!,
+            targetLngLat,
+            5000,
+            3000000, 300000,
+            0, -20,
+            30, 50,
+        );
+
+        // Follow the path while slowly rotating the camera, passing in the camera bearing and altitude from the previous animation
+        bearing = await animatePath(
+            map!,
+            30000,
+            track, bearing,
+            altitude, 50,
+        );
+
+        // Retrieve end point, to be used for animating a zoom-in from high altitude
+        let trackLength = track.geometry.coordinates.length
+        targetLngLat = {
+            lng: track.geometry.coordinates[trackLength - 1][0],
+            lat: track.geometry.coordinates[trackLength - 1][1],
+        };
+
+        // Animate to a final view
+        await flyInAndRotate(
+            map!,
+            targetLngLat,
+            5000,
+            300000, 1000,
+            bearing, 0,
+            40, 50,
+        )
+
+        // Set properties for final map
+        map.dragRotate.disable();
+        map.setMinZoom(10);
+        map.setZoom(15);
+        map.setMaxBounds(bounds);
+        map.removeLayer('line-layer');
+        map.removeSource('line');
+    }
+
+
+    // --------------------------------- DYNAMICALLY ADJUST PITCH ON ZOOM ------------------------------------------- //
+    map.on('zoom', () => {
+        // maps zoom range [10 -> 16] to pitch range [0 -> 60]
+        const zoom = map!.getZoom();
+        const pitch = (zoom - 10) * 10;
+        map!.setPitch(pitch);
+    })
+
+    // ------------------------------------------- ADD MARKERS ------------------------------------------------------ //
+    markers.forEach(function (feat) {
+        new mapboxgl.Marker({
+            color: '#FF0000',
+            draggable: false
+        })
+            .setLngLat(feat.coordinates)
+            .addTo(map!)
+            .getElement().addEventListener('click', () => {
+            router.push(`/venue/${feat.slug}`);
+        });
+    });
+
+    // ------------------------------------------- DEBUGGING -------------------------------------------------------- //
     // Display building ID on clock
     map.on('click', (e) => {
         const features = map?.queryRenderedFeatures(e.point, {
@@ -193,6 +283,7 @@ onMounted(() => {
         let coordinates = e.lngLat;
         console.log('You clicked here:', coordinates);
     });
+
 });
 
 onUnmounted(() => {

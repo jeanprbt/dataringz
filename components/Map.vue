@@ -6,7 +6,7 @@
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-// In Nuxt, we need to check if we're on the client side before using browser APIs
+// check if the code is running on the client side
 const isClient = import.meta.client;
 const config = useRuntimeConfig();
 const router = useRouter();
@@ -15,6 +15,9 @@ const router = useRouter();
 if (isClient) {
     mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '';
 }
+
+// Dev / Production
+const intro = config.public.INTRO || '';
 
 const mapContainer = ref<HTMLElement | null>(null);
 let map: mapboxgl.Map | null = null;
@@ -162,8 +165,8 @@ onMounted(() => {
                     'fill-extrusion-color': [
                         'case',
                         ['boolean', ['feature-state', 'selected'], false],
-                        '#ff0000', // color for highlighted buildings
-                        '#aaa' // default color
+                        '#ff0000',
+                        '#aaa'
                     ],
                     'fill-extrusion-height': ['get', 'height'],
                     'fill-extrusion-base': ['get', 'min_height'],

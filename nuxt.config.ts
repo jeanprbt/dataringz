@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             MAPBOX_API_KEY: process.env.MAPBOX_API_KEY,
+            INTRO: process.argv.includes('--intro'),
         },
     },
 });

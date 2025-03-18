@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.13.2",
+    "@types/d3": "^7.4.3",
+    "@types/turf": "^3.5.32",
+    "d3": "^7.9.0",
     "mapbox-gl": "^3.10.0",
-    "nuxt": "^3.16.0",
+    "nuxt": "3.16.0",
+    "turf": "^3.0.14",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   }

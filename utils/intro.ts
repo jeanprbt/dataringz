@@ -1,79 +1,36 @@
 import * as turf from "turf";
-import * as d3 from "d3";
-import type {LineString} from "geojson";
+import type {Feature, LineString} from "geojson";
+import type {Map} from "mapbox-gl";
 
-// ---------------------------------------------- FLY IN AND ROTATE ------------------------------------------------- //
-const flyInAndRotate = async (
-    map: mapboxgl.Map,
-    targetLngLat: { lng: number; lat: number },
-    duration: number,
-    startZoom: number,
-    endZoom: number,
-    startBearing: number,
-    endBearing: number,
-    startPitch: number,
-    endPitch: number,
-): Promise<void> => {
+// ANIMATE PATH ----------------------------------------------------------------------------------------------------- //
+type AnimatePathOptions = {
+    map: Map;
+    duration: number;
+    track: Feature<LineString>;
+    layerId: string;
+    zoom: number;
+    pitch: number;
+    bearing: number;
+}
+const animatePath = async (options: AnimatePathOptions): Promise<number> => {
     return new Promise(async (resolve) => {
-        let start: number;
-        let currentZoom: number;
-        let currentBearing: number;
-        let currentPitch: number;
-
-        const frame = async (time: number): Promise<void> => {
-            if (!start) start = time;
-            let animationPhase = (time - start) / duration;
-            if (animationPhase > 1) animationPhase = 1;
-
-            currentZoom = startZoom + (endZoom - startZoom) * d3.easeCubicOut(animationPhase);
-            currentBearing = startBearing + (endBearing - startBearing) * d3.easeCubicOut(animationPhase);
-            currentPitch = startPitch + (endPitch - startPitch) * d3.easeCubicOut(animationPhase);
-
-            map.easeTo({
-                center: targetLngLat,
-                zoom: currentZoom,
-                bearing: currentBearing,
-                pitch: currentPitch,
-                duration: 0
-            });
-
-            if (animationPhase === 1) {
-                resolve();
-                return;
-            }
-            window.requestAnimationFrame(frame);
-        };
-        window.requestAnimationFrame(frame);
-    });
-};
-
-// --------------------------------------------- ANIMATE PATH ------------------------------------------------------- //
-const animatePath = async (
-    map: mapboxgl.Map,
-    duration: number,
-    track: GeoJSON.Feature<LineString>,
-    zoom: number,
-    pitch: number,
-    startBearing: number,
-): Promise<number> => {
-    return new Promise(async (resolve) => {
-        const pathDistance = turf.lineDistance(track);
+        const pathDistance = turf.lineDistance(options.track);
         let startTime: number;
 
         // store previous camera state for smoothing
         let prevLngLat: { lng: number, lat: number } | null = null;
-        let prevBearing = startBearing;
+        let prevBearing = options.bearing;
 
         const SMOOTH_FACTOR = 0.15;
 
         const frame = async (currentTime: number) => {
             if (!startTime) startTime = currentTime;
-            const animationPhase = (currentTime - startTime) / duration;
+            const animationPhase = (currentTime - startTime) / options.duration;
 
             // calculate the distance along the path based on the animationPhase
             const alongPath = (
                 turf
-                    .along(track, pathDistance * animationPhase)
+                    .along(options.track, pathDistance * animationPhase)
                     .geometry
                     .coordinates
             );
@@ -84,7 +41,7 @@ const animatePath = async (
             };
 
             // interpolate bearing
-            const targetBearing = startBearing - animationPhase * 250.0;
+            const targetBearing = options.bearing - animationPhase * 100.0;
             prevBearing = smootherstep(prevBearing, targetBearing, SMOOTH_FACTOR);
 
             // interpolate position
@@ -101,8 +58,8 @@ const animatePath = async (
             }
 
             // Reduce the visible length of the line by using a line-gradient to cut off the line
-            map?.setPaintProperty(
-                "line-layer",
+            options.map.setPaintProperty(
+                options.layerId,
                 "line-gradient",
                 [
                     "step",
@@ -114,28 +71,126 @@ const animatePath = async (
             );
 
             // Move the camera smoothly
-            map?.easeTo({
+            options.map.easeTo({
                 center: targetLngLat,
                 bearing: prevBearing,
-                pitch: pitch,
-                zoom: zoom,
+                pitch: options.pitch,
+                zoom: options.zoom,
                 duration: 0,
             });
 
-            // Repeat!
             window.requestAnimationFrame(frame);
         };
 
         window.requestAnimationFrame(frame);
     });
-};
+}
 
-// ---------------------------------------- SMOOTHING FUNCTION  ----------------------------------------------------- //
+
+// SMOOTHING FUNCTION  ---------------------------------------------------------------------------------------------- //
 const smootherstep = (start: number, end: number, t: number): number => {
     t = Math.max(0, Math.min(1, t));
     t = t * t * t * (t * (t * 6 - 15) + 10);
     return start + (end - start) * t;
 };
 
+// EXPORTS  --------------------------------------------------------------------------------------------------------- //
+const start = {
+    center: [5, 43],
+    zoom: 2,
+    pitch: 0,
+    bearing: 400
+}
 
-export { flyInAndRotate, animatePath };
+const olympia = {
+    center: [21.6250, 37.6362],
+    zoom: 7,
+    bearing: 340,
+    pitch: 50
+}
+
+const marseille = {
+    center: [5.37401, 43.29613],
+    zoom: 7,
+    bearing: 340,
+    pitch: 50
+}
+
+const paris = {
+    center: [2.294694, 48.858093],
+    zoom: 15.5,
+    bearing: 0,
+    pitch: 55,
+}
+
+const path = {
+    zoom: 7,
+    bearing: 340,
+    pitch: 50,
+}
+
+const guiana = {
+    center: [-52.326000, 4.937200],
+    zoom: 5,
+    bearing: 320,
+    pitch: 30
+}
+
+const caledonia = {
+    center: [166.457993, -22.275801],
+    zoom: 5,
+    bearing: 340,
+    pitch: 30
+}
+
+const reunion = {
+    center: [55.448101, -20.878901],
+    zoom: 5,
+    bearing: 340,
+    pitch: 30
+}
+
+const polynesia = {
+    center: [-149.569595, -17.535000],
+    zoom: 5,
+    bearing: 340,
+    pitch: 30
+}
+
+const guadeloupe = {
+    center: [-61.580002, 16.270000],
+    zoom: 5,
+    bearing: 340,
+    pitch: 30
+}
+
+const martinique = {
+    center: [-61.083302, 14.600000],
+    zoom: 5,
+    bearing: 340,
+    pitch: 30
+}
+
+const nice = {
+    center:  [7.26189, 43.71021],
+    zoom: 7,
+    bearing: 340,
+    pitch: 50
+}
+
+export {
+    animatePath,
+    type AnimatePathOptions,
+    start,
+    olympia,
+    marseille,
+    paris,
+    path,
+    guiana,
+    caledonia,
+    reunion,
+    polynesia,
+    guadeloupe,
+    martinique,
+    nice
+};

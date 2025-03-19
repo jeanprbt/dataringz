@@ -1,0 +1,145 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": 1,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.3740067,
+                    43.2961253
+                ]
+            },
+            "properties": {
+                "name": "Vieux-Port, Marseille, France"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 2,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.928512,
+                    43.1256751
+                ]
+            },
+            "properties": {
+                "name": "Toulon, France"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 3,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.790885,
+                    43.8357664
+                ]
+            },
+            "properties": {
+                "name": "Manosque, France"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 4,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    4.6277769,
+                    43.676647
+                ]
+            },
+            "properties": {
+                "name": "Arles, France"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 5,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    3.8761293,
+                    43.610835
+                ]
+            },
+            "properties": {
+                "name": "Montpellier, France"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 6,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.9006395,
+                    42.6875087
+                ]
+            },
+            "properties": {
+                "name": "Perpignan, France"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 7,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3538426,
+                    43.2162981
+                ]
+            },
+            "properties": {
+                "name": "Carcassonne, France"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 8,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    1.4426828,
+                    43.6048074
+                ]
+            },
+            "properties": {
+                "name": "Toulouse, France"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 9,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    0.591788,
+                    43.646561
+                ]
+            },
+            "properties": {
+                "name": "Auch, France"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 10,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    0.0784324,
+                    43.2329339
+                ]
+            },
+            "properties": {
+                "name": "Tarbes, France"
+            }
+        }
+    ]
+}

@@ -1,58 +1,108 @@
 <template>
     <PageModal :title="sportData.name" :show="showSportPage" @close="closePage">
-        <div class="sport-content">
+        <div v-if="isLoading" class="flex justify-center items-center h-48">
+            <span class="mr-3">Loading sport data</span>
+            <UIcon name="i-svg-spinners-ring-resize" class="h-6 w-6 text-primary" />
+        </div>
+        <div v-else class="sport-content">
             <div class="flex items-center mb-4">
                 <div class="sport-icon mr-3">
-                    <div class="w-10 h-10 flex items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900/30">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-                        </svg>
+                    <SportPicture :name="sportData.name" :slug="sportData.slug" size="lg" />
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium">{{ sportData.name }}</h3>
+                    <div v-if="sportData.description" class="text-sm text-gray-600 dark:text-gray-400">
+                        {{ sportData.description }}
                     </div>
                 </div>
-                <h3 class="text-xl font-medium">{{ sportData.name }}</h3>
             </div>
-            
-            <p v-if="sportData.description" class="mb-6 text-gray-700 dark:text-gray-300">{{ sportData.description }}</p>
-            
+
             <!-- Events for this sport -->
-            <div v-if="sportData.events && sportData.events.length > 0" class="mt-6">
-                <h3 class="text-lg font-medium mb-2">Events:</h3>
-                <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
-                    <li v-for="(event, index) in sportData.events" :key="index">
-                        {{ event }}
-                    </li>
-                </ul>
-            </div>
-            
-            <!-- Athletes competing in this sport -->
-            <div class="mt-6">
-                <h3 class="text-lg font-medium mb-2">Athletes:</h3>
-                <div class="space-y-2">
-                    <AthleteLink v-for="athlete in sportData.athletes" :key="athlete.slug" 
-                                :slug="athlete.slug" 
-                                :name="athlete.name" />
+            <div v-if="hasEvents" class="mt-6">
+                <div class="flex items-center mb-2">
+                    <h3 class="text-lg font-medium">Events</h3>
+                    <ShowMoreButton v-if="sportData.events.length > 5" :showing-all="showAllEvents"
+                        :total="sportData.events.length" @toggle="showAllEvents = !showAllEvents" />
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                        <li v-for="(event, index) in displayedEvents" :key="index">
+                            {{ event }}
+                        </li>
+                    </ul>
                 </div>
             </div>
-            
-            <!-- Countries participating in this sport -->
-            <div class="mt-6">
-                <h3 class="text-lg font-medium mb-2">Countries:</h3>
-                <div class="space-y-2">
-                    <CountryLink v-for="country in sportData.countries" :key="country.slug" 
-                                :slug="country.slug" 
-                                :name="country.name" 
-                                :code="country.code" />
+
+            <!-- Top Athletes with medals -->
+            <div v-if="hasAthletes" class="mt-6">
+                <div class="flex items-center mb-2">
+                    <h3 class="text-lg font-medium">Top Athletes</h3>
+                    <ShowMoreButton v-if="sportData.athletes.length > 5" :showing-all="showAllAthletes"
+                        :total="sportData.athletes.length" @toggle="showAllAthletes = !showAllAthletes" />
+                </div>
+                <div class="space-y-3">
+                    <div v-for="athlete in displayedAthletes" :key="athlete.slug"
+                        class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center">
+                            <div class="athlete-photo mr-3">
+                                <AthletePicture :name="athlete.name" :slug="athlete.slug" size="sm" />
+                            </div>
+                            <div class="flex-grow">
+                                <NuxtLink :to="`/athlete/${athlete.slug}`" class="font-medium hover:text-primary">
+                                    {{ athlete.name }}
+                                </NuxtLink>
+                                <div v-if="athlete.country" class="text-xs text-gray-600 dark:text-gray-400">
+                                    {{ athlete.country }}
+                                </div>
+                            </div>
+                            <!-- Medal display -->
+                            <MedalDisplay v-if="athlete.medals" :medals="athlete.medals" />
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+
+            <!-- Top Countries with medals -->
+            <div v-if="hasCountries" class="mt-6">
+                <div class="flex items-center mb-2">
+                    <h3 class="text-lg font-medium">Medal-Winning Countries</h3>
+                    <ShowMoreButton v-if="sportData.countries.length > 5" :showing-all="showAllCountries"
+                        :total="sportData.countries.length" @toggle="showAllCountries = !showAllCountries" />
+                </div>
+                <div class="space-y-3">
+                    <div v-for="country in displayedCountries" :key="country.slug"
+                        class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center">
+                            <div class="country-flag mr-3">
+                                <img v-if="country.code" :src="`/img/flags/${country.code.toLowerCase()}.svg`"
+                                    :alt="`Flag of ${country.name}`"
+                                    class="w-10 h-6 rounded object-cover border border-gray-200 dark:border-gray-700" />
+                            </div>
+                            <div class="flex-grow">
+                                <NuxtLink :to="`/country/${country.slug}`" class="font-medium hover:text-primary">
+                                    {{ country.name }}
+                                </NuxtLink>
+                            </div>
+                            <!-- Medal display -->
+                            <MedalDisplay v-if="country.medals" :medals="country.medals" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Venues for this sport -->
-            <div class="mt-6">
-                <h3 class="text-lg font-medium mb-2">Venues:</h3>
-                <div class="space-y-2">
-                    <VenueLink v-for="venue in sportData.venues" :key="venue.slug" 
-                              :slug="venue.slug" 
-                              :name="venue.name" 
-                              :description="venue.description" />
+            <div v-if="hasVenues" class="mt-6">
+                <h3 class="text-lg font-medium mb-2">Venues</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div v-for="venue in sportData.venues" :key="venue.slug"
+                        class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                        <NuxtLink :to="`/venue/${venue.slug}`" class="font-medium hover:text-primary">
+                            {{ venue.name }}
+                        </NuxtLink>
+                        <div v-if="venue.description" class="text-sm text-gray-600 dark:text-gray-400">
+                            {{ venue.description }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,67 +110,46 @@
 </template>
 
 <script setup lang="ts">
+import type { SportData, SportsDataMap } from '~/types/olympics';
+import { sortByMedals } from '~/utils/medals';
+
+// State management
 const router = useRouter();
 const route = useRoute();
 const showSportPage = ref(true);
+const slug = route.params.slug as string;
+const isLoading = ref(true);
+const sportsData = ref<SportsDataMap>({});
 
-// Sample sport data - you would load this from JSON files
-const sportMapping = {
-    'swimming': {
-        name: 'Swimming',
-        description: 'Competitive swimming is an Olympic sport where athletes compete in events in a swimming pool. Events are categorized by different strokes and distances.',
-        events: [
-            '50m Freestyle',
-            '100m Freestyle',
-            '200m Freestyle',
-            '400m Freestyle',
-            '100m Butterfly',
-            '4x100m Freestyle Relay'
-        ],
-        athletes: [
-            { slug: 'leon-marchand', name: 'Leon Marchand' },
-            { slug: 'summer-mcintosh', name: 'Summer McIntosh' },
-            { slug: 'katie-ledecky', name: 'Katie Ledecky' },
-        ],
-        countries: [
-            { slug: 'france', name: 'France', code: 'FR' },
-            { slug: 'usa', name: 'United States', code: 'US' }
-        ],
-        venues: [
-            { slug: 'paris-la-defense-arena', name: 'Paris La Défense Arena', description: 'Swimming events venue' }
-        ]
-    },
-    'athletics': {
-        name: 'Athletics',
-        description: 'Athletics comprises various track and field events including running, jumping, and throwing competitions.',
-        events: [
-            '100m Sprint',
-            '200m Sprint',
-            '400m Sprint',
-            '100m Hurdles',
-            'Long Jump',
-            'High Jump',
-            'Shot Put'
-        ],
-        athletes: [
-            { slug: 'armand-duplantis', name: 'Armand Duplantis' },
-            { slug: 'yulimar-rojas', name: 'Yulimar Rojas' },
-        ],
-        countries: [
-            { slug: 'france', name: 'France', code: 'FR' },
-            { slug: 'usa', name: 'United States', code: 'US' }
-        ],
-        venues: [
-            { slug: 'stade-de-france', name: 'Stade de France', description: 'Main athletics stadium' }
-        ]
+// UI state
+const showAllEvents = ref(false);
+const showAllAthletes = ref(false);
+const showAllCountries = ref(false);
+
+// Load data on component mount
+onMounted(async () => {
+    isLoading.value = true;
+    try {
+        const response = await fetch('/data/sports.json');
+        sportsData.value = await response.json();
+    } catch (error) {
+        console.error('Failed to load sports data:', error);
+    } finally {
+        isLoading.value = false;
     }
-};
+});
 
 // Get sport data based on the slug
-const slug = route.params.slug as string;
-const sportData = computed(() => {
-    return sportMapping[slug as keyof typeof sportMapping] || { 
+const sportData = computed<SportData>(() => {
+    // First check if data is available in the loaded JSON
+    if (sportsData.value && sportsData.value[slug]) {
+        return sportsData.value[slug];
+    }
+
+    // Fallback to empty data
+    return {
         name: 'Unknown Sport',
+        slug: slug,
         events: [],
         athletes: [],
         countries: [],
@@ -128,7 +157,29 @@ const sportData = computed(() => {
     };
 });
 
-// Close the page and navigate back to the map
+// Check if we have data for various sections
+const hasEvents = computed(() => sportData.value.events?.length > 0);
+const hasAthletes = computed(() => sportData.value.athletes?.length > 0);
+const hasCountries = computed(() => sportData.value.countries?.length > 0);
+const hasVenues = computed(() => sportData.value.venues?.length > 0);
+
+// Computed properties for displayed items
+const displayedEvents = computed(() => {
+    return showAllEvents.value ? sportData.value.events : sportData.value.events.slice(0, 5);
+});
+
+const displayedAthletes = computed(() => {
+    return showAllAthletes.value
+        ? sortByMedals(sportData.value.athletes)
+        : sortByMedals(sportData.value.athletes).slice(0, 5);
+});
+
+const displayedCountries = computed(() => {
+    return showAllCountries.value
+        ? sortByMedals(sportData.value.countries)
+        : sortByMedals(sportData.value.countries).slice(0, 5);
+});
+
 function closePage() {
     showSportPage.value = false;
     // Use a small timeout to allow for transition effects
@@ -136,4 +187,4 @@ function closePage() {
         router.push('/');
     }, 200);
 }
-</script> 
+</script>

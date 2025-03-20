@@ -1,27 +1,18 @@
 <template>
-    <div ref="mapContainer" class="flex-1"></div>
+    <div ref="mapContainer" class="flex-1 relative"></div>
+    <button
+        v-if="introPlaying"
+        @click="skipIntro"
+        class="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-white px-4 py-2 rounded-lg shadow-md">
+        skip intro
+    </button>
 </template>
 
 <script setup lang="ts">
 import mapboxgl, { type EasingOptions, type MapOptions } from 'mapbox-gl';
-import type { FeatureCollection, Feature, LineString, Point } from "geojson";
+import type { FeatureCollection, Point } from "geojson";
 import 'mapbox-gl/dist/mapbox-gl.css';
-import {
-    animatePath,
-    type AnimatePathOptions,
-    start,
-    olympia,
-    marseille,
-    paris,
-    path,
-    guiana,
-    caledonia,
-    reunion,
-    polynesia,
-    guadeloupe,
-    martinique,
-    nice
-} from "~/utils/intro";
+import { playIntro, setFinalProperties, start, paris } from "~/utils/intro";
 
 const isClient = import.meta.client;
 const config = useRuntimeConfig();
@@ -35,17 +26,56 @@ const intro = config.public.INTRO || '';
 const mapContainer = ref<HTMLElement | null>(null);
 let map: mapboxgl.Map;
 
+let venues: FeatureCollection<Point>
+
+// SKIP INTRO LOGIC ------------------------------------------------------------------------------------------------- //
+const controller = new AbortController();
+const { signal } = controller;
+const introPlaying = ref(false);
+const skipIntro = async () => {
+    controller.abort();
+    introPlaying.value = false;
+    await new Promise<void>((resolve) => {
+        map.flyTo({
+            ...paris,
+            duration: 2000,
+            essential: true,
+            curve: 1,
+        } as EasingOptions);
+        map.once('moveend', resolve);
+    }).catch(() => {});
+    setFinalProperties(map);
+    setMarkers();
+};
+
+
+// COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
 const color = computed(() => {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'mapbox://styles/mapbox/dark-v11'
         : 'mapbox://styles/mapbox/light-v11';
 });
 
+// MARKERS ---------------------------------------------------------------------------------------------------------- //
+const setMarkers = () => {
+    venues.features.forEach(function (venue) {
+        new mapboxgl.Marker({
+            color: '#FF0000',
+            draggable: false
+        })
+            .setLngLat(venue.geometry.coordinates as [number, number])
+            .addTo(map)
+            .getElement().addEventListener('click', () => {
+            router.push(`/venue/${venue.properties!.slug}`);
+        });
+    });
+};
+
 onMounted(async () => {
     if (!isClient) return;
 
     // FETCH VENUES ------------------------------------------------------------------------------------------------- //
-    const venues: FeatureCollection<Point> = (
+    venues = (
         await fetch('/geojson/venues.geojson').then((res) => res.json())
     );
 
@@ -71,7 +101,6 @@ onMounted(async () => {
             ...paris,
         } as MapOptions);
     }
-
 
     map.on('style.load', async () => {
 
@@ -117,200 +146,13 @@ onMounted(async () => {
 
         // PLAY INTRO ANIMATION ------------------------------------------------------------------------------------- //
         if(intro) {
-
-            // LOAD TRACKS ------------------------------------------------------------------------------------------ //
-            const trackFrance1: Feature<LineString> = (
-                await fetch('/geojson/track_france_1.geojson').then((res) => res.json())
-            );
-            const trackFrance2: Feature<LineString> = (
-                await fetch('/geojson/track_france_2.geojson').then((res) => res.json())
-            );
-            const trackGreece: Feature<LineString> = (
-                await fetch('/geojson/track_greece.geojson').then((res) => res.json())
-            )
-
-            // ADD LINES -------------------------------------------------------------------------------------------- //
-            map.addSource("french-line-1", {
-                type: "geojson",
-                lineMetrics: true,
-                data: trackFrance1,
-            });
-            map.addSource("french-line-2", {
-                type: "geojson",
-                lineMetrics: true,
-                data: trackFrance2,
-            })
-            map.addSource("greek-line", {
-                type: "geojson",
-                lineMetrics: true,
-                data: trackGreece,
-            })
-            map.addLayer({
-                id: "french-line-layer-1",
-                type: "line",
-                source: "french-line-1",
-                paint: {
-                    "line-color": "rgba(0,0,0,0)",
-                    "line-width": 9,
-                    "line-opacity": 0.8,
-                },
-                layout: {
-                    "line-cap": "round",
-                    "line-join": "round",
-                },
-            });
-            map.addLayer({
-                id: "french-line-layer-2",
-                type: "line",
-                source: "french-line-2",
-                paint: {
-                    "line-color": "rgba(0,0,0,0)",
-                    "line-width": 9,
-                    "line-opacity": 0.8,
-                },
-                layout: {
-                    "line-cap": "round",
-                    "line-join": "round",
-                },
-            });
-            map.addLayer({
-                id: "greek-line-layer",
-                type: "line",
-                source: "greek-line",
-                paint: {
-                    "line-color": "rgba(0,0,0,0)",
-                    "line-width": 9,
-                    "line-opacity": 0.8,
-                },
-                layout: {
-                    "line-cap": "round",
-                    "line-join": "round",
-                },
-            });
-
-            // FLY TO OLYMPIA ---------------------------------------------------------------------------------------- //
-            await new Promise<void>(async (resolve) => {
-                map.flyTo({
-                    ...olympia,
-                    duration: 2000,
-                    essential: true,
-                    curve: 1,
-                } as EasingOptions);
-                map.once('moveend', resolve);
-            });
-
-            // ANIMATE GREEK TRACK ---------------------------------------------------------------------------------- //
-            await animatePath({
-                map: map,
-                duration: 2000,
-                track: trackGreece,
-                layerId: "greek-line-layer",
-                ...path,
-            } as AnimatePathOptions);
-
-            // FLY TO MARSEILLE ------------------------------------------------------------------------------------- //
-            await new Promise<void>(async (resolve) => {
-                map.flyTo({
-                    ...marseille,
-                    duration: 2000,
-                    essential: true,
-                    curve: 1,
-                } as EasingOptions);
-                map.once('moveend', resolve);
-            });
-
-            // ANIMATE FRENCH TRACK PT. 1 --------------------------------------------------------------------------- //
-            await animatePath({
-                map: map,
-                duration: 10000,
-                track: trackFrance1,
-                layerId: "french-line-layer-1",
-                ...path,
-            } as AnimatePathOptions);
-
-            // FLY TO DOM-TOM --------------------------------------------------------------------------------------- //
-            const locations = [guiana, caledonia, reunion, polynesia, guadeloupe, martinique, nice];
-            for (const location of locations) {
-                await new Promise<void>((resolve) => {
-                    map.flyTo({ ...location, duration: 2000, essential: true, curve: 1 } as EasingOptions);
-                    map.once('moveend', resolve);
-                });
-            }
-
-            // ANIMATE FRENCH TRACK PT.2 ---------------------------------------------------------------------------- //
-            await animatePath({
-                map: map,
-                duration: 10000,
-                track: trackFrance2,
-                layerId: "french-line-layer-2",
-                ...path,
-            } as AnimatePathOptions);
-
-            // FLY TO PARIS ----------------------------------------------------------------------------------------- //
-            await new Promise<void>(async (resolve) => {
-                map.flyTo({
-                    ...paris,
-                    duration: 2000,
-                    essential: true,
-                    curve: 1,
-                } as EasingOptions);
-                map.once('moveend', resolve);
-            });
-
-            // SET FINAL PROPERTIES --------------------------------------------------------------------------------- //
-            map.removeLayer('french-line-layer-1');
-            map.removeSource('french-line-1');
-            map.removeLayer('french-line-layer-2');
-            map.removeSource('french-line-2');
-            map.removeLayer('greek-line-layer');
-            map.removeSource('greek-line');
-            map.setMinZoom(10);
-            map.setMaxBounds([
-                [2.0575, 48.7908],
-                [2.5279, 48.9494]
-            ]);
-            map.dragRotate.disable();
+            introPlaying.value = true;
+            await playIntro(map, signal);
+            introPlaying.value = false;
         }
 
-        // DYNAMICALLY ADJUST PITCH ON ZOOM ------------------------------------------------------------------------- //
-        map.on('zoom', () => {
-            // maps zoom range [10 -> 16] to pitch range [0 -> 60]
-            const zoom = map!.getZoom();
-            const pitch = (zoom - 10) * 10;
-            map.setPitch(pitch);
-        })
-
         //  ADD MARKERS --------------------------------------------------------------------------------------------- //
-        venues.features.forEach(function (venue) {
-            new mapboxgl.Marker({
-                color: '#FF0000',
-                draggable: false
-            })
-                .setLngLat(venue.geometry.coordinates as [number, number])
-                .addTo(map)
-                .getElement().addEventListener('click', () => {
-                router.push(`/venue/${venue.properties!.slug}`);
-            });
-        });
-
-        // DEBUGGING ------------------------------------------------------------------------------------------------ //
-        /*
-        map.on('click', (e) => {
-            const features = map.queryRenderedFeatures(e.point, {
-                layers: ['add-3d-buildings']
-            });
-            if (features && features.length > 0) {
-                const buildingId = features[0].id;
-                console.log('Building ID:', buildingId);
-            }
-        });
-
-        map.on('click', function (e) {
-            let coordinates = e.lngLat;
-            console.log('You clicked here:', coordinates);
-        });
-        */
-
+        setMarkers();
     });
 });
 

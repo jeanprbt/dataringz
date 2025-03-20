@@ -59,13 +59,17 @@ const color = computed(() => {
 // MARKERS ---------------------------------------------------------------------------------------------------------- //
 const setMarkers = () => {
     venues.features.forEach(function (venue) {
-        new mapboxgl.Marker({
+        const markerElement = new mapboxgl.Marker({
             color: '#FF0000',
             draggable: false
         })
             .setLngLat(venue.geometry.coordinates as [number, number])
             .addTo(map)
-            .getElement().addEventListener('click', () => {
+            .getElement();
+            
+        markerElement.style.cursor = 'pointer';
+        
+        markerElement.addEventListener('click', () => {
             router.push(`/venue/${venue.properties!.slug}`);
         });
     });

@@ -110,9 +110,6 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router';
-import { ref, computed, onMounted } from 'vue';
-
 // Define athlete data types
 interface Sport {
     slug: string;
@@ -220,6 +217,38 @@ const athleteData = computed<AthleteData>(() => {
         sports: [],
         events: [],
         achievements: []
+    };
+});
+
+// SEO meta tags using Nuxt's useHead
+useHead(() => {
+    const name = athleteData.value.name;
+    const country = athleteData.value.country?.name || '';
+    const sports = athleteData.value.sports.map(s => s.name).join(', ');
+    const medals = athleteData.value.achievements.length > 0 
+        ? `${athleteData.value.achievements.length} Olympic medals` 
+        : 'Olympic athlete';
+    
+    const title = `${name} - Athlete from ${country}`;
+    const description = `${name} is an Olympic athlete from ${country} competing in ${sports}. ${medals}.`;
+    
+    return {
+        title,
+        meta: [
+            { name: 'description', content: description },
+            // Open Graph / Facebook
+            { property: 'og:type', content: 'profile' },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: description },
+            { property: 'og:url', content: `https://dataringz.com/athlete/${slug}` },
+            { property: 'profile:first_name', content: name.split(' ')[0] },
+            { property: 'profile:last_name', content: name.split(' ').slice(1).join(' ') },
+            
+            // Twitter
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: description }
+        ]
     };
 });
 

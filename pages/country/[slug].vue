@@ -99,6 +99,33 @@ const countryData = computed(() => {
     };
 });
 
+// Add SEO metadata
+useHead(() => {
+    const name = countryData.value.name;
+    const athleteCount = countryData.value.athletes?.length || 0;
+    const sportCount = countryData.value.sports?.length || 0;
+    
+    const title = `${name} Olympic Team - Paris 2024 Olympic Games`;
+    const description = `Explore the ${name} Olympic team at the Paris 2024 Olympic Games. ${athleteCount} athletes competing in ${sportCount} sports.`;
+    
+    return {
+        title,
+        meta: [
+            { name: 'description', content: description },
+            // Open Graph
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: description },
+            { property: 'og:url', content: `https://dataringz.com/country/${slug}` },
+            { property: 'og:type', content: 'website' },
+            
+            // Twitter
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: description }
+        ]
+    };
+});
+
 // Close the page and navigate back to the map
 function closePage() {
     showCountryPage.value = false;

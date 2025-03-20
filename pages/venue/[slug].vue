@@ -38,6 +38,32 @@ const venueData = computed(() => {
     return venues.features.find(feature => feature.properties?.slug === slug)?.properties || {name: 'Unknown Venue' };
 });
 
+// Add SEO metadata
+useHead(() => {
+    const name = venueData.value.name;
+    const location = venueData.value.location || 'Paris';
+    
+    const title = `${name} - Olympic Venue | Paris 2024 Olympic Games`;
+    const description = `Explore ${name}, an official venue for the Paris 2024 Olympic Games located in ${location}. View sports taking place at this Olympic venue !`;
+    
+    return {
+        title,
+        meta: [
+            { name: 'description', content: description },
+            // Open Graph
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: description },
+            { property: 'og:url', content: `https://dataringz.com/venue/${slug}` },
+            { property: 'og:type', content: 'website' },
+            
+            // Twitter
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: description }
+        ]
+    };
+});
+
 // Sample data for sports (this would come from your JSON files)
 const sampleSports = [
     { slug: 'swimming', name: 'Swimming', description: 'Swimming competitions' },

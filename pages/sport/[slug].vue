@@ -157,6 +157,33 @@ const sportData = computed<SportData>(() => {
     };
 });
 
+// SEO metadata using Nuxt's useHead
+useHead(() => {
+    const sportName = sportData.value.name;
+    const eventCount = sportData.value.events?.length || 0;
+    const athleteCount = sportData.value.athletes?.length || 0;
+    
+    const title = `${sportName} - Paris 2024 Olympic Games`;
+    const description = `Explore ${sportName} at the Paris 2024 Olympic Games. ${eventCount} events with ${athleteCount} top athletes competing for Olympic medals.`;
+    
+    return {
+        title,
+        meta: [
+            { name: 'description', content: description },
+            // Open Graph
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: description },
+            { property: 'og:url', content: `https://dataringz.com/sport/${slug}` },
+            { property: 'og:type', content: 'website' },
+            
+            // Twitter
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: description }
+        ]
+    };
+});
+
 // Check if we have data for various sections
 const hasEvents = computed(() => sportData.value.events?.length > 0);
 const hasAthletes = computed(() => sportData.value.athletes?.length > 0);

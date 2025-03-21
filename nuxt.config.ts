@@ -25,7 +25,8 @@ export default defineNuxtConfig({
         { name: 'twitter:description', content: 'Interactive data visualization for the Paris 2024 Olympic Games' },
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'canonical', href: 'https://dataringz.martinctl.dev' }
       ],
     }
   },

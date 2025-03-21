@@ -166,7 +166,7 @@ useHead(() => {
             // Open Graph
             { property: 'og:title', content: title },
             { property: 'og:description', content: description },
-            { property: 'og:url', content: `https://dataringz.com/venue/${slug}` },
+            { property: 'og:url', content: `https://dataringz.martinctl.dev/venue/${slug}` },
             { property: 'og:type', content: 'website' },
             
             // Twitter

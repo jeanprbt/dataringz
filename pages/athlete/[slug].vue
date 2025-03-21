@@ -240,7 +240,7 @@ useHead(() => {
             { property: 'og:type', content: 'profile' },
             { property: 'og:title', content: title },
             { property: 'og:description', content: description },
-            { property: 'og:url', content: `https://dataringz.com/athlete/${slug}` },
+            { property: 'og:url', content: `https://dataringz.martinctl.dev/athlete/${slug}` },
             { property: 'profile:first_name', content: name.split(' ')[0] },
             { property: 'profile:last_name', content: name.split(' ').slice(1).join(' ') },
             

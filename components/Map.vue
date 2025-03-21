@@ -12,7 +12,7 @@
 import mapboxgl, { type EasingOptions, type MapOptions } from 'mapbox-gl';
 import type { FeatureCollection, Point } from "geojson";
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { playIntro, setFinalProperties, start, paris } from "~/utils/intro";
+import { playIntro, setFinalProperties, start, paris} from "~/utils/intro";
 
 const isClient = import.meta.client;
 const config = useRuntimeConfig();
@@ -42,7 +42,7 @@ const skipIntro = async () => {
             essential: true,
             curve: 1,
         } as EasingOptions);
-        map.once('moveend', resolve);
+        map.once('moveend', () => resolve());
     }).catch(() => {});
     setFinalProperties(map);
     await setMarkers();

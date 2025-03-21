@@ -2,6 +2,7 @@ import * as turf from "turf";
 import type {Feature, LineString} from "geojson";
 import type {Map, EasingOptions} from "mapbox-gl";
 
+
 // PLAY INTRO ------------------------------------------------------------------------------------------------------- //
 const playIntro = async (map: Map, signal: AbortSignal): Promise<void> => {
     signal.throwIfAborted();
@@ -12,6 +13,9 @@ const playIntro = async (map: Map, signal: AbortSignal): Promise<void> => {
     );
     const trackFrance2: Feature<LineString> = (
         await fetch('/geojson/track_france_2.geojson').then((res) => res.json())
+    );
+    const trackFrance3: Feature<LineString> = (
+        await fetch('/geojson/track_france_3.geojson').then((res) => res.json())
     );
     const trackGreece: Feature<LineString> = (
         await fetch('/geojson/track_greece.geojson').then((res) => res.json())
@@ -29,6 +33,11 @@ const playIntro = async (map: Map, signal: AbortSignal): Promise<void> => {
         type: "geojson",
         lineMetrics: true,
         data: trackFrance2,
+    })
+    map.addSource("french-line-3", {
+        type: "geojson",
+        lineMetrics: true,
+        data: trackFrance3,
     })
     map.addSource("greek-line", {
         type: "geojson",
@@ -64,6 +73,20 @@ const playIntro = async (map: Map, signal: AbortSignal): Promise<void> => {
         },
     });
     map.addLayer({
+        id: "french-line-layer-3",
+        type: "line",
+        source: "french-line-3",
+        paint: {
+            "line-color": "rgba(0,0,0,0)",
+            "line-width": 9,
+            "line-opacity": 0.8,
+        },
+        layout: {
+            "line-cap": "round",
+            "line-join": "round",
+        },
+    });
+    map.addLayer({
         id: "greek-line-layer",
         type: "line",
         source: "greek-line",
@@ -81,13 +104,8 @@ const playIntro = async (map: Map, signal: AbortSignal): Promise<void> => {
     // FLY TO OLYMPIA ------------------------------------------------------------------------------------------------//
     await new Promise<void>(async (resolve, reject): Promise<void> => {
         if (signal.aborted) return reject();
-        map.flyTo({
-            ...olympia,
-            duration: 2000,
-            essential: true,
-            curve: 1,
-        } as EasingOptions);
-        map.once('moveend', resolve);
+        map.flyTo({...olympia, duration: 2000, essential: true, curve: 1} as EasingOptions);
+        map.once('moveend', () => resolve());
     }).catch(() => {});
 
     // ANIMATE GREEK TRACK ------------------------------------------------------------------------------------------ //
@@ -103,24 +121,40 @@ const playIntro = async (map: Map, signal: AbortSignal): Promise<void> => {
     // FLY TO MARSEILLE --------------------------------------------------------------------------------------------- //
     await new Promise<void>(async (resolve, reject) => {
         if (signal.aborted) return reject();
-        map.flyTo({
-            ...marseille,
-            duration: 2000,
-            essential: true,
-            curve: 1,
-        } as EasingOptions);
-        map.once('moveend', resolve);
+        map.flyTo({...marseille, duration: 2000, essential: true, curve: 1} as EasingOptions);
+        map.once('moveend', () => resolve());
     }).catch(() => {});
 
     // ANIMATE FRENCH TRACK PT. 1 ----------------------------------------------------------------------------------- //
     await animatePath({
         map: map,
-        duration: 10000,
+        duration: 2000,
         track: trackFrance1,
         layerId: "french-line-layer-1",
         signal: signal,
         ...path,
     } as AnimatePathOptions);
+
+    // FLY TO BASTIA ------------------------------------------------------------------------------------------------ //
+    for (const location of [bastia, perpignan]) {
+        await new Promise<void>(async (resolve, reject) => {
+            if (signal.aborted) return reject();
+            map.flyTo({...location, duration: 2000, essential: true, curve: 1} as EasingOptions);
+            map.once('moveend', () => resolve());
+        }).catch(() => {
+        });
+    }
+
+    // ANIMATE FRENCH TRACK PT. 2 ----------------------------------------------------------------------------------- //
+    await animatePath({
+        map: map,
+        duration: 8000,
+        track: trackFrance2,
+        layerId: "french-line-layer-2",
+        signal: signal,
+        ...path,
+    } as AnimatePathOptions);
+
 
     // FLY TO DOM-TOM ----------------------------------------------------------------------------------------------- //
     const locations = [guiana, caledonia, reunion, polynesia, guadeloupe, martinique, nice];
@@ -128,16 +162,16 @@ const playIntro = async (map: Map, signal: AbortSignal): Promise<void> => {
         await new Promise<void>((resolve, reject) => {
             if (signal.aborted) return reject();
             map.flyTo({ ...location, duration: 2000, essential: true, curve: 1 } as EasingOptions);
-            map.once('moveend', resolve);
+            map.once('moveend', () => resolve());
         }).catch(() => {});
     }
 
-    // ANIMATE FRENCH TRACK PT.2 ------------------------------------------------------------------------------------ //
+    // ANIMATE FRENCH TRACK PT.3 ------------------------------------------------------------------------------------ //
     await animatePath({
         map: map,
         duration: 10000,
-        track: trackFrance2,
-        layerId: "french-line-layer-2",
+        track: trackFrance3,
+        layerId: "french-line-layer-3",
         signal: signal,
         ...path,
     } as AnimatePathOptions);
@@ -145,18 +179,12 @@ const playIntro = async (map: Map, signal: AbortSignal): Promise<void> => {
     // FLY TO PARIS ------------------------------------------------------------------------------------------------- //
     await new Promise<void>((resolve, reject) => {
         if (signal.aborted) return reject();
-        map.flyTo({
-            ...paris,
-            duration: 2000,
-            essential: true,
-            curve: 1,
-        } as EasingOptions);
-        map.once('moveend', resolve);
+        map.flyTo({...paris, duration: 2000, essential: true, curve: 1} as EasingOptions);
+        map.once('moveend', () => resolve());
     }).catch(() => {});
 
     setFinalProperties(map);
 }
-
 
 // SET FINAL PROPERTIES --------------------------------------------------------------------------------------------- //
 const setFinalProperties = (map: Map): void => {
@@ -171,6 +199,12 @@ const setFinalProperties = (map: Map): void => {
     }
     if (map.getSource('french-line-2')) {
         map.removeSource('french-line-2');
+    }
+    if (map.getLayer('french-line-layer-3')) {
+        map.removeLayer('french-line-layer-3');
+    }
+    if (map.getSource('french-line-3')) {
+        map.removeSource('french-line-3');
     }
     if (map.getLayer('greek-line-layer')) {
         map.removeLayer('greek-line-layer');
@@ -298,16 +332,28 @@ type IntroLocation = {
     bearing: number,
 }
 const olympia: IntroLocation = {
-    center: [21.6250, 37.6362],
+    center: [21.62536, 37.64471],
     zoom: 7,
     bearing: 340,
     pitch: 50
 }
 const marseille: IntroLocation = {
-    center: [5.37401, 43.29613],
+    center: [5.36455, 43.29527],
     zoom: 7,
     bearing: 340,
     pitch: 50
+}
+const bastia: IntroLocation = {
+    center: [9.450881, 42.697285],
+    zoom: 7,
+    bearing: 320,
+    pitch: 30
+}
+const perpignan: IntroLocation = {
+    center: [2.90064, 42.68751],
+    zoom: 7,
+    bearing: 340,
+    pitch: 50,
 }
 const guiana: IntroLocation = {
     center: [-52.326000, 4.937200],

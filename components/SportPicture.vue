@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-200 rounded-lg overflow-hidden" :class="sizeClasses">
+    <div class="bg-white overflow-hidden rounded-lg shadow" :class="sizeClasses">
         <img :src="`/img/sports/SVG/${slug}.svg`" :alt="`Icon of ${name}`" class="w-full h-full object-contain p-1" />
     </div>
 </template>

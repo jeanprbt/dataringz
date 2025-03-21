@@ -45,7 +45,7 @@ const skipIntro = async () => {
         map.once('moveend', resolve);
     }).catch(() => {});
     setFinalProperties(map);
-    setMarkers();
+    await setMarkers();
 };
 
 
@@ -57,20 +57,70 @@ const color = computed(() => {
 });
 
 // MARKERS ---------------------------------------------------------------------------------------------------------- //
-const setMarkers = () => {
+const setMarkers = async () => {
+    // Load venues data directly from venues.json
+    const response = await fetch('/data/venues.json');
+    const venuesData = await response.json();
+    
     venues.features.forEach(function (venue) {
-        const markerElement = new mapboxgl.Marker({
-            color: '#FF0000',
-            draggable: false
+        const venueSlug = venue.properties!.slug;
+        const venueInfo = venuesData[venueSlug];
+        
+        // Create a custom HTML element for the marker
+        const el = document.createElement('div');
+        el.className = 'venue-marker';
+        el.style.cursor = 'pointer';
+        
+        // Style the container
+        el.style.display = 'flex';
+        el.style.flexWrap = 'wrap';
+        el.style.justifyContent = 'center';
+        el.style.width = '50px';
+        el.style.height = 'auto';
+        el.style.background = 'rgba(255, 255, 255, 0.8)';
+        el.style.borderRadius = '10px';
+        el.style.padding = '5px';
+        el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+        
+        // Add sports icons to the marker
+        if (venueInfo && venueInfo.sports && venueInfo.sports.length > 0) {
+            // Add icons for each sport in the venue
+            for (const sport of venueInfo.sports) {
+                const iconContainer = document.createElement('div');
+                iconContainer.style.width = '30px';
+                iconContainer.style.height = '30px';
+                iconContainer.style.margin = '2px';
+                
+                const img = document.createElement('img');
+                img.src = sport.icon;
+                img.alt = sport.name;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                
+                iconContainer.appendChild(img);
+                el.appendChild(iconContainer);
+            }
+        } else {
+            // Fallback for venues with no sports
+            const defaultMarker = document.createElement('div');
+            defaultMarker.style.width = '20px';
+            defaultMarker.style.height = '20px';
+            defaultMarker.style.borderRadius = '50%';
+            defaultMarker.style.backgroundColor = '#FF0000';
+            el.appendChild(defaultMarker);
+        }
+        
+        // Create a new marker using the custom element
+        const marker = new mapboxgl.Marker({
+            element: el,
+            anchor: 'center'
         })
             .setLngLat(venue.geometry.coordinates as [number, number])
-            .addTo(map)
-            .getElement();
+            .addTo(map);
             
-        markerElement.style.cursor = 'pointer';
-        
-        markerElement.addEventListener('click', () => {
-            router.push(`/venue/${venue.properties!.slug}`);
+        // Add click event
+        marker.getElement().addEventListener('click', () => {
+            router.push(`/venue/${venueSlug}`);
         });
     });
 };
@@ -156,7 +206,7 @@ onMounted(async () => {
         }
 
         //  ADD MARKERS --------------------------------------------------------------------------------------------- //
-        setMarkers();
+        await setMarkers();
     });
 });
 

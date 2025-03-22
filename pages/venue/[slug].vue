@@ -7,7 +7,7 @@
             
             <div v-else class="max-w-3xl mx-auto">
                 <!-- Venue image (if available) -->
-                <div v-if="hasImage" class="mb-4 rounded-lg overflow-hidden aspect-video">
+                <div v-if="hasImage" class="mb-4 rounded-lg overflow-hidden aspect-video shadow-lg border border-zinc-200 dark:border-zinc-600">
                     <img :src="`/img/venues/${venueData.slug}.jpg`" :alt="venueData.name" 
                          class="w-full h-full object-cover" />
                 </div>
@@ -15,27 +15,28 @@
                 <!-- Header with dates -->
                 <div class="flex flex-col md:flex-row justify-between items-start gap-3 mb-5">
                     <div>
-                        <h2 class="text-xl font-bold">{{ venueData.name }}</h2>
+                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white">{{ venueData.name }}</h2>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ venueData.description }}</p>
                     </div>
                     
                     <!-- Dates badge -->
                     <div v-if="venueData.date_start && venueData.date_end" 
-                         class="bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-lg text-xs whitespace-nowrap">
+                         class="bg-primary bg-opacity-10 text-zinc-800 dark:text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap">
                         {{ formatDateRange(venueData.date_start, venueData.date_end) }}
                     </div>
                 </div>
                 
                 <!-- Sports grid (no heading) -->
                 <div v-if="venueData.sports && venueData.sports.length > 0" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                    <NuxtLink 
+                    <SportLink 
                         v-for="sport in venueData.sports" 
                         :key="sport.slug" 
-                        :to="`/sport/${sport.slug}`"
-                        class="flex flex-col items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out">
-                        <img :src="sport.icon" :alt="sport.name" class="w-10 h-10 mb-2" />
-                        <span class="text-center text-sm font-medium">{{ sport.name }}</span>
-                    </NuxtLink>
+                        :slug="sport.slug"
+                        :name="sport.name">
+                        <template #icon>
+                            <img :src="sport.icon" :alt="sport.name" class="w-10 h-10 mb-2 dark:filter dark:invert dark:brightness-90" />
+                        </template>
+                    </SportLink>
                 </div>
                 <p v-else class="text-gray-500 dark:text-gray-400 text-sm">No sports information available</p>
             </div>

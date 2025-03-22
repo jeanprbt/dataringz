@@ -1,6 +1,7 @@
 <template>
-    <div class="bg-white overflow-hidden rounded-lg shadow" :class="sizeClasses">
-        <img :src="`/img/sports/SVG/${slug}.svg`" :alt="`Icon of ${name}`" class="w-full h-full object-contain p-1" />
+    <div class="bg-white dark:bg-zinc-700 overflow-hidden rounded-lg shadow border border-zinc-200 dark:border-zinc-600" :class="sizeClasses">
+        <img :src="`/img/sports/SVG/${slug}.svg`" :alt="`Icon of ${name}`" 
+             class="w-full h-full object-contain p-1 dark:filter dark:invert dark:brightness-90" />
     </div>
 </template>
 

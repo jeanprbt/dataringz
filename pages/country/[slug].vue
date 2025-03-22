@@ -6,35 +6,35 @@
                     <img :src="`/img/flags/${countryData.code.toLowerCase()}.svg`" :alt="`Flag of ${countryData.name}`"
                         class="w-12 h-8 rounded object-cover" />
                 </div>
-                <h3 class="text-xl font-medium">{{ countryData.name }}</h3>
+                <h3 class="text-xl font-medium text-zinc-800 dark:text-white">{{ countryData.name }}</h3>
             </div>
 
-            <p v-if="countryData.description" class="mb-4">{{ countryData.description }}</p>
+            <p v-if="countryData.description" class="mb-4 text-zinc-700 dark:text-zinc-300">{{ countryData.description }}</p>
 
             <!-- Athletes from this country -->
             <div class="mt-6">
-                <h3 class="text-lg font-medium mb-2">Athletes:</h3>
+                <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-2">Athletes:</h3>
                 <div class="space-y-2">
                     <AthleteLink v-for="athlete in countryData.athletes" :key="athlete.slug" :slug="athlete.slug"
-                        :name="athlete.name" :countryName="countryData.name" />
+                        :name="athlete.name" :countryName="countryData.name" :is-inline="true" />
                 </div>
             </div>
 
             <!-- Sports this country competes in -->
             <div class="mt-6">
-                <h3 class="text-lg font-medium mb-2">Sports:</h3>
+                <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-2">Sports:</h3>
                 <div class="space-y-2">
                     <SportLink v-for="sport in countryData.sports" :key="sport.slug" :slug="sport.slug"
-                        :name="sport.name" :description="sport.description" />
+                        :name="sport.name" :description="sport.description" :is-inline="true" />
                 </div>
             </div>
 
             <!-- Venues where this country competes -->
             <div class="mt-6">
-                <h3 class="text-lg font-medium mb-2">Venues:</h3>
+                <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-2">Venues:</h3>
                 <div class="space-y-2">
                     <VenueLink v-for="venue in countryData.venues" :key="venue.slug" :slug="venue.slug"
-                        :name="venue.name" :description="venue.description" />
+                        :name="venue.name" :description="venue.description" :is-inline="true" />
                 </div>
             </div>
         </div>

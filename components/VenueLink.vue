@@ -1,16 +1,23 @@
 <template>
-    <NuxtLink :to="`/venue/${slug}`" class="venue-link p-2 flex items-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-        <div class="venue-icon mr-2">
+    <NuxtLink :to="`/venue/${slug}`" 
+        :class="[
+            isInline 
+                ? 'p-2 flex items-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors'
+                : 'flex flex-col items-center p-3 bg-white dark:bg-zinc-700 rounded-lg shadow border border-zinc-200 dark:border-zinc-600 hover:shadow-lg hover:scale-105 hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 ease-in-out'
+        ]">
+        <div :class="{ 'mr-2': isInline, 'mb-2': !isInline }">
             <slot name="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                </svg>
+                <UIcon name="i-heroicons-map-pin" :class="isInline ? 'h-5 w-5' : 'h-8 w-8'" class="text-zinc-800 dark:text-zinc-200" />
             </slot>
         </div>
-        <div class="venue-info">
-            <div class="font-medium">{{ name }}</div>
-            <div v-if="description" class="text-sm text-gray-500 dark:text-gray-400">{{ description }}</div>
+        <div v-if="isInline">
+            <div class="font-medium text-zinc-800 dark:text-white">{{ name }}</div>
+            <div v-if="description" class="text-sm text-zinc-500 dark:text-gray-400">{{ description }}</div>
         </div>
+        <template v-else>
+            <span class="text-center text-sm font-medium text-zinc-800 dark:text-white">{{ name }}</span>
+            <span v-if="description" class="text-center text-xs text-gray-500 dark:text-gray-400 mt-1">{{ description }}</span>
+        </template>
     </NuxtLink>
 </template>
 
@@ -27,6 +34,10 @@ defineProps({
     description: {
         type: String,
         default: ''
+    },
+    isInline: {
+        type: Boolean,
+        default: false
     }
 });
 </script> 

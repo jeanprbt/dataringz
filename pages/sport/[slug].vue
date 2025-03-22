@@ -10,8 +10,8 @@
                     <SportPicture :name="sportData.name" :slug="sportData.slug" size="lg" />
                 </div>
                 <div>
-                    <h3 class="text-xl font-medium">{{ sportData.name }}</h3>
-                    <div v-if="sportData.description" class="text-sm text-gray-600 dark:text-gray-400">
+                    <h3 class="text-xl font-medium text-zinc-800 dark:text-white">{{ sportData.name }}</h3>
+                    <div v-if="sportData.description" class="text-sm text-zinc-600 dark:text-gray-300">
                         {{ sportData.description }}
                     </div>
                 </div>
@@ -20,12 +20,12 @@
             <!-- Events for this sport -->
             <div v-if="hasEvents" class="mt-6">
                 <div class="flex items-center mb-2">
-                    <h3 class="text-lg font-medium">Events</h3>
+                    <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Events</h3>
                     <ShowMoreButton v-if="sportData.events.length > 5" :showing-all="showAllEvents"
                         :total="sportData.events.length" @toggle="showAllEvents = !showAllEvents" />
                 </div>
-                <div class="bg-white shadow dark:bg-gray-800 rounded-lg p-4">
-                    <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                <div class="bg-white dark:bg-zinc-700 rounded-lg shadow border border-zinc-200 dark:border-zinc-600 p-4">
+                    <ul class="list-disc list-inside space-y-1 text-zinc-700 dark:text-zinc-200">
                         <li v-for="(event, index) in displayedEvents" :key="index">
                             {{ event }}
                         </li>
@@ -36,63 +36,56 @@
             <!-- Top Athletes with medals -->
             <div v-if="hasAthletes" class="mt-6">
                 <div class="flex items-center mb-3">
-                    <h3 class="text-lg font-medium">Top Athletes</h3>
+                    <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Top Athletes</h3>
                     <ShowMoreButton v-if="sportData.athletes.length > 8" :showing-all="showAllAthletes"
                         :total="sportData.athletes.length" @toggle="showAllAthletes = !showAllAthletes" />
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                    <NuxtLink v-for="athlete in displayedAthletes" :key="athlete.slug"
-                        :to="`/athlete/${athlete.slug}`"
-                        class="flex flex-col items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out">
-                        <AthletePicture :name="athlete.name" :slug="athlete.slug" size="sm" class="mb-2" />
-                        <span class="text-center text-sm font-medium">{{ athlete.name }}</span>
-                        <div class="flex items-center mt-1">
-                            <img v-if="athlete.countryCode" 
-                                 :src="`/img/flags/${athlete.countryCode.toLowerCase()}.svg`"
-                                 :alt="`Flag of ${athlete.country}`"
-                                 class="h-3 w-4 mr-1 object-cover"
-                            />
-                            <span class="text-xs text-gray-600 dark:text-gray-400">{{ athlete.country }}</span>
-                        </div>
-                        <MedalDisplay v-if="athlete.medals" :medals="athlete.medals" class="mt-2" />
-                    </NuxtLink>
+                    <AthleteLink 
+                        v-for="athlete in displayedAthletes" 
+                        :key="athlete.slug" 
+                        :slug="athlete.slug" 
+                        :name="athlete.name" 
+                        :country-name="athlete.country"
+                        :country-code="athlete.countryCode">
+                        <template #after v-if="athlete.medals">
+                            <MedalDisplay :medals="athlete.medals" class="mt-2" />
+                        </template>
+                    </AthleteLink>
                 </div>
             </div>
 
             <!-- Top Countries with medals -->
             <div v-if="hasCountries" class="mt-6">
                 <div class="flex items-center mb-3">
-                    <h3 class="text-lg font-medium">Medal-Winning Countries</h3>
+                    <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Medal-Winning Countries</h3>
                     <ShowMoreButton v-if="sportData.countries.length > 8" :showing-all="showAllCountries"
                         :total="sportData.countries.length" @toggle="showAllCountries = !showAllCountries" />
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                    <NuxtLink v-for="country in displayedCountries" :key="country.slug"
-                        :to="`/country/${country.slug}`"
-                        class="flex flex-col items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out">
-                        <img v-if="country.code" 
-                             :src="`/img/flags/${country.code.toLowerCase()}.svg`"
-                             :alt="`Flag of ${country.name}`"
-                             class="w-10 h-6 rounded object-cover border border-gray-200 dark:border-gray-700 mb-2" 
-                        />
-                        <span class="text-center text-sm font-medium">{{ country.name }}</span>
-                        <MedalDisplay v-if="country.medals" :medals="country.medals" class="mt-2" />
-                    </NuxtLink>
+                    <CountryLink 
+                        v-for="country in displayedCountries" 
+                        :key="country.slug" 
+                        :slug="country.slug" 
+                        :name="country.name" 
+                        :code="country.code">
+                        <template #after v-if="country.medals">
+                            <MedalDisplay :medals="country.medals" class="mt-2" />
+                        </template>
+                    </CountryLink>
                 </div>
             </div>
 
             <!-- Venues for this sport -->
             <div v-if="hasVenues" class="mt-6">
-                <h3 class="text-lg font-medium mb-3">Venues</h3>
+                <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-3">Venues</h3>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                    <NuxtLink 
+                    <VenueLink 
                         v-for="venue in sportData.venues" 
                         :key="venue.slug" 
-                        :to="`/venue/${venue.slug}`"
-                        class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out">
-                        <UIcon name="i-heroicons-map-pin" class="h-5 w-5 text-primary mr-2 flex-shrink-0" />
-                        <span class="text-sm font-medium">{{ venue.name }}</span>
-                    </NuxtLink>
+                        :slug="venue.slug" 
+                        :name="venue.name" 
+                    />
                 </div>
             </div>
         </div>

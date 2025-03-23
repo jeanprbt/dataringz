@@ -2,17 +2,16 @@
     <div ref="mapContainer" :class="['flex-1 relative overflow-hidden', { 'pointer-events-none': introPlaying }]"></div>
     <button
         ref="skipButton"
-        v-if="introPlaying"
         v-show="showSkipButton"
         @click="skipIntro"
-        class="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-zinc-400 dark:text-zinc-700 px-4 py-2 rounded-lg shadow-md backdrop-blur-3xl"
+        class="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 hover:dark:text-zinc-400 px-4 py-2 rounded-lg shadow-md backdrop-blur-3xl"
     >
         skip intro
     </button>
     <div 
         ref="textContainer"
         v-if="showText"
-        class="text absolute top-10 left-1/2 transform -translate-x-1/2 text-zinc-400 dark:text-zinc-700 bg-opacity-50 p-4 rounded-lg shadow-md backdrop-blur-3xl"
+        class="text absolute top-10 left-1/2 transform -translate-x-1/2 text-zinc-900 dark:text-gray-100 p-4 text-center"
         style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)}"
     >
         {{ currentText }}
@@ -26,7 +25,7 @@ import type { FeatureCollection, Point } from "geojson";
 
 import { playIntro } from "~/utils/intro";
 import { setFinalProperties, setMarkers } from '~/utils/map';
-import { displaySkipButton } from '~/utils/animations';
+import { displaySkipButton, hideSkipButton } from '~/utils/animations';
 import { start, paris } from '~/utils/constants';
 
 const isClient = import.meta.client;
@@ -70,6 +69,8 @@ const skipIntro = async () => {
 watch(introPlaying, async (newVal) => {
     if (newVal) {
         displaySkipButton(showSkipButton, skipButton);
+    } else {
+        hideSkipButton(showSkipButton, skipButton);
     }
 });
 

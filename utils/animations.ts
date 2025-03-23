@@ -16,6 +16,16 @@ const displaySkipButton = (showSkipButton: Ref, skipButton: Ref) => {
     })
 };
 
+const hideSkipButton = (showSkipButton: Ref, skipButton: Ref) => {
+    gsap.to(
+        skipButton.value,
+        { opacity: 0, duration: 2, ease: 'power4.out'}
+    );
+    gsap.delayedCall(2, () => {
+        showSkipButton.value = false;
+    })
+};
+
 // DISPLAY TEXT ----------------------------------------------------------------------------------------------------- //
 const displayText = async (showText: Ref, textContainer: Ref, currentText: Ref, text: string, duration: number) => {
     showText.value = true;
@@ -28,7 +38,7 @@ const displayText = async (showText: Ref, textContainer: Ref, currentText: Ref, 
         { opacity: 1, duration: 1, ease: 'power4.out' }
     );
 
-    const chars = SplitType.create(".text", { types: 'chars' }).chars
+    const chars = SplitType.create(".text", { types: 'words' }).words
     gsap.fromTo(
         chars,
         {
@@ -38,8 +48,8 @@ const displayText = async (showText: Ref, textContainer: Ref, currentText: Ref, 
         {
             y: 0,
             opacity: 1,
-            stagger: 0.01,
-            duration: 1,
+            stagger: 0.05,
+            duration: 0.5,
             ease: 'power4.out'
         }
     );
@@ -48,7 +58,7 @@ const displayText = async (showText: Ref, textContainer: Ref, currentText: Ref, 
             textContainer.value,
             {
                 opacity: 0,
-                duration: 1,
+                duration: 0.5,
                 ease: 'power4.out',
                 onComplete: () => {
                     showText.value = false;
@@ -57,4 +67,4 @@ const displayText = async (showText: Ref, textContainer: Ref, currentText: Ref, 
     });
 };
 
-export { displaySkipButton, displayText };
+export { displaySkipButton, hideSkipButton, displayText };

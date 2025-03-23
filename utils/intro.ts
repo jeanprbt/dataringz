@@ -131,11 +131,12 @@ const playIntro = async (
         map.once('moveend', () => resolve());
     }).catch(() => { });
 
-    await displayText(
+    displayText(
         showText, 
         textContainer, 
         currentText, 
-        "Our journey begins in Olympia, Greece, where the Olympic flame has been lit several months before the Games since 1936. It then travels to Athens, where it boards the Bélèm to cross the Mediterranean to Marseille.", 4
+        "Our journey begins in Olympia, Greece, where the Olympic flame has been lit before each Games since 1936.\
+        It then travels to Athens, where it boards the Bélèm to cross the Mediterranean Sea to Marseille.", 4
     );
 
     // ANIMATE GREEK TRACK ------------------------------------------------------------------------------------------ //
@@ -156,11 +157,11 @@ const playIntro = async (
         map.once('moveend', () => resolve());
     }).catch(() => { });
 
-    await displayText(
+    displayText(
         showText, 
         textContainer, 
         currentText, 
-        "It will cross the South of France during 2 weeks there...", 1
+        "The flame crosses the South of France for six days...", 1.5
     );
 
     // ANIMATE FRENCH TRACK PT. 1 ----------------------------------------------------------------------------------- //
@@ -173,11 +174,11 @@ const playIntro = async (
         ...path,
     } as AnimatePathOptions);
 
-    await displayText(
+    displayText(
         showText, 
         textContainer, 
         currentText, 
-        "Before reaching Bastia, Corsica...", 1
+        "...before reaching Bastia, Corsica.", 2
     );
 
     // FLY TO BASTIA ------------------------------------------------------------------------------------------------ //
@@ -189,28 +190,40 @@ const playIntro = async (
         }).catch(() => {});
     }
     
-    await displayText(
+    displayText(
         showText, 
         textContainer, 
         currentText, 
-        "The torch will go through many cities in almost all departments... including overseas !", 3
+        "It spends the next three weeks travelling up the west of France, sometimes crossing more than one departement a day!", 3
     );
 
     // ANIMATE FRENCH TRACK PT. 2 ----------------------------------------------------------------------------------- //
     await animatePath({
         map: map,
-        duration: 8000,
+        duration: 6000,
         track: trackFrance2,
         layerId: "french-line-layer-2",
         signal: signal,
         ...path,
     } as AnimatePathOptions);
 
+    displayText(
+        showText, 
+        textContainer, 
+        currentText, 
+        "The Olympic symbol will even be visiting all the French overseas departments, starting with French Guiana, ...", 2
+    );
+    await new Promise<void>((resolve, reject) => {
+        if (signal.aborted) return reject();
+        map.flyTo({ ...guiana, duration: 3000, essential: true, curve: 1 } as EasingOptions);
+        map.once('moveend', () => resolve());
+    }).catch(() => { });
+
 
     // FLY TO DOM-TOM ----------------------------------------------------------------------------------------------- //
-    const locations = [guiana, caledonia, reunion, polynesia, guadeloupe, martinique];
+    const locations = [caledonia, reunion, polynesia, guadeloupe, martinique];
     for (const location of locations) {
-        await displayText(
+        displayText(
             showText, 
             textContainer, 
             currentText, 
@@ -224,11 +237,11 @@ const playIntro = async (
     }
 
     // FLY BACK TO NICE --------------------------------------------------------------------------------------------- //
-    await displayText(
+    displayText(
         showText, 
         textContainer, 
         currentText, 
-        "And then back to Nice, for the end of the route towards Paris !", 2
+        "And then back to Nice, for the end of the route towards Paris!", 2
     );
     await new Promise<void>((resolve, reject) => {
         if (signal.aborted) return reject();
@@ -239,12 +252,19 @@ const playIntro = async (
     // ANIMATE FRENCH TRACK PT.3 ------------------------------------------------------------------------------------ //
     await animatePath({
         map: map,
-        duration: 10000,
+        duration: 8000,
         track: trackFrance3,
         layerId: "french-line-layer-3",
         signal: signal,
         ...path,
     } as AnimatePathOptions);
+
+    displayText(
+        showText, 
+        textContainer, 
+        currentText, 
+        "Let the Olympics begin!", 2
+    );
 
     // FLY TO PARIS ------------------------------------------------------------------------------------------------- //
     await new Promise<void>((resolve, reject) => {

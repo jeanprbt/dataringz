@@ -130,17 +130,24 @@ const playIntro = async (
         map.flyTo({ ...olympia, duration: 2000, essential: true, curve: 1 } as EasingOptions);
         map.once('moveend', () => resolve());
     }).catch(() => { });
-    await displayText(showText, textContainer, currentText, "Our journey starts in Olympia", 2);
+
+    await displayText(
+        showText, 
+        textContainer, 
+        currentText, 
+        "Our journey begins in Olympia, Greece, where the Olympic flame has been lit several months before the Games since 1936. It then travels to Athens, where it boards the Bélèm to cross the Mediterranean to Marseille.", 4
+    );
 
     // ANIMATE GREEK TRACK ------------------------------------------------------------------------------------------ //
     await animatePath({
         map: map,
-        duration: 2000,
+        duration: 4000,
         track: trackGreece,
         layerId: "greek-line-layer",
         signal: signal,
         ...path,
     } as AnimatePathOptions);
+
 
     // FLY TO MARSEILLE --------------------------------------------------------------------------------------------- //
     await new Promise<void>(async (resolve, reject) => {
@@ -148,6 +155,13 @@ const playIntro = async (
         map.flyTo({ ...marseille, duration: 2000, essential: true, curve: 1 } as EasingOptions);
         map.once('moveend', () => resolve());
     }).catch(() => { });
+
+    await displayText(
+        showText, 
+        textContainer, 
+        currentText, 
+        "It will cross the South of France during 2 weeks there...", 1
+    );
 
     // ANIMATE FRENCH TRACK PT. 1 ----------------------------------------------------------------------------------- //
     await animatePath({
@@ -159,6 +173,13 @@ const playIntro = async (
         ...path,
     } as AnimatePathOptions);
 
+    await displayText(
+        showText, 
+        textContainer, 
+        currentText, 
+        "Before reaching Bastia, Corsica...", 1
+    );
+
     // FLY TO BASTIA ------------------------------------------------------------------------------------------------ //
     for (const location of [bastia, perpignan]) {
         await new Promise<void>(async (resolve, reject) => {
@@ -167,6 +188,13 @@ const playIntro = async (
             map.once('moveend', () => resolve());
         }).catch(() => {});
     }
+    
+    await displayText(
+        showText, 
+        textContainer, 
+        currentText, 
+        "The torch will go through many cities in almost all departments... including overseas !", 3
+    );
 
     // ANIMATE FRENCH TRACK PT. 2 ----------------------------------------------------------------------------------- //
     await animatePath({
@@ -180,14 +208,33 @@ const playIntro = async (
 
 
     // FLY TO DOM-TOM ----------------------------------------------------------------------------------------------- //
-    const locations = [guiana, caledonia, reunion, polynesia, guadeloupe, martinique, nice];
+    const locations = [guiana, caledonia, reunion, polynesia, guadeloupe, martinique];
     for (const location of locations) {
+        await displayText(
+            showText, 
+            textContainer, 
+            currentText, 
+            `${location.name}...`, 1
+        );
         await new Promise<void>((resolve, reject) => {
             if (signal.aborted) return reject();
             map.flyTo({ ...location, duration: 2000, essential: true, curve: 1 } as EasingOptions);
             map.once('moveend', () => resolve());
         }).catch(() => { });
     }
+
+    // FLY BACK TO NICE --------------------------------------------------------------------------------------------- //
+    await displayText(
+        showText, 
+        textContainer, 
+        currentText, 
+        "And then back to Nice, for the end of the route towards Paris !", 2
+    );
+    await new Promise<void>((resolve, reject) => {
+        if (signal.aborted) return reject();
+        map.flyTo({ ...nice, duration: 2000, essential: true, curve: 1 } as EasingOptions);
+        map.once('moveend', () => resolve());
+    }).catch(() => { });
 
     // ANIMATE FRENCH TRACK PT.3 ------------------------------------------------------------------------------------ //
     await animatePath({
@@ -202,7 +249,7 @@ const playIntro = async (
     // FLY TO PARIS ------------------------------------------------------------------------------------------------- //
     await new Promise<void>((resolve, reject) => {
         if (signal.aborted) return reject();
-        map.flyTo({ ...paris, duration: 2000, essential: true, curve: 1 } as EasingOptions);
+        map.flyTo({ ...paris, duration: 4000, essential: true, curve: 1 } as EasingOptions);
         map.once('moveend', () => resolve());
     }).catch(() => { });
 }

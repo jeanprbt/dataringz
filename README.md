@@ -96,23 +96,14 @@ This visualization is designed for:
 
 An exploratory data analysis is available in the `eda/` folder. Check `INSTRUCTIONS.md` for the run instructions!
 
-### Related work
 
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
+### Originality of our approach & Source of inspiration
 
+Unlike traditional medal tables and charts, our approach brings the Olympics to life with an **interactive 3D map** of Paris 2024 venues. Users can explore the city, click on venues, countries, and athletes to uncover stats, and see performances in their real-world context. This mix of **data storytelling** and **geospatial visualization** makes for a more engaging and intuitive experience. Below are our main sources of inspiration.
 
-#### Originality of our approach
-
-Unlike traditional medal tables and charts, our approach brings the Olympics to life with an **interactive 3D map** of Paris 2024 venues. Users can explore the city, click on venues, countries, and athletes to uncover stats, and see performances in their real-world context. This mix of **data storytelling and geospatial visualization** makes for a more engaging and intuitive experience.
-
-#### Source of inspiration
 - https://marseille.laphase5.com/fr - 3D Map with point of interests you can click to get more informations
 - https://worldathletics.org/athletes/sweden/armand-duplantis-14679502 - Athlete page with key statistics and graphs
-
-
 
 
 ## Milestone 2 (18th April, 5pm)

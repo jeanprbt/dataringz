@@ -1,40 +1,59 @@
 <template>
-    <div ref="mapContainer" class="flex-1 relative"></div>
+    <div ref="mapContainer" :class="['flex-1 relative overflow-hidden', { 'pointer-events-none': introPlaying }]"></div>
     <button
+        ref="skipButton"
         v-if="introPlaying"
+        v-show="showSkipButton"
         @click="skipIntro"
-        class="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-white px-4 py-2 rounded-lg shadow-md">
+        class="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-zinc-400 dark:text-zinc-700 px-4 py-2 rounded-lg shadow-md backdrop-blur-3xl"
+    >
         skip intro
     </button>
+    <div 
+        ref="textContainer"
+        v-if="showText"
+        class="text absolute top-10 left-1/2 transform -translate-x-1/2 text-zinc-400 dark:text-zinc-700 bg-opacity-50 p-4 rounded-lg shadow-md backdrop-blur-3xl"
+        style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)}"
+    >
+        {{ currentText }}
+    </div>
 </template>
 
 <script setup lang="ts">
+import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { type EasingOptions, type MapOptions } from 'mapbox-gl';
 import type { FeatureCollection, Point } from "geojson";
-import 'mapbox-gl/dist/mapbox-gl.css';
-import { playIntro, setFinalProperties, start, paris} from "~/utils/intro";
+
+import { playIntro } from "~/utils/intro";
+import { setFinalProperties, setMarkers } from '~/utils/map';
+import { displaySkipButton } from '~/utils/animations';
+import { start, paris } from '~/utils/constants';
 
 const isClient = import.meta.client;
 const config = useRuntimeConfig();
 const router = useRouter();
-
 if (isClient) {
     mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '';
 }
 const intro = config.public.INTRO || '';
 
+// REFS ------------------------------------------------------------------------------------------------------------- //
 const mapContainer = ref<HTMLElement | null>(null);
-let map: mapboxgl.Map;
-
-let venues: FeatureCollection<Point>
+const textContainer = ref<HTMLElement | null>(null);
+const showText = ref<boolean>(false);
+const currentText = ref<string>('');
+const introPlaying = ref<boolean>(false);
+const skipButton = ref<HTMLElement | null>(null);
+const showSkipButton = ref<boolean>(false);
 
 // SKIP INTRO LOGIC ------------------------------------------------------------------------------------------------- //
 const controller = new AbortController();
 const { signal } = controller;
-const introPlaying = ref(false);
+
 const skipIntro = async () => {
     controller.abort();
     introPlaying.value = false;
+    showText.value = false;
     await new Promise<void>((resolve) => {
         map.flyTo({
             ...paris,
@@ -43,10 +62,16 @@ const skipIntro = async () => {
             curve: 1,
         } as EasingOptions);
         map.once('moveend', () => resolve());
-    }).catch(() => {});
+    }).catch(() => { });
     setFinalProperties(map);
-    await setMarkers();
+    await setMarkers(map, router, venues);
 };
+
+watch(introPlaying, async (newVal) => {
+    if (newVal) {
+        displaySkipButton(showSkipButton, skipButton);
+    }
+});
 
 
 // COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
@@ -56,74 +81,8 @@ const color = computed(() => {
         : 'mapbox://styles/mapbox/light-v11';
 });
 
-// MARKERS ---------------------------------------------------------------------------------------------------------- //
-const setMarkers = async () => {
-    // Load venues data directly from venues.json
-    const response = await fetch('/data/venues.json');
-    const venuesData = await response.json();
-    
-    venues.features.forEach(function (venue) {
-        const venueSlug = venue.properties!.slug;
-        const venueInfo = venuesData[venueSlug];
-        
-        // Create a custom HTML element for the marker
-        const el = document.createElement('div');
-        el.className = 'venue-marker';
-        el.style.cursor = 'pointer';
-        
-        // Style the container
-        el.style.display = 'flex';
-        el.style.flexWrap = 'wrap';
-        el.style.justifyContent = 'center';
-        el.style.width = '50px';
-        el.style.height = 'auto';
-        el.style.background = 'rgba(255, 255, 255, 0.8)';
-        el.style.borderRadius = '10px';
-        el.style.padding = '5px';
-        el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
-        
-        // Add sports icons to the marker
-        if (venueInfo && venueInfo.sports && venueInfo.sports.length > 0) {
-            // Add icons for each sport in the venue
-            for (const sport of venueInfo.sports) {
-                const iconContainer = document.createElement('div');
-                iconContainer.style.width = '30px';
-                iconContainer.style.height = '30px';
-                iconContainer.style.margin = '2px';
-                
-                const img = document.createElement('img');
-                img.src = sport.icon;
-                img.alt = sport.name;
-                img.style.width = '100%';
-                img.style.height = '100%';
-                
-                iconContainer.appendChild(img);
-                el.appendChild(iconContainer);
-            }
-        } else {
-            // Fallback for venues with no sports
-            const defaultMarker = document.createElement('div');
-            defaultMarker.style.width = '20px';
-            defaultMarker.style.height = '20px';
-            defaultMarker.style.borderRadius = '50%';
-            defaultMarker.style.backgroundColor = '#FF0000';
-            el.appendChild(defaultMarker);
-        }
-        
-        // Create a new marker using the custom element
-        const marker = new mapboxgl.Marker({
-            element: el,
-            anchor: 'center'
-        })
-            .setLngLat(venue.geometry.coordinates as [number, number])
-            .addTo(map);
-            
-        // Add click event
-        marker.getElement().addEventListener('click', () => {
-            router.push(`/venue/${venueSlug}`);
-        });
-    });
-};
+let map: mapboxgl.Map;
+let venues: FeatureCollection<Point>
 
 onMounted(async () => {
     if (!isClient) return;
@@ -139,6 +98,7 @@ onMounted(async () => {
             container: mapContainer.value as HTMLElement,
             style: color.value,
             maxZoom: 16,
+            dragRotate: false,
             ...start
         } as MapOptions);
     } else {
@@ -159,7 +119,7 @@ onMounted(async () => {
     map.on('style.load', async () => {
 
         // REMOVE SYMBOLS (e.g. street names, places, ...) ---------------------------------------------------------- //
-        map.style.stylesheet.layers.forEach(function (layer) {
+        map.style.stylesheet.layers.forEach((layer) => {
             if (layer.type === 'symbol') {
                 map.removeLayer(layer.id);
             }
@@ -188,25 +148,26 @@ onMounted(async () => {
             },
         );
 
-        // -------------------------------------- COLOR SPECIFIC BUILDINGS ------------------------------------------ //
+        // COLOR SPECIFIC BUILDINGS --------------------------------------------------------------------------------- //
         venues.features.forEach(v => {
             v.properties?.buildingIds.forEach((id: number) => {
                 map.setFeatureState(
-                    {source: 'composite', sourceLayer: 'building', id},
-                    {selected: true}
+                    { source: 'composite', sourceLayer: 'building', id },
+                    { selected: true }
                 );
             });
         });
 
         // PLAY INTRO ANIMATION ------------------------------------------------------------------------------------- //
-        if(intro) {
+        if (intro) {
             introPlaying.value = true;
-            await playIntro(map, signal);
+            await playIntro(map, signal, showText, textContainer, currentText);
             introPlaying.value = false;
         }
 
-        //  ADD MARKERS --------------------------------------------------------------------------------------------- //
-        await setMarkers();
+        // SET FINAL PROPERTIES & ADD MARKERS ----------------------------------------------------------------------- //
+        setFinalProperties(map);
+        await setMarkers(map, router, venues);
     });
 });
 

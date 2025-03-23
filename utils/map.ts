@@ -47,7 +47,6 @@ const setFinalProperties = (map: Map): void => {
     
     scrollZoom.renderFrame = function() {
         const result = originalRenderFrame.call(this);
-        console.log(result);
         
         if (result?.zoomDelta) {
             const targetZoom = map.getZoom() + result.zoomDelta;

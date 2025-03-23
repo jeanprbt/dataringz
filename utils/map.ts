@@ -37,12 +37,32 @@ const setFinalProperties = (map: Map): void => {
     ]);
     map.dragRotate.disable();
 
-    // map zoom range [10 -> 16] to pitch range [0 -> 60]
-    map.on('zoom', () => {
-        const zoom = map!.getZoom();
-        const pitch = (zoom - 10) * 10;
-        map.setPitch(pitch);
-    })
+    // set initial pitch based on zoom
+    const initialZoom = map.getZoom();
+    map.setPitch(Math.max(0, Math.min(60, (initialZoom - 10) * 10)));
+    
+    // override scrollZoom renderFrame to add pitch updates
+    const scrollZoom = map.scrollZoom as any;
+    const originalRenderFrame = scrollZoom.renderFrame;
+    
+    scrollZoom.renderFrame = function() {
+        const result = originalRenderFrame.call(this);
+        console.log(result);
+        
+        if (result?.zoomDelta) {
+            const targetZoom = map.getZoom() + result.zoomDelta;
+            
+            if (targetZoom > map.getMinZoom() + 2) {
+                const newPitch = Math.max(0, Math.min(60, (targetZoom - 10) * 10));
+                if (map.transform) {
+                    map.transform._pitch = newPitch * (Math.PI / 180);
+                    map.triggerRepaint();
+                }
+            }
+        }
+        
+        return result;
+    };
 }
 
 // SET MARKERS  ----------------------------------------------------------------------------------------------------- //

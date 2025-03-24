@@ -7,7 +7,7 @@
             
             <div v-else class="max-w-3xl mx-auto">
                 <!-- Venue image (if available) -->
-                <div v-if="hasImage" class="mb-4 rounded-lg overflow-hidden aspect-video shadow-lg border border-zinc-200 dark:border-zinc-600">
+                <div v-if="hasImage" class="mb-4 rounded-lg overflow-hidden aspect-video shadow-lg border border-zinc-400 dark:border-zinc-600">
                     <img :src="`/img/venues/${venueData.slug}.jpg`" :alt="venueData.name" 
                          class="w-full h-full object-cover" />
                 </div>
@@ -57,7 +57,6 @@ const slug = route.params.slug as string;
 // Data refs
 const venueData = ref<any>({ name: 'Loading...' });
 
-// Available venue images (from your public/img/venues directory)
 const availableImages = [
     'aquatics-centre',
     'bercy-arena',
@@ -74,7 +73,11 @@ const availableImages = [
     'le-golf-national',
     'north-paris-arena',
     'paris-la-defense-arena',
-    'pierre-mauroy-stadium'
+    'pierre-mauroy-stadium',
+    'stade-de-france',
+    'trocadero',
+    'vaires-sur-marne-nautical-stadium',
+    'yves-du-manoir-stadium',
 ];
 
 // Load venue data

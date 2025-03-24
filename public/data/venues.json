@@ -752,14 +752,14 @@
     "url": "https://olympics.com/en/paris-2024/venues/vaires-sur-marne-nautical-stadium",
     "sports": [
       {
-        "slug": "canoe-slalom",
+        "slug": "canoe-kayak-slalom",
         "name": "Canoe Slalom",
-        "icon": "/img/sports/SVG/canoe-slalom.svg"
+        "icon": "/img/sports/SVG/canoe-kayak-slalom.svg"
       },
       {
-        "slug": "canoe-sprint",
+        "slug": "canoe-kayak-flatwater",
         "name": "Canoe Sprint",
-        "icon": "/img/sports/SVG/canoe-sprint.svg"
+        "icon": "/img/sports/SVG/canoe-kayak-flatwater.svg"
       },
       {
         "slug": "rowing",

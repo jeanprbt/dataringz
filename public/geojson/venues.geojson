@@ -80,7 +80,7 @@
                       14479234, 443073294
                 ]
             }
-            },
+        },
         {
             "type": "Feature",
             "geometry": {
@@ -100,6 +100,96 @@
                     244945090, 244945093, 244945092, 227662009, 227662015, 227662007, 227662014, 227662011, 227662012,
                     227662030, 227662011, 227662008, 227662010, 227662029, 227662006, 664180362, 246135677, 246135679,
                     227662023, 227662026, 227662028, 227662027
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.355426, 48.923650]
+            },
+            "properties": {
+                "name": "Piscine olympique de Saint-Denis",
+                "slug": "aquatics-centre",
+                "buildingIds": [
+                    1164494013
+                ]
+            }
+        }, 
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.514594, 48.971849]
+            },
+            "properties": {
+                "name": "Arena Paris Nord",
+                "slug": "north-paris-arena",
+                "buildingIds": [
+                    146518510, 146518839
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.313530, 48.863614]
+            },
+            "properties": {
+                "name": "Pont Alexandre III",
+                "slug": "pont-alexandre-iii",
+                "buildingIds": [
+                    230227013, 230227014, 230227015, 64959941
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.302553, 48.853236]
+            },
+            "properties": {
+                "name": "Champ de Mars Arena",
+                "slug": "champ-de-mars-arena",
+                "buildingIds": [
+                    854459034
+                ]
+            }
+        }, 
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.288299, 48.830172]
+            },
+            "properties": {
+                "name": "Parc des Expositions de la porte de Versailles",
+                "slug": "south-paris-arena",
+                "buildingIds": [
+                    23811464, 754205325, 754205324, 1152642684, 14373844, 1080274347, 491579343, 42736338, 
+                    404252944, 1334598502, 44326511, 491579072, 53671289, 42736341, 42736342, 42736339, 
+                    42736340, 124188864, 3586949549078625, 629909915516855, 42676126, 44326513, 44326512, 
+                    53671183, 53671339, 53671193, 53671394, 53671395, 53671199, 1080274367, 53671385, 53671185, 
+                    53671347, 53671340, 53671373, 53671324, 53671286, 53671387, 53671260, 53671187, 53671310, 
+                    53671292, 53671367, 53671226, 53671404, 53671220, 53671364, 53671383, 53671293, 53671252, 
+                    53671349, 53671273, 53671276, 53671380, 53671190, 53671333, 53671397, 53671335, 53671206
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.253097, 48.841555]
+            },
+            "properties": {
+                "name": "Parc des Princes",
+                "slug": "parc-des-princes",
+                "buildingIds": [
+                    152838
                 ]
             }
         }

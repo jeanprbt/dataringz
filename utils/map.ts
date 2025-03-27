@@ -32,8 +32,8 @@ const setFinalProperties = (map: Map): void => {
     // set final camera properties
     map.setMinZoom(10);
     map.setMaxBounds([
-        [2.0575, 48.7908],
-        [2.5279, 48.9494]
+        [2.0575, 48.1217],
+        [3.0079, 49.5094]
     ]);
     map.dragRotate.disable();
 

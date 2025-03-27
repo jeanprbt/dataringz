@@ -110,8 +110,8 @@ onMounted(async () => {
             minZoom: 10,
             dragRotate: false,
             maxBounds: [
-                [2.0575, 48.7908],
-                [2.5279, 48.9494]
+                [2.0575, 48.0000],
+                [3.0079, 49.9999]
             ],
             ...paris,
         } as MapOptions);
@@ -170,6 +170,23 @@ onMounted(async () => {
         setFinalProperties(map);
         await setMarkers(map, router, venues);
     });
+
+    map.on('click', (e) => {
+        const features = map?.queryRenderedFeatures(e.point, {
+            layers: ['add-3d-buildings']
+        });
+        if (features && features.length > 0) {
+            const buildingId = features[0].id;
+            console.log('Building ID:', buildingId);
+        }
+    });
+
+    // Display longitude and latitude on click
+    map.on('click', function (e) {
+        let coordinates = e.lngLat;
+        console.log('You clicked here:', coordinates);
+    });
+
 });
 
 onUnmounted(() => {

@@ -1,9 +1,12 @@
 import type { FeatureCollection, Point } from 'geojson';
-import mapboxgl, { type Map } from 'mapbox-gl';
+import mapboxgl, { LngLatBounds, type Marker } from 'mapbox-gl';
 import { type Router } from 'vue-router';
+import * as turf from 'turf';
+
+let markers = new Map<Marker, [number, number]>();
 
 // SET FINAL PROPERTIES --------------------------------------------------------------------------------------------- //
-const setFinalProperties = (map: Map): void => {
+const setFinalProperties = (map: mapboxgl.Map): void => {
     if (map.getLayer('french-line-layer-1')) {
         map.removeLayer('french-line-layer-1');
     }
@@ -40,17 +43,17 @@ const setFinalProperties = (map: Map): void => {
     // set initial pitch based on zoom
     const initialZoom = map.getZoom();
     map.setPitch(Math.max(0, Math.min(60, (initialZoom - 10) * 10)));
-    
+
     // override scrollZoom renderFrame to add pitch updates
     const scrollZoom = map.scrollZoom as any;
     const originalRenderFrame = scrollZoom.renderFrame;
-    
-    scrollZoom.renderFrame = function() {
+
+    scrollZoom.renderFrame = function () {
         const result = originalRenderFrame.call(this);
-        
+
         if (result?.zoomDelta) {
             const targetZoom = map.getZoom() + result.zoomDelta;
-            
+
             if (targetZoom > map.getMinZoom() + 2) {
                 const newPitch = Math.max(0, Math.min(60, (targetZoom - 10) * 10));
                 if (map.transform) {
@@ -59,17 +62,14 @@ const setFinalProperties = (map: Map): void => {
                 }
             }
         }
-        
         return result;
     };
 }
 
 // SET MARKERS  ----------------------------------------------------------------------------------------------------- //
-const setMarkers = async (map: Map, router: Router, venues: FeatureCollection<Point>) => {
-
+const setMarkers = async (map: mapboxgl.Map, router: Router, venues: FeatureCollection<Point>) => {
     const venuesData = await fetch('/data/venues.json').then(res => res.json());
-
-    venues.features.forEach((venue)=> {
+    venues.features.forEach((venue) => {
         const venueSlug = venue.properties!.slug;
         const venueInfo = venuesData[venueSlug];
 
@@ -88,6 +88,8 @@ const setMarkers = async (map: Map, router: Router, venues: FeatureCollection<Po
         el.style.borderRadius = '10px';
         el.style.padding = '5px';
         el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.5s ease-in'
 
         // Add sports icons to the marker
         if (venueInfo && venueInfo.sports && venueInfo.sports.length > 0) {
@@ -117,19 +119,114 @@ const setMarkers = async (map: Map, router: Router, venues: FeatureCollection<Po
             el.appendChild(defaultMarker);
         }
 
+
         // Create a new marker using the custom element
+        const markerCoordinates = venue.geometry.coordinates as [number, number];
         const marker = new mapboxgl.Marker({
             element: el,
             anchor: 'center'
-        })
-            .setLngLat(venue.geometry.coordinates as [number, number])
-            .addTo(map);
+        }).setLngLat(markerCoordinates).addTo(map);
+
+        // Make it appear
+        const mapBounds = map.getBounds()!;
+        const { paddedMapBounds: paddedMapBounds } = getPaddedMapBounds(mapBounds);
+        if (paddedMapBounds.contains(markerCoordinates)) fadeInMarker(marker);
 
         // Add click event
         marker.getElement().addEventListener('click', () => {
             router.push(`/venue/${venueSlug}`);
         });
+
+        // Register marker
+        markers.set(marker, markerCoordinates);
     });
 };
 
-export { setFinalProperties, setMarkers };
+// OUTSIDE MARKERS LOGIC  ------------------------------------------------------------------------------------------- //
+const updateOutMarkers = (map: mapboxgl.Map, outMarkers: Map<Marker, Marker>, zoom: number, lastZoom: number) => {
+
+    const mapBounds = map.getBounds()!;
+    const { sw: sw, ne: ne, nw: nw, se: se, paddedMapBounds: paddedMapBounds } = getPaddedMapBounds(mapBounds);
+    const { lng: mapLng, lat: mapLat } = map.getCenter();
+
+    for (let marker of markers.keys()) {
+
+        const coordinates = markers.get(marker);
+        if (!coordinates) continue;
+        const [markerLng, markerLat] = coordinates;
+
+        if (!paddedMapBounds.contains([markerLng, markerLat])) {
+            if (zoom <= 11) {
+                const line = turf.lineString([[mapLng, mapLat], [markerLng, markerLat]]);
+                const viewportEdges = [
+                    turf.lineString([nw, ne]),
+                    turf.lineString([sw, se]),
+                    turf.lineString([nw, sw]),
+                    turf.lineString([ne, se])
+                ];
+                for (const edge of viewportEdges) {
+                    const intersects = turf.intersect(line, edge);
+                    if (intersects !== undefined) {
+                        marker.setLngLat(intersects.geometry.coordinates as [number, number])
+                        break;
+                    }
+                }
+                if (lastZoom > 11) {
+                    marker.addTo(map);
+                    fadeInMarker(marker);
+                }
+            } else if (lastZoom <= 11) {
+                removeMarker(marker);
+            }
+        } else {
+            marker.setLngLat([markerLng, markerLat]);
+        };
+    }
+    return outMarkers;
+}
+
+
+// GET PADDED MAP BOUNDS -------------------------------------------------------------------------------------------- //
+const getPaddedMapBounds = (mapBounds: LngLatBounds, paddingFactor: number = 0.1) => {
+    // sw and ne corners
+    const { lng: swLng, lat: swLat } = mapBounds.getSouthWest();
+    const { lng: neLng, lat: neLat } = mapBounds.getNorthEast();
+
+    // adjusted w/ padding
+    const latPadding = (neLat - swLat) * paddingFactor;
+    const lngPadding = (neLng - swLng) * paddingFactor;
+
+    const sw = [swLng + 1.5 * lngPadding, swLat + latPadding];
+    const ne = [neLng - lngPadding, neLat - latPadding];
+    const nw = [swLng + lngPadding, neLat - latPadding];
+    const se = [neLng - lngPadding, swLat + latPadding];
+    const paddedMapBounds = mapBounds.setNorthEast(ne as [number, number]).setSouthWest(sw as [number, number])
+
+    return {
+        sw: sw,
+        ne: ne,
+        nw: nw,
+        se: se,
+        paddedMapBounds: paddedMapBounds
+    }
+}
+
+const removeMarker = (marker: mapboxgl.Marker) => {
+    const el = marker.getElement();
+    setTimeout(() => {
+        el.style.opacity = '0';
+        marker.remove();
+    }, 500);
+    
+}
+
+const fadeInMarker = (marker: mapboxgl.Marker) => {
+    const el = marker.getElement();
+    el.style.opacity = '0';
+    setTimeout(() => {
+        el.style.opacity = '1';
+    }, 10);
+};
+
+
+export { setFinalProperties, setMarkers, updateOutMarkers };

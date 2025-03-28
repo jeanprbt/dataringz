@@ -717,8 +717,8 @@
     "date_end": "2024-07-31T03:15:00Z",
     "description": "Olympic venue hosting Surfing",
     "location": {
-      "latitude": null,
-      "longitude": null
+      "latitude": -17.8417,
+      "longitude": -149.2670
     }
   },
   "trocadero": {

@@ -1,30 +1,23 @@
 <template>
     <div ref="mapContainer" :class="['flex-1 relative overflow-hidden', { 'pointer-events-none': introPlaying }]"></div>
-    <button
-        ref="skipButton"
-        v-show="showSkipButton"
-        @click="skipIntro"
-        class="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 hover:dark:text-zinc-400 px-4 py-2 rounded-lg shadow-md backdrop-blur-3xl"
-    >
+    <button ref="skipButton" v-show="showSkipButton" @click="skipIntro"
+        class="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 hover:dark:text-zinc-300 px-4 py-2 rounded-lg shadow-md backdrop-blur-3xl">
         skip intro
     </button>
-    <div 
-        ref="textContainer"
-        v-if="showText"
+    <div ref="textContainer" v-if="showText"
         class="text absolute top-10 left-1/2 transform -translate-x-1/2 text-zinc-900 dark:text-gray-100 p-4 text-center"
-        style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)}"
-    >
+        style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)}">
         {{ currentText }}
     </div>
 </template>
 
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
-import mapboxgl, { type EasingOptions, type MapOptions } from 'mapbox-gl';
+import mapboxgl, { type EasingOptions, type MapOptions, type Marker } from 'mapbox-gl';
 import type { FeatureCollection, Point } from "geojson";
 
 import { playIntro } from "~/utils/intro";
-import { setFinalProperties, setMarkers } from '~/utils/map';
+import { setFinalProperties, setMarkers, updateOutMarkers } from '~/utils/map';
 import { displaySkipButton, hideSkipButton } from '~/utils/animations';
 import { start, paris } from '~/utils/constants';
 
@@ -83,7 +76,9 @@ const color = computed(() => {
 });
 
 let map: mapboxgl.Map;
-let venues: FeatureCollection<Point>
+let venues: FeatureCollection<Point>;
+let outMarkers = new Map<Marker, Marker>();
+let lastZoom: number = 0;
 
 onMounted(async () => {
     if (!isClient) return;
@@ -171,22 +166,12 @@ onMounted(async () => {
         await setMarkers(map, router, venues);
     });
 
-    map.on('click', (e) => {
-        const features = map?.queryRenderedFeatures(e.point, {
-            layers: ['add-3d-buildings']
-        });
-        if (features && features.length > 0) {
-            const buildingId = features[0].id;
-            console.log('Building ID:', buildingId);
-        }
-    });
-
-    // Display longitude and latitude on click
-    map.on('click', function (e) {
-        let coordinates = e.lngLat;
-        console.log('You clicked here:', coordinates);
-    });
-
+    // OUT MARKERS UPDATE LOGIC ------------------------------------------------------------------------------------- //
+    map.on('move', () => {
+        const zoom = map.getZoom()
+        updateOutMarkers(map, outMarkers, zoom, lastZoom);
+        lastZoom = zoom;
+    })
 });
 
 onUnmounted(() => {
@@ -194,4 +179,6 @@ onUnmounted(() => {
         map.remove();
     }
 });
+
+
 </script>

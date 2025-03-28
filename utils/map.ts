@@ -1,4 +1,4 @@
-import mapboxgl, { LngLatBounds, type Marker, type EasingOptions } from 'mapbox-gl';
+import mapboxgl, { LngLatBounds, type Marker, type EasingOptions, type LngLatBoundsLike } from 'mapbox-gl';
 import { type Router } from 'vue-router';
 import * as turf from 'turf';
 
@@ -134,7 +134,29 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
 
         // Add click event
         marker.getElement().addEventListener('click', async () => {
-            if (map.getZoom() <= 15) {
+            const { lng: lng, lat: lat } = map.getCenter();
+            if (Math.abs(markerCoordinates[0] - lng) > 1 && Math.abs(markerCoordinates[1] - lat) > 1) {
+                map.setMinZoom(undefined);
+                // @ts-ignore
+                map.setMaxBounds(undefined);
+                await new Promise<void>(async (resolve): Promise<void> => {
+                    map.flyTo({
+                        center: markerCoordinates,
+                        zoom: 15.5,
+                        bearing: 0,
+                        pitch: 55,
+                        duration: 4000,
+                        essential: true,
+                        curve: 1
+                    } as EasingOptions);
+                    map.once('moveend', () => resolve());
+                }).catch(() => { });
+                map.setMinZoom(10);
+                map.setMaxBounds([
+                    [markerCoordinates[0] - 0.5, markerCoordinates[1] - 0.5], 
+                    [markerCoordinates[0] + 0.5, markerCoordinates[1] + 0.5]
+                ]);
+            } else if (map.getZoom() <= 15) {
                 await new Promise<void>(async (resolve): Promise<void> => {
                     map.flyTo({
                         center: markerCoordinates,

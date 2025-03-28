@@ -34,14 +34,14 @@
     "url": "https://olympics.com/en/paris-2024/venues/bercy-arena",
     "sports": [
       {
-        "slug": "artistic-gymnastics",
-        "name": "Artistic Gymnastics",
-        "icon": "/img/sports/SVG/artistic-gymnastics.svg"
-      },
-      {
         "slug": "basketball",
         "name": "Basketball",
         "icon": "/img/sports/SVG/basketball.svg"
+      },
+      {
+        "slug": "artistic-gymnastics",
+        "name": "Artistic Gymnastics",
+        "icon": "/img/sports/SVG/artistic-gymnastics.svg"
       },
       {
         "slug": "trampoline-gymnastics",
@@ -326,7 +326,7 @@
     }
   },
   "le-bourget-climbing-venue": {
-    "name": "Le Bourget Sport Climbing Venue",
+    "name": "Le Bourget Climbing Venue",
     "slug": "le-bourget-climbing-venue",
     "url": "https://olympics.com/en/paris-2024/venues/le-bourget-climbing-venue",
     "sports": [
@@ -584,19 +584,18 @@
     }
   },
   "roland-garros-stadium": {
-    "name": "Stade Roland-Garros",
+    "name": "Roland-Garros",
     "slug": "roland-garros-stadium",
     "url": "https://olympics.com/en/paris-2024/venues/roland-garros-stadium",
     "sports": [
       {
-        "slug": "boxing",
-        "name": "Boxing",
-        "icon": "/img/sports/SVG/boxing.svg"
-      },
-      {
         "slug": "tennis",
         "name": "Tennis",
         "icon": "/img/sports/SVG/tennis.svg"
+      }, {
+        "slug": "boxing",
+        "name": "Boxing",
+        "icon": "/img/sports/SVG/boxing.svg"
       }
     ],
     "date_start": "2024-07-27T10:00:00Z",
@@ -632,9 +631,9 @@
     "url": "https://olympics.com/en/paris-2024/venues/saint-quentin-en-yvelines-velodrome",
     "sports": [
       {
-        "slug": "cycling-track-",
+        "slug": "cycling-track",
         "name": "Cycling Track ",
-        "icon": "/img/sports/SVG/cycling-track-.svg"
+        "icon": "/img/sports/SVG/cycling-track.svg"
       }
     ],
     "date_start": "2024-08-05T15:00:00Z",

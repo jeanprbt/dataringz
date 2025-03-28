@@ -192,6 +192,149 @@
                     152838
                 ]
             }
+        }, 
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.249258, 48.847115]
+            },
+            "properties": {
+                "name": "Roland-Garros",
+                "slug": "roland-garros-stadium",
+                "buildingIds": [
+                    1175317002
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.378483, 48.838557]
+            },
+            "properties": {
+                "name": "Bercy Arena",
+                "slug": "bercy-arena",
+                "buildingIds": [
+                    252495444
+                ]
+            }
+        }, 
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.360733, 48.899769]
+            },
+            "properties": {
+                "name": "Arena Porte de la Chapelle",
+                "slug": "porte-de-la-chapelle-arena",
+                "buildingIds": [
+                    1339845625, 1339845636, 1339845627, 18367324, 1339845630, 1339845626, 1339845628, 1339845632, 1339845631
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.247706, 48.929280]
+            },
+            "properties": {
+                "name": "Yves-du-Manoir Stadium",
+                "slug": "yves-du-manoir-stadium",
+                "buildingIds": [
+                    77532389, 1347790727, 1347790728, 1347790729
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.635673, 48.861524]
+            },
+            "properties": {
+                "name": "Vaires-sur-Marne Nautical Stadium",
+                "slug": "vaires-sur-marne-nautical-stadium",
+                "buildingIds": [
+                    902106264, 3674152640477395, 5016927119853295, 5113993775628655, 1289036056, 1041501608, 3978592790922985, 
+                    3043636494021315, 4629744270737775, 1904837425915975, 902106260, 902106264
+                ]
+            }
+        }, 
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.035000, 48.788121]
+            },
+            "properties": {
+                "name": "Saint-Quentin-en-Yvelines Velodrome",
+                "slug": "saint-quentin-en-yvelines-velodrome",
+                "buildingIds": [
+                    112525618
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.034231, 48.786278]
+            },
+            "properties": {
+                "name": "Saint-Quentin-en-Yvelines BMX Stadium",
+                "slug": "saint-quentin-en-yvelines-bmx-stadium",
+                "buildingIds": [
+                    631605216
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [1.968540, 48.787643]
+            },
+            "properties": {
+                "name": "Elancourt Hill",
+                "slug": "elancourt-hill",
+                "buildingIds": [
+                    120006689, 1050063125112095
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.076277, 48.753212]
+            },
+            "properties": {
+                "name": "Golf National",
+                "slug": "le-golf-national",
+                "buildingIds": [
+                    120012167, 120014776, 4658681374427595, 20087148314755, 120014403, 1347804510, 120012906, 120011319, 
+                    116182746, 120010576, 120010925, 120013258, 2153259435291335, 486729954597105, 120010165, 120013658,
+                    120012522, 120015015, 1306222260, 1306222263
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2.417689, 48.937278]
+            },
+            "properties": {
+                "name": "Le Bourget Climbing Venue",
+                "slug": "le-bourget-climbing-venue",
+                "buildingIds": [
+                    1257508599
+                ]
+            }
         }
     ]
 }

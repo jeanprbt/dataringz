@@ -1,796 +1,1157 @@
 {
-  "aquatics-centre": {
-    "name": "Aquatics Centre",
-    "slug": "aquatics-centre",
-    "url": "https://olympics.com/en/paris-2024/venues/aquatics-centre",
-    "sports": [
-      {
-        "slug": "artistic-swimming",
-        "name": "Artistic Swimming",
-        "icon": "/img/sports/SVG/artistic-swimming.svg"
-      },
-      {
-        "slug": "diving",
-        "name": "Diving",
-        "icon": "/img/sports/SVG/diving.svg"
-      },
-      {
-        "slug": "water-polo",
-        "name": "Water Polo",
-        "icon": "/img/sports/SVG/water-polo.svg"
-      }
-    ],
-    "date_start": "2024-07-27T09:00:00Z",
-    "date_end": "2024-08-10T20:00:00Z",
-    "description": "Olympic venue hosting Artistic Swimming, Diving, Water Polo",
-    "location": {
-      "latitude": null,
-      "longitude": null
+    "aquatics-centre": {
+        "name": "Aquatics Centre",
+        "slug": "aquatics-centre",
+        "url": "https://olympics.com/en/paris-2024/venues/aquatics-centre",
+        "sports": [
+            {
+                "slug": "artistic-swimming",
+                "name": "Artistic Swimming",
+                "icon": "/img/sports/SVG/artistic-swimming.svg"
+            },
+            {
+                "slug": "diving",
+                "name": "Diving",
+                "icon": "/img/sports/SVG/diving.svg"
+            },
+            {
+                "slug": "water-polo",
+                "name": "Water Polo",
+                "icon": "/img/sports/SVG/water-polo.svg"
+            }
+        ],
+        "date_start": "2024-07-27T09:00:00Z",
+        "date_end": "2024-08-10T20:00:00Z",
+        "description": "Olympic venue hosting Artistic Swimming, Diving, Water Polo",
+        "location": {
+            "latitude": 48.923650,
+            "longitude": 2.355426
+        },
+        "buildingIds": [
+            1164494013
+        ]
+        
+    },
+    "bercy-arena": {
+        "name": "Bercy Arena",
+        "slug": "bercy-arena",
+        "url": "https://olympics.com/en/paris-2024/venues/bercy-arena",
+        "sports": [
+            {
+                "slug": "basketball",
+                "name": "Basketball",
+                "icon": "/img/sports/SVG/basketball.svg"
+            },
+            {
+                "slug": "artistic-gymnastics",
+                "name": "Artistic Gymnastics",
+                "icon": "/img/sports/SVG/artistic-gymnastics.svg"
+            },
+            {
+                "slug": "trampoline-gymnastics",
+                "name": "Trampoline Gymnastics",
+                "icon": "/img/sports/SVG/trampoline-gymnastics.svg"
+            }
+        ],
+        "date_start": "2024-07-27T09:00:00Z",
+        "date_end": "2024-08-11T16:00:00Z",
+        "description": "Olympic venue hosting Artistic Gymnastics, Basketball, Trampoline Gymnastics",
+        "location": {
+            "latitude": 48.838557,
+            "longitude": 2.378483
+        },
+        "buildingIds": [
+            252495444
+        ]
+    },
+    "bordeaux-stadium": {
+        "name": "Bordeaux Stadium",
+        "slug": "bordeaux-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/bordeaux-stadium",
+        "sports": [
+            {
+                "slug": "football",
+                "name": "Football",
+                "icon": "/img/sports/SVG/football.svg"
+            }
+        ],
+        "date_start": "2024-07-25T17:00:00Z",
+        "date_end": "2024-08-02T21:59:00Z",
+        "description": "Olympic venue hosting Football",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "champ-de-mars-arena": {
+        "name": "Champ de Mars Arena",
+        "slug": "champ-de-mars-arena",
+        "url": "https://olympics.com/en/paris-2024/venues/champ-de-mars-arena",
+        "sports": [
+            {
+                "slug": "judo",
+                "name": "Judo",
+                "icon": "/img/sports/SVG/judo.svg"
+            },
+            {
+                "slug": "wrestling",
+                "name": "Wrestling",
+                "icon": "/img/sports/SVG/wrestling.svg"
+            }
+        ],
+        "date_start": "2024-07-27T08:00:00Z",
+        "date_end": "2024-08-11T12:00:00Z",
+        "description": "Olympic venue hosting Judo, Wrestling",
+        "location": {
+            "latitude": 48.853236,
+            "longitude": 2.302553
+        },
+        "buildingIds": [
+            854459034
+        ]
+    },
+    "chateau-de-versailles": {
+        "name": "Château de Versailles",
+        "slug": "chateau-de-versailles",
+        "url": "https://olympics.com/en/paris-2024/venues/chateau-de-versailles",
+        "sports": [
+            {
+                "slug": "equestrian",
+                "name": "Equestrian",
+                "icon": "/img/sports/SVG/equestrian.svg"
+            },
+            {
+                "slug": "modern-pentathlon",
+                "name": "Modern Pentathlon",
+                "icon": "/img/sports/SVG/modern-pentathlon.svg"
+            }
+        ],
+        "date_start": "2024-07-27T07:30:00Z",
+        "date_end": "2024-08-11T11:30:00Z",
+        "description": "Olympic venue hosting Equestrian, Modern Pentathlon",
+        "location": {
+            "latitude": 48.804694,
+            "longitude": 2.120728
+        },
+        "buildingIds": [
+            1149002,
+            9087585,
+            74623864,
+            74623864,
+            224643670,
+            74630920,
+            124675339,
+            6697708,
+            6697704,
+            2122058393272355,
+            826644275091995,
+            5940542478555,
+            6697716,
+            6697709,
+            74634508,
+            74627901,
+            74630471,
+            74626528,
+            6697712,
+            124675247,
+            124675249,
+            124675246,
+            124675248,
+            95475818,
+            95475853,
+            92635973,
+            92635980,
+            92635985,
+            92635946,
+            11724440,
+            1620388745569955,
+            11724501,
+            982206810213435,
+            11724502,
+            2762294946974215,
+            2578318733555715
+        ]
+    },
+    "chateauroux-shooting-centre": {
+        "name": "Chateauroux Shooting Centre",
+        "slug": "chateauroux-shooting-centre",
+        "url": "https://olympics.com/en/paris-2024/venues/chateauroux-shooting-centre",
+        "sports": [
+            {
+                "slug": "shooting",
+                "name": "Shooting",
+                "icon": "/img/sports/SVG/shooting.svg"
+            }
+        ],
+        "date_start": "2024-07-27T07:00:00Z",
+        "date_end": "2024-08-05T14:35:00Z",
+        "description": "Olympic venue hosting Shooting",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "eiffel-tower-stadium": {
+        "name": "Eiffel Tower Stadium",
+        "slug": "eiffel-tower-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/eiffel-tower-stadium",
+        "sports": [
+            {
+                "slug": "beach-volleyball",
+                "name": "Beach Volleyball",
+                "icon": "/img/sports/SVG/beach-volleyball.svg"
+            }
+        ],
+        "date_start": "2024-07-27T12:00:00Z",
+        "date_end": "2024-08-10T21:59:00Z",
+        "description": "Olympic venue hosting Beach Volleyball",
+        "location": {
+            "latitude": 48.858093,
+            "longitude": 2.294694
+        },
+        "buildingIds": [
+            308687747,
+            308687744,
+            308689166,
+            308687752,
+            308687748,
+            308687745,
+            308687754,
+            308687750,
+            308689167,
+            308687746,
+            308687755,
+            308145258,
+            4114839,
+            308687751,
+            308689165,
+            449952613,
+            308689164,
+            308145259,
+            4114839,
+            308687753,
+            4114842,
+            4114841,
+            308145239,
+            69034127,
+            69034135,
+            69034180,
+            308687749,
+            69034179,
+            69034135,
+            308145236,
+            335101038,
+            308145234,
+            308145237,
+            308145233,
+            335101028,
+            335101035,
+            69034165
+        ]
+    },
+    "elancourt-hill": {
+        "name": "Elancourt Hill",
+        "slug": "elancourt-hill",
+        "url": "https://olympics.com/en/paris-2024/venues/elancourt-hill",
+        "sports": [
+            {
+                "slug": "cycling-mountain-bike",
+                "name": "Cycling Mountain Bike",
+                "icon": "/img/sports/SVG/cycling-mountain-bike.svg"
+            }
+        ],
+        "date_start": "2024-07-28T12:00:00Z",
+        "date_end": "2024-07-29T14:30:00Z",
+        "description": "Olympic venue hosting Cycling Mountain Bike",
+        "location": {
+            "latitude": 48.787643,
+            "longitude": 1.968540
+        },
+        "buildingIds": [
+            120006689,
+            1050063125112095
+        ]
+    },
+    "geoffroy-guichard-stadium": {
+        "name": "Geoffroy-Guichard Stadium",
+        "slug": "geoffroy-guichard-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/geoffroy-guichard-stadium",
+        "sports": [
+            {
+                "slug": "football",
+                "name": "Football",
+                "icon": "/img/sports/SVG/football.svg"
+            }
+        ],
+        "date_start": "2024-07-25T13:00:00Z",
+        "date_end": "2024-07-31T19:00:00Z",
+        "description": "Olympic venue hosting Football",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "grand-palais": {
+        "name": "Grand Palais",
+        "slug": "grand-palais",
+        "url": "https://olympics.com/en/paris-2024/venues/grand-palais",
+        "sports": [
+            {
+                "slug": "fencing",
+                "name": "Fencing",
+                "icon": "/img/sports/SVG/fencing.svg"
+            },
+            {
+                "slug": "taekwondo",
+                "name": "Taekwondo",
+                "icon": "/img/sports/SVG/taekwondo.svg"
+            }
+        ],
+        "date_start": "2024-07-27T08:00:00Z",
+        "date_end": "2024-08-10T21:00:00Z",
+        "description": "Olympic venue hosting Fencing, Taekwondo",
+        "location": {
+            "latitude": 48.866096,
+            "longitude": 2.312156
+        },
+        "buildingIds": [
+            822470559,
+            822470557,
+            822470558,
+            822470542,
+            822470525,
+            822470553,
+            188108997,
+            822470554,
+            822470565
+        ]
+    },
+    "hotel-de-ville": {
+        "name": "Hôtel de Ville",
+        "slug": "hotel-de-ville",
+        "url": "https://olympics.com/en/paris-2024/venues/hotel-de-ville",
+        "sports": [
+            {
+                "slug": "athletics",
+                "name": "Athletics",
+                "icon": "/img/sports/SVG/athletics.svg"
+            }
+        ],
+        "date_start": "2024-08-10T06:00:00Z",
+        "date_end": "2024-08-11T09:15:00Z",
+        "description": "Olympic venue hosting Athletics",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "invalides": {
+        "name": "Invalides",
+        "slug": "invalides",
+        "url": "https://olympics.com/en/paris-2024/venues/invalides",
+        "sports": [
+            {
+                "slug": "archery",
+                "name": "Archery",
+                "icon": "/img/sports/SVG/archery.svg"
+            },
+            {
+                "slug": "athletics",
+                "name": "Athletics",
+                "icon": "/img/sports/SVG/athletics.svg"
+            },
+            {
+                "slug": "cycling-road",
+                "name": "Cycling Road",
+                "icon": "/img/sports/SVG/cycling-road.svg"
+            }
+        ],
+        "date_start": "2024-07-25T07:30:00Z",
+        "date_end": "2024-08-04T13:20:00Z",
+        "description": "Olympic venue hosting Archery, Athletics, Cycling Road",
+        "location": {
+            "latitude": 48.856091,
+            "longitude": 2.312772
+        },
+        "buildingIds": [
+            3311814,
+            244945091,
+            3311815,
+            3311813,
+            227662017,
+            227662016,
+            227662013,
+            227662005,
+            64955066,
+            5587792508812005,
+            64955050,
+            64955052,
+            64954996,
+            64955038,
+            2361730293122035,
+            675665594515385,
+            64955054,
+            64955021,
+            1543187662874405,
+            64955060,
+            444949746035355,
+            64955036,
+            64955009,
+            5054577255772795,
+            64955051,
+            64955056,
+            64955057,
+            4337331195385635,
+            4432061787451205,
+            4094928500208085,
+            2583020448838855,
+            5369020551408125,
+            103202709,
+            103202696,
+            103328588,
+            916393671934845,
+            64955044,
+            3325221,
+            3325376,
+            3325377,
+            262953763357725,
+            246135656,
+            246135651,
+            244945090,
+            244945093,
+            244945092,
+            227662009,
+            227662015,
+            227662007,
+            227662014,
+            227662011,
+            227662012,
+            227662030,
+            227662011,
+            227662008,
+            227662010,
+            227662029,
+            227662006,
+            664180362,
+            246135677,
+            246135679,
+            227662023,
+            227662026,
+            227662028,
+            227662027
+        ]
+    },
+    "la-beaujoire-stadium": {
+        "name": "La Beaujoire Stadium",
+        "slug": "la-beaujoire-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/la-beaujoire-stadium",
+        "sports": [
+            {
+                "slug": "football",
+                "name": "Football",
+                "icon": "/img/sports/SVG/football.svg"
+            }
+        ],
+        "date_start": "2024-07-25T15:00:00Z",
+        "date_end": "2024-08-08T18:00:00Z",
+        "description": "Olympic venue hosting Football",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "la-concorde": {
+        "name": "La Concorde",
+        "slug": "la-concorde",
+        "url": "https://olympics.com/en/paris-2024/venues/la-concorde",
+        "sports": [
+            {
+                "slug": "3x3-basketball",
+                "name": "3x3 Basketball",
+                "icon": "/img/sports/SVG/3x3-basketball.svg"
+            },
+            {
+                "slug": "breaking",
+                "name": "Breaking",
+                "icon": "/img/sports/SVG/breaking.svg"
+            },
+            {
+                "slug": "cycling-bmx-freestyle",
+                "name": "Cycling BMX Freestyle",
+                "icon": "/img/sports/SVG/cycling-bmx-freestyle.svg"
+            },
+            {
+                "slug": "skateboarding",
+                "name": "Skateboarding",
+                "icon": "/img/sports/SVG/skateboarding.svg"
+            }
+        ],
+        "date_start": "2024-07-27T10:00:00Z",
+        "date_end": "2024-08-10T20:00:00Z",
+        "description": "Olympic venue hosting 3x3 Basketball, Breaking, Cycling BMX Freestyle, Skateboarding",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "le-bourget-climbing-venue": {
+        "name": "Le Bourget Climbing Venue",
+        "slug": "le-bourget-climbing-venue",
+        "url": "https://olympics.com/en/paris-2024/venues/le-bourget-climbing-venue",
+        "sports": [
+            {
+                "slug": "sport-climbing",
+                "name": "Sport Climbing",
+                "icon": "/img/sports/SVG/sport-climbing.svg"
+            }
+        ],
+        "date_start": "2024-08-05T08:00:00Z",
+        "date_end": "2024-08-10T11:20:00Z",
+        "description": "Olympic venue hosting Sport Climbing",
+        "location": {
+            "latitude": 48.937278,
+            "longitude": 2.417689
+        },
+        "buildingIds": [
+            1257508599
+        ]
+    },
+    "le-golf-national": {
+        "name": "Golf National",
+        "slug": "le-golf-national",
+        "url": "https://olympics.com/en/paris-2024/venues/le-golf-national",
+        "sports": [
+            {
+                "slug": "golf",
+                "name": "Golf",
+                "icon": "/img/sports/SVG/golf.svg"
+            }
+        ],
+        "date_start": "2024-08-01T07:00:00Z",
+        "date_end": "2024-08-10T16:30:00Z",
+        "description": "Olympic venue hosting Golf",
+        "location": {
+            "latitude": 48.753212,
+            "longitude": 2.076277
+        },
+        "buildingIds": [
+            120012167,
+            120014776,
+            4658681374427595,
+            20087148314755,
+            120014403,
+            1347804510,
+            120012906,
+            120011319,
+            116182746,
+            120010576,
+            120010925,
+            120013258,
+            2153259435291335,
+            486729954597105,
+            120010165,
+            120013658,
+            120012522,
+            120015015,
+            1306222260,
+            1306222263
+        ]
+    },
+    "lyon-stadium": {
+        "name": "Lyon Stadium",
+        "slug": "lyon-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/lyon-stadium",
+        "sports": [
+            {
+                "slug": "football",
+                "name": "Football",
+                "icon": "/img/sports/SVG/football.svg"
+            }
+        ],
+        "date_start": "2024-07-25T17:00:00Z",
+        "date_end": "2024-08-09T16:00:00Z",
+        "description": "Olympic venue hosting Football",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "marseille-marina": {
+        "name": "Marseille Marina",
+        "slug": "marseille-marina",
+        "url": "https://olympics.com/en/paris-2024/venues/marseille-marina",
+        "sports": [
+            {
+                "slug": "sailing",
+                "name": "Sailing",
+                "icon": "/img/sports/SVG/sailing.svg"
+            }
+        ],
+        "date_start": "2024-07-28T09:00:00Z",
+        "date_end": "2024-08-08T17:00:00Z",
+        "description": "Olympic venue hosting Sailing",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "marseille-stadium": {
+        "name": "Marseille Stadium",
+        "slug": "marseille-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/marseille-stadium",
+        "sports": [
+            {
+                "slug": "football",
+                "name": "Football",
+                "icon": "/img/sports/SVG/football.svg"
+            }
+        ],
+        "date_start": "2024-07-25T19:00:00Z",
+        "date_end": "2024-08-06T21:59:00Z",
+        "description": "Olympic venue hosting Football",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "nice-stadium": {
+        "name": "Nice Stadium",
+        "slug": "nice-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/nice-stadium",
+        "sports": [
+            {
+                "slug": "football",
+                "name": "Football",
+                "icon": "/img/sports/SVG/football.svg"
+            }
+        ],
+        "date_start": "2024-07-25T15:00:00Z",
+        "date_end": "2024-08-31T21:00:00Z",
+        "description": "Olympic venue hosting Football",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "north-paris-arena": {
+        "name": "North Paris Arena",
+        "slug": "north-paris-arena",
+        "url": "https://olympics.com/en/paris-2024/venues/north-paris-arena",
+        "sports": [
+            {
+                "slug": "boxing",
+                "name": "Boxing",
+                "icon": "/img/sports/SVG/boxing.svg"
+            },
+            {
+                "slug": "modern-pentathlon",
+                "name": "Modern Pentathlon",
+                "icon": "/img/sports/SVG/modern-pentathlon.svg"
+            }
+        ],
+        "date_start": "2024-07-27T13:30:00Z",
+        "date_end": "2024-08-08T15:30:00Z",
+        "description": "Olympic venue hosting Boxing, Modern Pentathlon",
+        "location": {
+            "latitude": 48.971849,
+            "longitude": 2.514594
+        },
+        "buildingIds": [
+            146518510,
+            146518839
+        ]
+    },
+    "parc-des-princes": {
+        "name": "Parc des Princes",
+        "slug": "parc-des-princes",
+        "url": "https://olympics.com/en/paris-2024/venues/parc-des-princes",
+        "sports": [
+            {
+                "slug": "football",
+                "name": "Football",
+                "icon": "/img/sports/SVG/football.svg"
+            }
+        ],
+        "date_start": "2024-07-25T13:00:00Z",
+        "date_end": "2024-08-10T18:30:00Z",
+        "description": "Olympic venue hosting Football",
+        "location": {
+            "latitude": 48.841555,
+            "longitude": 2.253097
+        },
+        "buildingIds": [
+            152838
+        ]
+    },
+    "paris-la-defense-arena": {
+        "name": "Paris La Defense Arena",
+        "slug": "paris-la-defense-arena",
+        "url": "https://olympics.com/en/paris-2024/venues/paris-la-defense-arena",
+        "sports": [
+            {
+                "slug": "swimming",
+                "name": "Swimming",
+                "icon": "/img/sports/SVG/swimming.svg"
+            },
+            {
+                "slug": "water-polo",
+                "name": "Water Polo",
+                "icon": "/img/sports/SVG/water-polo.svg"
+            }
+        ],
+        "date_start": "2024-07-27T09:00:00Z",
+        "date_end": "2024-08-11T13:50:00Z",
+        "description": "Olympic venue hosting Swimming, Water Polo",
+        "location": {
+            "latitude": 48.895226,
+            "longitude": 2.229182
+        },
+        "buildingIds": [
+            14479234,
+            443073294
+        ]
+    },
+    "pierre-mauroy-stadium": {
+        "name": "Pierre Mauroy Stadium",
+        "slug": "pierre-mauroy-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/pierre-mauroy-stadium",
+        "sports": [
+            {
+                "slug": "basketball",
+                "name": "Basketball",
+                "icon": "/img/sports/SVG/basketball.svg"
+            },
+            {
+                "slug": "handball",
+                "name": "Handball",
+                "icon": "/img/sports/SVG/handball.svg"
+            }
+        ],
+        "date_start": "2024-07-27T09:00:00Z",
+        "date_end": "2024-08-11T14:00:00Z",
+        "description": "Olympic venue hosting Basketball, Handball",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "pont-alexandre-iii": {
+        "name": "Pont Alexandre III",
+        "slug": "pont-alexandre-iii",
+        "url": "https://olympics.com/en/paris-2024/venues/pont-alexandre-iii",
+        "sports": [
+            {
+                "slug": "cycling-road",
+                "name": "Cycling Road",
+                "icon": "/img/sports/SVG/cycling-road.svg"
+            },
+            {
+                "slug": "marathon-swimming",
+                "name": "Marathon Swimming",
+                "icon": "/img/sports/SVG/marathon-swimming.svg"
+            },
+            {
+                "slug": "triathlon",
+                "name": "Triathlon",
+                "icon": "/img/sports/SVG/triathlon.svg"
+            }
+        ],
+        "date_start": "2024-07-30T06:00:00Z",
+        "date_end": "2024-08-09T08:30:00Z",
+        "description": "Olympic venue hosting Cycling Road, Marathon Swimming, Triathlon",
+        "location": {
+            "latitude": 48.863614,
+            "longitude": 2.313530
+        },
+        "buildingIds": [
+            230227013,
+            230227014,
+            230227015,
+            64959941
+        ]
+    },
+    "porte-de-la-chapelle-arena": {
+        "name": "Porte de La Chapelle Arena",
+        "slug": "porte-de-la-chapelle-arena",
+        "url": "https://olympics.com/en/paris-2024/venues/porte-de-la-chapelle-arena",
+        "sports": [
+            {
+                "slug": "badminton",
+                "name": "Badminton",
+                "icon": "/img/sports/SVG/badminton.svg"
+            },
+            {
+                "slug": "rhythmic-gymnastics",
+                "name": "Rhythmic Gymnastics",
+                "icon": "/img/sports/SVG/rhythmic-gymnastics.svg"
+            }
+        ],
+        "date_start": "2024-07-27T06:30:00Z",
+        "date_end": "2024-08-10T13:45:00Z",
+        "description": "Olympic venue hosting Badminton, Rhythmic Gymnastics",
+        "location": {
+            "latitude": 48.899769,
+            "longitude": 2.360733
+        },
+        "buildingIds": [
+            1339845625,
+            1339845636,
+            1339845627,
+            18367324,
+            1339845630,
+            1339845626,
+            1339845628,
+            1339845632,
+            1339845631
+        ]
+    },
+    "roland-garros-stadium": {
+        "name": "Roland-Garros",
+        "slug": "roland-garros-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/roland-garros-stadium",
+        "sports": [
+            {
+                "slug": "tennis",
+                "name": "Tennis",
+                "icon": "/img/sports/SVG/tennis.svg"
+            },
+            {
+                "slug": "boxing",
+                "name": "Boxing",
+                "icon": "/img/sports/SVG/boxing.svg"
+            }
+        ],
+        "date_start": "2024-07-27T10:00:00Z",
+        "date_end": "2024-08-10T21:30:00Z",
+        "description": "Olympic venue hosting Boxing, Tennis",
+        "location": {
+            "latitude": 48.847115,
+            "longitude": 2.249258
+        },
+        "buildingIds": [
+            1175317002
+        ]
+    },
+    "saint-quentin-en-yvelines-bmx-stadium": {
+        "name": "Saint-Quentin-en-Yvelines BMX Stadium",
+        "slug": "saint-quentin-en-yvelines-bmx-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/saint-quentin-en-yvelines-bmx-stadium",
+        "sports": [
+            {
+                "slug": "cycling-bmx-racing",
+                "name": "Cycling BMX Racing",
+                "icon": "/img/sports/SVG/cycling-bmx-racing.svg"
+            }
+        ],
+        "date_start": "2024-08-01T18:00:00Z",
+        "date_end": "2024-08-02T20:30:00Z",
+        "description": "Olympic venue hosting Cycling BMX Racing",
+        "location": {
+            "latitude": 48.786278,
+            "longitude": 2.034231
+        },
+        "buildingIds": [
+            631605216
+        ]
+    },
+    "saint-quentin-en-yvelines-velodrome": {
+        "name": "Saint-Quentin-en-Yvelines Velodrome",
+        "slug": "saint-quentin-en-yvelines-velodrome",
+        "url": "https://olympics.com/en/paris-2024/venues/saint-quentin-en-yvelines-velodrome",
+        "sports": [
+            {
+                "slug": "cycling-track",
+                "name": "Cycling Track ",
+                "icon": "/img/sports/SVG/cycling-track.svg"
+            }
+        ],
+        "date_start": "2024-08-05T15:00:00Z",
+        "date_end": "2024-08-11T12:40:00Z",
+        "description": "Olympic venue hosting Cycling Track ",
+        "location": {
+            "latitude": 48.788121,
+            "longitude": 2.035000
+        },
+        "buildingIds": [
+            112525618
+        ]
+    },
+    "south-paris-arena": {
+        "name": "South Paris Arena",
+        "slug": "south-paris-arena",
+        "url": "https://olympics.com/en/paris-2024/venues/south-paris-arena",
+        "sports": [
+            {
+                "slug": "handball",
+                "name": "Handball",
+                "icon": "/img/sports/SVG/handball.svg"
+            },
+            {
+                "slug": "table-tennis",
+                "name": "Table Tennis",
+                "icon": "/img/sports/SVG/table-tennis.svg"
+            },
+            {
+                "slug": "volleyball",
+                "name": "Volleyball",
+                "icon": "/img/sports/SVG/volleyball.svg"
+            },
+            {
+                "slug": "weightlifting",
+                "name": "Weightlifting",
+                "icon": "/img/sports/SVG/weightlifting.svg"
+            }
+        ],
+        "date_start": "2024-07-25T07:00:00Z",
+        "date_end": "2024-08-11T13:45:00Z",
+        "description": "Olympic venue hosting Handball, Table Tennis, Volleyball, Weightlifting",
+        "location": {
+            "latitude": 48.830172,
+            "longitude": 2.288299
+        },
+        "buildingIds": [
+            23811464,
+            754205325,
+            754205324,
+            1152642684,
+            14373844,
+            1080274347,
+            491579343,
+            42736338,
+            404252944,
+            1334598502,
+            44326511,
+            491579072,
+            53671289,
+            42736341,
+            42736342,
+            42736339,
+            42736340,
+            124188864,
+            3586949549078625,
+            629909915516855,
+            42676126,
+            44326513,
+            44326512,
+            53671183,
+            53671339,
+            53671193,
+            53671394,
+            53671395,
+            53671199,
+            1080274367,
+            53671385,
+            53671185,
+            53671347,
+            53671340,
+            53671373,
+            53671324,
+            53671286,
+            53671387,
+            53671260,
+            53671187,
+            53671310,
+            53671292,
+            53671367,
+            53671226,
+            53671404,
+            53671220,
+            53671364,
+            53671383,
+            53671293,
+            53671252,
+            53671349,
+            53671273,
+            53671276,
+            53671380,
+            53671190,
+            53671333,
+            53671397,
+            53671335,
+            53671206
+        ]
+    },
+    "stade-de-france": {
+        "name": "Stade de France",
+        "slug": "stade-de-france",
+        "url": "https://olympics.com/en/paris-2024/venues/stade-de-france",
+        "sports": [
+            {
+                "slug": "athletics",
+                "name": "Athletics",
+                "icon": "/img/sports/SVG/athletics.svg"
+            },
+            {
+                "slug": "rugby-sevens",
+                "name": "Rugby Sevens",
+                "icon": "/img/sports/SVG/rugby-sevens.svg"
+            }
+        ],
+        "date_start": "2024-07-24T13:30:00Z",
+        "date_end": "2024-08-10T20:30:00Z",
+        "description": "Olympic venue hosting Athletics, Rugby Sevens",
+        "location": {
+            "latitude": 48.924549,
+            "longitude": 2.359627
+        },
+        "buildingIds": [
+            3009844,
+            226403486,
+            226371220,
+            226371215,
+            226371208,
+            226371221,
+            226371220,
+            226371215,
+            226371208,
+            226371221,
+            226371211,
+            226371214,
+            226371209,
+            226371216,
+            226371219,
+            226371210,
+            226371213,
+            226371217,
+            226371206,
+            226371212,
+            226371218,
+            226403485,
+            226403489,
+            226403484,
+            226403485,
+            226371204,
+            226371205,
+            226371207,
+            226403483,
+            226403488,
+            226403482,
+            226403487,
+            3009845
+        ]
+    },
+    "teahupo-o-tahiti": {
+        "name": "Teahupo'o, Tahiti",
+        "slug": "teahupo-o-tahiti",
+        "url": "https://olympics.com/en/paris-2024/venues/teahupo-o-tahiti",
+        "sports": [
+            {
+                "slug": "surfing",
+                "name": "Surfing",
+                "icon": "/img/sports/SVG/surfing.svg"
+            }
+        ],
+        "date_start": "2024-07-27T17:00:00Z",
+        "date_end": "2024-07-31T03:15:00Z",
+        "description": "Olympic venue hosting Surfing",
+        "location": {
+            "latitude": -17.8417,
+            "longitude": -149.2670
+        },
+        "buildingIds": []
+    },
+    "trocadero": {
+        "name": "Trocadéro",
+        "slug": "trocadero",
+        "url": "https://olympics.com/en/paris-2024/venues/trocadero",
+        "sports": [
+            {
+                "slug": "athletics",
+                "name": "Athletics",
+                "icon": "/img/sports/SVG/athletics.svg"
+            },
+            {
+                "slug": "cycling-road",
+                "name": "Cycling Road",
+                "icon": "/img/sports/SVG/cycling-road.svg"
+            }
+        ],
+        "date_start": "2024-08-01T05:30:00Z",
+        "date_end": "2024-08-07T08:50:00Z",
+        "description": "Olympic venue hosting Athletics, Cycling Road",
+        "location": {
+            "latitude": null,
+            "longitude": null
+        },
+        "buildingIds": []
+    },
+    "vaires-sur-marne-nautical-stadium": {
+        "name": "Vaires-sur-Marne Nautical Stadium",
+        "slug": "vaires-sur-marne-nautical-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/vaires-sur-marne-nautical-stadium",
+        "sports": [
+            {
+                "slug": "canoe-kayak-slalom",
+                "name": "Canoe Slalom",
+                "icon": "/img/sports/SVG/canoe-kayak-slalom.svg"
+            },
+            {
+                "slug": "canoe-kayak-flatwater",
+                "name": "Canoe Sprint",
+                "icon": "/img/sports/SVG/canoe-kayak-flatwater.svg"
+            },
+            {
+                "slug": "rowing",
+                "name": "Rowing",
+                "icon": "/img/sports/SVG/rowing.svg"
+            }
+        ],
+        "date_start": "",
+        "date_end": "",
+        "description": "Olympic venue hosting Canoe Slalom, Canoe Sprint, Rowing",
+        "location": {
+            "latitude": 48.861524,
+            "longitude": 2.635673
+        },
+        "buildingIds": [
+            902106264,
+            3674152640477395,
+            5016927119853295,
+            5113993775628655,
+            1289036056,
+            1041501608,
+            3978592790922985,
+            3043636494021315,
+            4629744270737775,
+            1904837425915975,
+            902106260,
+            902106264
+        ]
+    },
+    "yves-du-manoir-stadium": {
+        "name": "Yves-du-Manoir Stadium",
+        "slug": "yves-du-manoir-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/yves-du-manoir-stadium",
+        "sports": [
+            {
+                "slug": "hockey",
+                "name": "Hockey",
+                "icon": "/img/sports/SVG/hockey.svg"
+            }
+        ],
+        "date_start": "2024-07-27T08:00:00Z",
+        "date_end": "2024-08-09T20:30:00Z",
+        "description": "Olympic venue hosting Hockey",
+        "location": {
+            "latitude": 48.929280,
+            "longitude": 2.247706
+        },
+        "buildingIds": [
+            77532389,
+            1347790727,
+            1347790728,
+            1347790729
+        ]
     }
-  },
-  "bercy-arena": {
-    "name": "Bercy Arena",
-    "slug": "bercy-arena",
-    "url": "https://olympics.com/en/paris-2024/venues/bercy-arena",
-    "sports": [
-      {
-        "slug": "basketball",
-        "name": "Basketball",
-        "icon": "/img/sports/SVG/basketball.svg"
-      },
-      {
-        "slug": "artistic-gymnastics",
-        "name": "Artistic Gymnastics",
-        "icon": "/img/sports/SVG/artistic-gymnastics.svg"
-      },
-      {
-        "slug": "trampoline-gymnastics",
-        "name": "Trampoline Gymnastics",
-        "icon": "/img/sports/SVG/trampoline-gymnastics.svg"
-      }
-    ],
-    "date_start": "2024-07-27T09:00:00Z",
-    "date_end": "2024-08-11T16:00:00Z",
-    "description": "Olympic venue hosting Artistic Gymnastics, Basketball, Trampoline Gymnastics",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "bordeaux-stadium": {
-    "name": "Bordeaux Stadium",
-    "slug": "bordeaux-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/bordeaux-stadium",
-    "sports": [
-      {
-        "slug": "football",
-        "name": "Football",
-        "icon": "/img/sports/SVG/football.svg"
-      }
-    ],
-    "date_start": "2024-07-25T17:00:00Z",
-    "date_end": "2024-08-02T21:59:00Z",
-    "description": "Olympic venue hosting Football",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "champ-de-mars-arena": {
-    "name": "Champ de Mars Arena",
-    "slug": "champ-de-mars-arena",
-    "url": "https://olympics.com/en/paris-2024/venues/champ-de-mars-arena",
-    "sports": [
-      {
-        "slug": "judo",
-        "name": "Judo",
-        "icon": "/img/sports/SVG/judo.svg"
-      },
-      {
-        "slug": "wrestling",
-        "name": "Wrestling",
-        "icon": "/img/sports/SVG/wrestling.svg"
-      }
-    ],
-    "date_start": "2024-07-27T08:00:00Z",
-    "date_end": "2024-08-11T12:00:00Z",
-    "description": "Olympic venue hosting Judo, Wrestling",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "chateau-de-versailles": {
-    "name": "Château de Versailles",
-    "slug": "chateau-de-versailles",
-    "url": "https://olympics.com/en/paris-2024/venues/chateau-de-versailles",
-    "sports": [
-      {
-        "slug": "equestrian",
-        "name": "Equestrian",
-        "icon": "/img/sports/SVG/equestrian.svg"
-      },
-      {
-        "slug": "modern-pentathlon",
-        "name": "Modern Pentathlon",
-        "icon": "/img/sports/SVG/modern-pentathlon.svg"
-      }
-    ],
-    "date_start": "2024-07-27T07:30:00Z",
-    "date_end": "2024-08-11T11:30:00Z",
-    "description": "Olympic venue hosting Equestrian, Modern Pentathlon",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "chateauroux-shooting-centre": {
-    "name": "Chateauroux Shooting Centre",
-    "slug": "chateauroux-shooting-centre",
-    "url": "https://olympics.com/en/paris-2024/venues/chateauroux-shooting-centre",
-    "sports": [
-      {
-        "slug": "shooting",
-        "name": "Shooting",
-        "icon": "/img/sports/SVG/shooting.svg"
-      }
-    ],
-    "date_start": "2024-07-27T07:00:00Z",
-    "date_end": "2024-08-05T14:35:00Z",
-    "description": "Olympic venue hosting Shooting",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "eiffel-tower-stadium": {
-    "name": "Eiffel Tower Stadium",
-    "slug": "eiffel-tower-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/eiffel-tower-stadium",
-    "sports": [
-      {
-        "slug": "beach-volleyball",
-        "name": "Beach Volleyball",
-        "icon": "/img/sports/SVG/beach-volleyball.svg"
-      }
-    ],
-    "date_start": "2024-07-27T12:00:00Z",
-    "date_end": "2024-08-10T21:59:00Z",
-    "description": "Olympic venue hosting Beach Volleyball",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "elancourt-hill": {
-    "name": "Elancourt Hill",
-    "slug": "elancourt-hill",
-    "url": "https://olympics.com/en/paris-2024/venues/elancourt-hill",
-    "sports": [
-      {
-        "slug": "cycling-mountain-bike",
-        "name": "Cycling Mountain Bike",
-        "icon": "/img/sports/SVG/cycling-mountain-bike.svg"
-      }
-    ],
-    "date_start": "2024-07-28T12:00:00Z",
-    "date_end": "2024-07-29T14:30:00Z",
-    "description": "Olympic venue hosting Cycling Mountain Bike",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "geoffroy-guichard-stadium": {
-    "name": "Geoffroy-Guichard Stadium",
-    "slug": "geoffroy-guichard-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/geoffroy-guichard-stadium",
-    "sports": [
-      {
-        "slug": "football",
-        "name": "Football",
-        "icon": "/img/sports/SVG/football.svg"
-      }
-    ],
-    "date_start": "2024-07-25T13:00:00Z",
-    "date_end": "2024-07-31T19:00:00Z",
-    "description": "Olympic venue hosting Football",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "grand-palais": {
-    "name": "Grand Palais",
-    "slug": "grand-palais",
-    "url": "https://olympics.com/en/paris-2024/venues/grand-palais",
-    "sports": [
-      {
-        "slug": "fencing",
-        "name": "Fencing",
-        "icon": "/img/sports/SVG/fencing.svg"
-      },
-      {
-        "slug": "taekwondo",
-        "name": "Taekwondo",
-        "icon": "/img/sports/SVG/taekwondo.svg"
-      }
-    ],
-    "date_start": "2024-07-27T08:00:00Z",
-    "date_end": "2024-08-10T21:00:00Z",
-    "description": "Olympic venue hosting Fencing, Taekwondo",
-    "location": {
-      "latitude": 48.866096,
-      "longitude": 2.312156
-    }
-  },
-  "hotel-de-ville": {
-    "name": "Hôtel de Ville",
-    "slug": "hotel-de-ville",
-    "url": "https://olympics.com/en/paris-2024/venues/hotel-de-ville",
-    "sports": [
-      {
-        "slug": "athletics",
-        "name": "Athletics",
-        "icon": "/img/sports/SVG/athletics.svg"
-      }
-    ],
-    "date_start": "2024-08-10T06:00:00Z",
-    "date_end": "2024-08-11T09:15:00Z",
-    "description": "Olympic venue hosting Athletics",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "invalides": {
-    "name": "Invalides",
-    "slug": "invalides",
-    "url": "https://olympics.com/en/paris-2024/venues/invalides",
-    "sports": [
-      {
-        "slug": "archery",
-        "name": "Archery",
-        "icon": "/img/sports/SVG/archery.svg"
-      },
-      {
-        "slug": "athletics",
-        "name": "Athletics",
-        "icon": "/img/sports/SVG/athletics.svg"
-      },
-      {
-        "slug": "cycling-road",
-        "name": "Cycling Road",
-        "icon": "/img/sports/SVG/cycling-road.svg"
-      }
-    ],
-    "date_start": "2024-07-25T07:30:00Z",
-    "date_end": "2024-08-04T13:20:00Z",
-    "description": "Olympic venue hosting Archery, Athletics, Cycling Road",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "la-beaujoire-stadium": {
-    "name": "La Beaujoire Stadium",
-    "slug": "la-beaujoire-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/la-beaujoire-stadium",
-    "sports": [
-      {
-        "slug": "football",
-        "name": "Football",
-        "icon": "/img/sports/SVG/football.svg"
-      }
-    ],
-    "date_start": "2024-07-25T15:00:00Z",
-    "date_end": "2024-08-08T18:00:00Z",
-    "description": "Olympic venue hosting Football",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "la-concorde": {
-    "name": "La Concorde",
-    "slug": "la-concorde",
-    "url": "https://olympics.com/en/paris-2024/venues/la-concorde",
-    "sports": [
-      {
-        "slug": "3x3-basketball",
-        "name": "3x3 Basketball",
-        "icon": "/img/sports/SVG/3x3-basketball.svg"
-      },
-      {
-        "slug": "breaking",
-        "name": "Breaking",
-        "icon": "/img/sports/SVG/breaking.svg"
-      },
-      {
-        "slug": "cycling-bmx-freestyle",
-        "name": "Cycling BMX Freestyle",
-        "icon": "/img/sports/SVG/cycling-bmx-freestyle.svg"
-      },
-      {
-        "slug": "skateboarding",
-        "name": "Skateboarding",
-        "icon": "/img/sports/SVG/skateboarding.svg"
-      }
-    ],
-    "date_start": "2024-07-27T10:00:00Z",
-    "date_end": "2024-08-10T20:00:00Z",
-    "description": "Olympic venue hosting 3x3 Basketball, Breaking, Cycling BMX Freestyle, Skateboarding",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "le-bourget-climbing-venue": {
-    "name": "Le Bourget Climbing Venue",
-    "slug": "le-bourget-climbing-venue",
-    "url": "https://olympics.com/en/paris-2024/venues/le-bourget-climbing-venue",
-    "sports": [
-      {
-        "slug": "sport-climbing",
-        "name": "Sport Climbing",
-        "icon": "/img/sports/SVG/sport-climbing.svg"
-      }
-    ],
-    "date_start": "2024-08-05T08:00:00Z",
-    "date_end": "2024-08-10T11:20:00Z",
-    "description": "Olympic venue hosting Sport Climbing",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "le-golf-national": {
-    "name": "Golf National",
-    "slug": "le-golf-national",
-    "url": "https://olympics.com/en/paris-2024/venues/le-golf-national",
-    "sports": [
-      {
-        "slug": "golf",
-        "name": "Golf",
-        "icon": "/img/sports/SVG/golf.svg"
-      }
-    ],
-    "date_start": "2024-08-01T07:00:00Z",
-    "date_end": "2024-08-10T16:30:00Z",
-    "description": "Olympic venue hosting Golf",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "lyon-stadium": {
-    "name": "Lyon Stadium",
-    "slug": "lyon-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/lyon-stadium",
-    "sports": [
-      {
-        "slug": "football",
-        "name": "Football",
-        "icon": "/img/sports/SVG/football.svg"
-      }
-    ],
-    "date_start": "2024-07-25T17:00:00Z",
-    "date_end": "2024-08-09T16:00:00Z",
-    "description": "Olympic venue hosting Football",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "marseille-marina": {
-    "name": "Marseille Marina",
-    "slug": "marseille-marina",
-    "url": "https://olympics.com/en/paris-2024/venues/marseille-marina",
-    "sports": [
-      {
-        "slug": "sailing",
-        "name": "Sailing",
-        "icon": "/img/sports/SVG/sailing.svg"
-      }
-    ],
-    "date_start": "2024-07-28T09:00:00Z",
-    "date_end": "2024-08-08T17:00:00Z",
-    "description": "Olympic venue hosting Sailing",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "marseille-stadium": {
-    "name": "Marseille Stadium",
-    "slug": "marseille-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/marseille-stadium",
-    "sports": [
-      {
-        "slug": "football",
-        "name": "Football",
-        "icon": "/img/sports/SVG/football.svg"
-      }
-    ],
-    "date_start": "2024-07-25T19:00:00Z",
-    "date_end": "2024-08-06T21:59:00Z",
-    "description": "Olympic venue hosting Football",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "nice-stadium": {
-    "name": "Nice Stadium",
-    "slug": "nice-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/nice-stadium",
-    "sports": [
-      {
-        "slug": "football",
-        "name": "Football",
-        "icon": "/img/sports/SVG/football.svg"
-      }
-    ],
-    "date_start": "2024-07-25T15:00:00Z",
-    "date_end": "2024-08-31T21:00:00Z",
-    "description": "Olympic venue hosting Football",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "north-paris-arena": {
-    "name": "North Paris Arena",
-    "slug": "north-paris-arena",
-    "url": "https://olympics.com/en/paris-2024/venues/north-paris-arena",
-    "sports": [
-      {
-        "slug": "boxing",
-        "name": "Boxing",
-        "icon": "/img/sports/SVG/boxing.svg"
-      },
-      {
-        "slug": "modern-pentathlon",
-        "name": "Modern Pentathlon",
-        "icon": "/img/sports/SVG/modern-pentathlon.svg"
-      }
-    ],
-    "date_start": "2024-07-27T13:30:00Z",
-    "date_end": "2024-08-08T15:30:00Z",
-    "description": "Olympic venue hosting Boxing, Modern Pentathlon",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "parc-des-princes": {
-    "name": "Parc des Princes",
-    "slug": "parc-des-princes",
-    "url": "https://olympics.com/en/paris-2024/venues/parc-des-princes",
-    "sports": [
-      {
-        "slug": "football",
-        "name": "Football",
-        "icon": "/img/sports/SVG/football.svg"
-      }
-    ],
-    "date_start": "2024-07-25T13:00:00Z",
-    "date_end": "2024-08-10T18:30:00Z",
-    "description": "Olympic venue hosting Football",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "paris-la-defense-arena": {
-    "name": "Paris La Defense Arena",
-    "slug": "paris-la-defense-arena",
-    "url": "https://olympics.com/en/paris-2024/venues/paris-la-defense-arena",
-    "sports": [
-      {
-        "slug": "swimming",
-        "name": "Swimming",
-        "icon": "/img/sports/SVG/swimming.svg"
-      },
-      {
-        "slug": "water-polo",
-        "name": "Water Polo",
-        "icon": "/img/sports/SVG/water-polo.svg"
-      }
-    ],
-    "date_start": "2024-07-27T09:00:00Z",
-    "date_end": "2024-08-11T13:50:00Z",
-    "description": "Olympic venue hosting Swimming, Water Polo",
-    "location": {
-      "latitude": 48.895226,
-      "longitude": 2.229182
-    }
-  },
-  "pierre-mauroy-stadium": {
-    "name": "Pierre Mauroy Stadium",
-    "slug": "pierre-mauroy-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/pierre-mauroy-stadium",
-    "sports": [
-      {
-        "slug": "basketball",
-        "name": "Basketball",
-        "icon": "/img/sports/SVG/basketball.svg"
-      },
-      {
-        "slug": "handball",
-        "name": "Handball",
-        "icon": "/img/sports/SVG/handball.svg"
-      }
-    ],
-    "date_start": "2024-07-27T09:00:00Z",
-    "date_end": "2024-08-11T14:00:00Z",
-    "description": "Olympic venue hosting Basketball, Handball",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "pont-alexandre-iii": {
-    "name": "Pont Alexandre III",
-    "slug": "pont-alexandre-iii",
-    "url": "https://olympics.com/en/paris-2024/venues/pont-alexandre-iii",
-    "sports": [
-      {
-        "slug": "cycling-road",
-        "name": "Cycling Road",
-        "icon": "/img/sports/SVG/cycling-road.svg"
-      },
-      {
-        "slug": "marathon-swimming",
-        "name": "Marathon Swimming",
-        "icon": "/img/sports/SVG/marathon-swimming.svg"
-      },
-      {
-        "slug": "triathlon",
-        "name": "Triathlon",
-        "icon": "/img/sports/SVG/triathlon.svg"
-      }
-    ],
-    "date_start": "2024-07-30T06:00:00Z",
-    "date_end": "2024-08-09T08:30:00Z",
-    "description": "Olympic venue hosting Cycling Road, Marathon Swimming, Triathlon",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "porte-de-la-chapelle-arena": {
-    "name": "Porte de La Chapelle Arena",
-    "slug": "porte-de-la-chapelle-arena",
-    "url": "https://olympics.com/en/paris-2024/venues/porte-de-la-chapelle-arena",
-    "sports": [
-      {
-        "slug": "badminton",
-        "name": "Badminton",
-        "icon": "/img/sports/SVG/badminton.svg"
-      },
-      {
-        "slug": "rhythmic-gymnastics",
-        "name": "Rhythmic Gymnastics",
-        "icon": "/img/sports/SVG/rhythmic-gymnastics.svg"
-      }
-    ],
-    "date_start": "2024-07-27T06:30:00Z",
-    "date_end": "2024-08-10T13:45:00Z",
-    "description": "Olympic venue hosting Badminton, Rhythmic Gymnastics",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "roland-garros-stadium": {
-    "name": "Roland-Garros",
-    "slug": "roland-garros-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/roland-garros-stadium",
-    "sports": [
-      {
-        "slug": "tennis",
-        "name": "Tennis",
-        "icon": "/img/sports/SVG/tennis.svg"
-      }, {
-        "slug": "boxing",
-        "name": "Boxing",
-        "icon": "/img/sports/SVG/boxing.svg"
-      }
-    ],
-    "date_start": "2024-07-27T10:00:00Z",
-    "date_end": "2024-08-10T21:30:00Z",
-    "description": "Olympic venue hosting Boxing, Tennis",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "saint-quentin-en-yvelines-bmx-stadium": {
-    "name": "Saint-Quentin-en-Yvelines BMX Stadium",
-    "slug": "saint-quentin-en-yvelines-bmx-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/saint-quentin-en-yvelines-bmx-stadium",
-    "sports": [
-      {
-        "slug": "cycling-bmx-racing",
-        "name": "Cycling BMX Racing",
-        "icon": "/img/sports/SVG/cycling-bmx-racing.svg"
-      }
-    ],
-    "date_start": "2024-08-01T18:00:00Z",
-    "date_end": "2024-08-02T20:30:00Z",
-    "description": "Olympic venue hosting Cycling BMX Racing",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "saint-quentin-en-yvelines-velodrome": {
-    "name": "Saint-Quentin-en-Yvelines Velodrome",
-    "slug": "saint-quentin-en-yvelines-velodrome",
-    "url": "https://olympics.com/en/paris-2024/venues/saint-quentin-en-yvelines-velodrome",
-    "sports": [
-      {
-        "slug": "cycling-track",
-        "name": "Cycling Track ",
-        "icon": "/img/sports/SVG/cycling-track.svg"
-      }
-    ],
-    "date_start": "2024-08-05T15:00:00Z",
-    "date_end": "2024-08-11T12:40:00Z",
-    "description": "Olympic venue hosting Cycling Track ",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "south-paris-arena": {
-    "name": "South Paris Arena",
-    "slug": "south-paris-arena",
-    "url": "https://olympics.com/en/paris-2024/venues/south-paris-arena",
-    "sports": [
-      {
-        "slug": "handball",
-        "name": "Handball",
-        "icon": "/img/sports/SVG/handball.svg"
-      },
-      {
-        "slug": "table-tennis",
-        "name": "Table Tennis",
-        "icon": "/img/sports/SVG/table-tennis.svg"
-      },
-      {
-        "slug": "volleyball",
-        "name": "Volleyball",
-        "icon": "/img/sports/SVG/volleyball.svg"
-      },
-      {
-        "slug": "weightlifting",
-        "name": "Weightlifting",
-        "icon": "/img/sports/SVG/weightlifting.svg"
-      }
-    ],
-    "date_start": "2024-07-25T07:00:00Z",
-    "date_end": "2024-08-11T13:45:00Z",
-    "description": "Olympic venue hosting Handball, Table Tennis, Volleyball, Weightlifting",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "stade-de-france": {
-    "name": "Stade de France",
-    "slug": "stade-de-france",
-    "url": "https://olympics.com/en/paris-2024/venues/stade-de-france",
-    "sports": [
-      {
-        "slug": "athletics",
-        "name": "Athletics",
-        "icon": "/img/sports/SVG/athletics.svg"
-      },
-      {
-        "slug": "rugby-sevens",
-        "name": "Rugby Sevens",
-        "icon": "/img/sports/SVG/rugby-sevens.svg"
-      }
-    ],
-    "date_start": "2024-07-24T13:30:00Z",
-    "date_end": "2024-08-10T20:30:00Z",
-    "description": "Olympic venue hosting Athletics, Rugby Sevens",
-    "location": {
-      "latitude": 48.924549,
-      "longitude": 2.359627
-    }
-  },
-  "teahupo-o-tahiti": {
-    "name": "Teahupo'o, Tahiti",
-    "slug": "teahupo-o-tahiti",
-    "url": "https://olympics.com/en/paris-2024/venues/teahupo-o-tahiti",
-    "sports": [
-      {
-        "slug": "surfing",
-        "name": "Surfing",
-        "icon": "/img/sports/SVG/surfing.svg"
-      }
-    ],
-    "date_start": "2024-07-27T17:00:00Z",
-    "date_end": "2024-07-31T03:15:00Z",
-    "description": "Olympic venue hosting Surfing",
-    "location": {
-      "latitude": -17.8417,
-      "longitude": -149.2670
-    }
-  },
-  "trocadero": {
-    "name": "Trocadéro",
-    "slug": "trocadero",
-    "url": "https://olympics.com/en/paris-2024/venues/trocadero",
-    "sports": [
-      {
-        "slug": "athletics",
-        "name": "Athletics",
-        "icon": "/img/sports/SVG/athletics.svg"
-      },
-      {
-        "slug": "cycling-road",
-        "name": "Cycling Road",
-        "icon": "/img/sports/SVG/cycling-road.svg"
-      }
-    ],
-    "date_start": "2024-08-01T05:30:00Z",
-    "date_end": "2024-08-07T08:50:00Z",
-    "description": "Olympic venue hosting Athletics, Cycling Road",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "vaires-sur-marne-nautical-stadium": {
-    "name": "Vaires-sur-Marne Nautical Stadium",
-    "slug": "vaires-sur-marne-nautical-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/vaires-sur-marne-nautical-stadium",
-    "sports": [
-      {
-        "slug": "canoe-kayak-slalom",
-        "name": "Canoe Slalom",
-        "icon": "/img/sports/SVG/canoe-kayak-slalom.svg"
-      },
-      {
-        "slug": "canoe-kayak-flatwater",
-        "name": "Canoe Sprint",
-        "icon": "/img/sports/SVG/canoe-kayak-flatwater.svg"
-      },
-      {
-        "slug": "rowing",
-        "name": "Rowing",
-        "icon": "/img/sports/SVG/rowing.svg"
-      }
-    ],
-    "date_start": "",
-    "date_end": "",
-    "description": "Olympic venue hosting Canoe Slalom, Canoe Sprint, Rowing",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  },
-  "yves-du-manoir-stadium": {
-    "name": "Yves-du-Manoir Stadium",
-    "slug": "yves-du-manoir-stadium",
-    "url": "https://olympics.com/en/paris-2024/venues/yves-du-manoir-stadium",
-    "sports": [
-      {
-        "slug": "hockey",
-        "name": "Hockey",
-        "icon": "/img/sports/SVG/hockey.svg"
-      }
-    ],
-    "date_start": "2024-07-27T08:00:00Z",
-    "date_end": "2024-08-09T20:30:00Z",
-    "description": "Olympic venue hosting Hockey",
-    "location": {
-      "latitude": null,
-      "longitude": null
-    }
-  }
 }

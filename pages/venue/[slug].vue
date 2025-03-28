@@ -91,33 +91,8 @@ const availableImages = [
 onMounted(async () => {
     try {
         // Load both data sources
-        const [venuesJson, venuesGeoJson] = await Promise.all([
-            fetch('/data/venues.json').then(res => res.json()),
-            fetch('/geojson/venues.geojson').then(res => res.json())
-        ]);
-        
-        // Get venue data from venues.json
-        const venue = venuesJson[slug];
-        
-        if (venue) {
-            venueData.value = venue;
-        } else {
-            // Fallback to GeoJSON if not found in venues.json
-            const geoFeature = venuesGeoJson.features.find((f: any) => f.properties?.slug === slug);
-            if (geoFeature) {
-                venueData.value = {
-                    name: geoFeature.properties.name,
-                    slug: geoFeature.properties.slug,
-                    sports: [],
-                    location: {
-                        latitude: geoFeature.geometry.coordinates[1],
-                        longitude: geoFeature.geometry.coordinates[0]
-                    }
-                };
-            } else {
-                venueData.value = { name: 'Unknown Venue' };
-            }
-        }
+        const venuesJson= await fetch('/data/venues.json').then(res => res.json());
+        venueData.value = venuesJson[slug];
         
         // Check if we have an image for this venue
         hasImage.value = availableImages.includes(slug);

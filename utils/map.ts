@@ -1,5 +1,4 @@
-import type { FeatureCollection, Point } from 'geojson';
-import mapboxgl, { LngLatBounds, type Marker } from 'mapbox-gl';
+import mapboxgl, { LngLatBounds, type Marker, type EasingOptions } from 'mapbox-gl';
 import { type Router } from 'vue-router';
 import * as turf from 'turf';
 
@@ -67,11 +66,12 @@ const setFinalProperties = (map: mapboxgl.Map): void => {
 }
 
 // SET MARKERS  ----------------------------------------------------------------------------------------------------- //
-const setMarkers = async (map: mapboxgl.Map, router: Router, venues: FeatureCollection<Point>) => {
-    const venuesData = await fetch('/data/venues.json').then(res => res.json());
-    venues.features.forEach((venue) => {
-        const venueSlug = venue.properties!.slug;
-        const venueInfo = venuesData[venueSlug];
+const setMarkers = async (map: mapboxgl.Map, router: Router) => {
+    const venues = await fetch('/data/venues.json').then(res => res.json());
+    Object.keys(venues).forEach(key => {
+        const venue = venues[key]
+
+        if (venue.location.longitude === null || venue.location.latitude === null) return;
 
         // Create a custom HTML element for the marker
         const el = document.createElement('div');
@@ -92,9 +92,9 @@ const setMarkers = async (map: mapboxgl.Map, router: Router, venues: FeatureColl
         el.style.transition = 'opacity 0.5s ease-in'
 
         // Add sports icons to the marker
-        if (venueInfo && venueInfo.sports && venueInfo.sports.length > 0) {
+        if (venue && venue.sports && venue.sports.length > 0) {
             // Add icons for each sport in the venue
-            for (const sport of venueInfo.sports) {
+            for (const sport of venue.sports) {
                 const iconContainer = document.createElement('div');
                 iconContainer.style.width = '30px';
                 iconContainer.style.height = '30px';
@@ -121,7 +121,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router, venues: FeatureColl
 
 
         // Create a new marker using the custom element
-        const markerCoordinates = venue.geometry.coordinates as [number, number];
+        const markerCoordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
         const marker = new mapboxgl.Marker({
             element: el,
             anchor: 'center'
@@ -133,8 +133,33 @@ const setMarkers = async (map: mapboxgl.Map, router: Router, venues: FeatureColl
         if (paddedMapBounds.contains(markerCoordinates)) fadeInMarker(marker);
 
         // Add click event
-        marker.getElement().addEventListener('click', () => {
-            router.push(`/venue/${venueSlug}`);
+        marker.getElement().addEventListener('click', async () => {
+            if (map.getZoom() <= 15) {
+                await new Promise<void>(async (resolve): Promise<void> => {
+                    map.flyTo({
+                        center: markerCoordinates,
+                        zoom: 15.5,
+                        bearing: 0,
+                        pitch: 55,
+                        duration: 1000,
+                        essential: true,
+                        curve: 1
+                    } as EasingOptions);
+                    map.once('moveend', () => resolve());
+                }).catch(() => { });
+            } else {
+                await new Promise<void>(async (resolve, reject): Promise<void> => {
+                    map.easeTo({
+                        center: markerCoordinates,
+                        zoom: 15.5,
+                        bearing: 0,
+                        pitch: 55,
+                        duration: 500,
+                    });
+                    map.once('moveend', () => resolve());
+                }).catch(() => { });
+            }
+            router.push(`/venue/${venue.slug}`);
         });
 
         // Register marker
@@ -217,7 +242,7 @@ const removeMarker = (marker: mapboxgl.Marker) => {
         el.style.opacity = '0';
         marker.remove();
     }, 500);
-    
+
 }
 
 const fadeInMarker = (marker: mapboxgl.Marker) => {
@@ -227,6 +252,7 @@ const fadeInMarker = (marker: mapboxgl.Marker) => {
         el.style.opacity = '1';
     }, 10);
 };
+
 
 
 export { setFinalProperties, setMarkers, updateOutMarkers };

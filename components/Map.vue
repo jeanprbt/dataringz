@@ -14,7 +14,6 @@
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { type EasingOptions, type MapOptions, type Marker } from 'mapbox-gl';
-import type { FeatureCollection, Point } from "geojson";
 
 import { playIntro } from "~/utils/intro";
 import { setFinalProperties, setMarkers, updateOutMarkers } from '~/utils/map';
@@ -28,6 +27,8 @@ if (isClient) {
     mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '';
 }
 const intro = config.public.INTRO || '';
+
+
 
 // REFS ------------------------------------------------------------------------------------------------------------- //
 const mapContainer = ref<HTMLElement | null>(null);
@@ -56,7 +57,7 @@ const skipIntro = async () => {
         map.once('moveend', () => resolve());
     }).catch(() => { });
     setFinalProperties(map);
-    await setMarkers(map, router, venues);
+    await setMarkers(map, router);
 };
 
 watch(introPlaying, async (newVal) => {
@@ -76,7 +77,7 @@ const color = computed(() => {
 });
 
 let map: mapboxgl.Map;
-let venues: FeatureCollection<Point>;
+let venues: {[key: string]: any};
 let outMarkers = new Map<Marker, Marker>();
 let lastZoom: number = 0;
 
@@ -84,9 +85,7 @@ onMounted(async () => {
     if (!isClient) return;
 
     // FETCH VENUES ------------------------------------------------------------------------------------------------- //
-    venues = (
-        await fetch('/geojson/venues.geojson').then((res) => res.json())
-    );
+    venues =  await fetch('/data/venues.json').then((res) => res.json());
 
     // CREATE MAP --------------------------------------------------------------------------------------------------- //
     if (intro) {
@@ -145,8 +144,8 @@ onMounted(async () => {
         );
 
         // COLOR SPECIFIC BUILDINGS --------------------------------------------------------------------------------- //
-        venues.features.forEach(v => {
-            v.properties?.buildingIds.forEach((id: number) => {
+        Object.keys(venues).forEach(key => {
+            venues[key].buildingIds.forEach((id: number) => {
                 map.setFeatureState(
                     { source: 'composite', sourceLayer: 'building', id },
                     { selected: true }
@@ -163,7 +162,7 @@ onMounted(async () => {
 
         // SET FINAL PROPERTIES & ADD MARKERS ----------------------------------------------------------------------- //
         setFinalProperties(map);
-        await setMarkers(map, router, venues);
+        await setMarkers(map, router);
     });
 
     // OUT MARKERS UPDATE LOGIC ------------------------------------------------------------------------------------- //

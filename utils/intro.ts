@@ -129,7 +129,7 @@ const playIntro = async (
         if (signal.aborted) return reject();
         map.flyTo({ ...olympia, duration: 2000, essential: true, curve: 1 } as EasingOptions);
         map.once('moveend', () => resolve());
-    }).catch(() => { });
+    }).catch(() => {});
 
     displayText(
         showText, 

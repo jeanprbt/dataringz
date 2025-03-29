@@ -36,8 +36,8 @@ const setFinalProperties = (map: mapboxgl.Map): void => {
     // set final camera properties
     map.setMinZoom(10);
     map.setMaxBounds([
-        [lng - 0.5, lat - 0.5],
-        [lng + 0.5, lat + 0.5]
+        [lng - 1, lat - 1],
+        [lng + 1, lat + 1]
     ]);
 
     // set initial pitch based on zoom
@@ -86,6 +86,13 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
         el.style.width = '50px';
         el.style.height = 'auto';
         el.style.background = 'rgba(255, 255, 255, 0.8)';
+        el.addEventListener('mouseenter', () => {
+            el.style.background = 'rgba(200, 200, 200, 0.8)';
+        });
+
+        el.addEventListener('mouseleave', () => {
+            el.style.background = 'rgba(255, 255, 255, 0.8)';
+        });
         el.style.borderRadius = '10px';
         el.style.padding = '5px';
         el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
@@ -136,7 +143,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
         // Add click event
         marker.getElement().addEventListener('click', async () => {
             const { lng: lng, lat: lat } = map.getCenter();
-            if (Math.abs(markerCoordinates[0] - lng) > 1 && Math.abs(markerCoordinates[1] - lat) > 1) {
+            if (Math.abs(markerCoordinates[0] - lng) > 1 || Math.abs(markerCoordinates[1] - lat) > 1) {
                 map.setMinZoom(undefined);
                 // @ts-ignore
                 map.setMaxBounds(undefined);
@@ -148,14 +155,14 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
                         pitch: 55,
                         duration: 4000,
                         essential: true,
-                        curve: 1
+                        curve: 2
                     } as EasingOptions);
                     map.once('moveend', () => resolve());
                 }).catch(() => { });
                 map.setMinZoom(10);
                 map.setMaxBounds([
-                    [markerCoordinates[0] - 0.5, markerCoordinates[1] - 0.5],
-                    [markerCoordinates[0] + 0.5, markerCoordinates[1] + 0.5]
+                    [markerCoordinates[0] - 1, markerCoordinates[1] - 1],
+                    [markerCoordinates[0] + 1, markerCoordinates[1] + 1]
                 ]);
             } else if (map.getZoom() <= 15) {
                 await new Promise<void>(async (resolve): Promise<void> => {
@@ -171,7 +178,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
                     map.once('moveend', () => resolve());
                 }).catch(() => { });
             } else {
-                await new Promise<void>(async (resolve, reject): Promise<void> => {
+                await new Promise<void>(async (resolve): Promise<void> => {
                     map.easeTo({
                         center: markerCoordinates,
                         zoom: 15.5,
@@ -227,6 +234,7 @@ const updateOutMarkers = (map: mapboxgl.Map, outMarkers: Map<Marker, Marker>, zo
                 removeMarker(marker);
             }
         } else {
+            marker.addTo(map);
             marker.setLngLat([markerLng, markerLat]);
         };
     }

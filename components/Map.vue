@@ -186,6 +186,19 @@ onMounted(async () => {
         updateOutMarkers(map, outMarkers, zoom, lastZoom);
         lastZoom = zoom;
     })
+
+    // ------------------------------------------------- DEBUGGING ------------------------------------------------ //
+    // Display building ID on clock
+    map.on('click', (e) => {
+        const features = map?.queryRenderedFeatures(e.point, {
+            layers: ['add-3d-buildings']
+        });
+        if (features && features.length > 0) {
+            const buildingId = features[0].id;
+            console.log('Building ID:', buildingId);
+        }
+        // console.log(e.lngLat);
+    });
 });
 
 onUnmounted(() => {

@@ -23,12 +23,12 @@ import { start, paris } from '~/utils/constants';
 const isClient = import.meta.client;
 const config = useRuntimeConfig();
 const router = useRouter();
+
 if (isClient) {
     mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '';
 }
 const intro = config.public.INTRO || '';
-
-
+const venueState = useState('venue');
 
 // REFS ------------------------------------------------------------------------------------------------------------- //
 const mapContainer = ref<HTMLElement | null>(null);
@@ -68,7 +68,6 @@ watch(introPlaying, async (newVal) => {
     }
 });
 
-
 // COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
 const color = computed(() => {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -77,18 +76,28 @@ const color = computed(() => {
 });
 
 let map: mapboxgl.Map;
-let venues: {[key: string]: any};
+let venues: { [key: string]: any };
 let outMarkers = new Map<Marker, Marker>();
 let lastZoom: number = 0;
+let venue: boolean = false;
 
 onMounted(async () => {
     if (!isClient) return;
 
     // FETCH VENUES ------------------------------------------------------------------------------------------------- //
-    venues =  await fetch('/data/venues.json').then((res) => res.json());
+    venues = await fetch('/data/venues.json').then((res) => res.json());
+
+
+    // HANDLE VENUE PAGE -------------------------------------------------------------------------------------------- //
+    let venueCoordinates = [] as number[];
+    if (venueState.value) {
+        venue = true;
+        const data = venues[venueState.value as string];
+        venueCoordinates = [data.location.longitude, data.location.latitude];
+    }
 
     // CREATE MAP --------------------------------------------------------------------------------------------------- //
-    if (intro) {
+    if (intro || venue) {
         map = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
             style: color.value,
@@ -154,10 +163,16 @@ onMounted(async () => {
         });
 
         // PLAY INTRO ANIMATION ------------------------------------------------------------------------------------- //
-        if (intro) {
+        if (intro && !venue) {
             introPlaying.value = true;
             await playIntro(map, signal, showText, textContainer, currentText);
             introPlaying.value = false;
+        } else if (venue) {
+            await new Promise<void>(async (resolve, reject) => {
+                if (signal.aborted) return reject();
+                map.flyTo({ center: venueCoordinates, zoom: 15.5, bearing: 0, pitch: 55, duration: 4000, essential: true, curve: 1 } as EasingOptions);
+                map.once('moveend', () => resolve());
+            }).catch(() => { });
         }
 
         // SET FINAL PROPERTIES & ADD MARKERS ----------------------------------------------------------------------- //

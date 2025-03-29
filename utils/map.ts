@@ -30,14 +30,15 @@ const setFinalProperties = (map: mapboxgl.Map): void => {
     if (map.getSource('greek-line')) {
         map.removeSource('greek-line');
     }
+    const { lng: lng, lat: lat } = map.getCenter();
+
 
     // set final camera properties
     map.setMinZoom(10);
     map.setMaxBounds([
-        [1.8080, 48.1217],
-        [3.0079, 49.5094]
+        [lng - 0.5, lat - 0.5],
+        [lng + 0.5, lat + 0.5]
     ]);
-    map.dragRotate.disable();
 
     // set initial pitch based on zoom
     const initialZoom = map.getZoom();
@@ -153,7 +154,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
                 }).catch(() => { });
                 map.setMinZoom(10);
                 map.setMaxBounds([
-                    [markerCoordinates[0] - 0.5, markerCoordinates[1] - 0.5], 
+                    [markerCoordinates[0] - 0.5, markerCoordinates[1] - 0.5],
                     [markerCoordinates[0] + 0.5, markerCoordinates[1] + 0.5]
                 ]);
             } else if (map.getZoom() <= 15) {

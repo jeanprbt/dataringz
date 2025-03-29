@@ -93,7 +93,7 @@ const start: IntroLocation = {
     center: [5, 43],
     zoom: 2,
     pitch: 0,
-    bearing: 400,
+    bearing: 440,
     name: ""
 }
 const path = {

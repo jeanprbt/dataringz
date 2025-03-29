@@ -45,11 +45,18 @@
 </template>
 
 <script setup lang="ts">
+const venueState = useState('venue');
+let venue = !!venueState.value;
+
 const router = useRouter();
 const route = useRoute();
-const showVenuePage = ref(true);
+const showVenuePage = ref(!venue);
 const isLoading = ref(true);
 const hasImage = ref(false);
+
+definePageMeta({
+    middleware: 'venue'
+});
 
 // Get the venue slug from the route
 const slug = route.params.slug as string;
@@ -89,6 +96,9 @@ const availableImages = [
 
 // Load venue data
 onMounted(async () => {
+    if (venue) {
+        setTimeout(() => showVenuePage.value = true, 4200);
+    }
     try {
         // Load both data sources
         const venuesJson= await fetch('/data/venues.json').then(res => res.json());

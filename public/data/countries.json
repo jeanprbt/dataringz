@@ -1,0 +1,93 @@
+{
+    "france": {
+        "name": "France",
+        "code": "FR",
+        "description": "Host country of the 2024 Summer Olympics",
+        "athletes": [
+            {
+                "slug": "leon-marchand",
+                "name": "Leon Marchand"
+            },
+            {
+                "slug": "victor-wembanyama",
+                "name": "Victor Wembanyama"
+            }
+        ],
+        "sports": [
+            {
+                "slug": "swimming",
+                "name": "Swimming",
+                "dscription": "Swimming competitions"
+            },
+            {
+                "slug": "basketball",
+                "name": "Basketball",
+                "description": "Basketball tournaments"
+            },
+            {
+                "slug": "volleyball",
+                "name": "Volleyball",
+                "description": "Volleyball competitions"
+            }
+        ],
+        "venues": [
+            {
+                "slug": "stade-de-france",
+                "name": "Stade de France",
+                "description": "Main stadium"
+            },
+            {
+                "slug": "grand-palais",
+                "name": "Grand Palais",
+                "description": "Historic exhibition hall"
+            }
+        ]
+    },
+    "united-states": {
+        "name": "United States",
+        "code": "US",
+        "description": "Team USA at the Olympic Games",
+        "athletes": [
+            {
+                "slug": "simone-biles",
+                "name": "Simone Biles"
+            },
+            {
+                "slug": "lebron-james",
+                "name": "Lebron James"
+            },
+            {
+                "slug": "coco-gauff",
+                "name": "Coco Gauff"
+            },
+            {
+                "slug": "caroline-marks",
+                "name": "Caroline Marks"
+            }
+        ],
+        "sports": [
+            {
+                "slug": "swimming",
+                "name": "Swimming",
+                "description": "Swimming competitions"
+            },
+            {
+                "slug": "basketball",
+                "name": "Basketball",
+                "description": "Basketball tournaments"
+            }
+        ],
+        "venues": [
+            {
+                "slug": "stade-de-france",
+                "name": "Stade de France",
+                "description": "Main stadium"
+            },
+            {
+                "slug": "paris-la-defense-arena",
+                "name": "Paris La Défense Arena",
+                "description": "Modern indoor arena"
+            }
+        ]
+    }
+}

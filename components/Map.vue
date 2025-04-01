@@ -19,16 +19,15 @@ import { playIntro } from "~/utils/intro";
 import { setFinalProperties, setMarkers, updateOutMarkers } from '~/utils/map';
 import { displaySkipButton, hideSkipButton } from '~/utils/animations';
 import { start, paris } from '~/utils/constants';
+import { csvParse } from 'd3';
 
-const isClient = import.meta.client;
-const config = useRuntimeConfig();
 const router = useRouter();
-
+const config = useRuntimeConfig();
+const isClient = import.meta.client;
 if (isClient) {
     mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '';
 }
 const intro = config.public.INTRO || '';
-const venueState = useState('venue');
 
 // REFS ------------------------------------------------------------------------------------------------------------- //
 const mapContainer = ref<HTMLElement | null>(null);
@@ -42,7 +41,6 @@ const showSkipButton = ref<boolean>(false);
 // SKIP INTRO LOGIC ------------------------------------------------------------------------------------------------- //
 const controller = new AbortController();
 const { signal } = controller;
-
 const skipIntro = async () => {
     controller.abort();
     introPlaying.value = false;
@@ -60,6 +58,7 @@ const skipIntro = async () => {
     await setMarkers(map, router);
 };
 
+// SKIP BUTTON LOGIC ------------------------------------------------------------------------------------------------ //
 watch(introPlaying, async (newVal) => {
     if (newVal) {
         displaySkipButton(showSkipButton, skipButton);
@@ -77,9 +76,14 @@ const color = computed(() => {
 
 let map: mapboxgl.Map;
 let venues: { [key: string]: any };
+let sports: { [key: string]: any };
 let outMarkers = new Map<Marker, Marker>();
 let lastZoom: number = 0;
-let venue: boolean = false;
+
+// HANDLE DIRECT ACCESS  -------------------------------------------------------------------------------------------- //
+const directVenueAccess = useState('venue');
+const directSportAccess = useState('sport');
+let directAccess: boolean = false;
 
 onMounted(async () => {
     if (!isClient) return;
@@ -87,17 +91,25 @@ onMounted(async () => {
     // FETCH VENUES ------------------------------------------------------------------------------------------------- //
     venues = await fetch('/data/venues.json').then((res) => res.json());
 
+    // FETCH SPORTS ------------------------------------------------------------------------------------------------- //
+    sports = await fetch('/data/sports.json').then((res) => res.json());
 
-    // HANDLE VENUE PAGE -------------------------------------------------------------------------------------------- //
+
+    // HANDLE DIRECT ACCESS ----------------------------------------------------------------------------------------- //
     let venueCoordinates = [] as number[];
-    if (venueState.value) {
-        venue = true;
-        const data = venues[venueState.value as string];
-        venueCoordinates = [data.location.longitude, data.location.latitude];
+    if (directVenueAccess.value) {
+        directAccess = true;
+        const venue = venues[directVenueAccess.value as string];
+        venueCoordinates = [venue.location.longitude, venue.location.latitude];
+    } else if (directSportAccess.value) {
+        directAccess = true;
+        const sport = sports[directSportAccess.value as string];
+        const venue = venues[sport["venues"][0]["slug"] as string];
+        venueCoordinates = [venue.location.longitude, venue.location.latitude];
     }
 
     // CREATE MAP --------------------------------------------------------------------------------------------------- //
-    if (intro || venue) {
+    if (intro || directAccess) {
         map = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
             style: color.value,
@@ -163,11 +175,11 @@ onMounted(async () => {
         });
 
         // PLAY INTRO ANIMATION ------------------------------------------------------------------------------------- //
-        if (intro && !venue) {
+        if (intro && !directAccess) {
             introPlaying.value = true;
             await playIntro(map, signal, showText, textContainer, currentText);
             introPlaying.value = false;
-        } else if (venue) {
+        } else if (directAccess) {
             await new Promise<void>(async (resolve, reject) => {
                 if (signal.aborted) return reject();
                 map.flyTo({ center: venueCoordinates, zoom: 15.5, bearing: 0, pitch: 55, duration: 4000, essential: true, curve: 1 } as EasingOptions);

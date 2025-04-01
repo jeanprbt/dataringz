@@ -169,7 +169,11 @@ import { type AthleteData } from '~/types/olympics';
 import { yearMonthDayDate } from '~/utils/date';
 
 // HANDLE DIRECT URL ---------------
-const showAthletePage = ref(true);
+definePageMeta({
+    middleware: 'athlete'
+});
+let directAccess = !!useState('athlete').value;
+const showAthletePage = ref(!directAccess);
 
 // ROUTING PARAMETERS --------------
 const router = useRouter();
@@ -188,6 +192,9 @@ const athlete = ref<AthleteData>({
 const isLoading = ref(true);
 
 onMounted(async () => {
+    if (directAccess) {
+        setTimeout(() => showAthletePage.value = true, 4200);
+    }
     try {
         const json = await fetch('/data/athletes.json').then(res => res.json());
         athlete.value = json[slug];

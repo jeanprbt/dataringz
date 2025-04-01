@@ -19,7 +19,6 @@ import { playIntro } from "~/utils/intro";
 import { setFinalProperties, setMarkers, updateOutMarkers } from '~/utils/map';
 import { displaySkipButton, hideSkipButton } from '~/utils/animations';
 import { start, paris } from '~/utils/constants';
-import { csvParse } from 'd3';
 
 const router = useRouter();
 const config = useRuntimeConfig();
@@ -76,13 +75,13 @@ const color = computed(() => {
 
 let map: mapboxgl.Map;
 let venues: { [key: string]: any };
-let sports: { [key: string]: any };
 let outMarkers = new Map<Marker, Marker>();
 let lastZoom: number = 0;
 
 // HANDLE DIRECT ACCESS  -------------------------------------------------------------------------------------------- //
 const directVenueAccess = useState('venue');
 const directSportAccess = useState('sport');
+const directAthleteAccess = useState('athlete');
 let directAccess: boolean = false;
 
 onMounted(async () => {
@@ -90,10 +89,6 @@ onMounted(async () => {
 
     // FETCH VENUES ------------------------------------------------------------------------------------------------- //
     venues = await fetch('/data/venues.json').then((res) => res.json());
-
-    // FETCH SPORTS ------------------------------------------------------------------------------------------------- //
-    sports = await fetch('/data/sports.json').then((res) => res.json());
-
 
     // HANDLE DIRECT ACCESS ----------------------------------------------------------------------------------------- //
     let venueCoordinates = [] as number[];
@@ -103,7 +98,16 @@ onMounted(async () => {
         venueCoordinates = [venue.location.longitude, venue.location.latitude];
     } else if (directSportAccess.value) {
         directAccess = true;
+        const sports = await fetch('/data/sports.json').then((res) => res.json());
         const sport = sports[directSportAccess.value as string];
+        const venue = venues[sport["venues"][0]["slug"] as string];
+        venueCoordinates = [venue.location.longitude, venue.location.latitude];
+    } else if (directAthleteAccess.value) {
+        directAccess = true;
+        const athletes = await fetch('/data/athletes.json').then((res) => res.json());
+        const sports = await fetch('/data/sports.json').then((res) => res.json());
+        const athlete = athletes[directAthleteAccess.value as string];
+        const sport = sports[athlete["sports"][0]["slug"] as string]
         const venue = venues[sport["venues"][0]["slug"] as string];
         venueCoordinates = [venue.location.longitude, venue.location.latitude];
     }

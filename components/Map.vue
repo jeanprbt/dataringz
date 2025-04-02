@@ -125,9 +125,9 @@ onMounted(async () => {
         map = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
             style: color.value,
-            maxZoom: 16,
+            // maxZoom: 16,
             minZoom: 10,
-            dragRotate: false,
+            // dragRotate: false,
             maxBounds: [
                 [2.0575, 48.0000],
                 [3.0079, 49.9999]
@@ -213,7 +213,6 @@ onMounted(async () => {
             const buildingId = features[0].id;
             console.log('Building ID:', buildingId);
         }
-        // console.log(e.lngLat);
     });
 });
 

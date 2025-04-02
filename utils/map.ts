@@ -69,6 +69,7 @@ const setFinalProperties = (map: mapboxgl.Map): void => {
 // SET MARKERS  ----------------------------------------------------------------------------------------------------- //
 const setMarkers = async (map: mapboxgl.Map, router: Router) => {
     const venues = await fetch('/data/venues.json').then(res => res.json());
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     Object.keys(venues).forEach(key => {
         const venue = venues[key]
 
@@ -86,12 +87,23 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
         el.style.width = '50px';
         el.style.height = 'auto';
         el.style.background = 'rgba(255, 255, 255, 0.8)';
+        if (isDarkMode) {
+            el.style.background = 'rgba(20, 20, 20, 0.8)';
+        }
         el.addEventListener('mouseenter', () => {
-            el.style.background = 'rgba(200, 200, 200, 0.8)';
+            if (isDarkMode) {
+                el.style.background = 'rgba(60, 60, 60, 0.8)'
+            } else {
+                el.style.background = 'rgba(200, 200, 200, 0.8)';
+            }
         });
 
         el.addEventListener('mouseleave', () => {
-            el.style.background = 'rgba(255, 255, 255, 0.8)';
+            if (isDarkMode) {
+                el.style.background = 'rgba(20, 20, 20, 0.8)';
+            } else {
+                el.style.background = 'rgba(255, 255, 255, 0.8)';
+            }
         });
         el.style.borderRadius = '10px';
         el.style.padding = '5px';
@@ -101,6 +113,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
 
         // Add sports icons to the marker
         if (venue && venue.sports && venue.sports.length > 0) {
+
             // Add icons for each sport in the venue
             for (const sport of venue.sports) {
                 const iconContainer = document.createElement('div');
@@ -113,6 +126,10 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
                 img.alt = sport.name;
                 img.style.width = '100%';
                 img.style.height = '100%';
+
+                if (isDarkMode) {
+                    img.style.filter = 'invert(1) brightness(0.8)';
+                }
 
                 iconContainer.appendChild(img);
                 el.appendChild(iconContainer);

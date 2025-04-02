@@ -67,7 +67,7 @@ watch(introPlaying, async (newVal) => {
 });
 
 // COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
-const color = computed(() => {
+const style = computed(() => {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'mapbox://styles/mapbox/dark-v11'
         : 'mapbox://styles/mapbox/light-v11';
@@ -116,7 +116,7 @@ onMounted(async () => {
     if (intro || directAccess) {
         map = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
-            style: color.value,
+            style: style.value,
             maxZoom: 16,
             dragRotate: false,
             ...start
@@ -124,10 +124,10 @@ onMounted(async () => {
     } else {
         map = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
-            style: color.value,
-            // maxZoom: 16,
+            style: style.value,
+            maxZoom: 16,
             minZoom: 10,
-            // dragRotate: false,
+            dragRotate: false,
             maxBounds: [
                 [2.0575, 48.0000],
                 [3.0079, 49.9999]
@@ -203,15 +203,11 @@ onMounted(async () => {
         lastZoom = zoom;
     })
 
-    // ------------------------------------------------- DEBUGGING ------------------------------------------------ //
-    // Display building ID on clock
-    map.on('click', (e) => {
-        const features = map?.queryRenderedFeatures(e.point, {
-            layers: ['add-3d-buildings']
-        });
-        if (features && features.length > 0) {
-            const buildingId = features[0].id;
-            console.log('Building ID:', buildingId);
+    // MAKE COLOR MODE REACTIVE ------------------------------------------------------------------------------------- //
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', () => {
+        if (map) {
+            map.setStyle(style.value);
         }
     });
 });

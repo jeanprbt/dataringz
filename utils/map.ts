@@ -1,11 +1,15 @@
-import mapboxgl, { LngLatBounds, type Marker, type EasingOptions, type LngLatBoundsLike } from 'mapbox-gl';
+import mapboxgl, { LngLatBounds, type Marker, type EasingOptions } from 'mapbox-gl';
 import { type Router } from 'vue-router';
 import * as turf from 'turf';
+import { h, render } from 'vue';
+import { MarkerIcon } from '#components';
 
 let markers = new Map<Marker, [number, number]>();
 
 // SET FINAL PROPERTIES --------------------------------------------------------------------------------------------- //
 const setFinalProperties = (map: mapboxgl.Map): void => {
+
+    // remove intro lines
     if (map.getLayer('french-line-layer-1')) {
         map.removeLayer('french-line-layer-1');
     }
@@ -30,10 +34,9 @@ const setFinalProperties = (map: mapboxgl.Map): void => {
     if (map.getSource('greek-line')) {
         map.removeSource('greek-line');
     }
-    const { lng: lng, lat: lat } = map.getCenter();
-
 
     // set final camera properties
+    const { lng: lng, lat: lat } = map.getCenter();
     map.setMinZoom(10);
     map.setMaxBounds([
         [lng - 1, lat - 1],
@@ -47,13 +50,10 @@ const setFinalProperties = (map: mapboxgl.Map): void => {
     // override scrollZoom renderFrame to add pitch updates
     const scrollZoom = map.scrollZoom as any;
     const originalRenderFrame = scrollZoom.renderFrame;
-
     scrollZoom.renderFrame = function () {
         const result = originalRenderFrame.call(this);
-
         if (result?.zoomDelta) {
             const targetZoom = map.getZoom() + result.zoomDelta;
-
             if (targetZoom > map.getMinZoom() + 2) {
                 const newPitch = Math.max(0, Math.min(60, (targetZoom - 10) * 10));
                 if (map.transform) {
@@ -64,100 +64,53 @@ const setFinalProperties = (map: mapboxgl.Map): void => {
         }
         return result;
     };
+
 }
 
 // SET MARKERS  ----------------------------------------------------------------------------------------------------- //
 const setMarkers = async (map: mapboxgl.Map, router: Router) => {
-    const venues = await fetch('/data/venues.json').then(res => res.json());
-    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    Object.keys(venues).forEach(key => {
-        const venue = venues[key]
 
+    const venues = await fetch('/data/venues.json').then(res => res.json());
+    Object.keys(venues).forEach(key => {
+
+        // retrieve corresponding venue
+        const venue = venues[key]
         if (venue.location.longitude === null || venue.location.latitude === null) return;
 
-        // Create a custom HTML element for the marker
-        const el = document.createElement('div');
-        el.className = 'venue-marker';
-        el.style.cursor = 'pointer';
+        // retrieve corresponding sports
+        const sports = [];
+        if (venue && venue.sports && venue.sports.length > 0) {
+            for (const sport of venue.sports) {
+                sports.push({
+                    "src": sport.icon,
+                    "alt": sport.name
+                });
+            }
+        }
 
-        // Style the container
+        // create HTML element to contain marker
+        const el = document.createElement('div');
         el.style.display = 'flex';
         el.style.flexWrap = 'wrap';
-        el.style.justifyContent = 'center';
-        el.style.width = '50px';
-        el.style.height = 'auto';
-        el.style.background = 'rgba(255, 255, 255, 0.8)';
-        if (isDarkMode) {
-            el.style.background = 'rgba(20, 20, 20, 0.8)';
-        }
-        el.addEventListener('mouseenter', () => {
-            if (isDarkMode) {
-                el.style.background = 'rgba(60, 60, 60, 0.8)'
-            } else {
-                el.style.background = 'rgba(200, 200, 200, 0.8)';
-            }
-        });
-
-        el.addEventListener('mouseleave', () => {
-            if (isDarkMode) {
-                el.style.background = 'rgba(20, 20, 20, 0.8)';
-            } else {
-                el.style.background = 'rgba(255, 255, 255, 0.8)';
-            }
-        });
-        el.style.borderRadius = '10px';
-        el.style.padding = '5px';
-        el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
         el.style.opacity = '0';
         el.style.transition = 'opacity 0.5s ease-in'
+        const vnode = h(MarkerIcon, { sports });
+        render(vnode, el);
 
-        // Add sports icons to the marker
-        if (venue && venue.sports && venue.sports.length > 0) {
-
-            // Add icons for each sport in the venue
-            for (const sport of venue.sports) {
-                const iconContainer = document.createElement('div');
-                iconContainer.style.width = '30px';
-                iconContainer.style.height = '30px';
-                iconContainer.style.margin = '2px';
-
-                const img = document.createElement('img');
-                img.src = sport.icon;
-                img.alt = sport.name;
-                img.style.width = '100%';
-                img.style.height = '100%';
-
-                if (isDarkMode) {
-                    img.style.filter = 'invert(1) brightness(0.8)';
-                }
-
-                iconContainer.appendChild(img);
-                el.appendChild(iconContainer);
-            }
-        } else {
-            // Fallback for venues with no sports
-            const defaultMarker = document.createElement('div');
-            defaultMarker.style.width = '20px';
-            defaultMarker.style.height = '20px';
-            defaultMarker.style.borderRadius = '50%';
-            defaultMarker.style.backgroundColor = '#FF0000';
-            el.appendChild(defaultMarker);
-        }
-
-
-        // Create a new marker using the custom element
+        // create new marker
         const markerCoordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
         const marker = new mapboxgl.Marker({
             element: el,
             anchor: 'center'
         }).setLngLat(markerCoordinates).addTo(map);
+        markers.set(marker, markerCoordinates);
 
-        // Make it appear
+        // make it appear if it is within the bounds
         const mapBounds = map.getBounds()!;
         const { paddedMapBounds: paddedMapBounds } = getPaddedMapBounds(mapBounds);
         if (paddedMapBounds.contains(markerCoordinates)) fadeInMarker(marker);
 
-        // Add click event
+        // add click event
         marker.getElement().addEventListener('click', async () => {
             const { lng: lng, lat: lat } = map.getCenter();
             if (Math.abs(markerCoordinates[0] - lng) > 1 || Math.abs(markerCoordinates[1] - lat) > 1) {
@@ -208,9 +161,6 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
             }
             router.push(`/venue/${venue.slug}`);
         });
-
-        // Register marker
-        markers.set(marker, markerCoordinates);
     });
 };
 

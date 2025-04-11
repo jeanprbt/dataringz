@@ -5,6 +5,8 @@ import { h, render } from 'vue';
 import { MarkerIcon } from '#components';
 
 let markers = new Map<Marker, [number, number]>();
+const markerDirections = reactive(new Map<mapboxgl.Marker, Ref<number>>());
+let a = ref(0);
 
 // SET FINAL PROPERTIES --------------------------------------------------------------------------------------------- //
 const setFinalProperties = (map: mapboxgl.Map): void => {
@@ -78,7 +80,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
         if (venue.location.longitude === null || venue.location.latitude === null) return;
 
         // retrieve corresponding sports
-        const sports = [];
+        let sports = [];
         if (venue && venue.sports && venue.sports.length > 0) {
             for (const sport of venue.sports) {
                 sports.push({
@@ -94,9 +96,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
         el.style.flexWrap = 'wrap';
         el.style.opacity = '0';
         el.style.transition = 'opacity 0.5s ease-in'
-        const vnode = h(MarkerIcon, { sports });
-        render(vnode, el);
-
+        
         // create new marker
         const markerCoordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
         const marker = new mapboxgl.Marker({
@@ -104,6 +104,11 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
             anchor: 'center'
         }).setLngLat(markerCoordinates).addTo(map);
         markers.set(marker, markerCoordinates);
+        markerDirections.set(marker, ref(0));
+        
+        // render marker in DOM
+        const vnode = h(MarkerIcon, { sports: sports, direction: markerDirections.get(marker) });
+        render(vnode, el);
 
         // make it appear if it is within the bounds
         const mapBounds = map.getBounds()!;
@@ -180,6 +185,11 @@ const updateOutMarkers = (map: mapboxgl.Map, outMarkers: Map<Marker, Marker>, zo
         if (!paddedMapBounds.contains([markerLng, markerLat])) {
             if (zoom <= 11) {
                 const line = turf.lineString([[mapLng, mapLat], [markerLng, markerLat]]);
+                let direction = turf.bearing(turf.point([mapLng, mapLat]), turf.point([markerLng, markerLat]));
+
+                // handle special tahiti case
+                if (markerLat < 0) direction *= 3;
+                
                 const viewportEdges = [
                     turf.lineString([nw, ne]),
                     turf.lineString([sw, se]),
@@ -189,7 +199,8 @@ const updateOutMarkers = (map: mapboxgl.Map, outMarkers: Map<Marker, Marker>, zo
                 for (const edge of viewportEdges) {
                     const intersects = turf.intersect(line, edge);
                     if (intersects !== undefined) {
-                        marker.setLngLat(intersects.geometry.coordinates as [number, number])
+                        marker.setLngLat(intersects.geometry.coordinates as [number, number]);
+                        markerDirections.get(marker)!.value = direction;
                         break;
                     }
                 }
@@ -202,6 +213,7 @@ const updateOutMarkers = (map: mapboxgl.Map, outMarkers: Map<Marker, Marker>, zo
             }
         } else {
             marker.addTo(map);
+            markerDirections.get(marker)!.value = 0;
             marker.setLngLat([markerLng, markerLat]);
         };
     }

@@ -9,33 +9,67 @@
                     transition-opacity duration-500 ease-in
                 ">
             <div 
-                v-for="(sport, index) in sports"
-                :key="index"
-                class="imgContainer w-[30px] h-[30px] m-[2px]"
-                :class="{'filter invert brightness-80': dark}"
+                v-for="(sport, index) in sports" 
+                :key="index" 
+                :class="['w-[30px] h-[30px] m-[2px]', { 'filter invert brightness-80': dark }]"
             >
                 <img class="w-full h-full" :src="sport.src" :alt="sport.alt" />
             </div>
         </div>
+        <Transition 
+            enter-active-class="duration-300 ease-out" 
+            enter-from-class="transform opacity-0"
+            enter-to-class="opacity-100" 
+            leave-active-class="duration-300 ease-in" 
+            leave-from-class="opacity-100"
+            leave-to-class="transform opacity-0"
+        >
+            <img 
+                v-if="direction !== 0"
+                src="/img/arrow.svg" alt="direction arrow"
+                :class="['absolute w-[10px] top-1/2 left-1/2 -translate-1/2 animate-directional', { 'filter invert brightness-80': dark }]"
+                :style="arrowStyle"
+            />
+        </Transition>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-defineProps({
+const props = defineProps({
     sports: {
         type: Array,
         required: true,
         validator: (value) => {
             return Array.isArray(value) && value.every(item => {
                 return typeof item === 'object' &&
-                       typeof item.alt === 'string' &&
-                       typeof item.src === 'string';
+                    typeof item.alt === 'string' &&
+                    typeof item.src === 'string';
             });
         }
+    },
+    direction: {
+        type: Object,
+        required: false
     }
 })
 
+const direction = toRef(props, "direction");
 const dark = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+
+const arrowStyle = computed(() => {
+    const radius = 40;
+    const angleInRadians = (direction.value * Math.PI) / 180;
+    const x = radius * Math.sin(angleInRadians);
+    const y = -radius * Math.cos(angleInRadians) * (1 + (props.sports.length - 1) / 2);
+    return {
+        transform: `translate(-50%, -50%)`,
+        '--dir': `${direction.value}deg`,
+        '--x': `${x}px`,
+        '--y': `${y}px`,
+        '--dx': `${1.1*x}px`,
+        '--dy': `${1.1*y}px`,
+    };
+});
 </script>

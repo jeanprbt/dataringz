@@ -938,6 +938,46 @@
             1760725350560175
         ]
     },
+    "marseille-stadium": {
+        "name": "Marseille Stadium",
+        "slug": "marseille-stadium",
+        "url": "https://olympics.com/en/paris-2024/venues/marseille-stadium",
+        "sports": [
+            {
+                "slug": "football",
+                "name": "Football",
+                "icon": "/img/sports/SVG/football.svg"
+            }
+        ],
+        "date_start": "2024-07-25T19:00:00Z",
+        "date_end": "2024-08-06T21:59:00Z",
+        "description": "Olympic venue hosting Football",
+        "location": {
+            "latitude": 43.26970,
+            "longitude": 5.39474
+        },
+        "buildingIds": [
+            17757959,
+            154628929,
+            258497433,
+            346501086,
+            346503284,
+            346504071,
+            401627546,
+            401627550,
+            401627551,
+            401627552,
+            401627554,
+            401627555,
+            401627556,
+            401627557,
+            431709895,
+            431724729,
+            593477193,
+            593477475,
+            1057195970597465
+        ]
+    },
     "marseille-marina": {
         "name": "Marseille Marina",
         "slug": "marseille-marina",
@@ -988,46 +1028,6 @@
             3945989960925745,
             4871358613576295,
             5084459151926215
-        ]
-    },
-    "marseille-stadium": {
-        "name": "Marseille Stadium",
-        "slug": "marseille-stadium",
-        "url": "https://olympics.com/en/paris-2024/venues/marseille-stadium",
-        "sports": [
-            {
-                "slug": "football",
-                "name": "Football",
-                "icon": "/img/sports/SVG/football.svg"
-            }
-        ],
-        "date_start": "2024-07-25T19:00:00Z",
-        "date_end": "2024-08-06T21:59:00Z",
-        "description": "Olympic venue hosting Football",
-        "location": {
-            "latitude": 43.26970,
-            "longitude": 5.39474
-        },
-        "buildingIds": [
-            17757959,
-            154628929,
-            258497433,
-            346501086,
-            346503284,
-            346504071,
-            401627546,
-            401627550,
-            401627551,
-            401627552,
-            401627554,
-            401627555,
-            401627556,
-            401627557,
-            431709895,
-            431724729,
-            593477193,
-            593477475,
-            1057195970597465
         ]
     },
     "nice-stadium": {

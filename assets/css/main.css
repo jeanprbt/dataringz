@@ -4,13 +4,77 @@
 @plugin "tailwindcss-motion";
 
 @theme {
-    --animate-directional: directional-bounce 1s ease-in-out infinite;
-    @keyframes directional-bounce {
-        0%, 100% {
-          transform: translate(var(--x), var(--y)) rotate(var(--dir));
+    --animate-arrow: arrow-bounce 1s ease-in-out infinite;
+
+    @keyframes arrow-bounce {
+
+        0%,
+        100% {
+            transform: translate(var(--x), var(--y)) rotate(var(--dir));
         }
+
         50% {
-          transform: translate(var(--dx), var(--dy)) rotate(var(--dir));
+            transform: translate(var(--dx), var(--dy)) rotate(var(--dir));
         }
-      }
+    }
+
+    --animate-modal-background: background-fade .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+    @keyframes background-fade {
+        0% {
+            background: rgba(0, 0, 0, .0);
+        }
+
+        100% {
+            background: rgba(0, 0, 0, .7);
+        }
+    }
+
+    --animate-modal-shape-dark: shape-fade-dark .5s .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+    @keyframes shape-fade-dark {
+        0% {
+            background: transparent;
+        }
+
+        100% {
+            background: rgb(63, 63, 70);
+        }
+    }
+
+    --animate-modal-shape-light: shape-fade-light .5s .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+    @keyframes shape-fade-light {
+        0% {
+            background: transparent;
+        }
+
+        100% {
+            background: rgb(255, 255, 255);
+        }
+    }
+
+
+    --animate-modal-content: content-fade .5s 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+    @keyframes content-fade {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    --animate-modal-rectangle: draw-rectangle .5s .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+    @keyframes draw-rectangle {
+        0% {
+            stroke-dashoffset: 400%;
+        }
+        100% {
+            stroke-dashoffset: 0%;
+        }
+    }
 }

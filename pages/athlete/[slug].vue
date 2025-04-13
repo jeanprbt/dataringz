@@ -1,5 +1,5 @@
 <template>
-    <PageModal :title="athlete.name" :show="showAthletePage" @close="closePage">
+    <PageModal :show="showAthletePage" @close="closePage">
         <div v-if="isLoading" class="flex justify-center items-center h-48">
             <span class="mr-3">Loading athlete data</span>
             <UIcon name="i-svg-spinners-ring-resize" class="h-6 w-6 text-primary" />

@@ -8,29 +8,18 @@
                     rounded-lg p-[5px] shadow-md 
                     transition-opacity duration-500 ease-in
                 ">
-            <div 
-                v-for="(sport, index) in sports" 
-                :key="index" 
-                :class="['w-[30px] h-[30px] m-[2px]', { 'filter invert brightness-80': dark }]"
-            >
+            <div v-for="(sport, index) in sports" :key="index"
+                :class="['w-[30px] h-[30px] m-[2px]', { 'filter invert brightness-80': dark }]">
                 <img class="w-full h-full" :src="sport.src" :alt="sport.alt" />
             </div>
         </div>
-        <Transition 
-            enter-active-class="duration-300 ease-out" 
-            enter-from-class="transform opacity-0"
-            enter-to-class="opacity-100" 
-            leave-active-class="duration-300 ease-in" 
-            leave-from-class="opacity-100"
-            leave-to-class="transform opacity-0"
-        >
-            <img 
-                v-if="direction !== 0"
-                src="/img/arrow.svg" alt="direction arrow"
-                :class="['absolute w-[10px] top-1/2 left-1/2 -translate-1/2 animate-directional', { 'filter invert brightness-80': dark }]"
-                :style="arrowStyle"
-            />
-        </Transition>
+        <transition enter-from-class="opacity-0" enter-active-class="duration-300 ease-in"
+            enter-to-class="opacity-100" leave-from-class="opacity-100" leave-active-class="duration-300 ease-in"
+            leave-to-class="opacity-0">
+            <img v-if="direction !== 0" src="/img/arrow.svg" alt="direction arrow"
+                :class="['absolute w-[10px] top-1/2 left-1/2 -translate-1/2 animate-arrow', { 'filter invert brightness-80': dark }]"
+                :style="arrowStyle" />
+        </transition>
     </div>
 </template>
 
@@ -68,8 +57,8 @@ const arrowStyle = computed(() => {
         '--dir': `${direction.value}deg`,
         '--x': `${x}px`,
         '--y': `${y}px`,
-        '--dx': `${1.1*x}px`,
-        '--dy': `${1.1*y}px`,
+        '--dx': `${1.1 * x}px`,
+        '--dy': `${1.1 * y}px`,
     };
 });
 </script>

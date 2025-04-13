@@ -1,5 +1,5 @@
 <template>
-    <PageModal :title="country.name" :show="showCountryPage" @close="closePage">
+    <PageModal :show="showCountryPage" @close="closePage">
         <div class="country-content">
             <div class="flex items-center mb-4">
                 <div v-if="country.code" class="country-flag mr-3">

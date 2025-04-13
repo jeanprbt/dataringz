@@ -1,5 +1,5 @@
 <template>
-    <PageModal :title="sport.name" :show="showSportPage" @close="closePage">
+    <PageModal :show="showSportPage" @close="closePage">
         <div v-if="isLoading" class="flex justify-center items-center h-48">
             <span class="mr-3">Loading sport data</span>
             <UIcon name="i-svg-spinners-ring-resize" class="h-6 w-6 text-primary" />

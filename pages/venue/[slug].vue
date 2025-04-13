@@ -1,5 +1,5 @@
 <template>
-    <PageModal :title="venue.name" :show="showVenuePage" @close="closePage">
+    <PageModal :show="showVenuePage" @close="closePage">
         <div class="venue-content p-3">
             <div v-if="isLoading" class="flex justify-center items-center h-32">
                 <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>

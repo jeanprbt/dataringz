@@ -109,6 +109,7 @@ onMounted(async () => {
         const athlete = athletes[directAthleteAccess.value as string];
         const sport = sports[athlete["sports"][0]["slug"] as string]
         const venue = venues[sport["venues"][0]["slug"] as string];
+    
         venueCoordinates = [venue.location.longitude, venue.location.latitude];
     }
 

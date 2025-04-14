@@ -25,8 +25,8 @@
             <div class="mt-6">
                 <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-2">Sports:</h3>
                 <div class="space-y-2">
-                    <SportLink v-for="sport in country.sports" :key="sport.slug" :slug="sport.slug"
-                        :name="sport.name" :description="sport.description" :is-inline="true" />
+                    <SportLink v-for="sport in country.sports" :key="sport.slug" :slug="sport.slug" :name="sport.name"
+                        :description="sport.description" :is-inline="true" />
                 </div>
             </div>
 
@@ -34,8 +34,8 @@
             <div class="mt-6">
                 <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-2">Venues:</h3>
                 <div class="space-y-2">
-                    <VenueLink v-for="venue in country.venues" :key="venue.slug" :slug="venue.slug"
-                        :name="venue.name" :description="venue.description" :is-inline="true" />
+                    <VenueLink v-for="venue in country.venues" :key="venue.slug" :slug="venue.slug" :name="venue.name"
+                        :description="venue.description" :is-inline="true" />
                 </div>
             </div>
         </div>
@@ -97,8 +97,6 @@ useHead(() => {
 
 const closePage = () => {
     showCountryPage.value = false;
-    setTimeout(() => {
-        router.push('/');
-    }, 200);
+    router.push('/');
 }
 </script>

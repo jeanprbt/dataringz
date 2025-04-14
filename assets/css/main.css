@@ -18,9 +18,10 @@
         }
     }
 
-    --animate-modal-background: background-fade .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    --animate-modal-background: background-fade-in .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    --animate-modal-background-exit: background-fade-out .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
 
-    @keyframes background-fade {
+    @keyframes background-fade-in {
         0% {
             background: rgba(0, 0, 0, .0);
         }
@@ -30,40 +31,13 @@
         }
     }
 
-    --animate-modal-shape-dark: shape-fade-dark .5s .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-
-    @keyframes shape-fade-dark {
+    @keyframes background-fade-out {
         0% {
-            background: transparent;
+            background: rgba(0, 0, 0, .7);
         }
 
         100% {
-            background: rgb(63, 63, 70);
-        }
-    }
-
-    --animate-modal-shape-light: shape-fade-light .5s .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-
-    @keyframes shape-fade-light {
-        0% {
-            background: transparent;
-        }
-
-        100% {
-            background: rgb(255, 255, 255);
-        }
-    }
-
-
-    --animate-modal-content: content-fade .5s 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
-
-    @keyframes content-fade {
-        0% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
+            background: rgba(0, 0, 0, .0);
         }
     }
 
@@ -73,8 +47,84 @@
         0% {
             stroke-dashoffset: 400%;
         }
-        100% {
+
+        99% {
             stroke-dashoffset: 0%;
+        }
+
+        100% {
+            stroke: 'none';
+        }
+    }
+
+
+    --animate-modal-shape-dark: shape-fade-in-dark .5s .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    --animate-modal-shape-dark-exit: shape-fade-out-dark .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+
+    @keyframes shape-fade-in-dark {
+        0% {
+            background: transparent;
+        }
+
+        100% {
+            background: rgb(39, 39, 42);
+        }
+    }
+
+    @keyframes shape-fade-out-dark {
+        0% {
+            background: rgb(39, 39, 42);
+        }
+
+        100% {
+            background: transparent;
+        }
+    }
+
+    --animate-modal-shape-light: shape-fade-in-light .5s .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    --animate-modal-shape-light-exit: shape-fade-out-light .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+
+    @keyframes shape-fade-in-light {
+        0% {
+            background: transparent;
+        }
+
+        100% {
+            background: rgb(255, 255, 255);
+        }
+    }
+
+    @keyframes shape-fade-out-light {
+        0% {
+            background: rgb(255, 255, 255);
+        }
+
+        100% {
+            background: transparent;
+        }
+    }
+
+
+    --animate-modal-content: content-fade-in .5s 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    --animate-modal-content-exit: content-fade-out .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+
+    @keyframes content-fade-in {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes content-fade-out {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
         }
     }
 }

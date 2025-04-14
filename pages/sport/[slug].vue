@@ -152,9 +152,7 @@ useHead(() => {
 
 const closePage = () => {
     showSportPage.value = false;
-    setTimeout(() => {
-        router.push('/');
-    }, 200);
+    router.push('/');
 }
 
 // COMPUTED VALUES -----------------------------------------------------------------------------------------------------

@@ -34,7 +34,7 @@
                     <UIcon name="i-heroicons-map-pin" class="w-4 h-4 mr-2 mt-0.5 text-primary flex-shrink-0" />
                     <div>
                         <span class="font-medium text-zinc-800 dark:text-white">Birth Place:</span> {{
-                        athlete.birth_place }}, {{
+                            athlete.birth_place }}, {{
                             athlete.birth_country }}
                     </div>
                 </div>
@@ -65,14 +65,14 @@
                     <UIcon name="i-heroicons-briefcase" class="w-4 h-4 mr-2 mt-0.5 text-primary flex-shrink-0" />
                     <div>
                         <span class="font-medium text-zinc-800 dark:text-white">Occupation:</span> {{
-                        athlete.occupation }}
+                            athlete.occupation }}
                     </div>
                 </div>
                 <div v-if="athlete.education" class="text-sm text-zinc-700 dark:text-zinc-300 flex items-start">
                     <UIcon name="i-heroicons-book-open" class="w-4 h-4 mr-2 mt-0.5 text-primary flex-shrink-0" />
                     <div>
                         <span class="font-medium text-zinc-800 dark:text-white">Education:</span> {{
-                        athlete.education }}
+                            athlete.education }}
                     </div>
                 </div>
             </div>
@@ -103,14 +103,14 @@
                     <UIcon name="i-heroicons-language" class="w-4 h-4 mr-2 mt-0.5 text-primary flex-shrink-0" />
                     <div>
                         <span class="font-medium text-zinc-800 dark:text-white">Languages:</span> {{
-                        athlete.languages }}
+                            athlete.languages }}
                     </div>
                 </div>
                 <div v-if="athlete.hero" class="text-sm text-zinc-700 dark:text-zinc-300 flex items-start">
                     <UIcon name="i-heroicons-star" class="w-4 h-4 mr-2 mt-0.5 text-primary flex-shrink-0" />
                     <div>
                         <span class="font-medium text-zinc-800 dark:text-white">Hero/Inspiration:</span> {{
-                        athlete.hero }}
+                            athlete.hero }}
                     </div>
                 </div>
             </div>
@@ -122,8 +122,8 @@
                     Sports:
                 </h3>
                 <div class="space-y-2">
-                    <SportLink v-for="sport in athlete.sports" :key="sport.slug" :slug="sport.slug"
-                        :name="sport.name" :description="sport.description" :is-inline="true" />
+                    <SportLink v-for="sport in athlete.sports" :key="sport.slug" :slug="sport.slug" :name="sport.name"
+                        :description="sport.description" :is-inline="true" />
                 </div>
             </div>
 
@@ -155,7 +155,8 @@
                             <div class="font-medium text-zinc-800 dark:text-white">{{ medal.type }}</div>
                             <div class="text-zinc-700 dark:text-zinc-300">{{ medal.event }} ({{ medal.discipline }})
                             </div>
-                            <div class="text-sm text-zinc-600 dark:text-zinc-400">{{ yearMonthDayDate(medal.date) }}</div>
+                            <div class="text-sm text-zinc-600 dark:text-zinc-400">{{ yearMonthDayDate(medal.date) }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -238,10 +239,7 @@ useHead(() => {
 
 const closePage = () => {
     showAthletePage.value = false;
-    // Use a small timeout to allow for transition effects
-    setTimeout(() => {
-        router.push('/');
-    }, 200);
+    router.push('/');
 }
 
 

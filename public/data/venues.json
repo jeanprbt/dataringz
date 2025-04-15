@@ -24,12 +24,13 @@
         "date_end": "2024-08-10T20:00:00Z",
         "description": "Olympic venue hosting Artistic Swimming, Diving, Water Polo",
         "location": {
-            "latitude": 48.923650,
+            "latitude": 48.92365,
             "longitude": 2.355426
         },
         "buildingIds": [
             1164494013
-        ]
+        ],
+        "img": "/img/venues/aquatics-centre.jpg"
     },
     "bercy-arena": {
         "name": "Bercy Arena",
@@ -240,7 +241,8 @@
             252775153,
             516445489076405,
             1094174495371325
-        ]
+        ],
+        "img": "/img/venues/bercy-arena.jpg"
     },
     "bordeaux-stadium": {
         "name": "Bordeaux Stadium",
@@ -262,7 +264,8 @@
         },
         "buildingIds": [
             9104753
-        ]
+        ],
+        "img": "/img/venues/bordeaux-stadium.jpg"
     },
     "champ-de-mars-arena": {
         "name": "Champ de Mars Arena",
@@ -289,7 +292,8 @@
         },
         "buildingIds": [
             854459034
-        ]
+        ],
+        "img": "/img/venues/champ-de-mars-arena.jpg"
     },
     "chateau-de-versailles": {
         "name": "Château de Versailles",
@@ -350,7 +354,8 @@
             2122058393272355,
             2578318733555715,
             2762294946974215
-        ]
+        ],
+        "img": "/img/venues/chateau-de-versailles.jpg"
     },
     "chateauroux-shooting-centre": {
         "name": "Chateauroux Shooting Centre",
@@ -470,7 +475,8 @@
             4795302520641695,
             5358403719911735,
             5451475415293425
-        ]
+        ],
+        "img": "/img/venues/chateauroux-shooting-centre.jpg"
     },
     "eiffel-tower-stadium": {
         "name": "Eiffel Tower Stadium",
@@ -526,7 +532,8 @@
             335101035,
             335101038,
             449952613
-        ]
+        ],
+        "img": "/img/venues/eiffel-tower-stadium.jpg"
     },
     "elancourt-hill": {
         "name": "Elancourt Hill",
@@ -544,12 +551,13 @@
         "description": "Olympic venue hosting Cycling Mountain Bike",
         "location": {
             "latitude": 48.787643,
-            "longitude": 1.968540
+            "longitude": 1.96854
         },
         "buildingIds": [
             120006689,
             1050063125112095
-        ]
+        ],
+        "img": "/img/venues/elancourt-hill.jpg"
     },
     "geoffroy-guichard-stadium": {
         "name": "Geoffroy-Guichard Stadium",
@@ -594,7 +602,8 @@
             499335274,
             499335275,
             499335276
-        ]
+        ],
+        "img": "/img/venues/geoffroy-guichard-stadium.jpg"
     },
     "grand-palais": {
         "name": "Grand Palais",
@@ -629,7 +638,8 @@
             822470558,
             822470559,
             822470565
-        ]
+        ],
+        "img": "/img/venues/grand-palais.jpg"
     },
     "hotel-de-ville": {
         "name": "Hôtel de Ville",
@@ -672,7 +682,8 @@
             331242785,
             1355032778,
             2002185230726595
-        ]
+        ],
+        "img": "/img/venues/hotel-de-ville.jpg"
     },
     "invalides": {
         "name": "Invalides",
@@ -767,7 +778,8 @@
             5054577255772795,
             5369020551408125,
             5587792508812005
-        ]
+        ],
+        "img": "/img/venues/invalides.jpg"
     },
     "la-beaujoire-stadium": {
         "name": "La Beaujoire Stadium",
@@ -790,7 +802,8 @@
         "buildingIds": [
             36361,
             82533068
-        ]
+        ],
+        "img": "/img/venues/la-beaujoire-stadium.jpg"
     },
     "la-concorde": {
         "name": "La Concorde",
@@ -836,7 +849,8 @@
             1034734821,
             1034734822,
             1034734823
-        ]
+        ],
+        "img": "/img/venues/la-concorde.jpg"
     },
     "le-bourget-climbing-venue": {
         "name": "Le Bourget Climbing Venue",
@@ -858,7 +872,8 @@
         },
         "buildingIds": [
             1257508599
-        ]
+        ],
+        "img": "/img/venues/le-bourget-climbing-venue.jpg"
     },
     "le-golf-national": {
         "name": "Golf National",
@@ -899,7 +914,8 @@
             486729954597105,
             2153259435291335,
             4658681374427595
-        ]
+        ],
+        "img": "/img/venues/le-golf-national.jpg"
     },
     "lyon-stadium": {
         "name": "Lyon Stadium",
@@ -936,7 +952,8 @@
             848769478,
             850876535,
             1760725350560175
-        ]
+        ],
+        "img": "/img/venues/lyon-stadium.jpg"
     },
     "marseille-stadium": {
         "name": "Marseille Stadium",
@@ -953,7 +970,7 @@
         "date_end": "2024-08-06T21:59:00Z",
         "description": "Olympic venue hosting Football",
         "location": {
-            "latitude": 43.26970,
+            "latitude": 43.2697,
             "longitude": 5.39474
         },
         "buildingIds": [
@@ -976,7 +993,8 @@
             593477193,
             593477475,
             1057195970597465
-        ]
+        ],
+        "img": "/img/venues/marseille-stadium.jpg"
     },
     "marseille-marina": {
         "name": "Marseille Marina",
@@ -1028,7 +1046,8 @@
             3945989960925745,
             4871358613576295,
             5084459151926215
-        ]
+        ],
+        "img": "/img/venues/marseille-marina.jpg"
     },
     "nice-stadium": {
         "name": "Nice Stadium",
@@ -1046,7 +1065,7 @@
         "description": "Olympic venue hosting Football",
         "location": {
             "latitude": 43.70516,
-            "longitude": 7.19300
+            "longitude": 7.193
         },
         "buildingIds": [
             2722742,
@@ -1068,7 +1087,8 @@
             1280197966,
             1280496637,
             1280496638
-        ]
+        ],
+        "img": "/img/venues/nice-stadium.jpg"
     },
     "north-paris-arena": {
         "name": "North Paris Arena",
@@ -1096,7 +1116,8 @@
         "buildingIds": [
             146518510,
             146518839
-        ]
+        ],
+        "img": "/img/venues/north-paris-arena.jpg"
     },
     "parc-des-princes": {
         "name": "Parc des Princes",
@@ -1118,7 +1139,8 @@
         },
         "buildingIds": [
             152838
-        ]
+        ],
+        "img": "/img/venues/parc-des-princes.jpg"
     },
     "paris-la-defense-arena": {
         "name": "Paris La Defense Arena",
@@ -1146,7 +1168,8 @@
         "buildingIds": [
             14479234,
             443073294
-        ]
+        ],
+        "img": "/img/venues/paris-la-defense-arena.jpg"
     },
     "pierre-mauroy-stadium": {
         "name": "Pierre Mauroy Stadium",
@@ -1171,7 +1194,8 @@
             "latitude": null,
             "longitude": null
         },
-        "buildingIds": []
+        "buildingIds": [],
+        "img": "/img/venues/pierre-mauroy-stadium.jpg"
     },
     "pont-alexandre-iii": {
         "name": "Pont Alexandre III",
@@ -1199,14 +1223,15 @@
         "description": "Olympic venue hosting Cycling Road, Marathon Swimming, Triathlon",
         "location": {
             "latitude": 48.863614,
-            "longitude": 2.313530
+            "longitude": 2.31353
         },
         "buildingIds": [
             64959941,
             230227013,
             230227014,
             230227015
-        ]
+        ],
+        "img": "/img/venues/pont-alexandre-iii.jpg"
     },
     "porte-de-la-chapelle-arena": {
         "name": "Porte de La Chapelle Arena",
@@ -1241,7 +1266,8 @@
             1339845631,
             1339845632,
             1339845636
-        ]
+        ],
+        "img": "/img/venues/porte-de-la-chapelle-arena.jpg"
     },
     "roland-garros-stadium": {
         "name": "Roland-Garros",
@@ -1653,7 +1679,8 @@
             4056486483864525,
             4392513696588265,
             4756674583732615
-        ]
+        ],
+        "img": "/img/venues/roland-garros-stadium.jpg"
     },
     "saint-quentin-en-yvelines-bmx-stadium": {
         "name": "Saint-Quentin-en-Yvelines BMX Stadium",
@@ -1675,7 +1702,8 @@
         },
         "buildingIds": [
             631605216
-        ]
+        ],
+        "img": "/img/venues/saint-quentin-en-yvelines-bmx-stadium.jpg"
     },
     "saint-quentin-en-yvelines-velodrome": {
         "name": "Saint-Quentin-en-Yvelines Velodrome",
@@ -1693,7 +1721,7 @@
         "description": "Olympic venue hosting Cycling Track ",
         "location": {
             "latitude": 48.788121,
-            "longitude": 2.035000
+            "longitude": 2.035
         },
         "buildingIds": [
             112525618,
@@ -1701,7 +1729,8 @@
             405977550,
             534770953,
             534770954
-        ]
+        ],
+        "img": "/img/venues/saint-quentin-en-yvelines-velodrome.jpg"
     },
     "south-paris-arena": {
         "name": "South Paris Arena",
@@ -1796,7 +1825,8 @@
             1334598502,
             629909915516855,
             3586949549078625
-        ]
+        ],
+        "img": "/img/venues/south-paris-arena.jpg"
     },
     "stade-de-france": {
         "name": "Stade de France",
@@ -1850,7 +1880,8 @@
             226403487,
             226403488,
             226403489
-        ]
+        ],
+        "img": "/img/venues/stade-de-france.jpg"
     },
     "teahupo-o-tahiti": {
         "name": "Teahupo'o, Tahiti",
@@ -1875,7 +1906,8 @@
             746771267,
             754517189,
             754519242
-        ]
+        ],
+        "img": "/img/venues/teahupo-o-tahiti.jpg"
     },
     "trocadero": {
         "name": "Trocadéro",
@@ -1923,7 +1955,8 @@
             1824269925306945,
             4525599644445645,
             4576182773807585
-        ]
+        ],
+        "img": "/img/venues/trocadero.jpg"
     },
     "vaires-sur-marne-nautical-stadium": {
         "name": "Vaires-sur-Marne Nautical Stadium",
@@ -1971,7 +2004,8 @@
             5016927119853295,
             5113993775628655,
             5594720723169125
-        ]
+        ],
+        "img": "/img/venues/vaires-sur-marne-nautical-stadium.jpg"
     },
     "yves-du-manoir-stadium": {
         "name": "Yves-du-Manoir Stadium",
@@ -1988,7 +2022,7 @@
         "date_end": "2024-08-09T20:30:00Z",
         "description": "Olympic venue hosting Hockey",
         "location": {
-            "latitude": 48.929280,
+            "latitude": 48.92928,
             "longitude": 2.247706
         },
         "buildingIds": [
@@ -1996,6 +2030,7 @@
             1347790727,
             1347790728,
             1347790729
-        ]
+        ],
+        "img": "/img/venues/yves-du-manoir-stadium.jpg"
     }
 }

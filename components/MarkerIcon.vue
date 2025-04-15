@@ -6,7 +6,7 @@
                     w-[50px] h-auto
                     bg-zinc-50 hover:bg-zinc-200 dark:bg-zinc-900 hover:dark:bg-zinc-800
                     rounded-lg p-[5px] shadow-md 
-                    transition-opacity duration-500 ease-in
+                    transition-all duration-200 ease-in
                 ">
             <div v-for="(sport, index) in sports" :key="index"
                 :class="['w-[30px] h-[30px] m-[2px]', { 'filter invert brightness-80': dark }]">

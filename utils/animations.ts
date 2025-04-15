@@ -2,27 +2,27 @@ import SplitType from 'split-type';
 import { gsap } from 'gsap';
 
 
-// DISPLAY / HIDE SKIP BUTTON --------------------------------------------------------------------------------------- //
-const displaySkipButton = (showSkipButton: Ref, skipButton: Ref) => {
-    gsap.delayedCall(3, () => {
-        showSkipButton.value = true;
+// DISPLAY / HIDE BUTTONS ------------------------------------------------------------------------------------------- //
+const displayButton = (showButton: Ref, button: Ref, delay: number, duration: number) => {
+    gsap.delayedCall(delay, () => {
+        showButton.value = true;
         nextTick(() => {
             gsap.fromTo(
-                skipButton.value,
+                button.value,
                 { opacity: 0 },
-                { opacity: 1, duration: 4, ease: 'power4.out' }
+                { opacity: 1, duration: duration, ease: 'power4.out' }
             );
         });
     })
 };
 
-const hideSkipButton = (showSkipButton: Ref, skipButton: Ref) => {
+const hideButton = (showButton: Ref, button: Ref, duration: number) => {
     gsap.to(
-        skipButton.value,
-        { opacity: 0, duration: 2, ease: 'power4.out'}
+        button.value,
+        { opacity: 0, duration: duration, ease: 'power4.out'}
     );
-    gsap.delayedCall(2, () => {
-        showSkipButton.value = false;
+    gsap.delayedCall(duration, () => {
+        showButton.value = false;
     })
 };
 
@@ -67,4 +67,4 @@ const displayText = async (showText: Ref, textContainer: Ref, currentText: Ref, 
     });
 };
 
-export { displaySkipButton, hideSkipButton, displayText };
+export { displayButton, hideButton, displayText };

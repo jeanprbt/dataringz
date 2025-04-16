@@ -16,8 +16,9 @@
         class="w-[20%] h-auto bg-opacity-0 backdrop-blur-3xl text-zinc-500 dark:text-zinc-400 rounded-xl"
         :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
         <template #content>
-            <UCommandPalette :groups="groups" placeholder="athlete / sport / venue..."
-                :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', viewport: 'divide-zinc-300 dark:divide-zinc-600',  itemLeadingAvatar: 'dark:invert brightness-80' }" />
+            <UCommandPalette :groups="groups" placeholder="athlete / sport / venue..." @highlight="onHighlight"
+                :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', viewport: 'divide-zinc-300 dark:divide-zinc-600', itemLeadingAvatar: 'dark:invert brightness-80'}">
+            </UCommandPalette>
         </template>
     </UModal>
     <button ref="skipButton" v-show="showSkipButton" @click="skipIntro"
@@ -39,6 +40,7 @@ import { playIntro } from "~/utils/intro";
 import { setFinalProperties, setMarkers, updateOutMarkers } from '~/utils/map';
 import { displayButton, hideButton } from '~/utils/animations';
 import { start, paris } from '~/utils/constants';
+import type { CommandPaletteItem } from '@nuxt/ui';
 
 const open = ref(false);
 const router = useRouter();
@@ -121,6 +123,19 @@ const style = computed(() => {
         : 'mapbox://styles/mapbox/light-v11';
 });
 
+// COMMAND PALETTE LOGIC -------------------------------------------------------------------------------------------- //
+const highlightedElem = ref<HTMLElement | null>(null);
+const onHighlight = (payload: { ref: HTMLElement, value: CommandPaletteItem } | undefined) => {
+    if (highlightedElem.value !== null) {
+        highlightedElem.value!.classList.remove('bg-zinc-200');
+        highlightedElem.value!.classList.remove('dark:bg-zinc-700')
+    }
+    highlightedElem.value = payload!.ref
+    payload!.ref.classList.add('bg-zinc-200');
+    payload!.ref.classList.add('dark:bg-zinc-700');
+    payload!.ref.classList.add('rounded-lg');
+}
+
 let map: mapboxgl.Map;
 let venues: { [key: string]: any };
 let sports: { [key: string]: any };
@@ -152,6 +167,18 @@ onMounted(async () => {
                 label: venue.name,
                 avatar: {
                     src: venue.img
+                },
+                onSelect() {
+                    open.value = false;
+                    map.flyTo({
+                        center: paris.center,
+                        zoom: 15.5,
+                        bearing: 0,
+                        pitch: 55,
+                        duration: 4000,
+                        essential: true,
+                        curve: 2
+                    } as EasingOptions);
                 }
             }
         })

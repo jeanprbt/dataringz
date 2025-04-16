@@ -40,6 +40,7 @@ The dataset comprises multiple CSV files, each focusing on a specific aspect of 
 #### Data Quality Assessment
 
 The dataset is extensive, well-structured, making it highly suitable for visualization tasks without too much data wrangling operations (not the topic of the course). However, a careful review reveals a few points to consider:
+
 - **Joining and integration**: Multiple files will need to be joined to create a more unified view for analysis (e.g., linking athletes to events or medals).
 - **Potential missing values**: Certain fields (e.g., results or schedule details) may contain missing or incomplete data, requiring cleaning or imputation.
 - **Categorical formatting**: Columns like `country` or `event` need attention to avoid inconsistencies when joining tables, but country codes are used in the dataset for standardization purposes.
@@ -49,6 +50,7 @@ Overall, the dataset provides an excellent quality baseline and is well-aligned 
 #### Data Preprocessing Plan
 
 Before starting visualization, the following preprocessing steps may be performed:
+
 1. **Data Cleaning**:
    - Identify and handle missing or inconsistent values (e.g. `influence` or `philosophy` for athletes)
    - Standardize names, codes, and dates to improve readability on the website.
@@ -59,7 +61,7 @@ Before starting visualization, the following preprocessing steps may be performe
 
 #### Why This Dataset?
 
-We chose this dataset because we are passionate about sports, and the Olympics were a pleasure to watch. It provides comprehensive data that allows for a wide variety of visualizations, from medal statistics to participation trends and event schedules. 
+We chose this dataset because we are passionate about sports, and the Olympics were a pleasure to watch. It provides comprehensive data that allows for a wide variety of visualizations, from medal statistics to participation trends and event schedules.
 
 ---
 
@@ -67,11 +69,10 @@ We chose this dataset because we are passionate about sports, and the Olympics w
 
 Our goal is to create an easy way to visualize the most important statistics about Paris 2024 Olympics. We thought about an **interactive map**, where users can navigate to discover the venues which welcomed Olympic trials. On click, each venue reveals information about the corresponding trial, althletes and countries. For instance, so as to get information about swimmers, one can navigate to *Paris La Défense Arena* and click the building, which will be displayed in 3D and highlighted.
 
-
-
 #### Why This Visualization?
 
 The Olympics are a huge source of information, and this would be a convenient way to access specific statistics.
+
 - Users could explore Paris as the host city and visualize venues in detail.
 - Clicking on a country flag show stats about this country at the Paris Olympics.
 - Clicking on an athlete name opens a pop-up with detailed informations such as nicknames, philosophy and other (if available, of course).
@@ -80,6 +81,7 @@ The Olympics are a huge source of information, and this would be a convenient wa
 #### Target Audience
 
 This visualization is designed for:
+
 - **Olympics and sports fans** curious about various stats and venues,
 - **Casual viewers** excited to explore Paris 2024,
 - **Data and tech enthusiasts** interested in interactive tools.
@@ -96,35 +98,25 @@ This visualization is designed for:
 
 An exploratory data analysis is available in the `eda/` folder. Check `INSTRUCTIONS.md` for the run instructions!
 
-
-
 ### Originality of our approach & Source of inspiration
 
 Unlike traditional medal tables and charts, our approach brings the Olympics to life with an **interactive 3D map** of Paris 2024 venues. Users can explore the city, click on venues, countries, and athletes to uncover stats, and see performances in their real-world context. This mix of **data storytelling** and **geospatial visualization** makes for a more engaging and intuitive experience. Below are our main sources of inspiration.
 
-- https://marseille.laphase5.com/fr - 3D Map with point of interests you can click to get more informations
-- https://worldathletics.org/athletes/sweden/armand-duplantis-14679502 - Athlete page with key statistics and graphs
-
+- [laphase5](https://marseille.laphase5.com/fr) - 3D Map with point of interests you can click to get more informations
+- [world athletics](https://worldathletics.org/athletes/sweden/armand-duplantis-14679502) - Athlete page with key statistics and graphs
 
 ## Milestone 2 (18th April, 5pm)
 
-**10% of the final grade**
+> 10% of the final grade
 
 ### Project Goal Report
 
-The 2-pages report describing the project goal is named `Milestone2.pdf`, you can find it at the root of the repository. 
+The 2-pages report describing the project goal is named `Milestone2.pdf`, you can find it at the root of the repository.
 
 ### Functional Project Prototype Review
 
-For the moment, the up-to-date website is hosted at https://dataringz.martinctl.dev. 
+For the moment, the up-to-date website is hosted [here](https://dataringz.martinctl.dev).
 
 ## Milestone 3 (30th May, 5pm)
 
-**80% of the final grade**
-
-
-## Late policy
-
-- < 24h: 80% of the grade for the milestone
-- < 48h: 70% of the grade for the milestone
-
+> 80% of the final grade

@@ -14381,7 +14381,7 @@
         ],
         "venues": [
             {
-                "slug": "golf-national",
+                "slug": "le-golf-national",
                 "name": "Golf National",
                 "description": "Venue for Golf"
             }
@@ -23910,7 +23910,7 @@
         ],
         "venues": [
             {
-                "slug": "teahupoo-tahiti",
+                "slug": "teahupo-o-tahiti",
                 "name": "Teahupo'o, Tahiti",
                 "description": "Venue for Surfing"
             }
@@ -27116,8 +27116,8 @@
         ],
         "venues": [
             {
-                "slug": "stade-roland-garros",
-                "name": "Stade Roland-Garros",
+                "slug": "roland-garros-stadium",
+                "name": "Roland-Garros",
                 "description": "Venue for Tennis"
             }
         ],

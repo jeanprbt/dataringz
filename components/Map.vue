@@ -2,7 +2,7 @@
     <div ref="mapContainer" :class="['flex-1 relative overflow-hidden', { 'pointer-events-none': introPlaying }]"></div>
 
     <button ref="searchButton" v-show="showSearchButton" @click="searchButtonClicked"
-        class="absolute flex items-center top-10 left-1/2 transform -translate-x-1/2 text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-3xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 transition-all duration-200 ease-in">
+        class="absolute flex items-center top-5 left-1/2 transform -translate-x-1/2 text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 transition-all duration-200 ease-in">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 mr-2">
             <path fill-rule="evenodd"
                 d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
@@ -17,7 +17,7 @@
         :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
         <template #content>
             <UCommandPalette :groups="groups" placeholder="athlete / sport / venue..." @highlight="onHighlight"
-                :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', viewport: 'divide-zinc-300 dark:divide-zinc-600', itemLeadingAvatar: 'dark:invert brightness-80'}">
+                :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', viewport: 'divide-zinc-300 dark:divide-zinc-600', itemLeadingAvatar: 'dark:invert brightness-80' }">
             </UCommandPalette>
         </template>
     </UModal>
@@ -37,7 +37,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { type EasingOptions, type MapOptions, type Marker } from 'mapbox-gl';
 
 import { playIntro } from "~/utils/intro";
-import { setFinalProperties, setMarkers, updateOutMarkers } from '~/utils/map';
+import { setFinalProperties, setMarkers, updateOutMarkers, flyToVenue } from '~/utils/map';
 import { displayButton, hideButton } from '~/utils/animations';
 import { start, paris } from '~/utils/constants';
 import type { CommandPaletteItem } from '@nuxt/ui';
@@ -168,17 +168,11 @@ onMounted(async () => {
                 avatar: {
                     src: venue.img
                 },
-                onSelect() {
+                async onSelect() {
                     open.value = false;
-                    map.flyTo({
-                        center: paris.center,
-                        zoom: 15.5,
-                        bearing: 0,
-                        pitch: 55,
-                        duration: 4000,
-                        essential: true,
-                        curve: 2
-                    } as EasingOptions);
+                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                    await flyToVenue(map, coordinates);
+                    router.push(`/venue/${venue.slug}`);
                 }
             }
         })
@@ -192,6 +186,31 @@ onMounted(async () => {
                 label: sport.name,
                 avatar: {
                     src: sport.icon
+                },
+                async onSelect() {
+                    open.value = false;
+                    const venue = venues[sport["venues"][0]["slug"] as string];
+                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                    await flyToVenue(map, coordinates);
+                    router.push(`/sport/${sport.slug}`);
+                }
+            }
+        })
+    })
+    groups.value.push({
+        id: "athletes",
+        label: "Athletes",
+        items: Object.keys(athletes).map(key => {
+            let athlete = athletes[key];
+            return {
+                label: athlete.name,
+                async onSelect() {
+                    open.value = false;
+                    const sport = sports[athlete["sports"][0]["slug"] as string]
+                    const venue = venues[sport["venues"][0]["slug"] as string];
+                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                    await flyToVenue(map, coordinates);
+                    router.push(`/athlete/${athlete.slug}`);
                 }
             }
         })
@@ -267,7 +286,7 @@ onMounted(async () => {
                     ],
                     'fill-extrusion-height': ['get', 'height'],
                     'fill-extrusion-base': ['get', 'min_height'],
-                    'fill-extrusion-opacity': 0.6
+                    'fill-extrusion-opacity': 0.7
                 }
             },
         );

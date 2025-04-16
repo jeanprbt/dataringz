@@ -84,9 +84,8 @@ function getInitials(name: string): string {
 }
 
 function getBackgroundColor(): string {
-    if (!props.slug) return '#6B7280'; // default gray
+    if (!props.slug) return '#6B7280';
 
-    // generate a hash code from the slug
     let hash = 0;
     for (let i = 0; i < props.slug.length; i++) {
         hash = props.slug.charCodeAt(i) + ((hash << 5) - hash);

@@ -12,9 +12,12 @@
         <UKbd value="meta" size="sm" class="ml-2 mr-1 text-zinc-500 dark:text-zinc-400 bg-transparent"></UKbd>
         <UKbd value="K" size="sm" class="text-zinc-500 dark:text-zinc-400 bg-transparent">K</UKbd>
     </button>
-    <UModal v-model:open="open">
+    <UModal v-model:open="open"
+        class="w-[20%] h-auto bg-opacity-0 backdrop-blur-3xl text-zinc-500 dark:text-zinc-400 rounded-xl"
+        :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
         <template #content>
-            <UCommandPalette close :groups="groups" :ui="{ root: 'backdrop-blur-xl' }" />
+            <UCommandPalette :groups="groups" placeholder="athlete / sport / venue..."
+                :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', viewport: 'divide-zinc-300 dark:divide-zinc-600',  itemLeadingAvatar: 'dark:invert brightness-80' }" />
         </template>
     </UModal>
     <button ref="skipButton" v-show="showSkipButton" @click="skipIntro"
@@ -94,12 +97,15 @@ watch(introPlaying, async (newVal) => {
 defineShortcuts({
     meta_k: () => {
         open.value = true;
+    },
+    escape: () => {
+        open.value = false;
     }
 })
 watch(open, async (newVal) => {
     if (newVal) {
         hideButton(showSearchButton, searchButton, 0)
-    } else { 
+    } else {
         displayButton(showSearchButton, searchButton, 0, 0.2)
     }
 })
@@ -144,7 +150,6 @@ onMounted(async () => {
             let venue = venues[key];
             return {
                 label: venue.name,
-                suffix: venue.slug,
                 avatar: {
                     src: venue.img
                 }
@@ -158,7 +163,6 @@ onMounted(async () => {
             let sport = sports[key];
             return {
                 label: sport.name,
-                suffix: sport.slug,
                 avatar: {
                     src: sport.icon
                 }

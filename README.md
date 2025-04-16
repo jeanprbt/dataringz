@@ -110,6 +110,13 @@ Unlike traditional medal tables and charts, our approach brings the Olympics to 
 
 **10% of the final grade**
 
+### Project Goal Report
+
+The 2-pages report describing the project goal is named `Milestone2.pdf`, you can find it at the root of the repository. 
+
+### Functional Project Prototype Review
+
+For the moment, the up-to-date website is hosted at https://dataringz.martinctl.dev. 
 
 ## Milestone 3 (30th May, 5pm)
 

@@ -43,6 +43,6 @@ const close = () => {
     exit.value = true;
     setTimeout(() => {
         emit('close');
-    }, 1500);
+    }, 500);
 }
 </script>

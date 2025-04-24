@@ -97,10 +97,12 @@
     @keyframes shape-fade-out-light {
         0% {
             background: rgb(255, 255, 255);
+            overflow: hidden;
         }
 
         100% {
             background: transparent;
+            overflow: scroll;
         }
     }
 

@@ -74,10 +74,12 @@
     @keyframes shape-fade-out-dark {
         0% {
             background: rgb(39, 39, 42);
+            overflow: hidden;
         }
 
         100% {
             background: transparent;
+            overflow: scroll;
         }
     }
 

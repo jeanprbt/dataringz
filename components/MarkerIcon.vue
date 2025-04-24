@@ -45,8 +45,8 @@ const props = defineProps({
 })
 
 const direction = toRef(props, "direction");
-const dark = ref(false);
 
+const dark = ref(false);
 if (process.client && window.matchMedia) {
     const matcher = window.matchMedia('(prefers-color-scheme: dark)');
     dark.value = matcher.matches;

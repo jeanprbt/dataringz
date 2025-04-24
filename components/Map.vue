@@ -49,7 +49,7 @@ const isClient = import.meta.client;
 if (isClient) {
     mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '';
 }
-const intro = config.public.INTRO || '';
+let intro = config.public.INTRO || false;
 
 // REFS ------------------------------------------------------------------------------------------------------------- //
 const mapContainer = ref<HTMLElement | null>(null);
@@ -70,6 +70,7 @@ const { signal } = controller;
 const skipIntro = async () => {
     controller.abort();
     introPlaying.value = false;
+    intro = false;
     showText.value = false;
     await new Promise<void>((resolve) => {
         map.flyTo({
@@ -306,6 +307,7 @@ onMounted(async () => {
             introPlaying.value = true;
             await playIntro(map, signal, showText, textContainer, currentText);
             introPlaying.value = false;
+            intro = false;
         } else if (directAccess) {
             await new Promise<void>(async (resolve, reject) => {
                 if (signal.aborted) return reject();

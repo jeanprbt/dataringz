@@ -45,7 +45,15 @@ const props = defineProps({
 })
 
 const direction = toRef(props, "direction");
-const dark = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+const dark = ref(false);
+
+if (process.client && window.matchMedia) {
+    const matcher = window.matchMedia('(prefers-color-scheme: dark)');
+    dark.value = matcher.matches;
+    matcher.addEventListener('change', e => {
+        dark.value = e.matches;
+    });
+}
 
 const arrowStyle = computed(() => {
     const radius = 40;

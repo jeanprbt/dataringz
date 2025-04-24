@@ -2,7 +2,7 @@
     <div ref="mapContainer" :class="['flex-1 relative overflow-hidden', { 'pointer-events-none': introPlaying }]"></div>
 
     <button ref="searchButton" v-show="showSearchButton" @click="searchButtonClicked"
-        class="absolute flex items-center top-5 left-1/2 transform -translate-x-1/2 text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 transition-all duration-200 ease-in">
+        class="absolute flex items-center top-5 left-1/2 transform -translate-x-1/2 text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 transition-all duration-200 ease-in whitespace-nowrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 mr-2">
             <path fill-rule="evenodd"
                 d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
@@ -13,7 +13,7 @@
         <UKbd value="K" size="sm" class="text-zinc-500 dark:text-zinc-400 bg-transparent">K</UKbd>
     </button>
     <UModal v-model:open="open"
-        class="w-[20%] h-auto bg-opacity-0 backdrop-blur-3xl text-zinc-500 dark:text-zinc-400 rounded-xl"
+        class="w-[80%] md:w-[35%] h-auto bg-opacity-0 backdrop-blur-3xl text-zinc-500 dark:text-zinc-400 rounded-xl"
         :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
         <template #content>
             <UCommandPalette :groups="groups" placeholder="athlete / sport / venue..." @highlight="onHighlight"
@@ -27,7 +27,7 @@
     </button>
     <div ref="textContainer" v-if="showText"
         class="text absolute top-10 left-1/2 transform -translate-x-1/2 text-zinc-900 dark:text-gray-100 p-4 text-center"
-        style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)}">
+        style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)">
         {{ currentText }}
     </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showAthletePage" @close="closePage">
+    <PageModal :show="showAthletePage" :back="canGoBack" @close="closePage" @back="router.back()">
         <div v-if="isLoading" class="flex justify-center items-center h-48">
             <span class="mr-3">Loading athlete data</span>
             <UIcon name="i-svg-spinners-ring-resize" class="h-6 w-6 text-primary" />
@@ -169,10 +169,11 @@
 import { type AthleteData } from '~/types/olympics';
 import { yearMonthDayDate } from '~/utils/date';
 
-// HANDLE DIRECT URL ---------------
 definePageMeta({
-    middleware: 'athlete'
+    middleware: ['athlete', 'previous']
 });
+
+// HANDLE DIRECT URL ---------------
 let directAccess = !!useState('athlete').value;
 const showAthletePage = ref(!directAccess);
 
@@ -237,11 +238,15 @@ useHead(() => {
     };
 });
 
+// HANDLE BACK BUTTON -----------------------------
+const previous = useState('previous');
+const canGoBack = computed(() => previous.value && previous.value !== '/') as ComputedRef<boolean>;
+
+// HANDLE CLOSE BUTTON ----------------------------
 const closePage = () => {
     showAthletePage.value = false;
     router.push('/');
 }
-
 
 // MEDAL STYLING FUNCTIONS ------------------------
 const medalClasses = (medalType: string): string => {

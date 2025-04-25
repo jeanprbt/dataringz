@@ -45,10 +45,11 @@
 <script setup lang="ts">
 import { formatDateRange } from '~/utils/date';
 
-// HANDLE DIRECT URL ---------------
 definePageMeta({
     middleware: 'venue'
 });
+
+// HANDLE DIRECT URL ---------------
 let directAccess = !!useState('venue').value;
 const showVenuePage = ref(!directAccess);
 
@@ -106,7 +107,7 @@ useHead(() => {
     };
 });
 
-
+// HANDLE CLOSE BUTTON ----------------------------
 const closePage = () => {
     showVenuePage.value = false;
     router.push('/');

@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showSportPage" @close="closePage">
+    <PageModal :show="showSportPage" :back="canGoBack" @close="closePage" @back="router.back()">
         <div v-if="isLoading" class="flex justify-center items-center h-48">
             <span class="mr-3">Loading sport data</span>
             <UIcon name="i-svg-spinners-ring-resize" class="h-6 w-6 text-primary" />
@@ -82,10 +82,11 @@
 <script setup lang="ts">
 import { type SportData } from '~/types/olympics';
 
-// HANDLE DIRECT URL ---------------
 definePageMeta({
-    middleware: 'sport'
+    middleware: ['sport', 'previous']
 });
+
+// HANDLE DIRECT URL ---------------
 let directAccess = !!useState('sport').value;
 const showSportPage = ref(!directAccess);
 
@@ -150,6 +151,11 @@ useHead(() => {
     };
 });
 
+// HANDLE BACK BUTTON -----------------------------
+const previous = useState('previous');
+const canGoBack = computed(() => previous.value && previous.value !== '/') as ComputedRef<boolean>;
+
+// HANDLE CLOSE BUTTON ----------------------------
 const closePage = () => {
     showSportPage.value = false;
     router.push('/');

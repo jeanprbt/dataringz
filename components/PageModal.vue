@@ -1,9 +1,15 @@
 <template>
     <div v-if="show" :class="['fixed h-full w-full flex items-center justify-center z-1', modalBackgroundClass]"
         @click="close">
-        <div :class="['relative rounded-lg p-6 w-[80%] h-[80%] overflow-auto', modalShapeClass]"
-            @click.stop>
-            <div :class="['flex justify-end items-center mb-4 opacity-0', modalContentClass]">
+        <div :class="['relative rounded-lg p-6 w-[80%] h-[80%] overflow-auto', modalShapeClass]" @click.stop>
+            <div :class="['flex items-center mb-4 opacity-0', back ? 'justify-between' : 'justify-end',  modalContentClass]">
+                <button v-if="back" @click="emit('back')"
+                    class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
                 <button @click="close"
                     class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -29,9 +35,13 @@ defineProps({
     show: {
         type: Boolean,
         default: true
+    },
+    back: {
+        type: Boolean,
+        default: false
     }
 });
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'back']);
 
 const exit = ref(false);
 const modalBackgroundClass = computed(() => exit.value ? 'animate-modal-background-exit' : 'animate-modal-background');

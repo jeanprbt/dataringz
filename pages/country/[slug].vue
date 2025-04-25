@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showCountryPage" @close="closePage">
+    <PageModal :show="showCountryPage" :back="canGoBack" @close="closePage" @back="router.back()">
         <div class="country-content">
             <div class="flex items-center mb-4">
                 <div v-if="country.code" class="country-flag mr-3">
@@ -43,6 +43,10 @@
 </template>
 
 <script setup lang="ts">
+
+definePageMeta({
+    middleware: ['previous']
+});
 
 // HANDLE DIRECT URL ---------------
 const showCountryPage = ref(true);
@@ -95,6 +99,11 @@ useHead(() => {
     };
 });
 
+// HANDLE BACK BUTTON -----------------------------
+const previous = useState('previous');
+const canGoBack = computed(() => previous.value && previous.value !== '/') as ComputedRef<boolean>;
+
+// HANDLE CLOSE BUTTON ----------------------------
 const closePage = () => {
     showCountryPage.value = false;
     router.push('/');

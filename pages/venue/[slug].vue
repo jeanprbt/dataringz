@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showVenuePage" @close="closePage">
+    <PageModal :show="showVenuePage" :transition="transition" @close="closePage">
         <div class="venue-content p-3">
             <div v-if="isLoading" class="flex justify-center items-center h-32">
                 <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
@@ -46,7 +46,7 @@
 import { formatDateRange } from '~/utils/date';
 
 definePageMeta({
-    middleware: 'venue'
+    middleware: ['venue', 'previous']
 });
 
 // HANDLE DIRECT URL ---------------
@@ -106,6 +106,10 @@ useHead(() => {
         ]
     };
 });
+
+// HANDLE TRANSITION ------------------------------
+const previous = useState('previous');
+const transition = computed(() => previous.value && previous.value !== '/' && !directAccess) as ComputedRef<boolean>;
 
 // HANDLE CLOSE BUTTON ----------------------------
 const closePage = () => {

@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showAthletePage" :back="canGoBack" @close="closePage" @back="router.back()">
+    <PageModal :show="showAthletePage" :back="canGoBack" :transition="canGoBack" @close="closePage" @back="router.back()">
         <div v-if="isLoading" class="flex justify-center items-center h-48">
             <span class="mr-3">Loading athlete data</span>
             <UIcon name="i-svg-spinners-ring-resize" class="h-6 w-6 text-primary" />

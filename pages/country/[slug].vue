@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showCountryPage" :back="canGoBack" @close="closePage" @back="router.back()">
+    <PageModal :show="showCountryPage" :back="canGoBack" :transition="canGoBack" @close="closePage" @back="router.back()">
         <div class="country-content">
             <div class="flex items-center mb-4">
                 <div v-if="country.code" class="country-flag mr-3">

@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
     show: {
         type: Boolean,
         default: true
@@ -39,15 +39,19 @@ defineProps({
     back: {
         type: Boolean,
         default: false
+    },
+    transition: {
+        type: Boolean,
+        default: false
     }
 });
 const emit = defineEmits(['close', 'back']);
 
 const exit = ref(false);
-const modalBackgroundClass = computed(() => exit.value ? 'animate-modal-background-exit' : 'animate-modal-background');
-const modalShapeClass = computed(() => exit.value ? 'animate-modal-shape-light-exit dark:animate-modal-shape-dark-exit' : 'animate-modal-shape-light dark:animate-modal-shape-dark');
-const modalContentClass = computed(() => exit.value ? 'animate-modal-content-exit' : 'animate-modal-content');
-const modalRectangleClass = computed(() => 'animate-modal-rectangle');
+const modalBackgroundClass = computed(() => exit.value ? 'animate-modal-background-exit' : props.transition ? 'bg-black/70' : 'animate-modal-background');
+const modalShapeClass = computed(() => exit.value ? 'animate-modal-shape-light-exit dark:animate-modal-shape-dark-exit' : props.transition ? 'bg-white dark:bg-zinc-800' : 'animate-modal-shape-light dark:animate-modal-shape-dark');
+const modalContentClass = computed(() => exit.value ? 'animate-modal-content-exit' : props.transition ? 'animate-modal-content-transition' : 'animate-modal-content');
+const modalRectangleClass = computed(() => props.transition ? '' : 'animate-modal-rectangle');
 
 const close = () => {
     exit.value = true;

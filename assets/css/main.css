@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-@plugin "tailwindcss-motion";
-
 @theme {
     --animate-arrow: arrow-bounce 1s ease-in-out infinite;
 

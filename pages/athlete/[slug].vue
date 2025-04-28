@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showAthletePage" :back="canGoBack" :transition="canGoBack" @close="closePage" @back="router.back()">
+    <PageModal :show="showAthletePage" :back="canGoBack" :transition="canGoBack" :items="items" @close="closePage" @back="router.back()">
         <div v-if="isLoading" class="flex justify-center items-center h-48">
             <span class="mr-3">Loading athlete data</span>
             <UIcon name="i-svg-spinners-ring-resize" class="h-6 w-6 text-primary" />
@@ -168,9 +168,10 @@
 <script setup lang="ts">
 import { type AthleteData } from '~/types/olympics';
 import { yearMonthDayDate } from '~/utils/date';
+import type { BreadcrumbItem } from '@nuxt/ui';
 
 definePageMeta({
-    middleware: ['athlete', 'previous']
+    middleware: ['athlete', 'previous', 'breadcrumb']
 });
 
 // HANDLE DIRECT URL ---------------
@@ -193,13 +194,20 @@ const athlete = ref<AthleteData>({
 // UI STATE ------------------------
 const isLoading = ref(true);
 
+// HANDLE BREADCRUMB ---------------
+const breadcrumb = useState<Array<{ slug: string, to: string }>>('breadcrumb');
+let items: Ref<BreadcrumbItem[]> = ref([]);
+
 onMounted(async () => {
     if (directAccess) {
         setTimeout(() => showAthletePage.value = true, 4200);
     }
     try {
-        const json = await fetch('/data/athletes.json').then(res => res.json());
-        athlete.value = json[slug];
+        const venues = await fetch('/data/venues.json').then((res) => res.json());
+        const sports = await fetch('/data/sports.json').then((res) => res.json());
+        const athletes = await fetch('/data/athletes.json').then((res) => res.json());
+        athlete.value = athletes[slug];
+        items.value = getBreadcrumbItems(breadcrumb.value, venues, sports, athletes);
     } catch (error) {
         console.error('Failed to load athletes data:', error);
     } finally {
@@ -240,7 +248,7 @@ useHead(() => {
 
 // HANDLE BACK BUTTON -----------------------------
 const previous = useState('previous');
-const canGoBack = computed(() => previous.value && previous.value !== '/') as ComputedRef<boolean>;
+const canGoBack = computed(() => previous.value && previous.value !== '/' && !directAccess) as ComputedRef<boolean>;
 
 // HANDLE CLOSE BUTTON ----------------------------
 const closePage = () => {

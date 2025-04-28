@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showVenuePage" :transition="transition" @close="closePage">
+    <PageModal :show="showVenuePage" :transition="transition" :items="items" @close="closePage">
         <div class="venue-content p-3">
             <div v-if="isLoading" class="flex justify-center items-center h-32">
                 <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
@@ -44,9 +44,10 @@
 
 <script setup lang="ts">
 import { formatDateRange } from '~/utils/date';
+import type { BreadcrumbItem } from '@nuxt/ui';
 
 definePageMeta({
-    middleware: ['venue', 'previous']
+    middleware: ['venue', 'previous', 'breadcrumb']
 });
 
 // HANDLE DIRECT URL ---------------
@@ -65,14 +66,21 @@ const venue = ref<any>({ name: 'Loading...' });
 const isLoading = ref(true);
 const hasImage = ref(false);
 
+// HANDLE BREADCRUMB ---------------
+const breadcrumb = useState<Array<{ slug: string, to: string }>>('breadcrumb');
+let items: Ref<BreadcrumbItem[]> = ref([]);
+
 onMounted(async () => {
     if (directAccess) {
         setTimeout(() => showVenuePage.value = true, 4200);
     }
     try {
-        const json = await fetch('/data/venues.json').then(res => res.json());
-        venue.value = json[slug];
+        const venues = await fetch('/data/venues.json').then((res) => res.json());
+        const sports = await fetch('/data/sports.json').then((res) => res.json());
+        const athletes = await fetch('/data/athletes.json').then((res) => res.json());
+        venue.value = venues[slug];
         hasImage.value = availableImages.includes(slug);
+        items.value = getBreadcrumbItems(breadcrumb.value, venues, sports, athletes);
     } catch (error) {
         console.error('Error loading venue data:', error);
     } finally {

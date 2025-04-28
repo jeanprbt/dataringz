@@ -6,7 +6,6 @@ import { MarkerIcon } from '#components';
 
 let markers = new Map<Marker, [number, number]>();
 const markerDirections = reactive(new Map<mapboxgl.Marker, Ref<number>>());
-let a = ref(0);
 
 // SET FINAL PROPERTIES --------------------------------------------------------------------------------------------- //
 const setFinalProperties = (map: mapboxgl.Map): void => {

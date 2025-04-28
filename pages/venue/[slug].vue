@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { formatDateRange } from '~/utils/date';
-import venues from '~/public/data/venues.json';
+import venues from '~/data/venues.json';
 
 definePageMeta({
     middleware: ['venue', 'previous', 'breadcrumb']

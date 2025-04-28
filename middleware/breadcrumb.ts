@@ -1,8 +1,8 @@
 import type { BreadcrumbItem } from '@nuxt/ui';
 
-import venues from '~/public/data/venues.json';
-import sports from '~/public/data/sports.json';
-import athletes from '~/public/data/athletes.json';
+import venues from '~/data/venues.json';
+import sports from '~/data/sports.json';
+import athletes from '~/data/athletes.json';
 
 export default defineNuxtRouteMiddleware((to, _) => {
     const breadcrumb = useState('breadcrumb', () => [] as BreadcrumbItem[]);

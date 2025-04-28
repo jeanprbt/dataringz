@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import sports from '~/public/data/sports.json';
+import sports from '~/data/sports.json';
 
 definePageMeta({
     middleware: ['sport', 'previous', 'breadcrumb']

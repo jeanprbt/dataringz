@@ -3,6 +3,7 @@ import { type Router } from 'vue-router';
 import * as turf from 'turf';
 import { h, render } from 'vue';
 import { MarkerIcon } from '#components';
+import venues from '~/data/venues.json';
 
 let markers = new Map<Marker, [number, number]>();
 const markerDirections = reactive(new Map<mapboxgl.Marker, Ref<number>>());
@@ -71,11 +72,10 @@ const setFinalProperties = (map: mapboxgl.Map): void => {
 // SET MARKERS  ----------------------------------------------------------------------------------------------------- //
 const setMarkers = async (map: mapboxgl.Map, router: Router) => {
 
-    const venues = await fetch('/data/venues.json').then(res => res.json());
     Object.keys(venues).forEach(key => {
 
         // retrieve corresponding venue
-        const venue = venues[key]
+        const venue = venues[key as keyof typeof venues]
         if (venue.location.longitude === null || venue.location.latitude === null) return;
 
         // retrieve corresponding sports

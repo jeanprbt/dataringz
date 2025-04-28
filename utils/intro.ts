@@ -19,6 +19,12 @@ import {
     path 
 } from '~/utils/constants';
 
+const geojsonFiles = import.meta.glob('/data/*.geojson', { as: 'raw' });
+const trackFrance1 = JSON.parse(await geojsonFiles['/data/track_france_1.geojson']());
+const trackFrance2 = JSON.parse(await geojsonFiles['/data/track_france_2.geojson']());
+const trackFrance3 = JSON.parse(await geojsonFiles['/data/track_france_3.geojson']());
+const trackGreece = JSON.parse(await geojsonFiles['/data/track_greece.geojson']());
+
 // PLAY INTRO ------------------------------------------------------------------------------------------------------- //
 const playIntro = async (
     map: Map, 
@@ -28,20 +34,6 @@ const playIntro = async (
     currentText: Ref
 ): Promise<void> => {
     signal.throwIfAborted();
-
-    // LOAD TRACKS -------------------------------------------------------------------------------------------------- //
-    const trackFrance1: Feature<LineString> = (
-        await fetch('/geojson/track_france_1.geojson').then((res) => res.json())
-    );
-    const trackFrance2: Feature<LineString> = (
-        await fetch('/geojson/track_france_2.geojson').then((res) => res.json())
-    );
-    const trackFrance3: Feature<LineString> = (
-        await fetch('/geojson/track_france_3.geojson').then((res) => res.json())
-    );
-    const trackGreece: Feature<LineString> = (
-        await fetch('/geojson/track_greece.geojson').then((res) => res.json())
-    )
 
     if (signal.aborted) return;
 

@@ -159,7 +159,7 @@
 
 <script setup lang="ts">
 import { yearMonthDayDate } from '~/utils/date';
-import athletes from '~/public/data/athletes.json';
+import athletes from '~/data/athletes.json';
 
 definePageMeta({
     middleware: ['athlete', 'previous', 'breadcrumb']

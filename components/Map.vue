@@ -42,9 +42,9 @@ import { displayButton, hideButton } from '~/utils/animations';
 import { start, paris } from '~/utils/constants';
 import type { CommandPaletteItem } from '@nuxt/ui';
 
-import venues from '~/public/data/venues.json';
-import sports from '~/public/data/sports.json';
-import athletes from '~/public/data/athletes.json';
+import venues from '~/data/venues.json';
+import sports from '~/data/sports.json';
+import athletes from '~/data/athletes.json';
 
 const open = ref(false);
 const router = useRouter();

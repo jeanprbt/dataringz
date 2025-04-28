@@ -1,13 +1,9 @@
 <template>
     <PageModal :show="showVenuePage" :transition="transition" :items="items" @close="closePage">
         <div class="venue-content p-3">
-            <div v-if="isLoading" class="flex justify-center items-center h-32">
-                <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
-            </div>
-
-            <div v-else class="max-w-3xl mx-auto">
-                <!-- Venue image (if available) -->
-                <div v-if="hasImage"
+            <div class="max-w-3xl mx-auto">
+                <!-- Venue image -->
+                <div
                     class="mb-4 rounded-lg overflow-hidden aspect-video shadow-lg border border-zinc-400 dark:border-zinc-600">
                     <img :src="`/img/venues/${venue.slug}.jpg`" :alt="venue.name" class="w-full h-full object-cover" />
                 </div>
@@ -44,7 +40,7 @@
 
 <script setup lang="ts">
 import { formatDateRange } from '~/utils/date';
-import type { BreadcrumbItem } from '@nuxt/ui';
+import venues from '~/public/data/venues.json';
 
 definePageMeta({
     middleware: ['venue', 'previous', 'breadcrumb']
@@ -60,38 +56,21 @@ const route = useRoute();
 const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
-const venue = ref<any>({ name: 'Loading...' });
-
-// UI STATE ------------------------
-const isLoading = ref(true);
-const hasImage = ref(false);
+const venue = venues[slug as keyof typeof venues];
 
 // HANDLE BREADCRUMB ---------------
-const breadcrumb = useState<Array<{ slug: string, to: string }>>('breadcrumb');
-let items: Ref<BreadcrumbItem[]> = ref([]);
+const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
 
 onMounted(async () => {
     if (directAccess) {
         setTimeout(() => showVenuePage.value = true, 4200);
     }
-    try {
-        const venues = await fetch('/data/venues.json').then((res) => res.json());
-        const sports = await fetch('/data/sports.json').then((res) => res.json());
-        const athletes = await fetch('/data/athletes.json').then((res) => res.json());
-        venue.value = venues[slug];
-        hasImage.value = availableImages.includes(slug);
-        items.value = getBreadcrumbItems(breadcrumb.value, venues, sports, athletes);
-    } catch (error) {
-        console.error('Error loading venue data:', error);
-    } finally {
-        isLoading.value = false;
-    }
 });
 
 useHead(() => {
-    const name = venue.value.name;
-    const sports = venue.value.sports && venue.value.sports.length > 0
-        ? venue.value.sports.map((s: any) => s.name).join(', ')
+    const name = venue.name;
+    const sports = venue.sports && venue.sports.length > 0
+        ? venue.sports.map((s: any) => s.name).join(', ')
         : 'Olympic sports';
 
     const title = `${name} - Olympic Venue | Paris 2024`;

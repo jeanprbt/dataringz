@@ -1,9 +1,7 @@
-import type { Medals } from "~/types/olympics";
-
 /**
  * Sorts items by Olympic medal ranking (gold first, then silver, then bronze)
  */
-export const sortByMedals = <T extends { medals?: Medals }>(
+export const sortByMedals = <T extends { medals?: any }>(
     items: T[]
 ): T[] => {
     return [...items].sort((a, b) => {

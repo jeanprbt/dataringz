@@ -1,11 +1,7 @@
 <template>
     <PageModal :show="showSportPage" :back="canGoBack" :transition="canGoBack" :items="items" @close="closePage"
         @back="router.back()">
-        <div v-if="isLoading" class="flex justify-center items-center h-48">
-            <span class="mr-3">Loading sport data</span>
-            <UIcon name="i-svg-spinners-ring-resize" class="h-6 w-6 text-primary" />
-        </div>
-        <div v-else class="sport-content">
+        <div class="sport-content">
             <div class="flex items-center mb-4">
                 <div class="sport-icon mr-3">
                     <SportPicture :name="sport.name" :slug="sport.slug" size="lg" />
@@ -52,23 +48,6 @@
                 </div>
             </div>
 
-            <!-- Top Countries with medals -->
-            <div v-if="hasCountries" class="mt-6">
-                <div class="flex items-center mb-3">
-                    <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Medal-Winning Countries</h3>
-                    <ShowMoreButton v-if="sport.countries.length > 8" :showing-all="showAllCountries"
-                        :total="sport.countries.length" @toggle="showAllCountries = !showAllCountries" />
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                    <CountryLink v-for="country in displayedCountries" :key="country.slug" :slug="country.slug"
-                        :name="country.name" :code="country.code">
-                        <template #after v-if="country.medals">
-                            <MedalDisplay :medals="country.medals" class="mt-2" />
-                        </template>
-                    </CountryLink>
-                </div>
-            </div>
-
             <!-- Venues for this sport -->
             <div v-if="hasVenues" class="mt-6">
                 <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-3">Venues</h3>
@@ -81,8 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { type SportData } from '~/types/olympics';
-import type { BreadcrumbItem } from '@nuxt/ui';
+import sports from '~/public/data/sports.json';
 
 definePageMeta({
     middleware: ['sport', 'previous', 'breadcrumb']
@@ -98,47 +76,27 @@ const route = useRoute();
 const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
-const sport = ref<SportData>({
-    name: 'Unknown Sport',
-    slug: slug,
-    events: [],
-    athletes: [],
-    countries: [],
-    venues: []
-});
+const sport = sports[slug as keyof typeof sports];
 
 // UI STATE ------------------------
-const isLoading = ref(true);
 const showAllEvents = ref(false);
 const showAllAthletes = ref(false);
 const showAllCountries = ref(false);
 
 
 // HANDLE BREADCRUMB ---------------
-const breadcrumb = useState<Array<{ slug: string, to: string }>>('breadcrumb');
-let items: Ref<BreadcrumbItem[]> = ref([]);
+const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
 
 onMounted(async () => {
     if (directAccess) {
         setTimeout(() => showSportPage.value = true, 4200);
     }
-    try {
-        const venues = await fetch('/data/venues.json').then((res) => res.json());
-        const sports = await fetch('/data/sports.json').then((res) => res.json());
-        const athletes = await fetch('/data/athletes.json').then((res) => res.json());
-        sport.value = sports[slug];
-        items.value =  getBreadcrumbItems(breadcrumb.value, venues, sports, athletes);
-    } catch (error) {
-        console.error('Failed to load sports data:', error);
-    } finally {
-        isLoading.value = false;
-    }
 });
 
 useHead(() => {
-    const sportName = sport.value.name;
-    const eventCount = sport.value.events?.length || 0;
-    const athleteCount = sport.value.athletes?.length || 0;
+    const sportName = sport.name;
+    const eventCount = sport.events?.length || 0;
+    const athleteCount = sport.athletes?.length || 0;
 
     const title = `${sportName} - Paris 2024 Olympic Games`;
     const description = `Explore ${sportName} at the Paris 2024 Olympic Games. ${eventCount} events with ${athleteCount} top athletes competing for Olympic medals.`;
@@ -172,21 +130,21 @@ const closePage = () => {
 }
 
 // COMPUTED VALUES -----------------------------------------------------------------------------------------------------
-const hasEvents = computed(() => sport.value.events?.length > 0);
-const hasAthletes = computed(() => sport.value.athletes?.length > 0);
-const hasCountries = computed(() => sport.value.countries?.length > 0);
-const hasVenues = computed(() => sport.value.venues?.length > 0);
+const hasEvents = computed(() => sport.events?.length > 0);
+const hasAthletes = computed(() => sport.athletes?.length > 0);
+const hasCountries = computed(() => sport.countries?.length > 0);
+const hasVenues = computed(() => sport.venues?.length > 0);
 const displayedEvents = computed(() => {
-    return showAllEvents.value ? sport.value.events : sport.value.events.slice(0, 4);
+    return showAllEvents.value ? sport.events : sport.events.slice(0, 4);
 });
 const displayedAthletes = computed(() => {
     return showAllAthletes.value
-        ? sortByMedals(sport.value.athletes)
-        : sortByMedals(sport.value.athletes).slice(0, 4);
+        ? sortByMedals(sport.athletes)
+        : sortByMedals(sport.athletes).slice(0, 4);
 });
 const displayedCountries = computed(() => {
     return showAllCountries.value
-        ? sortByMedals(sport.value.countries)
-        : sortByMedals(sport.value.countries).slice(0, 4);
+        ? sortByMedals(sport.countries)
+        : sortByMedals(sport.countries).slice(0, 4);
 });
 </script>

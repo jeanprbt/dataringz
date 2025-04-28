@@ -1,20 +1,12 @@
 <template>
     <PageModal :show="showAthletePage" :back="canGoBack" :transition="canGoBack" :items="items" @close="closePage" @back="router.back()">
-        <div v-if="isLoading" class="flex justify-center items-center h-48">
-            <span class="mr-3">Loading athlete data</span>
-            <UIcon name="i-svg-spinners-ring-resize" class="h-6 w-6 text-primary" />
-        </div>
-        <div v-else class="athlete-content">
+        <div class="athlete-content">
             <div class="flex items-center mb-6">
                 <div class="athlete-photo mr-4">
                     <AthletePicture :name="athlete.name" :slug="slug" size="lg" />
                 </div>
                 <div class="athlete-info">
                     <h3 class="text-xl font-medium text-zinc-800 dark:text-white">{{ athlete.name }}</h3>
-                    <div v-if="athlete.country" class="mt-1 flex items-center">
-                        <CountryLink :slug="athlete.country.slug" :name="athlete.country.name"
-                            :code="athlete.country.code" :is-inline="true" />
-                    </div>
                     <div v-if="athlete.age" class="text-sm text-gray-600 dark:text-gray-300 mt-1">Age: {{
                         athlete.age }}</div>
                 </div>
@@ -166,9 +158,8 @@
 </template>
 
 <script setup lang="ts">
-import { type AthleteData } from '~/types/olympics';
 import { yearMonthDayDate } from '~/utils/date';
-import type { BreadcrumbItem } from '@nuxt/ui';
+import athletes from '~/public/data/athletes.json';
 
 definePageMeta({
     middleware: ['athlete', 'previous', 'breadcrumb']
@@ -184,43 +175,24 @@ const route = useRoute();
 const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
-const athlete = ref<AthleteData>({
-    name: 'Unknown Athlete',
-    sports: [],
-    events: [],
-    achievements: []
-});
+const athlete = athletes[slug as keyof typeof athletes] as any;
 
-// UI STATE ------------------------
-const isLoading = ref(true);
 
 // HANDLE BREADCRUMB ---------------
-const breadcrumb = useState<Array<{ slug: string, to: string }>>('breadcrumb');
-let items: Ref<BreadcrumbItem[]> = ref([]);
+const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
 
 onMounted(async () => {
     if (directAccess) {
         setTimeout(() => showAthletePage.value = true, 4200);
     }
-    try {
-        const venues = await fetch('/data/venues.json').then((res) => res.json());
-        const sports = await fetch('/data/sports.json').then((res) => res.json());
-        const athletes = await fetch('/data/athletes.json').then((res) => res.json());
-        athlete.value = athletes[slug];
-        items.value = getBreadcrumbItems(breadcrumb.value, venues, sports, athletes);
-    } catch (error) {
-        console.error('Failed to load athletes data:', error);
-    } finally {
-        isLoading.value = false;
-    }
 });
 
 useHead(() => {
-    const name = athlete.value.name;
-    const country = athlete.value.country?.name || '';
-    const sports = athlete.value.sports.map(s => s.name).join(', ');
-    const medals = athlete.value.achievements.length > 0
-        ? `${athlete.value.achievements.length} Olympic medals`
+    const name = athlete.name;
+    const country = athlete.country?.name || '';
+    const sports = athlete.sports.map((s: { name: any; }) => s.name).join(', ');
+    const medals = athlete.achievements.length > 0
+        ? `${athlete.achievements.length} Olympic medals`
         : 'Olympic athlete';
 
     const title = `${name} - Athlete from ${country}`;

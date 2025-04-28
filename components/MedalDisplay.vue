@@ -16,9 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Medals } from '~/types/olympics';
-
 defineProps<{
-    medals: Medals;
+    medals: any;
 }>();
 </script>

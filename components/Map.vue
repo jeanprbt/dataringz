@@ -42,6 +42,10 @@ import { displayButton, hideButton } from '~/utils/animations';
 import { start, paris } from '~/utils/constants';
 import type { CommandPaletteItem } from '@nuxt/ui';
 
+import venues from '~/public/data/venues.json';
+import sports from '~/public/data/sports.json';
+import athletes from '~/public/data/athletes.json';
+
 const open = ref(false);
 const router = useRouter();
 const config = useRuntimeConfig();
@@ -138,9 +142,6 @@ const onHighlight = (payload: { ref: HTMLElement, value: CommandPaletteItem } | 
 }
 
 let map: mapboxgl.Map;
-let venues: { [key: string]: any };
-let sports: { [key: string]: any };
-let athletes: { [key: string]: any };
 let outMarkers = new Map<Marker, Marker>();
 let lastZoom: number = 0;
 
@@ -153,17 +154,12 @@ let directAccess: boolean = false;
 onMounted(async () => {
     if (!isClient) return;
 
-    // FETCH DATA --------------------------------------------------------------------------------------------------- //
-    venues = await fetch('/data/venues.json').then((res) => res.json());
-    sports = await fetch('/data/sports.json').then((res) => res.json());
-    athletes = await fetch('/data/athletes.json').then((res) => res.json());
-
     // COMMAND PALETTE ---------------------------------------------------------------------------------------------- //
     groups.value.push({
         id: "venues",
         label: "Venues",
         items: Object.keys(venues).map(key => {
-            let venue = venues[key];
+            let venue = venues[key as keyof typeof venues];
             return {
                 label: venue.name,
                 avatar: {
@@ -182,7 +178,7 @@ onMounted(async () => {
         id: "sports",
         label: "Sports",
         items: Object.keys(sports).map(key => {
-            let sport = sports[key];
+            let sport = sports[key as keyof typeof sports];
             return {
                 label: sport.name,
                 avatar: {
@@ -190,7 +186,7 @@ onMounted(async () => {
                 },
                 async onSelect() {
                     open.value = false;
-                    const venue = venues[sport["venues"][0]["slug"] as string];
+                    const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
                     const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
                     await flyToVenue(map, coordinates);
                     router.push(`/sport/${sport.slug}`);
@@ -202,13 +198,13 @@ onMounted(async () => {
         id: "athletes",
         label: "Athletes",
         items: Object.keys(athletes).map(key => {
-            let athlete = athletes[key];
+            let athlete = athletes[key as keyof typeof athletes] as any;
             return {
                 label: athlete.name,
                 async onSelect() {
                     open.value = false;
-                    const sport = sports[athlete["sports"][0]["slug"] as string]
-                    const venue = venues[sport["venues"][0]["slug"] as string];
+                    const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
+                    const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
                     const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
                     await flyToVenue(map, coordinates);
                     router.push(`/athlete/${athlete.slug}`);
@@ -221,18 +217,18 @@ onMounted(async () => {
     let venueCoordinates = [] as number[];
     if (directVenueAccess.value) {
         directAccess = true;
-        const venue = venues[directVenueAccess.value as string];
+        const venue = venues[directVenueAccess.value as keyof typeof venues] as any;
         venueCoordinates = [venue.location.longitude, venue.location.latitude];
     } else if (directSportAccess.value) {
         directAccess = true;
-        const sport = sports[directSportAccess.value as string];
-        const venue = venues[sport["venues"][0]["slug"] as string];
+        const sport = sports[directSportAccess.value as keyof typeof sports];
+        const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues] as any;
         venueCoordinates = [venue.location.longitude, venue.location.latitude];
     } else if (directAthleteAccess.value) {
         directAccess = true;
-        const athlete = athletes[directAthleteAccess.value as string];
-        const sport = sports[athlete["sports"][0]["slug"] as string]
-        const venue = venues[sport["venues"][0]["slug"] as string];
+        const athlete = athletes[directAthleteAccess.value as keyof typeof athletes];
+        const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
+        const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues] as any;
         venueCoordinates = [venue.location.longitude, venue.location.latitude];
     }
 

@@ -142,7 +142,6 @@ const onHighlight = (payload: { ref: HTMLElement, value: CommandPaletteItem } | 
 }
 
 let map: mapboxgl.Map;
-let outMarkers = new Map<Marker, Marker>();
 let lastZoom: number = 0;
 
 // HANDLE DIRECT ACCESS  -------------------------------------------------------------------------------------------- //
@@ -168,6 +167,7 @@ onMounted(async () => {
                 async onSelect() {
                     open.value = false;
                     const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                    console.log(coordinates);
                     await flyToVenue(map, coordinates);
                     router.push(`/venue/${venue.slug}`);
                 }
@@ -290,7 +290,7 @@ onMounted(async () => {
 
         // COLOR SPECIFIC BUILDINGS --------------------------------------------------------------------------------- //
         Object.keys(venues).forEach(key => {
-            venues[key].buildingIds.forEach((id: number) => {
+            venues[key as keyof typeof venues].buildingIds.forEach((id: number) => {
                 map.setFeatureState(
                     { source: 'composite', sourceLayer: 'building', id },
                     { selected: true }
@@ -323,7 +323,7 @@ onMounted(async () => {
     // OUT MARKERS UPDATE LOGIC ------------------------------------------------------------------------------------- //
     map.on('move', () => {
         const zoom = map.getZoom()
-        updateOutMarkers(map, outMarkers, zoom, lastZoom);
+        updateOutMarkers(map, zoom, lastZoom);
         lastZoom = zoom;
     })
 

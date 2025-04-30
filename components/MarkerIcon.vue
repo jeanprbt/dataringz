@@ -1,26 +1,28 @@
 <template>
-    <div class="flex flex-col justify-center items-center">
-        <div class="
+    <transition enter-from-class="opacity-0" enter-active-class="duration-500 ease-in" enter-to-class="opacity-100"
+        leave-from-class="opacity-100" leave-active-class="duration-500 ease-in" leave-to-class="opacity-0">
+        <div v-if="show" class="flex flex-col justify-center items-center">
+            <div class="
                     thumbnail 
                     flex flex-wrap justify-center 
                     w-[50px] h-auto
                     bg-zinc-50 hover:bg-zinc-200 dark:bg-zinc-900 hover:dark:bg-zinc-800
                     rounded-lg p-[5px] shadow-md 
-                    transition-all duration-200 ease-in
                 ">
-            <div v-for="(sport, index) in sports" :key="index"
-                :class="['w-[30px] h-[30px] m-[2px]', { 'filter invert brightness-80': dark }]">
-                <img class="w-full h-full" :src="sport.src" :alt="sport.alt" />
+                <div v-for="(sport, index) in sports" :key="index"
+                    :class="['w-[30px] h-[30px] m-[2px]', { 'filter invert brightness-80': dark }]">
+                    <img class="w-full h-full" :src="sport.src" :alt="sport.alt" />
+                </div>
             </div>
+            <transition enter-from-class="opacity-0" enter-active-class="duration-300 ease-in"
+                enter-to-class="opacity-100" leave-from-class="opacity-100" leave-active-class="duration-300 ease-in"
+                leave-to-class="opacity-0">
+                <img v-if="direction !== 0" src="/img/arrow.svg" alt="direction arrow"
+                    :class="['absolute w-[10px] top-1/2 left-1/2 -translate-1/2 animate-arrow', { 'filter invert brightness-80': dark }]"
+                    :style="arrowStyle" />
+            </transition>
         </div>
-        <transition enter-from-class="opacity-0" enter-active-class="duration-300 ease-in"
-            enter-to-class="opacity-100" leave-from-class="opacity-100" leave-active-class="duration-300 ease-in"
-            leave-to-class="opacity-0">
-            <img v-if="direction !== 0" src="/img/arrow.svg" alt="direction arrow"
-                :class="['absolute w-[10px] top-1/2 left-1/2 -translate-1/2 animate-arrow', { 'filter invert brightness-80': dark }]"
-                :style="arrowStyle" />
-        </transition>
-    </div>
+    </transition>
 </template>
 
 <script setup>
@@ -38,6 +40,10 @@ const props = defineProps({
             });
         }
     },
+    show: {
+        type: Object,
+        required: true
+    },
     direction: {
         type: Object,
         required: false
@@ -45,6 +51,7 @@ const props = defineProps({
 })
 
 const direction = toRef(props, "direction");
+const show = toRef(props, "show");
 
 const dark = ref(false);
 if (process.client && window.matchMedia) {

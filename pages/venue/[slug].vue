@@ -43,7 +43,8 @@ import { formatDateRange } from '~/utils/date';
 import venues from '~/data/venues.json';
 
 definePageMeta({
-    middleware: ['venue', 'previous', 'breadcrumb']
+    middleware: ['venue', 'previous', 'breadcrumb'],
+    layout: 'map'
 });
 
 // HANDLE DIRECT URL ---------------

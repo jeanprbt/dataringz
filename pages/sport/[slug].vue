@@ -63,7 +63,8 @@
 import sports from '~/data/sports.json';
 
 definePageMeta({
-    middleware: ['sport', 'previous', 'breadcrumb']
+    middleware: ['sport', 'previous', 'breadcrumb'],
+    layout: 'map'
 });
 
 // HANDLE DIRECT URL ---------------

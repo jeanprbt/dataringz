@@ -105,7 +105,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
 };
 
 // OUTSIDE MARKERS LOGIC  ------------------------------------------------------------------------------------------- //
-const updateOutMarkers = (map: mapboxgl.Map, zoom: number, lastZoom: number) => {
+const updateMarkers = (map: mapboxgl.Map, zoom: number, lastZoom: number) => {
 
     const mapBounds = map.getBounds()!;
     const { sw, ne, nw, se, paddedMapBounds } = _getPaddedMapBounds(mapBounds);
@@ -217,7 +217,7 @@ const flyToVenue = async (map: mapboxgl.Map, venueCoordinates: [number, number])
         markerCoordinates.keys().forEach(m => {
             flyingMarkers.set(m, false);
         })
-        updateOutMarkers(map, map.getZoom(), map.getZoom());
+        updateMarkers(map, map.getZoom(), map.getZoom());
     }, 1500);
 }
 
@@ -253,4 +253,4 @@ const _getPaddedMapBounds = (mapBounds: LngLatBounds, paddingFactor: number = 0.
     }
 }
 
-export { setFinalProperties, setMarkers, updateOutMarkers, flyToVenue };
+export { setFinalProperties, setMarkers, updateMarkers, flyToVenue };

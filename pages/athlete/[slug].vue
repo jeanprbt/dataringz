@@ -162,7 +162,8 @@ import { yearMonthDayDate } from '~/utils/date';
 import athletes from '~/data/athletes.json';
 
 definePageMeta({
-    middleware: ['athlete', 'previous', 'breadcrumb']
+    middleware: ['athlete', 'previous', 'breadcrumb'],
+    layout: 'map'
 });
 
 // HANDLE DIRECT URL ---------------

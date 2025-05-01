@@ -1,6 +1,5 @@
 <template>
     <div ref="mapContainer" :class="['flex-1 relative overflow-hidden', { 'pointer-events-none': introPlaying }]"></div>
-
     <button ref="searchButton" v-show="showSearchButton" @click="searchButtonClicked"
         class="absolute flex items-center top-5 left-1/2 transform -translate-x-1/2 text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 transition-all duration-200 ease-in whitespace-nowrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 mr-2">
@@ -34,10 +33,10 @@
 
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
-import mapboxgl, { type EasingOptions, type MapOptions, type Marker } from 'mapbox-gl';
+import mapboxgl, { type EasingOptions, type MapOptions } from 'mapbox-gl';
 
 import { playIntro } from "~/utils/intro";
-import { setFinalProperties, setMarkers, updateOutMarkers, flyToVenue } from '~/utils/map';
+import { setFinalProperties, setMarkers, updateMarkers, flyToVenue } from '~/utils/map';
 import { displayButton, hideButton } from '~/utils/animations';
 import { start, paris } from '~/utils/constants';
 import type { CommandPaletteItem } from '@nuxt/ui';
@@ -323,7 +322,7 @@ onMounted(async () => {
     // OUT MARKERS UPDATE LOGIC ------------------------------------------------------------------------------------- //
     map.on('move', () => {
         const zoom = map.getZoom()
-        updateOutMarkers(map, zoom, lastZoom);
+        updateMarkers(map, zoom, lastZoom);
         lastZoom = zoom;
     })
 

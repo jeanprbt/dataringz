@@ -102,42 +102,5 @@ const path = {
     pitch: 50,
 }
 
-const availableImages = [
-    'aquatics-centre',
-    'bercy-arena',
-    'bordeaux-stadium',
-    'champ-de-mars-arena',
-    'chateau-de-versailles',
-    'chateauroux-shooting-centre',
-    'eiffel-tower-stadium',
-    'elancourt-hill',
-    'geoffroy-guichard-stadium',
-    'grand-palais',
-    'hotel-de-ville',
-    'invalides',
-    'la-beaujoire-stadium',
-    'la-concorde',
-    'le-bourget-climbing-venue',
-    'le-golf-national',
-    'lyon-stadium',
-    'marseille-marina',
-    'marseille-stadium',
-    'nice-stadium',
-    'north-paris-arena',
-    'parc-des-princes',
-    'paris-la-defense-arena',
-    'pierre-mauroy-stadium',
-    'pont-alexandre-iii',
-    'porte-de-la-chapelle-arena',
-    'roland-garros-stadium',
-    'saint-quentin-en-yvelines-bmx-stadium',
-    'saint-quentin-en-yvelines-velodrome',
-    'south-paris-arena',
-    'stade-de-france',
-    'trocadero',
-    'vaires-sur-marne-nautical-stadium',
-    'teahupo-o-tahiti',
-    'yves-du-manoir-stadium',
-];
 
-export { olympia, marseille, bastia, perpignan, guiana, caledonia, reunion, polynesia, guadeloupe, martinique, nice, paris, start, path, availableImages };
+export { olympia, marseille, bastia, perpignan, guiana, caledonia, reunion, polynesia, guadeloupe, martinique, nice, paris, start, path };

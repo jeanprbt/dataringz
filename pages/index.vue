@@ -4,6 +4,7 @@
 
 <script setup>
 definePageMeta({
-    middleware: ["breadcrumb"]
+    middleware: ["breadcrumb"],
+    layout: 'map',
 })
 </script>

@@ -1,4 +1,4 @@
-import mapboxgl, { LngLatBounds, type Marker, type EasingOptions, type LngLatBoundsLike } from 'mapbox-gl';
+import mapboxgl, { LngLatBounds, type Marker, type EasingOptions } from 'mapbox-gl';
 import { type Router } from 'vue-router';
 import * as turf from 'turf';
 import { h, render } from 'vue';

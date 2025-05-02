@@ -82,6 +82,36 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
             element: el,
             anchor: 'center'
         }).setLngLat(coords).addTo(map);
+
+        // create popup for venue name
+        const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false,
+            offset: [0, - (sports.length * (15 + 2))], // 15px for each sport + 2px for spacing
+            className: 'venue-popup'
+        }).setHTML(`<div class="text-sm bg-zinc-700 text-white px-2 py-1 rounded">${venue.name}</div>`);
+
+        marker.setPopup(popup);
+        marker.getElement().addEventListener('mouseenter', () => popup.addTo(map));
+        marker.getElement().addEventListener('mouseleave', () => popup.remove());
+
+        // change popup style
+        const style = document.createElement('style');
+        style.textContent = `
+            .venue-popup .mapboxgl-popup-content {
+                padding: 0;
+                background: transparent;
+                box-shadow: none;
+            }
+            .venue-popup .mapboxgl-popup-tip {
+                border-top-color: rgb(63 63 70);
+                width: 12px;
+                height: 12px;
+                border-width: 6px;
+            }
+        `;
+        document.head.appendChild(style);
+
         markerCoordinates.set(marker, coords);
         markerDirections.set(marker, ref(0));
         showMarkers.set(marker, ref(false));

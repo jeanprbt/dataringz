@@ -6,7 +6,8 @@
                     thumbnail 
                     flex flex-wrap justify-center 
                     w-[50px] h-auto
-                    bg-zinc-50 hover:bg-zinc-200 dark:bg-zinc-900 hover:dark:bg-zinc-800
+                    bg-zinc-50 hover:bg-zinc-200 dark:bg-zinc-800 hover:dark:bg-zinc-700
+                    border-[0.5px] border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600
                     rounded-lg p-[5px] shadow-md 
                 ">
                 <div v-for="(sport, index) in sports" :key="index"

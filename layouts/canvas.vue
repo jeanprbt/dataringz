@@ -14,9 +14,10 @@
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
+import type { Feature, Polygon, MultiPolygon } from 'geojson';
 
 import { playIntro } from "~/utils/intro";
-import { settleCanvas, setMarkers, updateMarkers } from '~/utils/map';
+import { settleMapCanvas, setMarkers, updateMarkers } from '~/utils/map';
 import { displayButton, hideButton } from '~/utils/animations';
 
 import venues from '~/data/venues.json';
@@ -27,6 +28,7 @@ import athletes from '~/data/athletes.json';
 const router = useRouter();
 const config = useRuntimeConfig();
 const { setCanvas } = useCanvas();
+const { section } = useSection();
 const { intro, setIntro, introPlaying, setIntroPlaying } = useIntro();
 
 // MAPBOX API & INTRO ----------------------------------------------------------------------------------------------- //
@@ -43,10 +45,15 @@ const skipButton = ref<HTMLElement | null>(null);
 const showSkipButton = ref<boolean>(false);
 
 // COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
-const style = computed(() => {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'mapbox://styles/mapbox/dark-v11'
-        : 'mapbox://styles/mapbox/light-v11';
+const colorScheme = computed(() => {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ?
+        {
+            style: 'mapbox://styles/mapbox/dark-v11',
+            extrusionColor: '#444444'
+        } : {
+            style: 'mapbox://styles/mapbox/light-v11',
+            extrusionColor: '#DDDDDD'
+        }
 });
 
 let canvas: mapboxgl.Map;
@@ -54,6 +61,11 @@ let lastZoom: number = 0;
 
 onMounted(async () => {
     if (!isClient) return;
+
+    // LOAD COUNTRIES ------------------------------------------------------------------------------------------------ //
+    const countriesBorders: Feature<Polygon | MultiPolygon> = (
+        await fetch('/geojson/countries.geojson').then((res) => res.json())
+    );
 
     // HANDLE DIRECT ACCESS ----------------------------------------------------------------------------------------- //
     let directAccess = false;
@@ -83,7 +95,7 @@ onMounted(async () => {
         // globe view
         canvas = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
-            style: style.value,
+            style: colorScheme.value.style,
             dragRotate: false,
             center: [5, 43],
             zoom: 2,
@@ -95,7 +107,7 @@ onMounted(async () => {
         // paris view
         canvas = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
-            style: style.value,
+            style: colorScheme.value.style,
             dragRotate: false,
             center: [2.294694, 48.858093],
             zoom: 15.5,
@@ -150,6 +162,35 @@ onMounted(async () => {
             });
         });
 
+        // ADD COUNTRY FILLS LAYER ---------------------------------------------------------------------------------- //
+        canvas.addSource('cbs', {
+            'type': 'geojson',
+            'data': countriesBorders
+        });
+        canvas.addLayer({
+            "id": "cf",
+            "type": "fill",
+            "source": "cbs",
+            "layout": {},
+            "paint": {
+                "fill-opacity": 0
+            }
+        });
+
+        // ADD 3D EXTRUSION LAYER ----------------------------------------------------------------------------------- //
+        canvas.addLayer({
+            "id": "extrusion",
+            "type": "fill-extrusion",
+            "source": "cbs",
+            "layout": {},
+            "paint": {
+                "fill-extrusion-color": colorScheme.value.extrusionColor,
+                "fill-extrusion-height": 2,
+                "fill-extrusion-opacity": 0.7
+            },
+            "filter": ["==", "name", ""]
+        });
+
         // HANDLE FIRST ANIMATION ------------------------------------------------------------------------------------ //
         if (intro.value && !directAccess) {
             setIntroPlaying(true);
@@ -159,21 +200,21 @@ onMounted(async () => {
         } else if (directAccess) {
             await new Promise<void>(async (resolve, reject) => {
                 if (signal.aborted) return reject();
-                canvas.flyTo({ 
+                canvas.flyTo({
                     center: directCoordinates as [number, number],
                     zoom: 15.5,
-                    bearing: 0, 
-                    pitch: 55, 
-                    duration: 4000, 
-                    essential: true, 
-                    curve: 1 
+                    bearing: 0,
+                    pitch: 55,
+                    duration: 4000,
+                    essential: true,
+                    curve: 1
                 });
                 canvas.once('moveend', () => resolve());
             }).catch(() => { });
         }
 
         // SETTLE CANVAS -------------------------------------------------------------------------------------------- //
-        settleCanvas(canvas);
+        settleMapCanvas(canvas);
         await setMarkers(canvas, router);
     });
 
@@ -188,7 +229,7 @@ onMounted(async () => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     mediaQuery.addEventListener('change', () => {
         if (canvas) {
-            canvas.setStyle(style.value);
+            canvas.setStyle(colorScheme.value.style);
         }
     });
 });
@@ -224,8 +265,18 @@ const skipIntro = async () => {
         canvas.once('moveend', () => resolve());
     }).catch(() => { });
 
+    // remove lines
+    if (canvas.getLayer('french-line-layer-1')) canvas.removeLayer('french-line-layer-1');
+    if (canvas.getSource('french-line-1')) canvas.removeSource('french-line-1');
+    if (canvas.getLayer('french-line-layer-2')) canvas.removeLayer('french-line-layer-2');
+    if (canvas.getSource('french-line-2')) canvas.removeSource('french-line-2');
+    if (canvas.getLayer('french-line-layer-3')) canvas.removeLayer('french-line-layer-3');
+    if (canvas.getSource('french-line-3')) canvas.removeSource('french-line-3');
+    if (canvas.getLayer('greek-line-layer')) canvas.removeLayer('greek-line-layer');
+    if (canvas.getSource('greek-line')) canvas.removeSource('greek-line');
+
     // settle canvas
-    settleCanvas(canvas);
+    settleMapCanvas(canvas);
     await setMarkers(canvas, router);
 };
 

@@ -7,7 +7,7 @@
                     d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
                     clip-rule="evenodd" />
             </svg>
-            athlete / sport / venue...
+            {{ searchBarText }}
             <UKbd value="meta" size="sm" class="ml-2 mr-1 text-zinc-500 dark:text-zinc-400 bg-transparent"></UKbd>
             <UKbd value="K" size="sm" class="text-zinc-500 dark:text-zinc-400 bg-transparent">K</UKbd>
         </button>
@@ -19,11 +19,14 @@
     <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto bg-opacity-0 backdrop-blur-3xl rounded-xl"
         :overlay="false" :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
         <template #content>
-            <UCommandPalette :groups="groups" placeholder="athlete / sport / venue..." @highlight="onHighlight"
+            <UCommandPalette :groups="groups" :placeholder="searchBarText" @highlight="onHighlight"
                 :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', label: 'text-zinc-500 dark:text-zinc-400', itemLabelBase: 'text-zinc-500 dark:text-zinc-400', viewport: 'divide-zinc-300 dark:divide-zinc-600', itemLeadingAvatar: 'bg-transparent dark:invert brightness-100' }">
             </UCommandPalette>
         </template>
     </UModal>
+    <div ref="tooltipRef"
+        class="absolute bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white p-2 rounded shadow pointer-events-none hidden">
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -32,6 +35,7 @@ import type { CommandPaletteItem } from '@nuxt/ui';
 import venues from '~/data/venues.json';
 import sports from '~/data/sports.json';
 import athletes from '~/data/athletes.json';
+import countries from '~/data/countries.json';
 
 definePageMeta({
     middleware: ["breadcrumb"],
@@ -42,82 +46,133 @@ definePageMeta({
 const router = useRouter();
 const { canvas } = useCanvas();
 const { intro, introPlaying } = useIntro();
+const { section, setSection } = useSection();
 
-// COMMAND PALETTE ---------------------------------------------------------------------------------------------- //
+// UI STATE --------------------------------------------------------------------------------------------------------- //
+const tooltipRef = ref<HTMLElement | null>(null);
+const searchBarText = ref('athlete / sport / venue...');
+
+// COMMAND PALETTE -------------------------------------------------------------------------------------------------- //
 const groups = ref<any[]>([]);
 let flying = false;
-const createGroups = (canvas: mapboxgl.Map) => {
-    groups.value.push({
-        id: "venues",
-        label: "Venues",
-        items: Object.keys(venues).map(key => {
-            let venue = venues[key as keyof typeof venues];
-            return {
-                label: venue.name,
-                avatar: {
-                    src: venue.img
-                },
-                async onSelect() {
-                    open.value = false;
-                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
-                    flying = true;
-                    await flyToVenue(canvas, coordinates);
-                    flying = false;
-                    router.push(`/venue/${venue.slug}`);
+const getItems = (canvas: mapboxgl.Map, section: string = 'map') => {
+    const res = [];
+    if (section === 'map') {
+        res.push({
+            id: "venues",
+            label: "Venues",
+            items: Object.keys(venues).map(key => {
+                let venue = venues[key as keyof typeof venues];
+                return {
+                    label: venue.name,
+                    avatar: {
+                        src: venue.img
+                    },
+                    async onSelect() {
+                        open.value = false;
+                        const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                        flying = true;
+                        await flyToVenue(canvas, coordinates);
+                        flying = false;
+                        router.push(`/venue/${venue.slug}`);
+                    }
                 }
-            }
+            })
         })
-    })
-    groups.value.push({
-        id: "sports",
-        label: "Sports",
-        items: Object.keys(sports).map(key => {
-            let sport = sports[key as keyof typeof sports];
-            return {
-                label: sport.name,
-                avatar: {
-                    src: sport.icon
-                },
-                async onSelect() {
-                    open.value = false;
-                    const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
-                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
-                    flying = true;
-                    await flyToVenue(canvas, coordinates);
-                    flying = false;
-                    router.push(`/sport/${sport.slug}`);
+        res.push({
+            id: "sports",
+            label: "Sports",
+            items: Object.keys(sports).map(key => {
+                let sport = sports[key as keyof typeof sports];
+                return {
+                    label: sport.name,
+                    avatar: {
+                        src: sport.icon
+                    },
+                    async onSelect() {
+                        open.value = false;
+                        const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
+                        const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                        flying = true;
+                        await flyToVenue(canvas, coordinates);
+                        flying = false;
+                        router.push(`/sport/${sport.slug}`);
+                    }
                 }
-            }
+            })
         })
-    })
-    groups.value.push({
-        id: "athletes",
-        label: "Athletes",
-        items: Object.keys(athletes).map(key => {
-            let athlete = athletes[key as keyof typeof athletes] as any;
-            return {
-                label: athlete.name,
-                async onSelect() {
-                    open.value = false;
-                    const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
-                    const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
-                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
-                    flying = true;
-                    await flyToVenue(canvas, coordinates);
-                    flying = false;
-                    router.push(`/athlete/${athlete.slug}`);
+        res.push({
+            id: "athletes",
+            label: "Athletes",
+            items: Object.keys(athletes).map(key => {
+                let athlete = athletes[key as keyof typeof athletes] as any;
+                return {
+                    label: athlete.name,
+                    async onSelect() {
+                        open.value = false;
+                        const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
+                        const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
+                        const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                        flying = true;
+                        await flyToVenue(canvas, coordinates);
+                        flying = false;
+                        router.push(`/athlete/${athlete.slug}`);
+                    }
                 }
-            }
+            })
         })
+    } else if (section === 'globe') {
+        res.push({
+            id: "countries",
+            label: "Countries",
+            items: Object.keys(countries).map(key => {
+                let country = countries[key as keyof typeof countries];
+                return {
+                    label: country.name,
+                    avatar: {
+                        src: country.img
+                    },
+                    async onSelect() {
+                        open.value = false;
+                        const coordinates = [country.location.longitude, country.location.latitude] as [number, number];
+                        flying = true;
+                        await flyToCountry(canvas, coordinates);
+                        flying = false;
+                        // router.push(`/country/${country.slug}`);
+                    }
+                }
+            })
+        })
+    }
+    return res;
+}
+
+
+if (canvas.value) {
+    // @ts-ignore
+    groups.value = getItems(canvas.value);
+    watch(section, (newSection) => {
+        // @ts-ignore
+        groups.value = getItems(canvas.value, newSection);
+        searchBarText.value = newSection === 'globe' ? 'country...' : 'athlete / sport / venue...';
+    });
+}
+else {
+    watch(canvas, (newCanvas) => {
+        if (newCanvas) {
+            // @ts-ignore 
+            groups.value = getItems(newCanvas as mapboxgl.Map);
+            // @ts-ignore
+            watch(section, (newSection) => {
+                // @ts-ignore
+                groups.value = getItems(canvas.value, newSection);
+                searchBarText.value = newSection === 'globe' ? 'country...' : 'athlete / sport / venue...';
+            });
+        }
     })
 }
-// @ts-ignore
-if (canvas.value) createGroups(canvas.value);
-else watch(canvas, (newCanvas) => {
-    if (newCanvas) {
-        createGroups(newCanvas as mapboxgl.Map)
-    }
-})
+
+
 
 // COMMAND PALETTE HIGHLIGHT LOGIC -------------------------------------------------------------------------------------------- //
 const highlightedElem = ref<HTMLElement | null>(null);
@@ -145,7 +200,30 @@ const searchButtonClicked = () => {
     hideButton(showGlobeButton, globeButton, 0)
 }
 const globeButtonClicked = async () => {
+    removeMarkers();
+    hideButton(showSearchButton, searchButton, 0.5);
+    hideButton(showGlobeButton, globeButton, 0.5);
+    // @ts-ignore
+    unsettleMapCanvas(canvas.value);
 
+    await new Promise<void>(async (resolve): Promise<void> => {
+        canvas.value!.flyTo({
+            center: [2.209667, 46.232193],
+            zoom: 2,
+            bearing: 0,
+            pitch: 0,
+            duration: 4000,
+            essential: true,
+            curve: 1
+        });
+        canvas.value!.once('moveend', () => resolve());
+    }).catch(() => { });
+    setSection('globe');
+
+    // @ts-ignore
+    settleGlobeCanvas(canvas.value, tooltipRef, router)
+    displayButton(showSearchButton, searchButton, 0.5, 0.5);
+    displayButton(showGlobeButton, globeButton, 0.5, 0.5);
 }
 
 defineShortcuts({

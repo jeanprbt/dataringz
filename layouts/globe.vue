@@ -93,8 +93,7 @@ onMounted(async () => {
             "source": "cbs",
             "layout": {},
             "paint": {
-                "fill-color": colorScheme.value.fillColor,
-                "fill-opacity": 0.5
+                "fill-opacity": 0
             }
         });
 

@@ -1,4 +1,4 @@
-let intro: Ref<boolean> = ref(false);
+let intro: Ref<boolean> = ref(true);
 let introPlaying: Ref<boolean> = ref(false);
 export const useIntro = () => {
     const setIntro = (b: boolean) => {

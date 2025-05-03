@@ -8,10 +8,11 @@ import venues from '~/data/venues.json';
 let markerCoordinates = new Map<Marker, [number, number]>();
 const markerDirections = reactive(new Map<Marker, Ref<number>>());
 const showMarkers = reactive(new Map<Marker, Ref<boolean>>());
-const flyingMarkers = new Map<Marker, boolean>();
+const staticMarkers = new Map<Marker, boolean>();
+let originalScrollZoom: any;
 
 // MARKERS LOGIC  --------------------------------------------------------------------------------------------------- //
-const setMarkers = async (canvas: mapboxgl.Map, router: Router) => {
+const setMarkers = async (map: mapboxgl.Map, router: Router) => {
 
     Object.keys(venues).forEach(key => {
 
@@ -40,38 +41,38 @@ const setMarkers = async (canvas: mapboxgl.Map, router: Router) => {
         const marker = new Marker({
             element: el,
             anchor: 'center'
-        }).setLngLat(coords).addTo(canvas);
+        }).setLngLat(coords).addTo(map);
         markerCoordinates.set(marker, coords);
         markerDirections.set(marker, ref(0));
         showMarkers.set(marker, ref(false));
-        flyingMarkers.set(marker, false);
+        staticMarkers.set(marker, false);
 
         // render marker in DOM
         const vnode = h(MarkerIcon, { sports: sports, show: showMarkers.get(marker), direction: markerDirections.get(marker) });
         render(vnode, el);
 
         // make it appear if it is within the bounds
-        const mapBounds = canvas.getBounds()!;
+        const mapBounds = map.getBounds()!;
         const { paddedMapBounds } = _getPaddedMapBounds(mapBounds);
         if (paddedMapBounds.contains(coords)) showMarkers.get(marker)!.value = true;
 
         // add click event
         marker.getElement().addEventListener('click', async () => {
-            await flyToVenue(canvas, coords);
+            await flyToVenue(map, coords);
             router.push(`/venue/${venue.slug}`);
         });
     });
 };
 
-const updateMarkers = (canvas: mapboxgl.Map, zoom: number, lastZoom: number) => {
+const updateMarkers = (map: mapboxgl.Map, zoom: number, lastZoom: number) => {
 
-    const mapBounds = canvas.getBounds()!;
+    const mapBounds = map.getBounds()!;
     const { sw, ne, nw, se, paddedMapBounds } = _getPaddedMapBounds(mapBounds);
-    const { lng: mapLng, lat: mapLat } = canvas.getCenter();
+    const { lng: mapLng, lat: mapLat } = map.getCenter();
 
     for (let marker of markerCoordinates.keys()) {
 
-        if (flyingMarkers.get(marker)) continue;
+        if (staticMarkers.get(marker)) continue;
 
         const coordinates = markerCoordinates.get(marker);
         if (!coordinates) continue;
@@ -115,32 +116,48 @@ const updateMarkers = (canvas: mapboxgl.Map, zoom: number, lastZoom: number) => 
     }
 }
 
+const removeMarkers = () => {
+    markerCoordinates.keys().forEach(m => {
+        showMarkers.get(m)!.value = false;
+        staticMarkers.set(m, true);
+    })
+}
+
+const addMarkers = () => {
+    markerCoordinates.keys().forEach(m => {
+        showMarkers.get(m)!.value = true;
+        staticMarkers.set(m, false);
+    })
+}
+
 // MAP LOGIC ------------------------------------------------------------------------------------------------ //
-const settleCanvas = (canvas: mapboxgl.Map): void => {
+const settleMapCanvas = (map: mapboxgl.Map): void => {
     // zoom & bounds
-    const { lng, lat } = canvas.getCenter();
-    canvas.setMinZoom(10);
-    canvas.setMaxBounds([
+    const { lng, lat } = map.getCenter();
+    map.setMinZoom(10);
+    map.setMaxBounds([
         [lng - 1, lat - 1],
         [lng + 1, lat + 1]
     ]);
 
     // set initial pitch based on zoom
-    const initialZoom = canvas.getZoom();
-    canvas.setPitch(Math.max(0, Math.min(60, (initialZoom - 10) * 10)));
+    const initialZoom = map.getZoom();
+    map.setPitch(Math.max(0, Math.min(60, (initialZoom - 10) * 10)));
 
+    
     // override scrollZoom renderFrame to add pitch updates
-    const scrollZoom = canvas.scrollZoom as any;
-    const originalRenderFrame = scrollZoom.renderFrame;
+    const scrollZoom = map.scrollZoom as any;
+    originalScrollZoom = scrollZoom.renderFrame;
     scrollZoom.renderFrame = function () {
-        const result = originalRenderFrame.call(this);
+        // @ts-ignore
+        const result = originalScrollZoom.call(this);
         if (result?.zoomDelta) {
-            const targetZoom = canvas.getZoom() + result.zoomDelta;
-            if (targetZoom > canvas.getMinZoom() + 2) {
+            const targetZoom = map.getZoom() + result.zoomDelta;
+            if (targetZoom > map.getMinZoom() + 2) {
                 const newPitch = Math.max(0, Math.min(60, (targetZoom - 10) * 10));
-                if (canvas.transform) {
-                    canvas.transform._pitch = newPitch * (Math.PI / 180);
-                    canvas.triggerRepaint();
+                if (map.transform) {
+                    map.transform._pitch = newPitch * (Math.PI / 180);
+                    map.triggerRepaint();
                 }
             }
         }
@@ -148,20 +165,31 @@ const settleCanvas = (canvas: mapboxgl.Map): void => {
     };
 }
 
-const flyToVenue = async (canvas: mapboxgl.Map, venueCoordinates: [number, number]) => {
+const unsettleMapCanvas = (map: mapboxgl.Map): void => {
+    map.setMinZoom(undefined);
+    // @ts-ignore
+    map.setMaxBounds(undefined);
+    const scrollZoom = map.scrollZoom as any;
+    if (originalScrollZoom) {
+        scrollZoom.renderFrame = originalScrollZoom;
+    }
+}
+
+
+const flyToVenue = async (map: mapboxgl.Map, venueCoordinates: [number, number]) => {
 
     markerCoordinates.keys().forEach(m => {
         showMarkers.get(m)!.value = false;
-        flyingMarkers.set(m, true);
+        staticMarkers.set(m, true);
     })
 
-    const { lng, lat } = canvas.getCenter();
+    const { lng, lat } = map.getCenter();
     if (Math.abs(venueCoordinates[0] - lng) > 1 || Math.abs(venueCoordinates[1] - lat) > 1) {
-        canvas.setMinZoom(undefined);
+        map.setMinZoom(undefined);
         // @ts-ignore
-        canvas.setMaxBounds(undefined);
+        map.setMaxBounds(undefined);
         await new Promise<void>(async (resolve): Promise<void> => {
-            canvas.flyTo({
+            map.flyTo({
                 center: venueCoordinates,
                 zoom: 15.5,
                 bearing: 0,
@@ -170,16 +198,16 @@ const flyToVenue = async (canvas: mapboxgl.Map, venueCoordinates: [number, numbe
                 essential: true,
                 curve: 2
             } as EasingOptions);
-            canvas.once('moveend', () => resolve());
+            map.once('moveend', () => resolve());
         }).catch(() => { });
-        canvas.setMinZoom(10);
-        canvas.setMaxBounds([
+        map.setMinZoom(10);
+        map.setMaxBounds([
             [venueCoordinates[0] - 1, venueCoordinates[1] - 1],
             [venueCoordinates[0] + 1, venueCoordinates[1] + 1]
         ]);
     } else if (Math.abs(venueCoordinates[0] - lng) > 0.02 || Math.abs(venueCoordinates[1] - lat) > 0.02) {
         await new Promise<void>(async (resolve): Promise<void> => {
-            canvas.flyTo({
+            map.flyTo({
                 center: venueCoordinates,
                 zoom: 15.5,
                 bearing: 0,
@@ -188,26 +216,26 @@ const flyToVenue = async (canvas: mapboxgl.Map, venueCoordinates: [number, numbe
                 essential: true,
                 curve: 1
             } as EasingOptions);
-            canvas.once('moveend', () => resolve());
+            map.once('moveend', () => resolve());
         }).catch(() => { });
     } else {
         await new Promise<void>(async (resolve): Promise<void> => {
-            canvas.easeTo({
+            map.easeTo({
                 center: venueCoordinates,
                 zoom: 15.5,
                 bearing: 0,
                 pitch: 55,
                 duration: 500,
             });
-            canvas.once('moveend', () => resolve());
+            map.once('moveend', () => resolve());
         }).catch(() => { });
     }
 
     setTimeout(() => {
         markerCoordinates.keys().forEach(m => {
-            flyingMarkers.set(m, false);
+            staticMarkers.set(m, false);
         })
-        updateMarkers(canvas, canvas.getZoom(), canvas.getZoom());
+        updateMarkers(map, map.getZoom(), map.getZoom());
     }, 1500);
 }
 
@@ -236,4 +264,4 @@ const _getPaddedMapBounds = (mapBounds: LngLatBounds, paddingFactor: number = 0.
     }
 }
 
-export { setMarkers, updateMarkers, settleCanvas, flyToVenue };
+export { setMarkers, updateMarkers, addMarkers, removeMarkers, settleMapCanvas, unsettleMapCanvas, flyToVenue };

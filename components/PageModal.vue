@@ -34,10 +34,6 @@ const props = defineProps({
         type: Boolean,
         default: true
     },
-    back: {
-        type: Boolean,
-        default: false
-    },
     transition: {
         type: Boolean,
         default: false
@@ -47,7 +43,7 @@ const props = defineProps({
         default: []
     }
 });
-const emit = defineEmits(['close', 'back']);
+const emit = defineEmits(['close']);
 
 const items = toRef(props, "items");
 

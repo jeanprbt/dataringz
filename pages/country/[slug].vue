@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="true" :back="false" :transition="false">
+    <PageModal :show="true" :transition="false">
 
 
 

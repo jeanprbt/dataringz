@@ -64,7 +64,7 @@ import sports from '~/data/sports.json';
 
 definePageMeta({
     middleware: ['sport', 'previous', 'breadcrumb'],
-    layout: 'map'
+    layout: 'canvas'
 });
 
 // HANDLE DIRECT URL ---------------
@@ -132,7 +132,6 @@ const closePage = () => {
 // COMPUTED VALUES -----------------------------------------------------------------------------------------------------
 const hasEvents = computed(() => sport.events?.length > 0);
 const hasAthletes = computed(() => sport.athletes?.length > 0);
-const hasCountries = computed(() => sport.countries?.length > 0);
 const hasVenues = computed(() => sport.venues?.length > 0);
 const displayedEvents = computed(() => {
     return showAllEvents.value ? sport.events : sport.events.slice(0, 4);

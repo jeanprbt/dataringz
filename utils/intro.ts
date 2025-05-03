@@ -1,6 +1,5 @@
 import * as turf from "turf";
 import type { Feature, LineString } from "geojson";
-import type { Map, EasingOptions } from "mapbox-gl";
 
 import { displayText } from "~/utils/animations";
 import { 
@@ -21,7 +20,7 @@ import {
 
 // PLAY INTRO ------------------------------------------------------------------------------------------------------- //
 const playIntro = async (
-    map: Map, 
+    canvas: mapboxgl.Map, 
     signal: AbortSignal, 
     showText: Ref,
     textContainer: Ref, 
@@ -46,27 +45,27 @@ const playIntro = async (
     )
 
     // ADD LINES ---------------------------------------------------------------------------------------------------- //
-    map.addSource("french-line-1", {
+    canvas.addSource("french-line-1", {
         type: "geojson",
         lineMetrics: true,
         data: trackFrance1,
     });
-    map.addSource("french-line-2", {
+    canvas.addSource("french-line-2", {
         type: "geojson",
         lineMetrics: true,
         data: trackFrance2,
     })
-    map.addSource("french-line-3", {
+    canvas.addSource("french-line-3", {
         type: "geojson",
         lineMetrics: true,
         data: trackFrance3,
     })
-    map.addSource("greek-line", {
+    canvas.addSource("greek-line", {
         type: "geojson",
         lineMetrics: true,
         data: trackGreece,
     })
-    map.addLayer({
+    canvas.addLayer({
         id: "french-line-layer-1",
         type: "line",
         source: "french-line-1",
@@ -80,7 +79,7 @@ const playIntro = async (
             "line-join": "round",
         },
     });
-    map.addLayer({
+    canvas.addLayer({
         id: "french-line-layer-2",
         type: "line",
         source: "french-line-2",
@@ -94,7 +93,7 @@ const playIntro = async (
             "line-join": "round",
         },
     });
-    map.addLayer({
+    canvas.addLayer({
         id: "french-line-layer-3",
         type: "line",
         source: "french-line-3",
@@ -108,7 +107,7 @@ const playIntro = async (
             "line-join": "round",
         },
     });
-    map.addLayer({
+    canvas.addLayer({
         id: "greek-line-layer",
         type: "line",
         source: "greek-line",
@@ -126,8 +125,8 @@ const playIntro = async (
     // FLY TO OLYMPIA ------------------------------------------------------------------------------------------------//
     await new Promise<void>(async (resolve, reject): Promise<void> => {
         if (signal.aborted) return reject();
-        map.flyTo({ ...olympia, duration: 2000, essential: true, curve: 1 } as EasingOptions);
-        map.once('moveend', () => resolve());
+        canvas.flyTo({ ...olympia, duration: 2000, essential: true, curve: 1 });
+        canvas.once('moveend', () => resolve());
     }).catch(() => {});
 
     displayText(
@@ -139,21 +138,21 @@ const playIntro = async (
     );
 
     // ANIMATE GREEK TRACK ------------------------------------------------------------------------------------------ //
-    await animatePath({
-        map: map,
+    await _animatePath({
+        map: canvas,
         duration: 4000,
         track: trackGreece,
         layerId: "greek-line-layer",
         signal: signal,
         ...path,
-    } as AnimatePathOptions);
+    });
 
 
     // FLY TO MARSEILLE --------------------------------------------------------------------------------------------- //
     await new Promise<void>(async (resolve, reject) => {
         if (signal.aborted) return reject();
-        map.flyTo({ ...marseille, duration: 2000, essential: true, curve: 1 } as EasingOptions);
-        map.once('moveend', () => resolve());
+        canvas.flyTo({ ...marseille, duration: 2000, essential: true, curve: 1 });
+        canvas.once('moveend', () => resolve());
     }).catch(() => { });
 
     displayText(
@@ -164,14 +163,14 @@ const playIntro = async (
     );
 
     // ANIMATE FRENCH TRACK PT. 1 ----------------------------------------------------------------------------------- //
-    await animatePath({
-        map: map,
+    await _animatePath({
+        map: canvas,
         duration: 2000,
         track: trackFrance1,
         layerId: "french-line-layer-1",
         signal: signal,
         ...path,
-    } as AnimatePathOptions);
+    });
 
     displayText(
         showText, 
@@ -184,8 +183,8 @@ const playIntro = async (
     for (const location of [bastia, perpignan]) {
         await new Promise<void>(async (resolve, reject) => {
             if (signal.aborted) return reject();
-            map.flyTo({ ...location, duration: 2000, essential: true, curve: 1 } as EasingOptions);
-            map.once('moveend', () => resolve());
+            canvas.flyTo({ ...location, duration: 2000, essential: true, curve: 1 });
+            canvas.once('moveend', () => resolve());
         }).catch(() => {});
     }
     
@@ -197,14 +196,14 @@ const playIntro = async (
     );
 
     // ANIMATE FRENCH TRACK PT. 2 ----------------------------------------------------------------------------------- //
-    await animatePath({
-        map: map,
+    await _animatePath({
+        map: canvas,
         duration: 6000,
         track: trackFrance2,
         layerId: "french-line-layer-2",
         signal: signal,
         ...path,
-    } as AnimatePathOptions);
+    });
 
     displayText(
         showText, 
@@ -214,8 +213,8 @@ const playIntro = async (
     );
     await new Promise<void>((resolve, reject) => {
         if (signal.aborted) return reject();
-        map.flyTo({ ...guiana, duration: 3000, essential: true, curve: 1 } as EasingOptions);
-        map.once('moveend', () => resolve());
+        canvas.flyTo({ ...guiana, duration: 3000, essential: true, curve: 1 });
+        canvas.once('moveend', () => resolve());
     }).catch(() => { });
 
 
@@ -230,8 +229,8 @@ const playIntro = async (
         );
         await new Promise<void>((resolve, reject) => {
             if (signal.aborted) return reject();
-            map.flyTo({ ...location, duration: 2000, essential: true, curve: 1 } as EasingOptions);
-            map.once('moveend', () => resolve());
+            canvas.flyTo({ ...location, duration: 2000, essential: true, curve: 1 });
+            canvas.once('moveend', () => resolve());
         }).catch(() => { });
     }
 
@@ -244,19 +243,19 @@ const playIntro = async (
     );
     await new Promise<void>((resolve, reject) => {
         if (signal.aborted) return reject();
-        map.flyTo({ ...nice, duration: 2000, essential: true, curve: 1 } as EasingOptions);
-        map.once('moveend', () => resolve());
+        canvas.flyTo({ ...nice, duration: 2000, essential: true, curve: 1 });
+        canvas.once('moveend', () => resolve());
     }).catch(() => { });
 
     // ANIMATE FRENCH TRACK PT.3 ------------------------------------------------------------------------------------ //
-    await animatePath({
-        map: map,
+    await _animatePath({
+        map: canvas,
         duration: 8000,
         track: trackFrance3,
         layerId: "french-line-layer-3",
         signal: signal,
         ...path,
-    } as AnimatePathOptions);
+    });
 
     displayText(
         showText, 
@@ -268,25 +267,25 @@ const playIntro = async (
     // FLY TO PARIS ------------------------------------------------------------------------------------------------- //
     await new Promise<void>((resolve, reject) => {
         if (signal.aborted) return reject();
-        map.flyTo({ ...paris, duration: 4000, essential: true, curve: 1 } as EasingOptions);
-        map.once('moveend', () => resolve());
+        canvas.flyTo({ ...paris, duration: 4000, essential: true, curve: 1 });
+        canvas.once('moveend', () => resolve());
     }).catch(() => { });
+
+    // REMOVE LINES ------------------------------------------------------------------------------------------------- //
+    if (canvas.getLayer('french-line-layer-1')) canvas.removeLayer('french-line-layer-1');
+    if (canvas.getSource('french-line-1')) canvas.removeSource('french-line-1');
+    if (canvas.getLayer('french-line-layer-2')) canvas.removeLayer('french-line-layer-2');
+    if (canvas.getSource('french-line-2')) canvas.removeSource('french-line-2');
+    if (canvas.getLayer('french-line-layer-3')) canvas.removeLayer('french-line-layer-3');
+    if (canvas.getSource('french-line-3')) canvas.removeSource('french-line-3');
+    if (canvas.getLayer('greek-line-layer')) canvas.removeLayer('greek-line-layer');
+    if (canvas.getSource('greek-line')) canvas.removeSource('greek-line');
 }
 
 
 
-// ANIMATE PATH ----------------------------------------------------------------------------------------------------- //
-type AnimatePathOptions = {
-    map: Map;
-    duration: number;
-    track: Feature<LineString>;
-    layerId: string;
-    zoom: number;
-    pitch: number;
-    bearing: number;
-    signal: AbortSignal;
-}
-const animatePath = async (options: AnimatePathOptions): Promise<number> => {
+// PRIVATE METHODS -------------------------------------------------------------------------------------------------- //
+const _animatePath = async (options: any): Promise<number> => {
     return new Promise(async (resolve, reject) => {
         if (options.signal.aborted) return reject();
         const pathDistance = turf.lineDistance(options.track);
@@ -318,12 +317,12 @@ const animatePath = async (options: AnimatePathOptions): Promise<number> => {
 
             // interpolate bearing
             const targetBearing = options.bearing - animationPhase * 100.0;
-            prevBearing = smootherstep(prevBearing, targetBearing, SMOOTH_FACTOR);
+            prevBearing = _smootherstep(prevBearing, targetBearing, SMOOTH_FACTOR);
 
             // interpolate position
             if (prevLngLat) {
-                targetLngLat.lng = smootherstep(prevLngLat.lng, targetLngLat.lng, SMOOTH_FACTOR);
-                targetLngLat.lat = smootherstep(prevLngLat.lat, targetLngLat.lat, SMOOTH_FACTOR);
+                targetLngLat.lng = _smootherstep(prevLngLat.lng, targetLngLat.lng, SMOOTH_FACTOR);
+                targetLngLat.lat = _smootherstep(prevLngLat.lat, targetLngLat.lat, SMOOTH_FACTOR);
             }
             prevLngLat = targetLngLat;
 
@@ -362,9 +361,7 @@ const animatePath = async (options: AnimatePathOptions): Promise<number> => {
     });
 }
 
-
-// SMOOTHING FUNCTION  ---------------------------------------------------------------------------------------------- //
-const smootherstep = (start: number, end: number, t: number): number => {
+const _smootherstep = (start: number, end: number, t: number): number => {
     t = Math.max(0, Math.min(1, t));
     t = t * t * t * (t * (t * 6 - 15) + 10);
     return start + (end - start) * t;

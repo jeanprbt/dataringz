@@ -44,7 +44,7 @@ import venues from '~/data/venues.json';
 
 definePageMeta({
     middleware: ['venue', 'previous', 'breadcrumb'],
-    layout: 'map'
+    layout: 'canvas'
 });
 
 // HANDLE DIRECT URL ---------------

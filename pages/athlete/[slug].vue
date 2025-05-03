@@ -163,7 +163,7 @@ import athletes from '~/data/athletes.json';
 
 definePageMeta({
     middleware: ['athlete', 'previous', 'breadcrumb'],
-    layout: 'map'
+    layout: 'canvas'
 });
 
 // HANDLE DIRECT URL ---------------

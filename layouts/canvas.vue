@@ -13,12 +13,11 @@
 
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
-import mapboxgl, { type EasingOptions, type MapOptions } from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl';
 
 import { playIntro } from "~/utils/intro";
-import { setFinalProperties, setMarkers, updateMarkers } from '~/utils/map';
+import { settleCanvas, setMarkers, updateMarkers } from '~/utils/map';
 import { displayButton, hideButton } from '~/utils/animations';
-import { start, paris } from '~/utils/constants';
 
 import venues from '~/data/venues.json';
 import sports from '~/data/sports.json';
@@ -27,12 +26,12 @@ import athletes from '~/data/athletes.json';
 // COMPOSABLES ------------------------------------------------------------------------------------------------------ //
 const router = useRouter();
 const config = useRuntimeConfig();
-const isClient = import.meta.client;
-if (isClient) {
-    mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '';
-}
-const { setMap } = useMap();
+const { setCanvas } = useCanvas();
 const { intro, setIntro, introPlaying, setIntroPlaying } = useIntro();
+
+// MAPBOX API & INTRO ----------------------------------------------------------------------------------------------- //
+const isClient = import.meta.client;
+if (isClient) { mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '' }
 setIntro(config.public.INTRO || false);
 
 // REFS ------------------------------------------------------------------------------------------------------------- //
@@ -43,36 +42,6 @@ const currentText = ref<string>('');
 const skipButton = ref<HTMLElement | null>(null);
 const showSkipButton = ref<boolean>(false);
 
-// SKIP INTRO LOGIC ------------------------------------------------------------------------------------------------- //
-const controller = new AbortController();
-const { signal } = controller;
-const skipIntro = async () => {
-    controller.abort();
-    setIntroPlaying(false);
-    setIntro(false);
-    showText.value = false;
-    await new Promise<void>((resolve) => {
-        map.flyTo({
-            ...paris,
-            duration: 2000,
-            essential: true,
-            curve: 1,
-        } as EasingOptions);
-        map.once('moveend', () => resolve());
-    }).catch(() => { });
-    setFinalProperties(map);
-    await setMarkers(map, router);
-};
-
-// SKIP BUTTON LOGIC ------------------------------------------------------------------------------------------------ //
-watch(introPlaying, (newVal) => {
-    if (newVal) {
-        displayButton(showSkipButton, skipButton, 3, 2);
-    } else {
-        hideButton(showSkipButton, skipButton, 1);
-    }
-});
-
 // COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
 const style = computed(() => {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -80,73 +49,76 @@ const style = computed(() => {
         : 'mapbox://styles/mapbox/light-v11';
 });
 
-let map: mapboxgl.Map;
+let canvas: mapboxgl.Map;
 let lastZoom: number = 0;
-
-// HANDLE DIRECT ACCESS  -------------------------------------------------------------------------------------------- //
-const directVenueAccess = useState('venue');
-const directSportAccess = useState('sport');
-const directAthleteAccess = useState('athlete');
-let directAccess: boolean = false;
 
 onMounted(async () => {
     if (!isClient) return;
 
     // HANDLE DIRECT ACCESS ----------------------------------------------------------------------------------------- //
-    let venueCoordinates = [] as number[];
-    if (directVenueAccess.value) {
+    let directAccess = false;
+    let directCoordinates: number[] = [];
+    const venueAccess = useState('venue');
+    const athleteAccess = useState('athlete');
+    const sportAccess = useState('sport');
+    if (venueAccess.value) {
         directAccess = true;
-        const venue = venues[directVenueAccess.value as keyof typeof venues] as any;
-        venueCoordinates = [venue.location.longitude, venue.location.latitude];
-    } else if (directSportAccess.value) {
+        const venue = venues[venueAccess.value as keyof typeof venues] as any;
+        directCoordinates = [venue.location.longitude, venue.location.latitude];
+    } else if (sportAccess.value) {
         directAccess = true;
-        const sport = sports[directSportAccess.value as keyof typeof sports];
+        const sport = sports[sportAccess.value as keyof typeof sports];
         const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues] as any;
-        venueCoordinates = [venue.location.longitude, venue.location.latitude];
-    } else if (directAthleteAccess.value) {
+        directCoordinates = [venue.location.longitude, venue.location.latitude];
+    } else if (athleteAccess.value) {
         directAccess = true;
-        const athlete = athletes[directAthleteAccess.value as keyof typeof athletes];
+        const athlete = athletes[athleteAccess.value as keyof typeof athletes];
         const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
         const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues] as any;
-        venueCoordinates = [venue.location.longitude, venue.location.latitude];
+        directCoordinates = [venue.location.longitude, venue.location.latitude];
     }
 
     // CREATE MAP --------------------------------------------------------------------------------------------------- //
     if (intro.value || directAccess) {
-        map = new mapboxgl.Map({
+        // globe view
+        canvas = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
             style: style.value,
-            maxZoom: 16,
             dragRotate: false,
-            ...start
-        } as MapOptions);
+            center: [5, 43],
+            zoom: 2,
+            pitch: 0,
+            bearing: 440,
+            maxZoom: 16,
+        });
     } else {
-        map = new mapboxgl.Map({
+        // paris view
+        canvas = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
             style: style.value,
+            dragRotate: false,
+            center: [2.294694, 48.858093],
+            zoom: 15.5,
+            pitch: 55,
+            bearing: 0,
             maxZoom: 16,
             minZoom: 10,
-            dragRotate: false,
-            maxBounds: [
-                [2.0575, 48.0000],
-                [3.0079, 49.9999]
-            ],
-            ...paris,
-        } as MapOptions);
+            maxBounds: [[2, 48], [3, 50]],
+        });
     }
-    setMap(map);
-    
-    map.on('style.load', async () => {
+    setCanvas(canvas);
+
+    canvas.on('style.load', async () => {
 
         // REMOVE SYMBOLS (e.g. street names, places, ...) ---------------------------------------------------------- //
-        map.style.stylesheet.layers.forEach((layer) => {
+        canvas.style.stylesheet.layers.forEach((layer) => {
             if (layer.type === 'symbol') {
-                map.removeLayer(layer.id);
+                canvas.removeLayer(layer.id);
             }
         });
 
         // ADD 3D BUILDINGS LAYER ----------------------------------------------------------------------------------- //
-        map.addLayer(
+        canvas.addLayer(
             {
                 id: 'add-3d-buildings',
                 source: 'composite',
@@ -171,53 +143,99 @@ onMounted(async () => {
         // COLOR SPECIFIC BUILDINGS --------------------------------------------------------------------------------- //
         Object.keys(venues).forEach(key => {
             venues[key as keyof typeof venues].buildingIds.forEach((id: number) => {
-                map.setFeatureState(
+                canvas.setFeatureState(
                     { source: 'composite', sourceLayer: 'building', id },
                     { selected: true }
                 );
             });
         });
 
-        // PLAY INTRO ANIMATION ------------------------------------------------------------------------------------- //
+        // HANDLE FIRST ANIMATION ------------------------------------------------------------------------------------ //
         if (intro.value && !directAccess) {
             setIntroPlaying(true);
-            await playIntro(map, signal, showText, textContainer, currentText);
+            await playIntro(canvas, signal, showText, textContainer, currentText);
             setIntroPlaying(false);
             setIntro(false);
         } else if (directAccess) {
             await new Promise<void>(async (resolve, reject) => {
                 if (signal.aborted) return reject();
-                map.flyTo({ center: venueCoordinates, zoom: 15.5, bearing: 0, pitch: 55, duration: 4000, essential: true, curve: 1 } as EasingOptions);
-                map.once('moveend', () => resolve());
+                canvas.flyTo({ 
+                    center: directCoordinates as [number, number],
+                    zoom: 15.5,
+                    bearing: 0, 
+                    pitch: 55, 
+                    duration: 4000, 
+                    essential: true, 
+                    curve: 1 
+                });
+                canvas.once('moveend', () => resolve());
             }).catch(() => { });
         }
 
-        // SET FINAL PROPERTIES & ADD MARKERS ----------------------------------------------------------------------- //
-        setFinalProperties(map);
-        await setMarkers(map, router);
+        // SETTLE CANVAS -------------------------------------------------------------------------------------------- //
+        settleCanvas(canvas);
+        await setMarkers(canvas, router);
     });
 
-    // OUT MARKERS UPDATE LOGIC ------------------------------------------------------------------------------------- //
-    map.on('move', () => {
-        const zoom = map.getZoom()
-        updateMarkers(map, zoom, lastZoom);
+    // MARKERS UPDATE LOGIC ----------------------------------------------------------------------------------------- //
+    canvas.on('move', () => {
+        const zoom = canvas.getZoom()
+        updateMarkers(canvas, zoom, lastZoom);
         lastZoom = zoom;
     })
 
     // MAKE COLOR MODE REACTIVE ------------------------------------------------------------------------------------- //
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     mediaQuery.addEventListener('change', () => {
-        if (map) {
-            map.setStyle(style.value);
+        if (canvas) {
+            canvas.setStyle(style.value);
         }
     });
 });
 
 onUnmounted(() => {
-    if (isClient && map) {
-        map.remove();
+    if (isClient && canvas) {
+        canvas.remove();
     }
 });
 
+// SKIP INTRO LOGIC ------------------------------------------------------------------------------------------------- //
+const controller = new AbortController();
+const { signal } = controller;
+const skipIntro = async () => {
+    controller.abort();
+
+    // update refs
+    setIntroPlaying(false);
+    setIntro(false);
+    showText.value = false;
+
+    // fly to paris
+    await new Promise<void>((resolve) => {
+        canvas.flyTo({
+            center: [2.294694, 48.858093],
+            zoom: 15.5,
+            pitch: 55,
+            bearing: 0,
+            duration: 2000,
+            essential: true,
+            curve: 1,
+        });
+        canvas.once('moveend', () => resolve());
+    }).catch(() => { });
+
+    // settle canvas
+    settleCanvas(canvas);
+    await setMarkers(canvas, router);
+};
+
+// SKIP BUTTON LOGIC ------------------------------------------------------------------------------------------------ //
+watch(introPlaying, (newVal) => {
+    if (newVal) {
+        displayButton(showSkipButton, skipButton, 3, 2);
+    } else {
+        hideButton(showSkipButton, skipButton, 1);
+    }
+});
 
 </script>

@@ -1,16 +1,19 @@
 <template>
     <div ref="mapRef" :class="['flex-1 relative overflow-hidden']"></div>
-    <div ref="tooltipRef" class="absolute bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white p-2 rounded shadow pointer-events-none"></div>
+    <div ref="tooltipRef"
+        class="absolute bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white p-2 rounded shadow pointer-events-none">
+    </div>
 </template>
 
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { type EasingOptions } from 'mapbox-gl';
 import type { Feature, Polygon, MultiPolygon } from "geojson";
 
 import countries from '~/data/countries.json';
 
 // COMPOSABLES ------------------------------------------------------------------------------------------------------ //
+const router = useRouter();
 const config = useRuntimeConfig();
 const isClient = import.meta.client;
 if (isClient) {
@@ -25,7 +28,7 @@ const tooltipRef = ref<HTMLElement | null>(null);
 
 // COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
 const colorScheme = computed(() => {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ?
         {
             style: 'mapbox://styles/mapbox/dark-v11',
             fillColor: '#2A2A2A',
@@ -37,7 +40,23 @@ const colorScheme = computed(() => {
         }
 });
 
+// HANDLE DIRECT ACCESS  -------------------------------------------------------------------------------------------- //
+const directCountryAccess = useState('country');
+let directAccess: boolean = false;
+
+// UI STATE --------------------------------------------------------------------------------------------------------- //
+let click: boolean = false;
+
 onMounted(async () => {
+    if (!isClient) return;
+
+    // HANDLE DIRECT ACCESS ----------------------------------------------------------------------------------------- //
+    let countryCoordinates = [] as number[];
+    if (directCountryAccess.value) {
+        directAccess = true;
+        const country = countries[directCountryAccess.value as keyof typeof countries] as any;
+        countryCoordinates = [country.location.longitude, country.location.latitude] as [number, number];
+    }
 
     // LOAD COUNTRIES ------------------------------------------------------------------------------------------------ //
     const countriesBorders: Feature<Polygon | MultiPolygon> = (
@@ -53,8 +72,8 @@ onMounted(async () => {
         maxZoom: 3.5
     });
     setGlobe(globe);
-    
-    globe.on('style.load', function () {
+
+    globe.on('style.load', async function () {
 
         // REMOVE SYMBOLS (e.g. street names, places, ...) ---------------------------------------------------------- //
         globe.style.stylesheet.layers.forEach((layer) => {
@@ -64,7 +83,7 @@ onMounted(async () => {
         });
 
         // ADD COUNTRY FILLS LAYER ---------------------------------------------------------------------------------- //
-        globe.addSource('cbs', { 
+        globe.addSource('cbs', {
             'type': 'geojson',
             'data': countriesBorders
         });
@@ -93,9 +112,17 @@ onMounted(async () => {
             "filter": ["==", "name", ""]
         });
 
+        if (directAccess) {
+            await new Promise<void>(async (resolve) => {
+                globe.flyTo({ center: countryCoordinates, zoom: 3.5, duration: 2000, essential: true, curve: 1 } as EasingOptions);
+                globe.once('moveend', () => resolve());
+            }).catch(() => { });
+        }
+
 
         // HANDLE HOVER (TOOLTIP + COUNTRY EXTRUSION) ------------------------------------------------------------------
         globe.on("mousemove", function (e) {
+            if (click) return;
             const features = globe.queryRenderedFeatures(e.point, { layers: ["cf"] });
             if (features.length) {
                 globe.setFilter("extrusion", ["==", "name", features[0].properties!.name]);
@@ -123,19 +150,25 @@ onMounted(async () => {
         });
 
         // HANDLE CLICK --------------------------------------------------------------------------------------------- //
-        globe.on("click", function (e) {
+        globe.on("click", async function (e) {
             const features = globe.queryRenderedFeatures(e.point, { layers: ["cf"] });
             if (features.length) {
+                globe.setFilter("extrusion", ["==", "name", ""]);
+                const tooltip = tooltipRef.value;
+                if (tooltip) {
+                    tooltip.style.display = 'none';
+                }
                 const country = countries[features[0].properties!.slug as keyof typeof countries];
-                globe.flyTo({
-                    center: [country.location.longitude, country.location.latitude],
-                    zoom: 3.5,
-                    essential: true
-                })
+                click = true;
+                await flyToCountry(globe, [country.location.longitude, country.location.latitude] as [number, number]);
+                setTimeout(() => {
+                    click = false;
+                }, 1000);
+                router.push(`/country/${country.slug}`);
             }
         });
     });
-    
+
     // MAKE COLOR MODE REACTIVE ------------------------------------------------------------------------------------- //
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     mediaQuery.addEventListener('change', () => {

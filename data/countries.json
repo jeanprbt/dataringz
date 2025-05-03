@@ -5,7 +5,8 @@
             "longitude": 66.2385139,
             "latitude": 33.7680065
         },
-        "img": "/img/countries/af.svg"
+        "img": "/img/countries/af.svg",
+        "slug": "afghanistan"
     },
     "albania": {
         "name": "Albania",
@@ -13,7 +14,8 @@
             "longitude": 19.9999619,
             "latitude": 41.000028
         },
-        "img": "/img/countries/al.svg"
+        "img": "/img/countries/al.svg",
+        "slug": "albania"
     },
     "algeria": {
         "name": "Algeria",
@@ -21,7 +23,8 @@
             "longitude": 2.9999825,
             "latitude": 28.0000272
         },
-        "img": "/img/countries/dz.svg"
+        "img": "/img/countries/dz.svg",
+        "slug": "algeria"
     },
     "andorra": {
         "name": "Andorra",
@@ -29,7 +32,8 @@
             "longitude": 1.5732033,
             "latitude": 42.5407167
         },
-        "img": "/img/countries/ad.svg"
+        "img": "/img/countries/ad.svg",
+        "slug": "andorra"
     },
     "angola": {
         "name": "Angola",
@@ -37,7 +41,8 @@
             "longitude": 17.5691241,
             "latitude": -11.8775768
         },
-        "img": "/img/countries/ao.svg"
+        "img": "/img/countries/ao.svg",
+        "slug": "angola"
     },
     "antigua-and-barbuda": {
         "name": "Antigua and Barbuda",
@@ -45,7 +50,8 @@
             "longitude": -61.9554608,
             "latitude": 17.2234721
         },
-        "img": "/img/countries/ag.svg"
+        "img": "/img/countries/ag.svg",
+        "slug": "antigua-and-barbuda"
     },
     "argentina": {
         "name": "Argentina",
@@ -53,7 +59,8 @@
             "longitude": -64.9672817,
             "latitude": -34.9964963
         },
-        "img": "/img/countries/ar.svg"
+        "img": "/img/countries/ar.svg",
+        "slug": "argentina"
     },
     "armenia": {
         "name": "Armenia",
@@ -61,7 +68,8 @@
             "longitude": 44.6736646,
             "latitude": 40.7696272
         },
-        "img": "/img/countries/am.svg"
+        "img": "/img/countries/am.svg",
+        "slug": "armenia"
     },
     "australia": {
         "name": "Australia",
@@ -69,7 +77,8 @@
             "longitude": 134.755,
             "latitude": -24.7761086
         },
-        "img": "/img/countries/au.svg"
+        "img": "/img/countries/au.svg",
+        "slug": "australia"
     },
     "austria": {
         "name": "Austria",
@@ -77,7 +86,8 @@
             "longitude": 14.12456,
             "latitude": 47.59397
         },
-        "img": "/img/countries/at.svg"
+        "img": "/img/countries/at.svg",
+        "slug": "austria"
     },
     "azerbaijan": {
         "name": "Azerbaijan",
@@ -85,7 +95,8 @@
             "longitude": 47.7872508,
             "latitude": 40.3936294
         },
-        "img": "/img/countries/az.svg"
+        "img": "/img/countries/az.svg",
+        "slug": "azerbaijan"
     },
     "bahamas": {
         "name": "Bahamas",
@@ -93,7 +104,8 @@
             "longitude": -78.0000547,
             "latitude": 24.7736546
         },
-        "img": "/img/countries/bs.svg"
+        "img": "/img/countries/bs.svg",
+        "slug": "bahamas"
     },
     "bahrain": {
         "name": "Bahrain",
@@ -101,7 +113,8 @@
             "longitude": 50.5344606,
             "latitude": 26.1551249
         },
-        "img": "/img/countries/bh.svg"
+        "img": "/img/countries/bh.svg",
+        "slug": "bahrain"
     },
     "bangladesh": {
         "name": "Bangladesh",
@@ -109,7 +122,8 @@
             "longitude": 90.2934413,
             "latitude": 24.4769288
         },
-        "img": "/img/countries/bd.svg"
+        "img": "/img/countries/bd.svg",
+        "slug": "bangladesh"
     },
     "barbados": {
         "name": "Barbados",
@@ -117,7 +131,8 @@
             "longitude": -59.5250305,
             "latitude": 13.1500331
         },
-        "img": "/img/countries/bb.svg"
+        "img": "/img/countries/bb.svg",
+        "slug": "barbados"
     },
     "belarus": {
         "name": "Belarus",
@@ -125,7 +140,8 @@
             "longitude": 27.6971358,
             "latitude": 53.4250605
         },
-        "img": "/img/countries/by.svg"
+        "img": "/img/countries/by.svg",
+        "slug": "belarus"
     },
     "belgium": {
         "name": "Belgium",
@@ -133,7 +149,8 @@
             "longitude": 4.6667145,
             "latitude": 50.6402809
         },
-        "img": "/img/countries/be.svg"
+        "img": "/img/countries/be.svg",
+        "slug": "belgium"
     },
     "belize": {
         "name": "Belize",
@@ -141,7 +158,8 @@
             "longitude": -88.6859028,
             "latitude": 17.1204943
         },
-        "img": "/img/countries/bz.svg"
+        "img": "/img/countries/bz.svg",
+        "slug": "belize"
     },
     "benin": {
         "name": "Benin",
@@ -149,7 +167,8 @@
             "longitude": 2.2584408,
             "latitude": 9.5293472
         },
-        "img": "/img/countries/bj.svg"
+        "img": "/img/countries/bj.svg",
+        "slug": "benin"
     },
     "bhutan": {
         "name": "Bhutan",
@@ -157,7 +176,8 @@
             "longitude": 90.5119273,
             "latitude": 27.549511
         },
-        "img": "/img/countries/bt.svg"
+        "img": "/img/countries/bt.svg",
+        "slug": "bhutan"
     },
     "bolivia": {
         "name": "Bolivia",
@@ -165,7 +185,8 @@
             "longitude": -64.9912286,
             "latitude": -17.0568696
         },
-        "img": "/img/countries/bo.svg"
+        "img": "/img/countries/bo.svg",
+        "slug": "bolivia"
     },
     "bosnia-&-herzegovina": {
         "name": "Bosnia & Herzegovina",
@@ -173,7 +194,8 @@
             "longitude": 17.5961467,
             "latitude": 44.3053476
         },
-        "img": "/img/countries/ba.svg"
+        "img": "/img/countries/ba.svg",
+        "slug": "bosnia-&-herzegovina"
     },
     "botswana": {
         "name": "Botswana",
@@ -181,7 +203,8 @@
             "longitude": 24.5928742,
             "latitude": -23.1681782
         },
-        "img": "/img/countries/bw.svg"
+        "img": "/img/countries/bw.svg",
+        "slug": "botswana"
     },
     "brazil": {
         "name": "Brazil",
@@ -189,7 +212,8 @@
             "longitude": -53.2,
             "latitude": -10.3333333
         },
-        "img": "/img/countries/br.svg"
+        "img": "/img/countries/br.svg",
+        "slug": "brazil"
     },
     "brunei-darussalam": {
         "name": "Brunei Darussalam",
@@ -197,7 +221,8 @@
             "longitude": 114.5653908,
             "latitude": 4.4137155
         },
-        "img": "/img/countries/bn.svg"
+        "img": "/img/countries/bn.svg",
+        "slug": "brunei-darussalam"
     },
     "bulgaria": {
         "name": "Bulgaria",
@@ -205,7 +230,8 @@
             "longitude": 25.4856617,
             "latitude": 42.6073975
         },
-        "img": "/img/countries/bg.svg"
+        "img": "/img/countries/bg.svg",
+        "slug": "bulgaria"
     },
     "burkina-faso": {
         "name": "Burkina Faso",
@@ -213,7 +239,8 @@
             "longitude": -1.6880314,
             "latitude": 12.0753083
         },
-        "img": "/img/countries/bf.svg"
+        "img": "/img/countries/bf.svg",
+        "slug": "burkina-faso"
     },
     "burundi": {
         "name": "Burundi",
@@ -221,7 +248,8 @@
             "longitude": 29.9324519,
             "latitude": -3.426449
         },
-        "img": "/img/countries/bi.svg"
+        "img": "/img/countries/bi.svg",
+        "slug": "burundi"
     },
     "cabo-verde": {
         "name": "Cabo Verde",
@@ -229,7 +257,8 @@
             "longitude": -24.0083947,
             "latitude": 16.0000552
         },
-        "img": "/img/countries/cv.svg"
+        "img": "/img/countries/cv.svg",
+        "slug": "cabo-verde"
     },
     "cambodia": {
         "name": "Cambodia",
@@ -237,7 +266,8 @@
             "longitude": 104.8144914,
             "latitude": 12.5433216
         },
-        "img": "/img/countries/kh.svg"
+        "img": "/img/countries/kh.svg",
+        "slug": "cambodia"
     },
     "cameroon": {
         "name": "Cameroon",
@@ -245,7 +275,8 @@
             "longitude": 13.1535811,
             "latitude": 4.6125522
         },
-        "img": "/img/countries/cm.svg"
+        "img": "/img/countries/cm.svg",
+        "slug": "cameroon"
     },
     "canada": {
         "name": "Canada",
@@ -253,7 +284,8 @@
             "longitude": -107.991707,
             "latitude": 61.0666922
         },
-        "img": "/img/countries/ca.svg"
+        "img": "/img/countries/ca.svg",
+        "slug": "canada"
     },
     "centr-afric-re": {
         "name": "Centr Afric Re",
@@ -261,7 +293,8 @@
             "longitude": 19.9981227,
             "latitude": 7.0323598
         },
-        "img": "/img/countries/cf.svg"
+        "img": "/img/countries/cf.svg",
+        "slug": "centr-afric-re"
     },
     "chad": {
         "name": "Chad",
@@ -269,7 +302,8 @@
             "longitude": 19.0156172,
             "latitude": 15.6134137
         },
-        "img": "/img/countries/td.svg"
+        "img": "/img/countries/td.svg",
+        "slug": "chad"
     },
     "chile": {
         "name": "Chile",
@@ -277,7 +311,8 @@
             "longitude": -71.3187697,
             "latitude": -31.7613365
         },
-        "img": "/img/countries/cl.svg"
+        "img": "/img/countries/cl.svg",
+        "slug": "chile"
     },
     "china": {
         "name": "China",
@@ -285,7 +320,8 @@
             "longitude": 104.999955,
             "latitude": 35.0000663
         },
-        "img": "/img/countries/cn.svg"
+        "img": "/img/countries/cn.svg",
+        "slug": "china"
     },
     "chinese-taipei": {
         "name": "Chinese Taipei",
@@ -293,7 +329,8 @@
             "longitude": 74.3519959,
             "latitude": 31.5203374
         },
-        "img": "/img/countries/tw.svg"
+        "img": "/img/countries/tw.svg",
+        "slug": "chinese-taipei"
     },
     "colombia": {
         "name": "Colombia",
@@ -301,7 +338,8 @@
             "longitude": -72.9088133,
             "latitude": 4.099917
         },
-        "img": "/img/countries/co.svg"
+        "img": "/img/countries/co.svg",
+        "slug": "colombia"
     },
     "comoros": {
         "name": "Comoros",
@@ -309,7 +347,8 @@
             "longitude": 44.2832964,
             "latitude": -12.2045176
         },
-        "img": "/img/countries/km.svg"
+        "img": "/img/countries/km.svg",
+        "slug": "comoros"
     },
     "congo": {
         "name": "Congo",
@@ -317,7 +356,8 @@
             "longitude": 23.8222636,
             "latitude": -2.9814344
         },
-        "img": "/img/countries/cg.svg"
+        "img": "/img/countries/cg.svg",
+        "slug": "congo"
     },
     "costa-rica": {
         "name": "Costa Rica",
@@ -325,7 +365,8 @@
             "longitude": -84.0739102,
             "latitude": 10.2735633
         },
-        "img": "/img/countries/cr.svg"
+        "img": "/img/countries/cr.svg",
+        "slug": "costa-rica"
     },
     "croatia": {
         "name": "Croatia",
@@ -333,7 +374,8 @@
             "longitude": 15.6575209,
             "latitude": 45.3658443
         },
-        "img": "/img/countries/hr.svg"
+        "img": "/img/countries/hr.svg",
+        "slug": "croatia"
     },
     "cuba": {
         "name": "Cuba",
@@ -341,7 +383,8 @@
             "longitude": -80.8328748,
             "latitude": 23.0131338
         },
-        "img": "/img/countries/cu.svg"
+        "img": "/img/countries/cu.svg",
+        "slug": "cuba"
     },
     "cyprus": {
         "name": "Cyprus",
@@ -349,7 +392,8 @@
             "longitude": 32.8899027,
             "latitude": 34.9174159
         },
-        "img": "/img/countries/cy.svg"
+        "img": "/img/countries/cy.svg",
+        "slug": "cyprus"
     },
     "czechia": {
         "name": "Czechia",
@@ -357,7 +401,8 @@
             "longitude": 15.3381061,
             "latitude": 49.7439047
         },
-        "img": "/img/countries/cz.svg"
+        "img": "/img/countries/cz.svg",
+        "slug": "czechia"
     },
     "côte-d'ivoire": {
         "name": "Côte d'Ivoire",
@@ -365,7 +410,8 @@
             "longitude": -5.5679458,
             "latitude": 7.9897371
         },
-        "img": "/img/countries/ci.svg"
+        "img": "/img/countries/ci.svg",
+        "slug": "côte-d'ivoire"
     },
     "denmark": {
         "name": "Denmark",
@@ -373,7 +419,8 @@
             "longitude": 10.3333283,
             "latitude": 55.670249
         },
-        "img": "/img/countries/dk.svg"
+        "img": "/img/countries/dk.svg",
+        "slug": "denmark"
     },
     "djibouti": {
         "name": "Djibouti",
@@ -381,7 +428,8 @@
             "longitude": 42.8453061,
             "latitude": 11.8145966
         },
-        "img": "/img/countries/dj.svg"
+        "img": "/img/countries/dj.svg",
+        "slug": "djibouti"
     },
     "dominica": {
         "name": "Dominica",
@@ -389,7 +437,8 @@
             "longitude": -61.3653618,
             "latitude": 15.4113138
         },
-        "img": "/img/countries/dm.svg"
+        "img": "/img/countries/dm.svg",
+        "slug": "dominica"
     },
     "dominican-republic": {
         "name": "Dominican Republic",
@@ -397,7 +446,8 @@
             "longitude": -70.3028026,
             "latitude": 19.0974031
         },
-        "img": "/img/countries/do.svg"
+        "img": "/img/countries/do.svg",
+        "slug": "dominican-republic"
     },
     "dpr-korea": {
         "name": "DPR Korea",
@@ -405,7 +455,8 @@
             "longitude": 127.0870417,
             "latitude": 40.3736611
         },
-        "img": "/img/countries/kp.svg"
+        "img": "/img/countries/kp.svg",
+        "slug": "dpr-korea"
     },
     "dr-congo": {
         "name": "DR Congo",
@@ -413,7 +464,8 @@
             "longitude": 23.8222636,
             "latitude": -2.9814344
         },
-        "img": "/img/countries/cd.svg"
+        "img": "/img/countries/cd.svg",
+        "slug": "dr-congo"
     },
     "ecuador": {
         "name": "Ecuador",
@@ -421,7 +473,8 @@
             "longitude": -79.3666965,
             "latitude": -1.3397668
         },
-        "img": "/img/countries/ec.svg"
+        "img": "/img/countries/ec.svg",
+        "slug": "ecuador"
     },
     "egypt": {
         "name": "Egypt",
@@ -429,7 +482,8 @@
             "longitude": 29.2675469,
             "latitude": 26.2540493
         },
-        "img": "/img/countries/eg.svg"
+        "img": "/img/countries/eg.svg",
+        "slug": "egypt"
     },
     "el-salvador": {
         "name": "El Salvador",
@@ -437,7 +491,8 @@
             "longitude": -88.9140683,
             "latitude": 13.8000382
         },
-        "img": "/img/countries/sv.svg"
+        "img": "/img/countries/sv.svg",
+        "slug": "el-salvador"
     },
     "equatorial-guinea": {
         "name": "Equatorial Guinea",
@@ -445,7 +500,8 @@
             "longitude": 10.5170357,
             "latitude": 1.613172
         },
-        "img": "/img/countries/gq.svg"
+        "img": "/img/countries/gq.svg",
+        "slug": "equatorial-guinea"
     },
     "eritrea": {
         "name": "Eritrea",
@@ -453,7 +509,8 @@
             "longitude": 37.9999668,
             "latitude": 15.9500319
         },
-        "img": "/img/countries/er.svg"
+        "img": "/img/countries/er.svg",
+        "slug": "eritrea"
     },
     "estonia": {
         "name": "Estonia",
@@ -461,7 +518,8 @@
             "longitude": 25.3319078,
             "latitude": 58.7523778
         },
-        "img": "/img/countries/ee.svg"
+        "img": "/img/countries/ee.svg",
+        "slug": "estonia"
     },
     "eswatini": {
         "name": "Eswatini",
@@ -469,7 +527,8 @@
             "longitude": 31.3991317,
             "latitude": -26.5624806
         },
-        "img": "/img/countries/sz.svg"
+        "img": "/img/countries/sz.svg",
+        "slug": "eswatini"
     },
     "ethiopia": {
         "name": "Ethiopia",
@@ -477,7 +536,8 @@
             "longitude": 38.6521203,
             "latitude": 10.2116702
         },
-        "img": "/img/countries/et.svg"
+        "img": "/img/countries/et.svg",
+        "slug": "ethiopia"
     },
     "fiji": {
         "name": "Fiji",
@@ -485,7 +545,8 @@
             "longitude": 179.0122737,
             "latitude": -18.1239696
         },
-        "img": "/img/countries/fj.svg"
+        "img": "/img/countries/fj.svg",
+        "slug": "fiji"
     },
     "finland": {
         "name": "Finland",
@@ -493,7 +554,8 @@
             "longitude": 25.9209164,
             "latitude": 63.2467777
         },
-        "img": "/img/countries/fi.svg"
+        "img": "/img/countries/fi.svg",
+        "slug": "finland"
     },
     "france": {
         "name": "France",
@@ -501,7 +563,8 @@
             "longitude": 1.8883335,
             "latitude": 46.603354
         },
-        "img": "/img/countries/fr.svg"
+        "img": "/img/countries/fr.svg",
+        "slug": "france"
     },
     "gabon": {
         "name": "Gabon",
@@ -509,7 +572,8 @@
             "longitude": 11.6899699,
             "latitude": -0.8999695
         },
-        "img": "/img/countries/ga.svg"
+        "img": "/img/countries/ga.svg",
+        "slug": "gabon"
     },
     "gambia": {
         "name": "Gambia",
@@ -517,7 +581,8 @@
             "longitude": -15.4900464,
             "latitude": 13.470062
         },
-        "img": "/img/countries/gm.svg"
+        "img": "/img/countries/gm.svg",
+        "slug": "gambia"
     },
     "georgia": {
         "name": "Georgia",
@@ -525,7 +590,8 @@
             "longitude": -83.1137366,
             "latitude": 32.3293809
         },
-        "img": "/img/countries/ge.svg"
+        "img": "/img/countries/ge.svg",
+        "slug": "georgia"
     },
     "germany": {
         "name": "Germany",
@@ -533,7 +599,8 @@
             "longitude": 10.4478313,
             "latitude": 51.1638175
         },
-        "img": "/img/countries/de.svg"
+        "img": "/img/countries/de.svg",
+        "slug": "germany"
     },
     "ghana": {
         "name": "Ghana",
@@ -541,7 +608,8 @@
             "longitude": -1.0800271,
             "latitude": 8.0300284
         },
-        "img": "/img/countries/gh.svg"
+        "img": "/img/countries/gh.svg",
+        "slug": "ghana"
     },
     "great-britain": {
         "name": "Great Britain",
@@ -549,7 +617,8 @@
             "longitude": -1.9181532,
             "latitude": 54.3151594
         },
-        "img": "/img/countries/gb.svg"
+        "img": "/img/countries/gb.svg",
+        "slug": "great-britain"
     },
     "greece": {
         "name": "Greece",
@@ -557,7 +626,8 @@
             "longitude": 21.9877132,
             "latitude": 38.9953683
         },
-        "img": "/img/countries/gr.svg"
+        "img": "/img/countries/gr.svg",
+        "slug": "greece"
     },
     "grenada": {
         "name": "Grenada",
@@ -565,7 +635,8 @@
             "longitude": -61.6904045,
             "latitude": 12.1360374
         },
-        "img": "/img/countries/gd.svg"
+        "img": "/img/countries/gd.svg",
+        "slug": "grenada"
     },
     "guatemala": {
         "name": "Guatemala",
@@ -573,7 +644,8 @@
             "longitude": -90.345759,
             "latitude": 15.5855545
         },
-        "img": "/img/countries/gt.svg"
+        "img": "/img/countries/gt.svg",
+        "slug": "guatemala"
     },
     "guinea": {
         "name": "Guinea",
@@ -581,7 +653,8 @@
             "longitude": -10.7083587,
             "latitude": 10.7226226
         },
-        "img": "/img/countries/gn.svg"
+        "img": "/img/countries/gn.svg",
+        "slug": "guinea"
     },
     "guinea-bissau": {
         "name": "Guinea-Bissau",
@@ -589,7 +662,8 @@
             "longitude": -15.2351044,
             "latitude": 11.815215
         },
-        "img": "/img/countries/gw.svg"
+        "img": "/img/countries/gw.svg",
+        "slug": "guinea-bissau"
     },
     "guyana": {
         "name": "Guyana",
@@ -597,7 +671,8 @@
             "longitude": -58.6416891,
             "latitude": 4.8417097
         },
-        "img": "/img/countries/gy.svg"
+        "img": "/img/countries/gy.svg",
+        "slug": "guyana"
     },
     "haiti": {
         "name": "Haiti",
@@ -605,7 +680,8 @@
             "longitude": -72.3570972,
             "latitude": 19.1399952
         },
-        "img": "/img/countries/ht.svg"
+        "img": "/img/countries/ht.svg",
+        "slug": "haiti"
     },
     "honduras": {
         "name": "Honduras",
@@ -613,7 +689,8 @@
             "longitude": -86.0755145,
             "latitude": 15.2572432
         },
-        "img": "/img/countries/hn.svg"
+        "img": "/img/countries/hn.svg",
+        "slug": "honduras"
     },
     "hong-kong,-china": {
         "name": "Hong Kong, China",
@@ -621,7 +698,8 @@
             "longitude": 114.1849161,
             "latitude": 22.350627
         },
-        "img": "/img/countries/hk.svg"
+        "img": "/img/countries/hk.svg",
+        "slug": "hong-kong,-china"
     },
     "hungary": {
         "name": "Hungary",
@@ -629,7 +707,8 @@
             "longitude": 19.5060937,
             "latitude": 47.1817585
         },
-        "img": "/img/countries/hu.svg"
+        "img": "/img/countries/hu.svg",
+        "slug": "hungary"
     },
     "iceland": {
         "name": "Iceland",
@@ -637,7 +716,8 @@
             "longitude": -18.1059013,
             "latitude": 64.9841821
         },
-        "img": "/img/countries/is.svg"
+        "img": "/img/countries/is.svg",
+        "slug": "iceland"
     },
     "india": {
         "name": "India",
@@ -645,7 +725,8 @@
             "longitude": 78.6677428,
             "latitude": 22.3511148
         },
-        "img": "/img/countries/in.svg"
+        "img": "/img/countries/in.svg",
+        "slug": "india"
     },
     "indonesia": {
         "name": "Indonesia",
@@ -653,7 +734,8 @@
             "longitude": 117.8902853,
             "latitude": -2.4833826
         },
-        "img": "/img/countries/id.svg"
+        "img": "/img/countries/id.svg",
+        "slug": "indonesia"
     },
     "ir-iran": {
         "name": "IR Iran",
@@ -661,7 +743,8 @@
             "longitude": 54.5643516,
             "latitude": 32.6475314
         },
-        "img": "/img/countries/ir.svg"
+        "img": "/img/countries/ir.svg",
+        "slug": "ir-iran"
     },
     "iraq": {
         "name": "Iraq",
@@ -669,7 +752,8 @@
             "longitude": 44.1749775,
             "latitude": 33.0955793
         },
-        "img": "/img/countries/iq.svg"
+        "img": "/img/countries/iq.svg",
+        "slug": "iraq"
     },
     "ireland": {
         "name": "Ireland",
@@ -677,7 +761,8 @@
             "longitude": -7.9794599,
             "latitude": 52.865196
         },
-        "img": "/img/countries/ie.svg"
+        "img": "/img/countries/ie.svg",
+        "slug": "ireland"
     },
     "israel": {
         "name": "Israel",
@@ -685,7 +770,8 @@
             "longitude": 34.8594762,
             "latitude": 30.8124247
         },
-        "img": "/img/countries/il.svg"
+        "img": "/img/countries/il.svg",
+        "slug": "israel"
     },
     "italy": {
         "name": "Italy",
@@ -693,7 +779,8 @@
             "longitude": 12.674297,
             "latitude": 42.6384261
         },
-        "img": "/img/countries/it.svg"
+        "img": "/img/countries/it.svg",
+        "slug": "italy"
     },
     "jamaica": {
         "name": "Jamaica",
@@ -701,7 +788,8 @@
             "longitude": -77.3947693,
             "latitude": 18.1850507
         },
-        "img": "/img/countries/jm.svg"
+        "img": "/img/countries/jm.svg",
+        "slug": "jamaica"
     },
     "japan": {
         "name": "Japan",
@@ -709,7 +797,8 @@
             "longitude": 139.2394179,
             "latitude": 36.5748441
         },
-        "img": "/img/countries/jp.svg"
+        "img": "/img/countries/jp.svg",
+        "slug": "japan"
     },
     "jordan": {
         "name": "Jordan",
@@ -717,7 +806,8 @@
             "longitude": -93.6261918,
             "latitude": 44.6663146
         },
-        "img": "/img/countries/jo.svg"
+        "img": "/img/countries/jo.svg",
+        "slug": "jordan"
     },
     "kazakhstan": {
         "name": "Kazakhstan",
@@ -725,7 +815,8 @@
             "longitude": 66.7780818,
             "latitude": 48.1012954
         },
-        "img": "/img/countries/kz.svg"
+        "img": "/img/countries/kz.svg",
+        "slug": "kazakhstan"
     },
     "kenya": {
         "name": "Kenya",
@@ -733,7 +824,8 @@
             "longitude": 38.4313975,
             "latitude": 1.4419683
         },
-        "img": "/img/countries/ke.svg"
+        "img": "/img/countries/ke.svg",
+        "slug": "kenya"
     },
     "kiribati": {
         "name": "Kiribati",
@@ -741,7 +833,8 @@
             "longitude": 173.6641773,
             "latitude": 0.3448612
         },
-        "img": "/img/countries/ki.svg"
+        "img": "/img/countries/ki.svg",
+        "slug": "kiribati"
     },
     "korea": {
         "name": "Korea",
@@ -749,7 +842,8 @@
             "longitude": 126.7331171,
             "latitude": 37.9528488
         },
-        "img": "/img/countries/kr.svg"
+        "img": "/img/countries/kr.svg",
+        "slug": "korea"
     },
     "kosovo": {
         "name": "Kosovo",
@@ -757,7 +851,8 @@
             "longitude": 20.9021231,
             "latitude": 42.5869578
         },
-        "img": "/img/countries/xk.svg"
+        "img": "/img/countries/xk.svg",
+        "slug": "kosovo"
     },
     "kuwait": {
         "name": "Kuwait",
@@ -765,7 +860,8 @@
             "longitude": 47.9734174,
             "latitude": 29.3796532
         },
-        "img": "/img/countries/kw.svg"
+        "img": "/img/countries/kw.svg",
+        "slug": "kuwait"
     },
     "kyrgyzstan": {
         "name": "Kyrgyzstan",
@@ -773,7 +869,8 @@
             "longitude": 74.724091,
             "latitude": 41.5089324
         },
-        "img": "/img/countries/kg.svg"
+        "img": "/img/countries/kg.svg",
+        "slug": "kyrgyzstan"
     },
     "lao-pdr": {
         "name": "Lao PDR",
@@ -781,7 +878,8 @@
             "longitude": 102.6165242,
             "latitude": 17.9582181
         },
-        "img": "/img/countries/la.svg"
+        "img": "/img/countries/la.svg",
+        "slug": "lao-pdr"
     },
     "latvia": {
         "name": "Latvia",
@@ -789,7 +887,8 @@
             "longitude": 24.7537645,
             "latitude": 56.8406494
         },
-        "img": "/img/countries/lv.svg"
+        "img": "/img/countries/lv.svg",
+        "slug": "latvia"
     },
     "lebanon": {
         "name": "Lebanon",
@@ -797,7 +896,8 @@
             "longitude": -76.4626118,
             "latitude": 40.375713
         },
-        "img": "/img/countries/lb.svg"
+        "img": "/img/countries/lb.svg",
+        "slug": "lebanon"
     },
     "lesotho": {
         "name": "Lesotho",
@@ -805,7 +905,8 @@
             "longitude": 28.3350193,
             "latitude": -29.6039267
         },
-        "img": "/img/countries/ls.svg"
+        "img": "/img/countries/ls.svg",
+        "slug": "lesotho"
     },
     "liberia": {
         "name": "Liberia",
@@ -813,7 +914,8 @@
             "longitude": -9.3658524,
             "latitude": 5.7499721
         },
-        "img": "/img/countries/lr.svg"
+        "img": "/img/countries/lr.svg",
+        "slug": "liberia"
     },
     "libya": {
         "name": "Libya",
@@ -821,7 +923,8 @@
             "longitude": 18.1236723,
             "latitude": 26.8234472
         },
-        "img": "/img/countries/ly.svg"
+        "img": "/img/countries/ly.svg",
+        "slug": "libya"
     },
     "liechtenstein": {
         "name": "Liechtenstein",
@@ -829,7 +932,8 @@
             "longitude": 9.5531527,
             "latitude": 47.1416307
         },
-        "img": "/img/countries/li.svg"
+        "img": "/img/countries/li.svg",
+        "slug": "liechtenstein"
     },
     "lithuania": {
         "name": "Lithuania",
@@ -837,7 +941,8 @@
             "longitude": 23.7499997,
             "latitude": 55.3500003
         },
-        "img": "/img/countries/lt.svg"
+        "img": "/img/countries/lt.svg",
+        "slug": "lithuania"
     },
     "luxembourg": {
         "name": "Luxembourg",
@@ -845,7 +950,8 @@
             "longitude": 6.129799,
             "latitude": 49.6112768
         },
-        "img": "/img/countries/lu.svg"
+        "img": "/img/countries/lu.svg",
+        "slug": "luxembourg"
     },
     "madagascar": {
         "name": "Madagascar",
@@ -853,7 +959,8 @@
             "longitude": 46.4416422,
             "latitude": -18.9249604
         },
-        "img": "/img/countries/mg.svg"
+        "img": "/img/countries/mg.svg",
+        "slug": "madagascar"
     },
     "malawi": {
         "name": "Malawi",
@@ -861,7 +968,8 @@
             "longitude": 33.9301963,
             "latitude": -13.2687204
         },
-        "img": "/img/countries/mw.svg"
+        "img": "/img/countries/mw.svg",
+        "slug": "malawi"
     },
     "malaysia": {
         "name": "Malaysia",
@@ -869,7 +977,8 @@
             "longitude": 102.2656823,
             "latitude": 4.5693754
         },
-        "img": "/img/countries/my.svg"
+        "img": "/img/countries/my.svg",
+        "slug": "malaysia"
     },
     "maldives": {
         "name": "Maldives",
@@ -877,7 +986,8 @@
             "longitude": 73.2244152,
             "latitude": 3.7203503
         },
-        "img": "/img/countries/mv.svg"
+        "img": "/img/countries/mv.svg",
+        "slug": "maldives"
     },
     "mali": {
         "name": "Mali",
@@ -885,7 +995,8 @@
             "longitude": -2.2900239,
             "latitude": 16.3700359
         },
-        "img": "/img/countries/ml.svg"
+        "img": "/img/countries/ml.svg",
+        "slug": "mali"
     },
     "malta": {
         "name": "Malta",
@@ -893,7 +1004,8 @@
             "longitude": 14.4476911,
             "latitude": 35.8885993
         },
-        "img": "/img/countries/mt.svg"
+        "img": "/img/countries/mt.svg",
+        "slug": "malta"
     },
     "marshall-islands": {
         "name": "Marshall Islands",
@@ -901,7 +1013,8 @@
             "longitude": 168.0002575,
             "latitude": 8.9995549
         },
-        "img": "/img/countries/mh.svg"
+        "img": "/img/countries/mh.svg",
+        "slug": "marshall-islands"
     },
     "mauritania": {
         "name": "Mauritania",
@@ -909,7 +1022,8 @@
             "longitude": -9.2399263,
             "latitude": 20.2540382
         },
-        "img": "/img/countries/mr.svg"
+        "img": "/img/countries/mr.svg",
+        "slug": "mauritania"
     },
     "mauritius": {
         "name": "Mauritius",
@@ -917,7 +1031,8 @@
             "longitude": 57.5703566,
             "latitude": -20.2759451
         },
-        "img": "/img/countries/mu.svg"
+        "img": "/img/countries/mu.svg",
+        "slug": "mauritius"
     },
     "mexico": {
         "name": "Mexico",
@@ -925,7 +1040,8 @@
             "longitude": -102.0077097,
             "latitude": 23.6585116
         },
-        "img": "/img/countries/mx.svg"
+        "img": "/img/countries/mx.svg",
+        "slug": "mexico"
     },
     "micronesia": {
         "name": "Micronesia",
@@ -933,7 +1049,8 @@
             "longitude": 151.8327443,
             "latitude": 8.6062347
         },
-        "img": "/img/countries/fm.svg"
+        "img": "/img/countries/fm.svg",
+        "slug": "micronesia"
     },
     "monaco": {
         "name": "Monaco",
@@ -941,7 +1058,8 @@
             "longitude": 7.4276832,
             "latitude": 43.7323492
         },
-        "img": "/img/countries/mc.svg"
+        "img": "/img/countries/mc.svg",
+        "slug": "monaco"
     },
     "mongolia": {
         "name": "Mongolia",
@@ -949,7 +1067,8 @@
             "longitude": 103.8499736,
             "latitude": 46.8250388
         },
-        "img": "/img/countries/mn.svg"
+        "img": "/img/countries/mn.svg",
+        "slug": "mongolia"
     },
     "montenegro": {
         "name": "Montenegro",
@@ -957,7 +1076,8 @@
             "longitude": -51.4687455,
             "latitude": -29.6826112
         },
-        "img": "/img/countries/me.svg"
+        "img": "/img/countries/me.svg",
+        "slug": "montenegro"
     },
     "morocco": {
         "name": "Morocco",
@@ -965,7 +1085,8 @@
             "longitude": -10.3713379,
             "latitude": 28.3347722
         },
-        "img": "/img/countries/ma.svg"
+        "img": "/img/countries/ma.svg",
+        "slug": "morocco"
     },
     "mozambique": {
         "name": "Mozambique",
@@ -973,7 +1094,8 @@
             "longitude": 34.9144977,
             "latitude": -19.302233
         },
-        "img": "/img/countries/mz.svg"
+        "img": "/img/countries/mz.svg",
+        "slug": "mozambique"
     },
     "myanmar": {
         "name": "Myanmar",
@@ -981,7 +1103,8 @@
             "longitude": 95.9999652,
             "latitude": 17.1750495
         },
-        "img": "/img/countries/mm.svg"
+        "img": "/img/countries/mm.svg",
+        "slug": "myanmar"
     },
     "namibia": {
         "name": "Namibia",
@@ -989,7 +1112,8 @@
             "longitude": 17.3231107,
             "latitude": -23.2335499
         },
-        "img": "/img/countries/na.svg"
+        "img": "/img/countries/na.svg",
+        "slug": "namibia"
     },
     "nauru": {
         "name": "Nauru",
@@ -997,7 +1121,8 @@
             "longitude": 166.9324426,
             "latitude": -0.5252306
         },
-        "img": "/img/countries/nr.svg"
+        "img": "/img/countries/nr.svg",
+        "slug": "nauru"
     },
     "nepal": {
         "name": "Nepal",
@@ -1005,7 +1130,8 @@
             "longitude": 83.9999901,
             "latitude": 28.3780464
         },
-        "img": "/img/countries/np.svg"
+        "img": "/img/countries/np.svg",
+        "slug": "nepal"
     },
     "netherlands": {
         "name": "Netherlands",
@@ -1013,7 +1139,8 @@
             "longitude": 5.6343227,
             "latitude": 52.2434979
         },
-        "img": "/img/countries/nl.svg"
+        "img": "/img/countries/nl.svg",
+        "slug": "netherlands"
     },
     "new-zealand": {
         "name": "New Zealand",
@@ -1021,7 +1148,8 @@
             "longitude": 172.8344077,
             "latitude": -41.5000831
         },
-        "img": "/img/countries/nz.svg"
+        "img": "/img/countries/nz.svg",
+        "slug": "new-zealand"
     },
     "nicaragua": {
         "name": "Nicaragua",
@@ -1029,7 +1157,8 @@
             "longitude": -85.2936911,
             "latitude": 12.6090157
         },
-        "img": "/img/countries/ni.svg"
+        "img": "/img/countries/ni.svg",
+        "slug": "nicaragua"
     },
     "niger": {
         "name": "Niger",
@@ -1037,7 +1166,8 @@
             "longitude": 9.3238432,
             "latitude": 17.7356214
         },
-        "img": "/img/countries/ne.svg"
+        "img": "/img/countries/ne.svg",
+        "slug": "niger"
     },
     "nigeria": {
         "name": "Nigeria",
@@ -1045,7 +1175,8 @@
             "longitude": 7.9999721,
             "latitude": 9.6000359
         },
-        "img": "/img/countries/ng.svg"
+        "img": "/img/countries/ng.svg",
+        "slug": "nigeria"
     },
     "north-macedonia": {
         "name": "North Macedonia",
@@ -1053,7 +1184,8 @@
             "longitude": 21.7168387,
             "latitude": 41.6171214
         },
-        "img": "/img/countries/mk.svg"
+        "img": "/img/countries/mk.svg",
+        "slug": "north-macedonia"
     },
     "norway": {
         "name": "Norway",
@@ -1061,7 +1193,8 @@
             "longitude": 11.5280364,
             "latitude": 64.5731537
         },
-        "img": "/img/countries/no.svg"
+        "img": "/img/countries/no.svg",
+        "slug": "norway"
     },
     "oman": {
         "name": "Oman",
@@ -1069,7 +1202,8 @@
             "longitude": 57.0036901,
             "latitude": 21.0000287
         },
-        "img": "/img/countries/om.svg"
+        "img": "/img/countries/om.svg",
+        "slug": "oman"
     },
     "pakistan": {
         "name": "Pakistan",
@@ -1077,7 +1211,8 @@
             "longitude": 71.247499,
             "latitude": 30.3308401
         },
-        "img": "/img/countries/pk.svg"
+        "img": "/img/countries/pk.svg",
+        "slug": "pakistan"
     },
     "palau": {
         "name": "Palau",
@@ -1085,7 +1220,8 @@
             "longitude": 2.9600905,
             "latitude": 42.5717989
         },
-        "img": "/img/countries/pw.svg"
+        "img": "/img/countries/pw.svg",
+        "slug": "palau"
     },
     "palestine": {
         "name": "Palestine",
@@ -1093,7 +1229,8 @@
             "longitude": -95.6307891,
             "latitude": 31.7621153
         },
-        "img": "/img/countries/ps.svg"
+        "img": "/img/countries/ps.svg",
+        "slug": "palestine"
     },
     "panama": {
         "name": "Panama",
@@ -1101,7 +1238,8 @@
             "longitude": -81.1308434,
             "latitude": 8.559559
         },
-        "img": "/img/countries/pa.svg"
+        "img": "/img/countries/pa.svg",
+        "slug": "panama"
     },
     "papua-new-guinea": {
         "name": "Papua New Guinea",
@@ -1109,7 +1247,8 @@
             "longitude": 144.2489081,
             "latitude": -5.6816069
         },
-        "img": "/img/countries/pg.svg"
+        "img": "/img/countries/pg.svg",
+        "slug": "papua-new-guinea"
     },
     "paraguay": {
         "name": "Paraguay",
@@ -1117,7 +1256,8 @@
             "longitude": -58.1693445,
             "latitude": -23.3165935
         },
-        "img": "/img/countries/py.svg"
+        "img": "/img/countries/py.svg",
+        "slug": "paraguay"
     },
     "peru": {
         "name": "Peru",
@@ -1125,7 +1265,8 @@
             "longitude": -75.0458515,
             "latitude": -6.8699697
         },
-        "img": "/img/countries/pe.svg"
+        "img": "/img/countries/pe.svg",
+        "slug": "peru"
     },
     "philippines": {
         "name": "Philippines",
@@ -1133,7 +1274,8 @@
             "longitude": 122.7312101,
             "latitude": 12.7503486
         },
-        "img": "/img/countries/ph.svg"
+        "img": "/img/countries/ph.svg",
+        "slug": "philippines"
     },
     "poland": {
         "name": "Poland",
@@ -1141,7 +1283,8 @@
             "longitude": 19.134422,
             "latitude": 52.215933
         },
-        "img": "/img/countries/pl.svg"
+        "img": "/img/countries/pl.svg",
+        "slug": "poland"
     },
     "portugal": {
         "name": "Portugal",
@@ -1149,7 +1292,8 @@
             "longitude": -8.1353519,
             "latitude": 39.6621648
         },
-        "img": "/img/countries/pt.svg"
+        "img": "/img/countries/pt.svg",
+        "slug": "portugal"
     },
     "qatar": {
         "name": "Qatar",
@@ -1157,7 +1301,8 @@
             "longitude": 51.2295295,
             "latitude": 25.3336984
         },
-        "img": "/img/countries/qa.svg"
+        "img": "/img/countries/qa.svg",
+        "slug": "qatar"
     },
     "republic-of-moldova": {
         "name": "Republic of Moldova",
@@ -1165,7 +1310,8 @@
             "longitude": 28.5670941,
             "latitude": 47.2879608
         },
-        "img": "/img/countries/md.svg"
+        "img": "/img/countries/md.svg",
+        "slug": "republic-of-moldova"
     },
     "romania": {
         "name": "Romania",
@@ -1173,7 +1319,8 @@
             "longitude": 24.6859225,
             "latitude": 45.9852129
         },
-        "img": "/img/countries/ro.svg"
+        "img": "/img/countries/ro.svg",
+        "slug": "romania"
     },
     "russian-federation": {
         "name": "Russian Federation",
@@ -1181,7 +1328,8 @@
             "longitude": 97.7453061,
             "latitude": 64.6863136
         },
-        "img": "/img/countries/ru.svg"
+        "img": "/img/countries/ru.svg",
+        "slug": "russian-federation"
     },
     "rwanda": {
         "name": "Rwanda",
@@ -1189,7 +1337,8 @@
             "longitude": 30.0644358,
             "latitude": -1.9646631
         },
-        "img": "/img/countries/rw.svg"
+        "img": "/img/countries/rw.svg",
+        "slug": "rwanda"
     },
     "saint-lucia": {
         "name": "Saint Lucia",
@@ -1197,7 +1346,8 @@
             "longitude": -60.975036,
             "latitude": 13.8250489
         },
-        "img": "/img/countries/lc.svg"
+        "img": "/img/countries/lc.svg",
+        "slug": "saint-lucia"
     },
     "samoa": {
         "name": "Samoa",
@@ -1205,7 +1355,8 @@
             "longitude": -172.12005,
             "latitude": -13.7693895
         },
-        "img": "/img/countries/ws.svg"
+        "img": "/img/countries/ws.svg",
+        "slug": "samoa"
     },
     "san-marino": {
         "name": "San Marino",
@@ -1213,7 +1364,8 @@
             "longitude": 12.458306,
             "latitude": 43.9458623
         },
-        "img": "/img/countries/sm.svg"
+        "img": "/img/countries/sm.svg",
+        "slug": "san-marino"
     },
     "sao-tome-&-principe": {
         "name": "Sao Tome & Principe",
@@ -1221,7 +1373,8 @@
             "longitude": 6.7300945,
             "latitude": 0.3264119
         },
-        "img": "/img/countries/st.svg"
+        "img": "/img/countries/st.svg",
+        "slug": "sao-tome-&-principe"
     },
     "saudi-arabia": {
         "name": "Saudi Arabia",
@@ -1229,7 +1382,8 @@
             "longitude": 44.3222148,
             "latitude": 24.217621
         },
-        "img": "/img/countries/sa.svg"
+        "img": "/img/countries/sa.svg",
+        "slug": "saudi-arabia"
     },
     "senegal": {
         "name": "Senegal",
@@ -1237,7 +1391,8 @@
             "longitude": -14.4529612,
             "latitude": 14.4750607
         },
-        "img": "/img/countries/sn.svg"
+        "img": "/img/countries/sn.svg",
+        "slug": "senegal"
     },
     "serbia": {
         "name": "Serbia",
@@ -1245,7 +1400,8 @@
             "longitude": 21.0765743,
             "latitude": 44.0243229
         },
-        "img": "/img/countries/rs.svg"
+        "img": "/img/countries/rs.svg",
+        "slug": "serbia"
     },
     "seychelles": {
         "name": "Seychelles",
@@ -1253,7 +1409,8 @@
             "longitude": 55.4540146,
             "latitude": -4.6574977
         },
-        "img": "/img/countries/sc.svg"
+        "img": "/img/countries/sc.svg",
+        "slug": "seychelles"
     },
     "sierra-leone": {
         "name": "Sierra Leone",
@@ -1261,7 +1418,8 @@
             "longitude": -11.8400269,
             "latitude": 8.6400349
         },
-        "img": "/img/countries/sl.svg"
+        "img": "/img/countries/sl.svg",
+        "slug": "sierra-leone"
     },
     "singapore": {
         "name": "Singapore",
@@ -1269,7 +1427,8 @@
             "longitude": 103.8194992,
             "latitude": 1.357107
         },
-        "img": "/img/countries/sg.svg"
+        "img": "/img/countries/sg.svg",
+        "slug": "singapore"
     },
     "slovakia": {
         "name": "Slovakia",
@@ -1277,7 +1436,8 @@
             "longitude": 19.4528646,
             "latitude": 48.7411522
         },
-        "img": "/img/countries/sk.svg"
+        "img": "/img/countries/sk.svg",
+        "slug": "slovakia"
     },
     "slovenia": {
         "name": "Slovenia",
@@ -1285,7 +1445,8 @@
             "longitude": 14.8153333,
             "latitude": 46.1199444
         },
-        "img": "/img/countries/si.svg"
+        "img": "/img/countries/si.svg",
+        "slug": "slovenia"
     },
     "solomon-islands": {
         "name": "Solomon Islands",
@@ -1293,7 +1454,8 @@
             "longitude": 159.1070694,
             "latitude": -8.7053941
         },
-        "img": "/img/countries/sb.svg"
+        "img": "/img/countries/sb.svg",
+        "slug": "solomon-islands"
     },
     "somalia": {
         "name": "Somalia",
@@ -1301,7 +1463,8 @@
             "longitude": 49.083416,
             "latitude": 8.3676771
         },
-        "img": "/img/countries/so.svg"
+        "img": "/img/countries/so.svg",
+        "slug": "somalia"
     },
     "south-africa": {
         "name": "South Africa",
@@ -1309,7 +1472,8 @@
             "longitude": 24.991639,
             "latitude": -28.8166236
         },
-        "img": "/img/countries/za.svg"
+        "img": "/img/countries/za.svg",
+        "slug": "south-africa"
     },
     "south-sudan": {
         "name": "South Sudan",
@@ -1317,7 +1481,8 @@
             "longitude": 29.6667897,
             "latitude": 7.8699431
         },
-        "img": "/img/countries/ss.svg"
+        "img": "/img/countries/ss.svg",
+        "slug": "south-sudan"
     },
     "spain": {
         "name": "Spain",
@@ -1325,7 +1490,8 @@
             "longitude": -4.8379791,
             "latitude": 39.3260685
         },
-        "img": "/img/countries/es.svg"
+        "img": "/img/countries/es.svg",
+        "slug": "spain"
     },
     "sri-lanka": {
         "name": "Sri Lanka",
@@ -1333,7 +1499,8 @@
             "longitude": 80.7137847,
             "latitude": 7.5554942
         },
-        "img": "/img/countries/lk.svg"
+        "img": "/img/countries/lk.svg",
+        "slug": "sri-lanka"
     },
     "st-kitts-and-nevis": {
         "name": "St Kitts and Nevis",
@@ -1341,7 +1508,8 @@
             "longitude": -62.6725973,
             "latitude": 17.250512
         },
-        "img": "/img/countries/kn.svg"
+        "img": "/img/countries/kn.svg",
+        "slug": "st-kitts-and-nevis"
     },
     "stvincent&grenadines": {
         "name": "StVincent&Grenadines",
@@ -1349,15 +1517,17 @@
             "longitude": -61.2765569,
             "latitude": 12.90447
         },
-        "img": "/img/countries/vc.svg"
+        "img": "/img/countries/vc.svg",
+        "slug": "stvincent&grenadines"
     },
     "sudan": {
         "name": "Sudan",
         "location": {
-            "longitude": -102.524362,
-            "latitude": 34.0678644
+            "longitude": 32.522854,
+            "latitude": 15.508457
         },
-        "img": "/img/countries/sd.svg"
+        "img": "/img/countries/sd.svg",
+        "slug": "sudan"
     },
     "suriname": {
         "name": "Suriname",
@@ -1365,7 +1535,8 @@
             "longitude": -56.0771187,
             "latitude": 4.1413025
         },
-        "img": "/img/countries/sr.svg"
+        "img": "/img/countries/sr.svg",
+        "slug": "suriname"
     },
     "sweden": {
         "name": "Sweden",
@@ -1373,7 +1544,8 @@
             "longitude": 14.5208584,
             "latitude": 59.6749712
         },
-        "img": "/img/countries/se.svg"
+        "img": "/img/countries/se.svg",
+        "slug": "sweden"
     },
     "switzerland": {
         "name": "Switzerland",
@@ -1381,7 +1553,8 @@
             "longitude": 8.2319736,
             "latitude": 46.7985624
         },
-        "img": "/img/countries/ch.svg"
+        "img": "/img/countries/ch.svg",
+        "slug": "switzerland"
     },
     "syria": {
         "name": "Syria",
@@ -1389,7 +1562,8 @@
             "longitude": 38.4231781,
             "latitude": 34.8147886
         },
-        "img": "/img/countries/sy.svg"
+        "img": "/img/countries/sy.svg",
+        "slug": "syria"
     },
     "tajikistan": {
         "name": "Tajikistan",
@@ -1397,7 +1571,8 @@
             "longitude": 70.8156541,
             "latitude": 38.6281733
         },
-        "img": "/img/countries/tj.svg"
+        "img": "/img/countries/tj.svg",
+        "slug": "tajikistan"
     },
     "tanzania": {
         "name": "Tanzania",
@@ -1405,7 +1580,8 @@
             "longitude": 35.7878438,
             "latitude": -6.5247123
         },
-        "img": "/img/countries/tz.svg"
+        "img": "/img/countries/tz.svg",
+        "slug": "tanzania"
     },
     "thailand": {
         "name": "Thailand",
@@ -1413,7 +1589,8 @@
             "longitude": 100.83273,
             "latitude": 14.8971921
         },
-        "img": "/img/countries/th.svg"
+        "img": "/img/countries/th.svg",
+        "slug": "thailand"
     },
     "timor-leste": {
         "name": "Timor-Leste",
@@ -1421,7 +1598,8 @@
             "longitude": 126.063482,
             "latitude": -8.7443169
         },
-        "img": "/img/countries/tl.svg"
+        "img": "/img/countries/tl.svg",
+        "slug": "timor-leste"
     },
     "togo": {
         "name": "Togo",
@@ -1429,7 +1607,8 @@
             "longitude": 1.0199765,
             "latitude": 8.7800265
         },
-        "img": "/img/countries/tg.svg"
+        "img": "/img/countries/tg.svg",
+        "slug": "togo"
     },
     "tonga": {
         "name": "Tonga",
@@ -1437,7 +1616,8 @@
             "longitude": -175.202642,
             "latitude": -19.9160819
         },
-        "img": "/img/countries/to.svg"
+        "img": "/img/countries/to.svg",
+        "slug": "tonga"
     },
     "trinidad-and-tobago": {
         "name": "Trinidad and Tobago",
@@ -1445,7 +1625,8 @@
             "longitude": -61.0840075,
             "latitude": 10.7466905
         },
-        "img": "/img/countries/tt.svg"
+        "img": "/img/countries/tt.svg",
+        "slug": "trinidad-and-tobago"
     },
     "tunisia": {
         "name": "Tunisia",
@@ -1453,7 +1634,8 @@
             "longitude": 10.1857757,
             "latitude": 36.8002068
         },
-        "img": "/img/countries/tn.svg"
+        "img": "/img/countries/tn.svg",
+        "slug": "tunisia"
     },
     "turkmenistan": {
         "name": "Turkmenistan",
@@ -1461,7 +1643,8 @@
             "longitude": 59.3924609,
             "latitude": 39.3763807
         },
-        "img": "/img/countries/tm.svg"
+        "img": "/img/countries/tm.svg",
+        "slug": "turkmenistan"
     },
     "türkiye": {
         "name": "Türkiye",
@@ -1469,7 +1652,8 @@
             "longitude": 35.2316631,
             "latitude": 39.294076
         },
-        "img": "/img/countries/tr.svg"
+        "img": "/img/countries/tr.svg",
+        "slug": "türkiye"
     },
     "ua-emirates": {
         "name": "UA Emirates",
@@ -1477,7 +1661,8 @@
             "longitude": 30.5129158,
             "latitude": 50.4455349
         },
-        "img": "/img/countries/ae.svg"
+        "img": "/img/countries/ae.svg",
+        "slug": "ua-emirates"
     },
     "uganda": {
         "name": "Uganda",
@@ -1485,7 +1670,8 @@
             "longitude": 32.2166578,
             "latitude": 1.5333554
         },
-        "img": "/img/countries/ug.svg"
+        "img": "/img/countries/ug.svg",
+        "slug": "uganda"
     },
     "ukraine": {
         "name": "Ukraine",
@@ -1493,7 +1679,8 @@
             "longitude": 31.2718321,
             "latitude": 49.4871968
         },
-        "img": "/img/countries/ua.svg"
+        "img": "/img/countries/ua.svg",
+        "slug": "ukraine"
     },
     "united-states": {
         "name": "United States",
@@ -1501,7 +1688,8 @@
             "longitude": -100.445882,
             "latitude": 39.7837304
         },
-        "img": "/img/countries/us.svg"
+        "img": "/img/countries/us.svg",
+        "slug": "united-states"
     },
     "uruguay": {
         "name": "Uruguay",
@@ -1509,7 +1697,8 @@
             "longitude": -56.0201525,
             "latitude": -32.8755548
         },
-        "img": "/img/countries/uy.svg"
+        "img": "/img/countries/uy.svg",
+        "slug": "uruguay"
     },
     "uzbekistan": {
         "name": "Uzbekistan",
@@ -1517,7 +1706,8 @@
             "longitude": 63.9528098,
             "latitude": 41.32373
         },
-        "img": "/img/countries/uz.svg"
+        "img": "/img/countries/uz.svg",
+        "slug": "uzbekistan"
     },
     "vanuatu": {
         "name": "Vanuatu",
@@ -1525,7 +1715,8 @@
             "longitude": 168.1069154,
             "latitude": -16.5255069
         },
-        "img": "/img/countries/vu.svg"
+        "img": "/img/countries/vu.svg",
+        "slug": "vanuatu"
     },
     "venezuela": {
         "name": "Venezuela",
@@ -1533,7 +1724,8 @@
             "longitude": -66.1109318,
             "latitude": 8.0018709
         },
-        "img": "/img/countries/ve.svg"
+        "img": "/img/countries/ve.svg",
+        "slug": "venezuela"
     },
     "vietnam": {
         "name": "Vietnam",
@@ -1541,7 +1733,8 @@
             "longitude": 107.9650855,
             "latitude": 15.9266657
         },
-        "img": "/img/countries/vn.svg"
+        "img": "/img/countries/vn.svg",
+        "slug": "vietnam"
     },
     "yemen": {
         "name": "Yemen",
@@ -1549,7 +1742,8 @@
             "longitude": 47.8915271,
             "latitude": 16.3471243
         },
-        "img": "/img/countries/ye.svg"
+        "img": "/img/countries/ye.svg",
+        "slug": "yemen"
     },
     "zambia": {
         "name": "Zambia",
@@ -1557,7 +1751,8 @@
             "longitude": 27.5589884,
             "latitude": -14.5189121
         },
-        "img": "/img/countries/zm.svg"
+        "img": "/img/countries/zm.svg",
+        "slug": "zambia"
     },
     "zimbabwe": {
         "name": "Zimbabwe",
@@ -1565,6 +1760,7 @@
             "longitude": 29.7468414,
             "latitude": -18.4554963
         },
-        "img": "/img/countries/zw.svg"
+        "img": "/img/countries/zw.svg",
+        "slug": "zimbabwe"
     }
 }

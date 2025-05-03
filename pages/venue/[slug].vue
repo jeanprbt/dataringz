@@ -50,6 +50,11 @@ definePageMeta({
 // HANDLE DIRECT URL ---------------
 let directAccess = !!useState('venue').value;
 const showVenuePage = ref(!directAccess);
+onMounted(async () => {
+    if (directAccess) {
+        setTimeout(() => showVenuePage.value = true, 4200);
+    }
+});
 
 // ROUTING PARAMETERS --------------
 const router = useRouter();
@@ -61,12 +66,6 @@ const venue = venues[slug as keyof typeof venues];
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
-
-onMounted(async () => {
-    if (directAccess) {
-        setTimeout(() => showVenuePage.value = true, 4200);
-    }
-});
 
 useHead(() => {
     const name = venue.name;

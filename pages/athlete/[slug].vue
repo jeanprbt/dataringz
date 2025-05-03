@@ -169,6 +169,11 @@ definePageMeta({
 // HANDLE DIRECT URL ---------------
 let directAccess = !!useState('athlete').value;
 const showAthletePage = ref(!directAccess);
+onMounted(async () => {
+    if (directAccess) {
+        setTimeout(() => showAthletePage.value = true, 4200);
+    }
+});
 
 // ROUTING PARAMETERS --------------
 const router = useRouter();
@@ -181,12 +186,6 @@ const athlete = athletes[slug as keyof typeof athletes] as any;
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
-
-onMounted(async () => {
-    if (directAccess) {
-        setTimeout(() => showAthletePage.value = true, 4200);
-    }
-});
 
 useHead(() => {
     const name = athlete.name;

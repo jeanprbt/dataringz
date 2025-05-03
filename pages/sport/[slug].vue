@@ -70,6 +70,11 @@ definePageMeta({
 // HANDLE DIRECT URL ---------------
 let directAccess = !!useState('sport').value;
 const showSportPage = ref(!directAccess);
+onMounted(async () => {
+    if (directAccess) {
+        setTimeout(() => showSportPage.value = true, 4200);
+    }
+});
 
 // ROUTING PARAMETERS --------------
 const router = useRouter();
@@ -87,12 +92,6 @@ const showAllCountries = ref(false);
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
-
-onMounted(async () => {
-    if (directAccess) {
-        setTimeout(() => showSportPage.value = true, 4200);
-    }
-});
 
 useHead(() => {
     const sportName = sport.name;

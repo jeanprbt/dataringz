@@ -41,6 +41,10 @@ const props = defineProps({
     items: {
         type: Array<BreadcrumbItem>,
         default: []
+    },
+    countries: {
+        type: Boolean,
+        default: false
     }
 });
 const emit = defineEmits(['close']);
@@ -48,7 +52,7 @@ const emit = defineEmits(['close']);
 const items = toRef(props, "items");
 
 const exit = ref(false);
-const modalBackgroundClass = computed(() => exit.value ? 'animate-modal-background-exit' : props.transition ? 'bg-black/70' : 'animate-modal-background');
+const modalBackgroundClass = computed(() => exit.value ? props.countries ? 'animate-modal-background-countries-exit' : 'animate-modal-background-exit' : props.transition ? 'bg-black/70' : props.countries ? 'animate-modal-background dark:animate-modal-background-countries' : 'animate-modal-background');
 const modalShapeClass = computed(() => exit.value ? 'animate-modal-shape-light-exit dark:animate-modal-shape-dark-exit' : props.transition ? 'bg-white dark:bg-zinc-800' : 'animate-modal-shape-light dark:animate-modal-shape-dark');
 const modalContentClass = computed(() => exit.value ? 'animate-modal-content-exit' : props.transition ? 'animate-modal-content-transition' : 'animate-modal-content');
 const modalHeaderClass = computed(() => exit.value ? 'animate-modal-content-exit' : props.transition ? 'opacity-100' : 'animate-modal-content');

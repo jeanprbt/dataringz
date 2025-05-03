@@ -1,5 +1,5 @@
 <template>
-    <button ref="searchButton" @click="searchButtonClicked"
+    <button ref="searchButton" @click="searchButtonClicked" v-show="showSearchButton"
         class="absolute flex items-center top-5 left-1/2 transform -translate-x-1/2 text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 whitespace-nowrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 mr-2">
             <path fill-rule="evenodd"
@@ -53,7 +53,7 @@ const createGroups = (globe: mapboxgl.Map) => {
                     flying = true;
                     await flyToCountry(globe, coordinates);
                     flying = false;
-                    // router.push( `/country/${country.slug}`);
+                    router.push(`/country/${country.slug}`);
                 }
             }
         })
@@ -101,6 +101,6 @@ watch(open, async (newVal) => {
         displayButton(showSearchButton, searchButton, 0.2, 0.5)
     }
 })
-
+displayButton(showSearchButton, searchButton, 0, 0.8)
 
 </script>

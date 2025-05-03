@@ -9,6 +9,9 @@
         style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)">
         {{ currentText }}
     </div>
+    <div ref="tooltipRef"
+        class="absolute bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white p-2 rounded shadow pointer-events-none hidden">
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +26,7 @@ import { displayButton, hideButton } from '~/utils/animations';
 import venues from '~/data/venues.json';
 import sports from '~/data/sports.json';
 import athletes from '~/data/athletes.json';
+import countries from '~/data/countries.json';
 
 // COMPOSABLES ------------------------------------------------------------------------------------------------------ //
 const router = useRouter();
@@ -42,6 +46,8 @@ const showText = ref<boolean>(false);
 const currentText = ref<string>('');
 const skipButton = ref<HTMLElement | null>(null);
 const showSkipButton = ref<boolean>(false);
+const tooltipRef = ref<HTMLElement | null>(null);
+
 
 // COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
 const colorScheme = computed(() => {
@@ -67,30 +73,36 @@ onMounted(async () => {
     );
 
     // HANDLE DIRECT ACCESS ----------------------------------------------------------------------------------------- //
-    let directAccess = false;
+    let directMapAccess = false;
+    let directGlobeAccess = false;
     let directCoordinates: number[] = [];
     const venueAccess = useState('venue');
     const athleteAccess = useState('athlete');
     const sportAccess = useState('sport');
+    const countryAccess = useState('country');
     if (venueAccess.value) {
-        directAccess = true;
+        directMapAccess = true;
         const venue = venues[venueAccess.value as keyof typeof venues] as any;
         directCoordinates = [venue.location.longitude, venue.location.latitude];
     } else if (sportAccess.value) {
-        directAccess = true;
+        directMapAccess = true;
         const sport = sports[sportAccess.value as keyof typeof sports];
         const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues] as any;
         directCoordinates = [venue.location.longitude, venue.location.latitude];
     } else if (athleteAccess.value) {
-        directAccess = true;
+        directMapAccess = true;
         const athlete = athletes[athleteAccess.value as keyof typeof athletes];
         const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
         const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues] as any;
         directCoordinates = [venue.location.longitude, venue.location.latitude];
+    } else if (countryAccess.value) {
+        directGlobeAccess = true;
+        const country = countries[countryAccess.value as keyof typeof countries] as any;
+        directCoordinates = [country.location.longitude, country.location.latitude];
     }
 
     // CREATE MAP --------------------------------------------------------------------------------------------------- //
-    if (intro.value || directAccess) {
+    if (intro.value || directMapAccess) {
         // globe view
         canvas = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
@@ -100,6 +112,18 @@ onMounted(async () => {
             zoom: 2,
             pitch: 0,
             bearing: 440,
+            maxZoom: 16,
+        });
+    } else if (directGlobeAccess) {
+        // space view
+        canvas = new mapboxgl.Map({
+            container: mapContainer.value as HTMLElement,
+            style: colorScheme.value.style,
+            dragRotate: false,
+            center: [0, 0],
+            zoom: 0,
+            pitch: 0,
+            bearing: 0,
             maxZoom: 16,
         });
     } else {
@@ -191,12 +215,12 @@ onMounted(async () => {
         });
 
         // HANDLE FIRST ANIMATION ------------------------------------------------------------------------------------ //
-        if (intro.value && !directAccess) {
+        if (intro.value && !directMapAccess && !directGlobeAccess) {
             setIntroPlaying(true);
             await playIntro(canvas, signal, showText, textContainer, currentText);
             setIntroPlaying(false);
             setIntro(false);
-        } else if (directAccess) {
+        } else if (directMapAccess) {
             await new Promise<void>(async (resolve, reject) => {
                 if (signal.aborted) return reject();
                 canvas.flyTo({
@@ -210,11 +234,31 @@ onMounted(async () => {
                 });
                 canvas.once('moveend', () => resolve());
             }).catch(() => { });
+        } else if (directGlobeAccess) {
+            await new Promise<void>(async (resolve, reject) => {
+                if (signal.aborted) return reject();
+                canvas.flyTo({
+                    center: directCoordinates as [number, number],
+                    zoom: 2,
+                    bearing: 0,
+                    pitch: 0,
+                    duration: 2000,
+                    essential: true,
+                    curve: 1
+                });
+                canvas.once('moveend', () => resolve());
+            }).catch(() => { });
         }
 
         // SETTLE CANVAS -------------------------------------------------------------------------------------------- //
-        settleMapCanvas(canvas);
-        await setMarkers(canvas, router);
+        if (directGlobeAccess) {
+            // @ts-ignore
+            settleGlobeCanvas(canvas, tooltipRef, router);
+            await setMarkers(canvas, router, false);
+        } else {
+            settleMapCanvas(canvas);
+            await setMarkers(canvas, router);
+        }
     });
 
     // MARKERS UPDATE LOGIC ----------------------------------------------------------------------------------------- //

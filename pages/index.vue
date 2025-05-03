@@ -50,8 +50,8 @@ const { section, setSection } = useSection();
 
 // UI STATE --------------------------------------------------------------------------------------------------------- //
 const tooltipRef = ref<HTMLElement | null>(null);
-const searchBarText = ref('athlete / sport / venue...');
-const buttonIcon = ref('i-heroicons-globe-europe-africa');
+const searchBarText = section.value === 'map' ? ref('athlete / sport / venue...') : ref('country...');
+const buttonIcon = section.value === 'map' ? ref('i-heroicons-globe-europe-africa') : ref('mingcute:eiffel-tower-line');
 
 // COMMAND PALETTE -------------------------------------------------------------------------------------------------- //
 const groups = ref<any[]>([]);

@@ -12,7 +12,7 @@ const staticMarkers = new Map<Marker, boolean>();
 let originalScrollZoom: any;
 
 // MARKERS LOGIC  --------------------------------------------------------------------------------------------------- //
-const setMarkers = async (map: mapboxgl.Map, router: Router) => {
+const setMarkers = async (map: mapboxgl.Map, router: Router, visible: boolean = true) => {
 
     Object.keys(venues).forEach(key => {
 
@@ -52,9 +52,11 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
         render(vnode, el);
 
         // make it appear if it is within the bounds
-        const mapBounds = map.getBounds()!;
-        const { paddedMapBounds } = _getPaddedMapBounds(mapBounds);
-        if (paddedMapBounds.contains(coords)) showMarkers.get(marker)!.value = true;
+        if (visible) {
+            const mapBounds = map.getBounds()!;
+            const { paddedMapBounds } = _getPaddedMapBounds(mapBounds);
+            if (paddedMapBounds.contains(coords)) showMarkers.get(marker)!.value = true;
+        }
 
         // add click event
         marker.getElement().addEventListener('click', async () => {
@@ -62,6 +64,10 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
             router.push(`/venue/${venue.slug}`);
         });
     });
+
+    if (!visible) {
+        removeMarkers();
+    }
 };
 
 const updateMarkers = (map: mapboxgl.Map, zoom: number, lastZoom: number) => {
@@ -145,7 +151,7 @@ const settleMapCanvas = (map: mapboxgl.Map): void => {
     const initialZoom = map.getZoom();
     map.setPitch(Math.max(0, Math.min(60, (initialZoom - 10) * 10)));
 
-    
+
     // override scrollZoom renderFrame to add pitch updates
     const scrollZoom = map.scrollZoom as any;
     originalScrollZoom = scrollZoom.renderFrame;

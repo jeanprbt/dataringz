@@ -1,5 +1,9 @@
 <template>
     <div class="absolute flex top-5 left-1/2 transform -translate-x-1/2">
+        <!-- <button ref="olympicsButton" @click="router.push('/olympics')" v-show="showOlympicsButton"
+            class="text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 mr-2 px-2 pt-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700">
+            <UIcon name="circle-flags:olympics" class="size-7" />
+        </button> -->
         <button ref="searchButton" @click="searchButtonClicked" v-show="showSearchButton"
             class="flex items-center text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 whitespace-nowrap">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 mr-2">
@@ -13,14 +17,14 @@
         </button>
         <button ref="globeButton" @click="globeButtonClicked" v-show="showGlobeButton"
             class="text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 ml-2 px-2 pt-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700">
-            <UIcon :name="buttonIcon" class="size-7" />
+            <UIcon :name="globeIcon" class="size-7" />
         </button>
     </div>
     <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto bg-opacity-0 backdrop-blur-3xl rounded-xl"
         :overlay="false" :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
         <template #content>
             <UCommandPalette :groups="groups" :placeholder="searchBarText" @highlight="onHighlight"
-                :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', label: 'text-zinc-500 dark:text-zinc-400', itemLabelBase: 'text-zinc-500 dark:text-zinc-400', viewport: 'divide-zinc-300 dark:divide-zinc-600', itemLeadingAvatar: 'bg-transparent dark:invert brightness-100' }">
+                :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', label: 'text-zinc-500 dark:text-zinc-400', itemLabelBase: 'text-zinc-500 dark:text-zinc-400', viewport: 'divide-zinc-300 dark:divide-zinc-600', itemLeadingAvatar: section === 'globe' ? 'bg-transparent' : 'bg-transparent dark:invert brightness-100' }">
             </UCommandPalette>
         </template>
     </UModal>
@@ -51,7 +55,7 @@ const { section, setSection } = useSection();
 // UI STATE --------------------------------------------------------------------------------------------------------- //
 const tooltipRef = ref<HTMLElement | null>(null);
 const searchBarText = section.value === 'map' ? ref('athlete / sport / venue...') : ref('country...');
-const buttonIcon = section.value === 'map' ? ref('i-heroicons-globe-europe-africa') : ref('mingcute:eiffel-tower-line');
+const globeIcon = section.value === 'map' ? ref('i-heroicons-globe-europe-africa') : ref('mingcute:eiffel-tower-line');
 
 // COMMAND PALETTE -------------------------------------------------------------------------------------------------- //
 const groups = ref<any[]>([]);
@@ -183,17 +187,22 @@ const searchButton = ref<HTMLElement | null>(null);
 const showSearchButton = ref<boolean>(false);
 const globeButton = ref<HTMLElement | null>(null);
 const showGlobeButton = ref<boolean>(false);
+const olympicsButton = ref<HTMLElement | null>(null);
+const showOlympicsButton = ref<boolean>(false);
 
 const searchButtonClicked = () => {
     open.value = true;
     hideButton(showSearchButton, searchButton, 0)
     hideButton(showGlobeButton, globeButton, 0)
+    hideButton(showOlympicsButton, olympicsButton, 0)
 }
 const globeButtonClicked = async () => {
     if (section.value === 'map') {
         removeMarkers();
         hideButton(showSearchButton, searchButton, 0.5);
         hideButton(showGlobeButton, globeButton, 0.5);
+        hideButton(showOlympicsButton, olympicsButton, 0.5);
+
         // @ts-ignore
         unsettleMapCanvas(canvas.value);
 
@@ -215,15 +224,18 @@ const globeButtonClicked = async () => {
         // @ts-ignore
         groups.value = getGlobeItems(canvas.value);
         searchBarText.value = 'country...';
-        buttonIcon.value = 'mingcute:eiffel-tower-line';
+        globeIcon.value = 'mingcute:eiffel-tower-line';
 
         // @ts-ignore
         settleGlobeCanvas(canvas.value, tooltipRef, router)
         displayButton(showSearchButton, searchButton, 0.5, 0.5);
         displayButton(showGlobeButton, globeButton, 0.5, 0.5);
+        displayButton(showOlympicsButton, olympicsButton, 0.5, 0.5);
     } else if (section.value === 'globe') {
         hideButton(showSearchButton, searchButton, 0.5);
         hideButton(showGlobeButton, globeButton, 0.5);
+        hideButton(showOlympicsButton, olympicsButton, 0.5);
+
         // @ts-ignore
         unsettleGlobeCanvas(canvas.value);
 
@@ -245,13 +257,14 @@ const globeButtonClicked = async () => {
         // @ts-ignore
         groups.value = getMapItems(canvas.value);
         searchBarText.value = 'athlete / sport / venue...';
-        buttonIcon.value = 'i-heroicons-globe-europe-africa';
+        globeIcon.value = 'i-heroicons-globe-europe-africa';
 
 
         // @ts-ignore
         settleMapCanvas(canvas.value);
         displayButton(showSearchButton, searchButton, 0.5, 0.5);
         displayButton(showGlobeButton, globeButton, 0.5, 0.5);
+        displayButton(showOlympicsButton, olympicsButton, 0.5, 0.5);
         addMarkers();
     }
 }
@@ -266,19 +279,22 @@ watch(open, (newVal) => {
     if (newVal) {
         hideButton(showSearchButton, searchButton, 0);
         hideButton(showGlobeButton, globeButton, 0);
+        hideButton(showOlympicsButton, olympicsButton, 0);
     } else if (!flying) {
         displayButton(showSearchButton, searchButton, 0.2, 0.5);
         displayButton(showGlobeButton, globeButton, 0.2, 0.5);
-
+        displayButton(showOlympicsButton, olympicsButton, 0.2, 0.5);
     }
 })
 watch(introPlaying, (newVal) => {
     if (newVal) {
         hideButton(showSearchButton, searchButton, 1);
         hideButton(showGlobeButton, globeButton, 1);
+        hideButton(showOlympicsButton, olympicsButton, 1);
     } else {
         displayButton(showSearchButton, searchButton, 2, 1);
         displayButton(showGlobeButton, globeButton, 2, 1);
+        displayButton(showOlympicsButton, olympicsButton, 2, 1);
     }
 });
 
@@ -286,6 +302,7 @@ onMounted(() => {
     if (!intro.value) {
         displayButton(showSearchButton, searchButton, 0, 0.8);
         displayButton(showGlobeButton, globeButton, 0, 0.8);
+        displayButton(showOlympicsButton, olympicsButton, 0, 0.8);
     }
 })
 

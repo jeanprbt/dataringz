@@ -13,7 +13,7 @@
         </button>
         <button ref="globeButton" @click="globeButtonClicked" v-show="showGlobeButton"
             class="text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 ml-2 px-2 pt-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700">
-            <UIcon name="i-heroicons-globe-europe-africa" class="size-7" />
+            <UIcon :name="buttonIcon" class="size-7" />
         </button>
     </div>
     <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto bg-opacity-0 backdrop-blur-3xl rounded-xl"
@@ -51,130 +51,120 @@ const { section, setSection } = useSection();
 // UI STATE --------------------------------------------------------------------------------------------------------- //
 const tooltipRef = ref<HTMLElement | null>(null);
 const searchBarText = ref('athlete / sport / venue...');
+const buttonIcon = ref('i-heroicons-globe-europe-africa');
 
 // COMMAND PALETTE -------------------------------------------------------------------------------------------------- //
 const groups = ref<any[]>([]);
 let flying = false;
-const getItems = (canvas: mapboxgl.Map, section: string = 'map') => {
+const getMapItems = (map: mapboxgl.Map) => {
     const res = [];
-    if (section === 'map') {
-        res.push({
-            id: "venues",
-            label: "Venues",
-            items: Object.keys(venues).map(key => {
-                let venue = venues[key as keyof typeof venues];
-                return {
-                    label: venue.name,
-                    avatar: {
-                        src: venue.img
-                    },
-                    async onSelect() {
-                        open.value = false;
-                        const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
-                        flying = true;
-                        await flyToVenue(canvas, coordinates);
-                        flying = false;
-                        router.push(`/venue/${venue.slug}`);
-                    }
+    res.push({
+        id: "venues",
+        label: "Venues",
+        items: Object.keys(venues).map(key => {
+            let venue = venues[key as keyof typeof venues];
+            return {
+                label: venue.name,
+                avatar: {
+                    src: venue.img
+                },
+                async onSelect() {
+                    open.value = false;
+                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                    flying = true;
+                    await flyToVenue(map, coordinates);
+                    flying = false;
+                    router.push(`/venue/${venue.slug}`);
                 }
-            })
+            }
         })
-        res.push({
-            id: "sports",
-            label: "Sports",
-            items: Object.keys(sports).map(key => {
-                let sport = sports[key as keyof typeof sports];
-                return {
-                    label: sport.name,
-                    avatar: {
-                        src: sport.icon
-                    },
-                    async onSelect() {
-                        open.value = false;
-                        const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
-                        const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
-                        flying = true;
-                        await flyToVenue(canvas, coordinates);
-                        flying = false;
-                        router.push(`/sport/${sport.slug}`);
-                    }
+    })
+    res.push({
+        id: "sports",
+        label: "Sports",
+        items: Object.keys(sports).map(key => {
+            let sport = sports[key as keyof typeof sports];
+            return {
+                label: sport.name,
+                avatar: {
+                    src: sport.icon
+                },
+                async onSelect() {
+                    open.value = false;
+                    const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
+                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                    flying = true;
+                    await flyToVenue(map, coordinates);
+                    flying = false;
+                    router.push(`/sport/${sport.slug}`);
                 }
-            })
+            }
         })
-        res.push({
-            id: "athletes",
-            label: "Athletes",
-            items: Object.keys(athletes).map(key => {
-                let athlete = athletes[key as keyof typeof athletes] as any;
-                return {
-                    label: athlete.name,
-                    async onSelect() {
-                        open.value = false;
-                        const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
-                        const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
-                        const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
-                        flying = true;
-                        await flyToVenue(canvas, coordinates);
-                        flying = false;
-                        router.push(`/athlete/${athlete.slug}`);
-                    }
+    })
+    res.push({
+        id: "athletes",
+        label: "Athletes",
+        items: Object.keys(athletes).map(key => {
+            let athlete = athletes[key as keyof typeof athletes] as any;
+            return {
+                label: athlete.name,
+                async onSelect() {
+                    open.value = false;
+                    const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
+                    const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
+                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                    flying = true;
+                    await flyToVenue(map, coordinates);
+                    flying = false;
+                    router.push(`/athlete/${athlete.slug}`);
                 }
-            })
+            }
         })
-    } else if (section === 'globe') {
-        res.push({
-            id: "countries",
-            label: "Countries",
-            items: Object.keys(countries).map(key => {
-                let country = countries[key as keyof typeof countries];
-                return {
-                    label: country.name,
-                    avatar: {
-                        src: country.img
-                    },
-                    async onSelect() {
-                        open.value = false;
-                        const coordinates = [country.location.longitude, country.location.latitude] as [number, number];
-                        flying = true;
-                        await flyToCountry(canvas, coordinates);
-                        flying = false;
-                        // router.push(`/country/${country.slug}`);
-                    }
-                }
-            })
-        })
-    }
+    })
     return res;
 }
 
+const getGlobeItems = (globe: mapboxgl.Map) => {
+    const res = [];
+    res.push({
+        id: "countries",
+        label: "Countries",
+        items: Object.keys(countries).map(key => {
+            let country = countries[key as keyof typeof countries];
+            return {
+                label: country.name,
+                avatar: {
+                    src: country.img
+                },
+                async onSelect() {
+                    open.value = false;
+                    const coordinates = [country.location.longitude, country.location.latitude] as [number, number];
+                    flying = true;
+                    await flyToCountry(globe, coordinates);
+                    flying = false;
+                    router.push(`/country/${country.slug}`);
+                }
+            }
+        })
+    })
+    return res;
+}
 
+// ITEMS & SEARCH BAR UPDATE LOGIC ---------------------------------------------------------------------------------- //
 if (canvas.value) {
     // @ts-ignore
-    groups.value = getItems(canvas.value);
-    watch(section, (newSection) => {
-        // @ts-ignore
-        groups.value = getItems(canvas.value, newSection);
-        searchBarText.value = newSection === 'globe' ? 'country...' : 'athlete / sport / venue...';
-    });
+    groups.value = section.value === 'map' ? getMapItems(canvas.value) : getGlobeItems(canvas.value);
 }
 else {
     watch(canvas, (newCanvas) => {
         if (newCanvas) {
             // @ts-ignore 
-            groups.value = getItems(newCanvas as mapboxgl.Map);
-            // @ts-ignore
-            watch(section, (newSection) => {
-                // @ts-ignore
-                groups.value = getItems(canvas.value, newSection);
-                searchBarText.value = newSection === 'globe' ? 'country...' : 'athlete / sport / venue...';
-            });
+            groups.value = section.value === 'map' ? getMapItems(canvas.value) : getGlobeItems(canvas.value);
         }
     })
 }
 
-
-
-// COMMAND PALETTE HIGHLIGHT LOGIC -------------------------------------------------------------------------------------------- //
+// COMMAND PALETTE HIGHLIGHT LOGIC ---------------------------------------------------------------------------------- //
 const highlightedElem = ref<HTMLElement | null>(null);
 const onHighlight = (payload: { ref: HTMLElement, value: CommandPaletteItem } | undefined) => {
     if (highlightedElem.value !== null) {
@@ -200,30 +190,70 @@ const searchButtonClicked = () => {
     hideButton(showGlobeButton, globeButton, 0)
 }
 const globeButtonClicked = async () => {
-    removeMarkers();
-    hideButton(showSearchButton, searchButton, 0.5);
-    hideButton(showGlobeButton, globeButton, 0.5);
-    // @ts-ignore
-    unsettleMapCanvas(canvas.value);
+    if (section.value === 'map') {
+        removeMarkers();
+        hideButton(showSearchButton, searchButton, 0.5);
+        hideButton(showGlobeButton, globeButton, 0.5);
+        // @ts-ignore
+        unsettleMapCanvas(canvas.value);
 
-    await new Promise<void>(async (resolve): Promise<void> => {
-        canvas.value!.flyTo({
-            center: [2.209667, 46.232193],
-            zoom: 2,
-            bearing: 0,
-            pitch: 0,
-            duration: 4000,
-            essential: true,
-            curve: 1
-        });
-        canvas.value!.once('moveend', () => resolve());
-    }).catch(() => { });
-    setSection('globe');
+        await new Promise<void>(async (resolve): Promise<void> => {
+            // globe view
+            canvas.value!.flyTo({
+                center: [2.209667, 46.232193],
+                zoom: 2,
+                bearing: 0,
+                pitch: 0,
+                duration: 4000,
+                essential: true,
+                curve: 1
+            });
+            canvas.value!.once('moveend', () => resolve());
+        }).catch(() => { });
+        setSection('globe');
 
-    // @ts-ignore
-    settleGlobeCanvas(canvas.value, tooltipRef, router)
-    displayButton(showSearchButton, searchButton, 0.5, 0.5);
-    displayButton(showGlobeButton, globeButton, 0.5, 0.5);
+        // @ts-ignore
+        groups.value = getGlobeItems(canvas.value);
+        searchBarText.value = 'country...';
+        buttonIcon.value = 'mingcute:eiffel-tower-line';
+
+        // @ts-ignore
+        settleGlobeCanvas(canvas.value, tooltipRef, router)
+        displayButton(showSearchButton, searchButton, 0.5, 0.5);
+        displayButton(showGlobeButton, globeButton, 0.5, 0.5);
+    } else if (section.value === 'globe') {
+        hideButton(showSearchButton, searchButton, 0.5);
+        hideButton(showGlobeButton, globeButton, 0.5);
+        // @ts-ignore
+        unsettleGlobeCanvas(canvas.value);
+
+        await new Promise<void>(async (resolve): Promise<void> => {
+            // paris view
+            canvas.value!.flyTo({
+                center: [2.294694, 48.858093],
+                zoom: 15.5,
+                pitch: 55,
+                bearing: 0,
+                duration: 4000,
+                essential: true,
+                curve: 1
+            });
+            canvas.value!.once('moveend', () => resolve());
+        }).catch(() => { });
+        setSection('map');
+
+        // @ts-ignore
+        groups.value = getMapItems(canvas.value);
+        searchBarText.value = 'athlete / sport / venue...';
+        buttonIcon.value = 'i-heroicons-globe-europe-africa';
+
+
+        // @ts-ignore
+        settleMapCanvas(canvas.value);
+        displayButton(showSearchButton, searchButton, 0.5, 0.5);
+        displayButton(showGlobeButton, globeButton, 0.5, 0.5);
+        addMarkers();
+    }
 }
 
 defineShortcuts({
@@ -232,7 +262,7 @@ defineShortcuts({
         open.value = false;
     }
 })
-watch(open, async (newVal) => {
+watch(open, (newVal) => {
     if (newVal) {
         hideButton(showSearchButton, searchButton, 0);
         hideButton(showGlobeButton, globeButton, 0);
@@ -242,11 +272,6 @@ watch(open, async (newVal) => {
 
     }
 })
-if (!intro.value) {
-    displayButton(showSearchButton, searchButton, 0, 0.8);
-    displayButton(showGlobeButton, globeButton, 0, 0.8);
-}
-
 watch(introPlaying, (newVal) => {
     if (newVal) {
         hideButton(showSearchButton, searchButton, 1);
@@ -256,5 +281,12 @@ watch(introPlaying, (newVal) => {
         displayButton(showGlobeButton, globeButton, 2, 1);
     }
 });
+
+onMounted(() => {
+    if (!intro.value) {
+        displayButton(showSearchButton, searchButton, 0, 0.8);
+        displayButton(showGlobeButton, globeButton, 0, 0.8);
+    }
+})
 
 </script>

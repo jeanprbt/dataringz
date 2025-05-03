@@ -9,7 +9,7 @@ import countries from '~/data/countries.json';
 
 definePageMeta({
     middleware: ['country'],
-    layout: 'globe'
+    layout: 'canvas'
 })
 
 // HANDLE DIRECT URL ---------------
@@ -32,6 +32,6 @@ const country = countries[slug as keyof typeof countries];
 // HANDLE CLOSE BUTTON -------------
 const closePage = () => {
     showCountryPage.value = false;
-    router.push('/countries/');
+    router.push('/');
 }
 </script>

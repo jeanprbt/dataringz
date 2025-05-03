@@ -28,7 +28,6 @@ import athletes from '~/data/athletes.json';
 const router = useRouter();
 const config = useRuntimeConfig();
 const { setCanvas } = useCanvas();
-const { section } = useSection();
 const { intro, setIntro, introPlaying, setIntroPlaying } = useIntro();
 
 // MAPBOX API & INTRO ----------------------------------------------------------------------------------------------- //

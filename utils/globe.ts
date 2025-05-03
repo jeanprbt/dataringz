@@ -1,9 +1,15 @@
+import type { MapMouseEvent } from 'mapbox-gl';
 import { type Router } from 'vue-router';
 import countries from '~/data/countries.json';
 
 let click: boolean = false;
 
-// FMY TO COUNTRY --------------------------------------------------------------------------------------------------- //
+let mouseMoveHandler: (e: MapMouseEvent) => void;
+let mouseOutHandler: () => void;
+let clickHandler: (e: MapMouseEvent) => void;
+
+
+// FLY TO COUNTRY --------------------------------------------------------------------------------------------------- //
 const flyToCountry = async (globe: mapboxgl.Map, countryCoordinates: [number, number]) => {
     const { lng, lat } = globe.getCenter();
     const zoom = globe.getZoom();
@@ -24,7 +30,7 @@ const flyToCountry = async (globe: mapboxgl.Map, countryCoordinates: [number, nu
 const settleGlobeCanvas = (globe: mapboxgl.Map, tooltipRef: Ref<HTMLElement>, router: Router) => {
     globe.setMinZoom(2);
     globe.setMaxZoom(3.5);
-    globe.on("mousemove", function (e) {
+    mouseMoveHandler = (e: MapMouseEvent) => {
         if (click) return;
         const features = globe.queryRenderedFeatures(e.point, { layers: ["cf"] });
         if (features.length) {
@@ -41,17 +47,16 @@ const settleGlobeCanvas = (globe: mapboxgl.Map, tooltipRef: Ref<HTMLElement>, ro
             const tooltip = tooltipRef.value;
             if (tooltip) tooltip.style.display = 'none';
         }
-    });
-    globe.on("mouseout", function () {
+    }
+    mouseOutHandler = () => {
         globe.setFilter("extrusion", ["==", "name", ""]);
         const tooltip = tooltipRef.value;
         if (tooltip) {
             tooltip.style.display = 'none';
         }
-    });
 
-    // HANDLE CLICK --------------------------------------------------------------------------------------------- //
-    globe.on("click", async function (e) {
+    }
+    clickHandler = async (e: MapMouseEvent) => {
         const features = globe.queryRenderedFeatures(e.point, { layers: ["cf"] });
         if (features.length) {
             globe.setFilter("extrusion", ["==", "name", ""]);
@@ -63,9 +68,21 @@ const settleGlobeCanvas = (globe: mapboxgl.Map, tooltipRef: Ref<HTMLElement>, ro
             setTimeout(() => {
                 click = false;
             }, 1000);
-            // router.push(`/country/${country.slug}`);
+            router.push(`/country/${country.slug}`);
         }
-    });
+    }
+    globe.on("mousemove", mouseMoveHandler);
+    globe.on("mouseout", mouseOutHandler);
+    globe.on("click", clickHandler);
 }
 
-export { flyToCountry, settleGlobeCanvas }; 
+const unsettleGlobeCanvas = (globe: mapboxgl.Map) => {
+    globe.setMinZoom(undefined);
+    // @ts-ignore
+    globe.setMaxZoom(undefined);
+    globe.off('mousemove', mouseMoveHandler);
+    globe.off("mouseout", mouseOutHandler);
+    globe.off('click', clickHandler);
+}
+
+export { flyToCountry, settleGlobeCanvas, unsettleGlobeCanvas }; 

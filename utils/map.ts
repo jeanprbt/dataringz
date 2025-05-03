@@ -135,6 +135,7 @@ const settleMapCanvas = (map: mapboxgl.Map): void => {
     // zoom & bounds
     const { lng, lat } = map.getCenter();
     map.setMinZoom(10);
+    map.setMaxZoom(16);
     map.setMaxBounds([
         [lng - 1, lat - 1],
         [lng + 1, lat + 1]

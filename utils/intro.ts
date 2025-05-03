@@ -33,16 +33,16 @@ const playIntro = async (
 
     // LOAD TRACKS -------------------------------------------------------------------------------------------------- //
     const trackFrance1: Feature<LineString> = (
-        await fetch('/tracks/track_france_1.geojson').then((res) => res.json())
+        await fetch('/geojson/track_france_1.geojson').then((res) => res.json())
     );
     const trackFrance2: Feature<LineString> = (
-        await fetch('/tracks/track_france_2.geojson').then((res) => res.json())
+        await fetch('/geojson/track_france_2.geojson').then((res) => res.json())
     );
     const trackFrance3: Feature<LineString> = (
-        await fetch('/tracks/track_france_3.geojson').then((res) => res.json())
+        await fetch('/geojson/track_france_3.geojson').then((res) => res.json())
     );
     const trackGreece: Feature<LineString> = (
-        await fetch('/tracks/track_greece.geojson').then((res) => res.json())
+        await fetch('/geojson/track_greece.geojson').then((res) => res.json())
     )
 
     // ADD LINES ---------------------------------------------------------------------------------------------------- //

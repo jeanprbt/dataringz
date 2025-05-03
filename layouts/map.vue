@@ -31,7 +31,6 @@ const isClient = import.meta.client;
 if (isClient) {
     mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '';
 }
-
 const { setMap } = useMap();
 const { intro, setIntro, introPlaying, setIntroPlaying } = useIntro();
 setIntro(config.public.INTRO || false);

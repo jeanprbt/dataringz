@@ -222,6 +222,21 @@ const flyToVenue = async (map: mapboxgl.Map, venueCoordinates: [number, number])
 }
 
 
+// FLY TO VENUE LOGIC   --------------------------------------------------------------------------------------------- //
+const flyToCountry = async (globe: mapboxgl.Map, countryCoordinates: [number, number]) => {
+    await new Promise<void>(async (resolve): Promise<void> => {
+        globe.flyTo({
+            center: countryCoordinates,
+            zoom: 3.5,
+            duration: 1500,
+            essential: true,
+            curve: 1
+        } as EasingOptions);
+        globe.once('moveend', () => resolve());
+    }).catch(() => { });
+}
+
+
 
 // PRIVATE METHODS -------------------------------
 const _removeLayerAndSource = (map: mapboxgl.Map, layerId: string, sourceId: string) => {
@@ -253,4 +268,4 @@ const _getPaddedMapBounds = (mapBounds: LngLatBounds, paddingFactor: number = 0.
     }
 }
 
-export { setFinalProperties, setMarkers, updateMarkers, flyToVenue };
+export { setFinalProperties, setMarkers, updateMarkers, flyToVenue, flyToCountry };

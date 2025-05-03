@@ -105,6 +105,13 @@ const createGroups = (map: mapboxgl.Map) => {
         })
     })
 }
+// @ts-ignore
+if (map.value) createGroups(map.value);
+else watch(map, (newMap) => {
+    if (newMap) {
+        createGroups(newMap as mapboxgl.Map)
+    }
+})
 
 // COMMAND PALETTE HIGHLIGHT LOGIC -------------------------------------------------------------------------------------------- //
 const highlightedElem = ref<HTMLElement | null>(null);
@@ -150,13 +157,5 @@ watch(introPlaying, (newVal) => {
         displayButton(showSearchButton, searchButton, 2, 1);
     }
 });
-
-// @ts-ignore
-if (map.value) createGroups(map.value);
-else watch(map, (newMap) => {
-    if (newMap) {
-        createGroups(newMap as mapboxgl.Map)
-    }
-})
 
 </script>

@@ -6,12 +6,18 @@
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
+import type { Feature, Polygon, MultiPolygon } from "geojson";
 
+import countries from '~/data/countries.json';
+
+// COMPOSABLES ------------------------------------------------------------------------------------------------------ //
 const config = useRuntimeConfig();
 const isClient = import.meta.client;
 if (isClient) {
     mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '';
 }
+const { setGlobe } = useGlobe();
+
 
 // REFS ------------------------------------------------------------------------------------------------------------- //
 const mapRef = ref<HTMLElement | null>(null);
@@ -31,32 +37,38 @@ const colorScheme = computed(() => {
         }
 });
 
-onMounted(() => {
+onMounted(async () => {
 
-    // CREATE MAP --------------------------------------------------------------------------------------------------- //
-    const map = new mapboxgl.Map({
+    // LOAD COUNTRIES ------------------------------------------------------------------------------------------------ //
+    const countriesBorders: Feature<Polygon | MultiPolygon> = (
+        await fetch('/geojson/countries.geojson').then((res) => res.json())
+    );
+
+    // CREATE GLOBE --------------------------------------------------------------------------------------------------//
+    const globe = new mapboxgl.Map({
         container: mapRef.value as HTMLElement,
         style: colorScheme.value.style,
         center: [2.209667, 46.232193],
         minZoom: 2,
         maxZoom: 3.5
     });
+    setGlobe(globe);
     
-    map.on('style.load', function () {
+    globe.on('style.load', function () {
 
         // REMOVE SYMBOLS (e.g. street names, places, ...) ---------------------------------------------------------- //
-        map.style.stylesheet.layers.forEach((layer) => {
+        globe.style.stylesheet.layers.forEach((layer) => {
             if (layer.type === 'symbol') {
-                map.removeLayer(layer.id);
+                globe.removeLayer(layer.id);
             }
         });
 
         // ADD COUNTRY FILLS LAYER ---------------------------------------------------------------------------------- //
-        map.addSource('cbs', { 
+        globe.addSource('cbs', { 
             'type': 'geojson',
-            'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson'
+            'data': countriesBorders
         });
-        map.addLayer({
+        globe.addLayer({
             "id": "cf",
             "type": "fill",
             "source": "cbs",
@@ -68,14 +80,14 @@ onMounted(() => {
         });
 
         // ADD 3D EXTRUSION LAYER ----------------------------------------------------------------------------------- //
-        map.addLayer({
+        globe.addLayer({
             "id": "extrusion",
             "type": "fill-extrusion",
             "source": "cbs",
             "layout": {},
             "paint": {
                 "fill-extrusion-color": colorScheme.value.extrusionColor,
-                "fill-extrusion-height": 2, // Default height
+                "fill-extrusion-height": 2,
                 "fill-extrusion-opacity": 0.7
             },
             "filter": ["==", "name", ""]
@@ -83,10 +95,10 @@ onMounted(() => {
 
 
         // HANDLE HOVER (TOOLTIP + COUNTRY EXTRUSION) ------------------------------------------------------------------
-        map.on("mousemove", function (e) {
-            const features = map.queryRenderedFeatures(e.point, { layers: ["cf"] });
+        globe.on("mousemove", function (e) {
+            const features = globe.queryRenderedFeatures(e.point, { layers: ["cf"] });
             if (features.length) {
-                map.setFilter("extrusion", ["==", "name", features[0].properties!.name]);
+                globe.setFilter("extrusion", ["==", "name", features[0].properties!.name]);
                 const tooltip = tooltipRef.value;
                 if (tooltip) {
                     tooltip.style.display = 'block';
@@ -95,15 +107,15 @@ onMounted(() => {
                     tooltip.innerText = features[0].properties!.name;
                 }
             } else {
-                map.setFilter("extrusion", ["==", "name", ""]);
+                globe.setFilter("extrusion", ["==", "name", ""]);
                 const tooltip = tooltipRef.value;
                 if (tooltip) {
                     tooltip.style.display = 'none';
                 }
             }
         });
-        map.on("mouseout", function () {
-            map.setFilter("extrusion", ["==", "name", ""]);
+        globe.on("mouseout", function () {
+            globe.setFilter("extrusion", ["==", "name", ""]);
             const tooltip = tooltipRef.value;
             if (tooltip) {
                 tooltip.style.display = 'none';
@@ -111,12 +123,12 @@ onMounted(() => {
         });
 
         // HANDLE CLICK --------------------------------------------------------------------------------------------- //
-        map.on("click", function (e) {
-            const features = map.queryRenderedFeatures(e.point, { layers: ["cf"] });
+        globe.on("click", function (e) {
+            const features = globe.queryRenderedFeatures(e.point, { layers: ["cf"] });
             if (features.length) {
-                const countryCenter = e.lngLat;
-                map.flyTo({
-                    center: [countryCenter.lng, countryCenter.lat],
+                const country = countries[features[0].properties!.slug as keyof typeof countries];
+                globe.flyTo({
+                    center: [country.location.longitude, country.location.latitude],
                     zoom: 3.5,
                     essential: true
                 })
@@ -127,8 +139,8 @@ onMounted(() => {
     // MAKE COLOR MODE REACTIVE ------------------------------------------------------------------------------------- //
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     mediaQuery.addEventListener('change', () => {
-        if (map) {
-            map.setStyle(colorScheme.value.style);
+        if (globe) {
+            globe.setStyle(colorScheme.value.style);
         }
     });
 });

@@ -39,6 +39,29 @@
         }
     }
 
+    --animate-modal-background-countries: background-fade-in-countries .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    --animate-modal-background-countries-exit: background-fade-out-countries .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+
+    @keyframes background-fade-in-countries {
+        0% {
+            background: rgba(0, 0, 0, .0);
+        }
+
+        100% {
+            background: rgba(0, 0, 0, .3);
+        }
+    }
+
+    @keyframes background-fade-out-countries {
+        0% {
+            background: rgba(0, 0, 0, .3);
+        }
+
+        100% {
+            background: rgba(0, 0, 0, .0);
+        }
+    }
+
     --animate-modal-rectangle: draw-rectangle .5s .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
 
     @keyframes draw-rectangle {

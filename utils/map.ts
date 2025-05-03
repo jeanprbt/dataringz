@@ -1,4 +1,4 @@
-import mapboxgl, { LngLatBounds, type Marker, type EasingOptions, type LngLatBoundsLike } from 'mapbox-gl';
+import mapboxgl, { LngLatBounds, Marker, type EasingOptions } from 'mapbox-gl';
 import { type Router } from 'vue-router';
 import * as turf from 'turf';
 import { h, render } from 'vue';
@@ -8,51 +8,11 @@ import venues from '~/data/venues.json';
 let markerCoordinates = new Map<Marker, [number, number]>();
 const markerDirections = reactive(new Map<Marker, Ref<number>>());
 const showMarkers = reactive(new Map<Marker, Ref<boolean>>());
-const flyingMarkers = new Map<Marker, boolean>();
+const staticMarkers = new Map<Marker, boolean>();
+let originalScrollZoom: any;
 
-// SET FINAL PROPERTIES --------------------------------------------------------------------------------------------- //
-const setFinalProperties = (map: mapboxgl.Map): void => {
-
-    // remove intro lines
-    _removeLayerAndSource(map, 'french-line-layer-1', 'french-line-1');
-    _removeLayerAndSource(map, 'french-line-layer-2', 'french-line-2');
-    _removeLayerAndSource(map, 'french-line-layer-3', 'french-line-3');
-    _removeLayerAndSource(map, 'greek-line-layer', 'greel-line');
-
-    // set final camera properties
-    const { lng, lat } = map.getCenter();
-    map.setMinZoom(10);
-    map.setMaxBounds([
-        [lng - 1, lat - 1],
-        [lng + 1, lat + 1]
-    ]);
-
-    // set initial pitch based on zoom
-    const initialZoom = map.getZoom();
-    map.setPitch(Math.max(0, Math.min(60, (initialZoom - 10) * 10)));
-
-    // override scrollZoom renderFrame to add pitch updates
-    const scrollZoom = map.scrollZoom as any;
-    const originalRenderFrame = scrollZoom.renderFrame;
-    scrollZoom.renderFrame = function () {
-        const result = originalRenderFrame.call(this);
-        if (result?.zoomDelta) {
-            const targetZoom = map.getZoom() + result.zoomDelta;
-            if (targetZoom > map.getMinZoom() + 2) {
-                const newPitch = Math.max(0, Math.min(60, (targetZoom - 10) * 10));
-                if (map.transform) {
-                    map.transform._pitch = newPitch * (Math.PI / 180);
-                    map.triggerRepaint();
-                }
-            }
-        }
-        return result;
-    };
-
-}
-
-// SET MARKERS  ----------------------------------------------------------------------------------------------------- //
-const setMarkers = async (map: mapboxgl.Map, router: Router) => {
+// MARKERS LOGIC  --------------------------------------------------------------------------------------------------- //
+const setMarkers = async (map: mapboxgl.Map, router: Router, visible: boolean = true) => {
 
     Object.keys(venues).forEach(key => {
 
@@ -78,7 +38,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
 
         // create new marker
         const coords = [venue.location.longitude, venue.location.latitude] as [number, number];
-        const marker = new mapboxgl.Marker({
+        const marker = new Marker({
             element: el,
             anchor: 'center'
         }).setLngLat(coords).addTo(map);
@@ -87,9 +47,9 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
         const popup = new mapboxgl.Popup({
             closeButton: false,
             closeOnClick: false,
-            offset: [0, - (sports.length * (15 + 2))], // 15px for each sport + 2px for spacing
+            offset: [0, - (sports.length * (15 + 2))],
             className: 'venue-popup'
-        }).setHTML(`<div class="text-sm bg-zinc-700 text-white px-2 py-1 rounded">${venue.name}</div>`);
+        }).setHTML(`<div class="text-sm bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-white px-2 py-1 rounded">${venue.name}</div>`);
 
         marker.setPopup(popup);
         marker.getElement().addEventListener('mouseenter', () => popup.addTo(map));
@@ -104,10 +64,16 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
                 box-shadow: none;
             }
             .venue-popup .mapboxgl-popup-tip {
-                border-top-color: rgb(63 63 70);
+                border-top-color: rgb(244 244 245);
                 width: 12px;
                 height: 12px;
                 border-width: 6px;
+            }
+            
+            @media (prefers-color-scheme: dark) {
+                .venue-popup .mapboxgl-popup-tip {
+                    border-top-color: rgb(63, 63, 70);
+                }
             }
         `;
         document.head.appendChild(style);
@@ -115,16 +81,18 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
         markerCoordinates.set(marker, coords);
         markerDirections.set(marker, ref(0));
         showMarkers.set(marker, ref(false));
-        flyingMarkers.set(marker, false);
+        staticMarkers.set(marker, false);
 
         // render marker in DOM
         const vnode = h(MarkerIcon, { sports: sports, show: showMarkers.get(marker), direction: markerDirections.get(marker) });
         render(vnode, el);
 
         // make it appear if it is within the bounds
-        const mapBounds = map.getBounds()!;
-        const { paddedMapBounds } = _getPaddedMapBounds(mapBounds);
-        if (paddedMapBounds.contains(coords)) showMarkers.get(marker)!.value = true;
+        if (visible) {
+            const mapBounds = map.getBounds()!;
+            const { paddedMapBounds } = _getPaddedMapBounds(mapBounds);
+            if (paddedMapBounds.contains(coords)) showMarkers.get(marker)!.value = true;
+        }
 
         // add click event
         marker.getElement().addEventListener('click', async () => {
@@ -132,9 +100,12 @@ const setMarkers = async (map: mapboxgl.Map, router: Router) => {
             router.push(`/venue/${venue.slug}`);
         });
     });
+
+    if (!visible) {
+        removeMarkers();
+    }
 };
 
-// OUTSIDE MARKERS LOGIC  ------------------------------------------------------------------------------------------- //
 const updateMarkers = (map: mapboxgl.Map, zoom: number, lastZoom: number) => {
 
     const mapBounds = map.getBounds()!;
@@ -143,7 +114,7 @@ const updateMarkers = (map: mapboxgl.Map, zoom: number, lastZoom: number) => {
 
     for (let marker of markerCoordinates.keys()) {
 
-        if (flyingMarkers.get(marker)) continue;
+        if (staticMarkers.get(marker)) continue;
 
         const coordinates = markerCoordinates.get(marker);
         if (!coordinates) continue;
@@ -187,12 +158,74 @@ const updateMarkers = (map: mapboxgl.Map, zoom: number, lastZoom: number) => {
     }
 }
 
-// FLY TO VENUE LOGIC   --------------------------------------------------------------------------------------------- //
+const removeMarkers = () => {
+    markerCoordinates.keys().forEach(m => {
+        showMarkers.get(m)!.value = false;
+        staticMarkers.set(m, true);
+    })
+}
+
+const addMarkers = () => {
+    markerCoordinates.keys().forEach(m => {
+        showMarkers.get(m)!.value = true;
+        staticMarkers.set(m, false);
+    })
+}
+
+// MAP LOGIC ------------------------------------------------------------------------------------------------ //
+const settleMapCanvas = (map: mapboxgl.Map): void => {
+    // zoom & bounds
+    const { lng, lat } = map.getCenter();
+    map.setMinZoom(10);
+    map.setMaxZoom(16);
+    map.setMaxBounds([
+        [lng - 1, lat - 1],
+        [lng + 1, lat + 1]
+    ]);
+
+    // set initial pitch based on zoom
+    const initialZoom = map.getZoom();
+    map.setPitch(Math.max(0, Math.min(60, (initialZoom - 10) * 10)));
+
+
+    // override scrollZoom renderFrame to add pitch updates
+    const scrollZoom = map.scrollZoom as any;
+    if (!originalScrollZoom) {
+        originalScrollZoom = scrollZoom.renderFrame; // Save the original renderFrame only once
+    }
+    scrollZoom.renderFrame = function () {
+        // @ts-ignore
+        const result = originalScrollZoom.call(this);
+        if (result?.zoomDelta) {
+            const targetZoom = map.getZoom() + result.zoomDelta;
+            if (targetZoom > map.getMinZoom() + 2) {
+                const newPitch = Math.max(0, Math.min(60, (targetZoom - 10) * 10));
+                if (map.transform) {
+                    map.transform._pitch = newPitch * (Math.PI / 180);
+                    map.triggerRepaint();
+                }
+            }
+        }
+        return result;
+    };
+}
+
+const unsettleMapCanvas = (map: mapboxgl.Map): void => {
+    map.setMinZoom(undefined);
+    // @ts-ignore
+    map.setMaxBounds(undefined);
+    const scrollZoom = map.scrollZoom as any;
+    if (originalScrollZoom) {
+        scrollZoom.renderFrame = originalScrollZoom;
+    }
+}
+
+
 const flyToVenue = async (map: mapboxgl.Map, venueCoordinates: [number, number]) => {
 
     markerCoordinates.keys().forEach(m => {
         showMarkers.get(m)!.value = false;
-        flyingMarkers.set(m, true);
+        staticMarkers.set(m, true);
     })
 
     const { lng, lat } = map.getCenter();
@@ -245,20 +278,13 @@ const flyToVenue = async (map: mapboxgl.Map, venueCoordinates: [number, number])
 
     setTimeout(() => {
         markerCoordinates.keys().forEach(m => {
-            flyingMarkers.set(m, false);
+            staticMarkers.set(m, false);
         })
         updateMarkers(map, map.getZoom(), map.getZoom());
     }, 1500);
 }
 
-
-
 // PRIVATE METHODS -------------------------------
-const _removeLayerAndSource = (map: mapboxgl.Map, layerId: string, sourceId: string) => {
-    if (map.getLayer(layerId)) map.removeLayer(layerId);
-    if (map.getSource(sourceId)) map.removeSource(sourceId);
-};
-
 const _getPaddedMapBounds = (mapBounds: LngLatBounds, paddingFactor: number = 0.1) => {
     // sw and ne corners
     const { lng: swLng, lat: swLat } = mapBounds.getSouthWest();
@@ -283,4 +309,4 @@ const _getPaddedMapBounds = (mapBounds: LngLatBounds, paddingFactor: number = 0.
     }
 }
 
-export { setFinalProperties, setMarkers, updateMarkers, flyToVenue };
+export { setMarkers, updateMarkers, addMarkers, removeMarkers, settleMapCanvas, unsettleMapCanvas, flyToVenue };

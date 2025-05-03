@@ -1,11 +1,6 @@
 <template>
     <div class="bg-gray-200 rounded-full overflow-hidden" :class="sizeClasses">
-        <img v-if="photoSrc && !imageError" 
-             :src="photoSrc" 
-             :alt="`Photo of ${name}`" 
-             class="w-full h-full object-cover"
-             @error="handleImageError" />
-        <div v-else 
+        <div
              class="w-full h-full flex items-center justify-center text-white font-bold"
              :class="initialsClasses"
              :style="{ backgroundColor: getBackgroundColor() }">
@@ -31,16 +26,6 @@ const props = defineProps({
         default: 'md',
         validator: (value: string) => ['sm', 'md', 'lg'].includes(value)
     }
-});
-
-const imageError = ref(false);
-
-// Determine the photo source based on slug
-const photoSrc = computed(() => {
-    if (props.slug) {
-        return `/img/athletes/${props.slug}.jpg`;
-    }
-    return '';
 });
 
 // Size classes based on the size prop
@@ -107,7 +92,4 @@ function getBackgroundColor(): string {
     return colors[Math.abs(hash) % colors.length];
 }
 
-function handleImageError() {
-    imageError.value = true;
-}
 </script> 

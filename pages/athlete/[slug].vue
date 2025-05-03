@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showAthletePage" :back="canGoBack" :transition="canGoBack" :items="items" @close="closePage" @back="router.back()">
+    <PageModal :show="showAthletePage" :transition="transition" :items="items" @close="closePage">
         <div class="athlete-content">
             <div class="flex items-center mb-6">
                 <div class="athlete-photo mr-4">
@@ -163,12 +163,17 @@ import athletes from '~/data/athletes.json';
 
 definePageMeta({
     middleware: ['athlete', 'previous', 'breadcrumb'],
-    layout: 'map'
+    layout: 'canvas'
 });
 
 // HANDLE DIRECT URL ---------------
 let directAccess = !!useState('athlete').value;
 const showAthletePage = ref(!directAccess);
+onMounted(async () => {
+    if (directAccess) {
+        setTimeout(() => showAthletePage.value = true, 4200);
+    }
+});
 
 // ROUTING PARAMETERS --------------
 const router = useRouter();
@@ -181,12 +186,6 @@ const athlete = athletes[slug as keyof typeof athletes] as any;
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
-
-onMounted(async () => {
-    if (directAccess) {
-        setTimeout(() => showAthletePage.value = true, 4200);
-    }
-});
 
 useHead(() => {
     const name = athlete.name;
@@ -219,9 +218,9 @@ useHead(() => {
     };
 });
 
-// HANDLE BACK BUTTON -----------------------------
+// HANDLE TRANSITION ------------------------------
 const previous = useState('previous');
-const canGoBack = computed(() => previous.value && previous.value !== '/' && !directAccess) as ComputedRef<boolean>;
+const transition = computed(() => previous.value && previous.value !== '/' && !directAccess) as ComputedRef<boolean>;
 
 // HANDLE CLOSE BUTTON ----------------------------
 const closePage = () => {

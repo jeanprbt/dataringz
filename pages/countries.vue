@@ -44,6 +44,9 @@ const createGroups = (globe: mapboxgl.Map) => {
             let country = countries[key as keyof typeof countries];
             return {
                 label: country.name,
+                avatar: {
+                    src: country.img
+                },
                 async onSelect() {
                     open.value = false;
                     const coordinates = [country.location.longitude, country.location.latitude] as [number, number];

@@ -132,7 +132,7 @@ const updateMarkers = (map: mapboxgl.Map, zoom: number, lastZoom: number) => {
             let direction = turf.bearing(turf.point([mapLng, mapLat]), turf.point([markerLng, markerLat]));
 
             // handle special tahiti case
-            if (markerLat < 0) direction *= 3;
+            if (markerLat < 0 && mapLat > 0) direction *= 3;
 
             const viewportEdges = [
                 turf.lineString([nw, ne]),

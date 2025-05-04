@@ -113,6 +113,7 @@ onMounted(async () => {
             container: mapContainer.value as HTMLElement,
             style: colorScheme.value.style,
             dragRotate: false,
+            touchPitch: false,
             center: [5, 43],
             zoom: 2,
             pitch: 0,
@@ -125,6 +126,7 @@ onMounted(async () => {
             container: mapContainer.value as HTMLElement,
             style: colorScheme.value.style,
             dragRotate: false,
+            touchPitch: false,
             center: [0, 0],
             zoom: 0,
             pitch: 0,
@@ -137,6 +139,7 @@ onMounted(async () => {
             container: mapContainer.value as HTMLElement,
             style: colorScheme.value.style,
             dragRotate: false,
+            touchPitch: false,
             center: [2.294694, 48.858093],
             zoom: 15.5,
             pitch: 55,
@@ -146,6 +149,7 @@ onMounted(async () => {
             maxBounds: [[2, 48], [3, 50]],
         });
     }
+    canvas.touchZoomRotate.disableRotation();
     setCanvas(canvas);
 
     canvas.on('style.load', async () => {

@@ -9,7 +9,7 @@
         style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)">
         {{ currentText }}
     </div>
-    <div ref="tooltipRef"
+    <div ref="otherTooltipRef"
         class="absolute bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white p-2 rounded shadow pointer-events-none hidden">
     </div>
 </template>
@@ -46,7 +46,7 @@ const showText = ref<boolean>(false);
 const currentText = ref<string>('');
 const skipButton = ref<HTMLElement | null>(null);
 const showSkipButton = ref<boolean>(false);
-const tooltipRef = ref<HTMLElement | null>(null);
+const otherTooltipRef = ref<HTMLElement | null>(null);
 
 
 // COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
@@ -245,7 +245,7 @@ onMounted(async () => {
                 if (signal.aborted) return reject();
                 canvas.flyTo({
                     center: directCoordinates as [number, number],
-                    zoom: 2,
+                    zoom: 3.5,
                     bearing: 0,
                     pitch: 0,
                     duration: 2000,
@@ -259,7 +259,7 @@ onMounted(async () => {
         // SETTLE CANVAS -------------------------------------------------------------------------------------------- //
         if (directGlobeAccess) {
             // @ts-ignore
-            settleGlobeCanvas(canvas, tooltipRef, router);
+            settleGlobeCanvas(canvas, otherTooltipRef, router);
             await setMarkers(canvas, router, false);
         } else {
             settleMapCanvas(canvas);

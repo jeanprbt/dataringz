@@ -7,6 +7,7 @@ let click: boolean = false;
 let mouseMoveHandler: (e: MapMouseEvent) => void;
 let mouseOutHandler: () => void;
 let clickHandler: (e: MapMouseEvent) => void;
+let globeTooltipRef: Ref<HTMLElement>;
 
 
 // FLY TO COUNTRY --------------------------------------------------------------------------------------------------- //
@@ -30,12 +31,13 @@ const flyToCountry = async (globe: mapboxgl.Map, countryCoordinates: [number, nu
 const settleGlobeCanvas = (globe: mapboxgl.Map, tooltipRef: Ref<HTMLElement>, router: Router) => {
     globe.setMinZoom(2);
     globe.setMaxZoom(3.5);
+    globeTooltipRef = tooltipRef;
     mouseMoveHandler = (e: MapMouseEvent) => {
         if (click) return;
         const features = globe.queryRenderedFeatures(e.point, { layers: ["cf"] });
         if (features.length) {
             globe.setFilter("extrusion", ["==", "name", features[0].properties!.name]);
-            const tooltip = tooltipRef.value;
+            const tooltip = globeTooltipRef.value;
             if (tooltip) {
                 tooltip.style.display = 'block';
                 tooltip.style.left = `${e.point.x + 10}px`;
@@ -44,13 +46,13 @@ const settleGlobeCanvas = (globe: mapboxgl.Map, tooltipRef: Ref<HTMLElement>, ro
             }
         } else {
             globe.setFilter("extrusion", ["==", "name", ""]);
-            const tooltip = tooltipRef.value;
+            const tooltip = globeTooltipRef.value;
             if (tooltip) tooltip.style.display = 'none';
         }
     }
     mouseOutHandler = () => {
         globe.setFilter("extrusion", ["==", "name", ""]);
-        const tooltip = tooltipRef.value;
+        const tooltip = globeTooltipRef.value;
         if (tooltip) {
             tooltip.style.display = 'none';
         }
@@ -60,7 +62,7 @@ const settleGlobeCanvas = (globe: mapboxgl.Map, tooltipRef: Ref<HTMLElement>, ro
         const features = globe.queryRenderedFeatures(e.point, { layers: ["cf"] });
         if (features.length) {
             globe.setFilter("extrusion", ["==", "name", ""]);
-            const tooltip = tooltipRef.value;
+            const tooltip = globeTooltipRef.value;
             if (tooltip) tooltip.style.display = 'none';
             const country = countries[features[0].properties!.slug as keyof typeof countries];
             click = true;
@@ -85,4 +87,8 @@ const unsettleGlobeCanvas = (globe: mapboxgl.Map) => {
     globe.off('click', clickHandler);
 }
 
-export { flyToCountry, settleGlobeCanvas, unsettleGlobeCanvas }; 
+const setTooltipRef = (t: Ref<HTMLElement>) => {
+    globeTooltipRef = t;
+}
+
+export { flyToCountry, settleGlobeCanvas, unsettleGlobeCanvas, setTooltipRef }; 

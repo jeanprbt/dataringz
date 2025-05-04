@@ -312,6 +312,9 @@ onMounted(() => {
     };
     updateScreenSize();
     mediaQuery.addEventListener('change', updateScreenSize);
+
+    // @ts-ignore
+    setTooltipRef(tooltipRef);
 })
 
 </script>

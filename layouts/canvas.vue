@@ -80,6 +80,7 @@ onMounted(async () => {
     const athleteAccess = useState('athlete');
     const sportAccess = useState('sport');
     const countryAccess = useState('country');
+    const olympicsAccess = useState('olympics');
     if (venueAccess.value) {
         directMapAccess = true;
         const venue = venues[venueAccess.value as keyof typeof venues] as any;
@@ -95,6 +96,10 @@ onMounted(async () => {
         const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
         const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues] as any;
         directCoordinates = [venue.location.longitude, venue.location.latitude];
+    } else if (olympicsAccess.value) {
+        directMapAccess = true;
+        // paris view
+        directCoordinates = [2.294694, 48.858093]
     } else if (countryAccess.value) {
         directGlobeAccess = true;
         const country = countries[countryAccess.value as keyof typeof countries] as any;

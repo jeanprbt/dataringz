@@ -1,9 +1,9 @@
 <template>
     <div class="absolute flex top-5 left-1/2 transform -translate-x-1/2">
-        <!-- <button ref="olympicsButton" @click="router.push('/olympics')" v-show="showOlympicsButton"
-            class="text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 mr-2 px-2 pt-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700">
-            <UIcon name="circle-flags:olympics" class="size-7" />
-        </button> -->
+        <button ref="olympicsButton" @click="router.push('/olympics')" v-show="showOlympicsButton"
+            class="flex items-center mr-2 px-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700">
+             <img src="/img/olympics.svg" alt="olympics logo" class="size-9"/>
+        </button>
         <button ref="searchButton" @click="searchButtonClicked" v-show="showSearchButton"
             class="flex items-center text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 whitespace-nowrap">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 mr-2">
@@ -18,7 +18,7 @@
         <button ref="globeButton" @click="globeButtonClicked" v-show="showGlobeButton"
             class="text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 ml-2 px-2 pt-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700">
             <UIcon :name="globeIcon" class="size-7" />
-        </button>
+        </button> 
     </div>
     <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto bg-opacity-0 backdrop-blur-3xl rounded-xl"
         :overlay="false" :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">

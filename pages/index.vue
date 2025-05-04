@@ -1,7 +1,7 @@
 <template>
     <div class="absolute flex top-5 left-1/2 transform -translate-x-1/2">
         <button ref="olympicsButton" @click="router.push('/olympics')" v-show="showOlympicsButton"
-            class="flex items-center mr-2 px-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700">
+            class="flex items-center justify-center mr-2 px-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 w-[50px] h-[40px]">
              <img src="/img/olympics.svg" alt="olympics logo" class="size-9"/>
         </button>
         <button ref="searchButton" @click="searchButtonClicked" v-show="showSearchButton"
@@ -12,8 +12,8 @@
                     clip-rule="evenodd" />
             </svg>
             {{ searchBarText }}
-            <UKbd value="meta" size="sm" class="ml-2 mr-1 text-zinc-500 dark:text-zinc-400 bg-transparent"></UKbd>
-            <UKbd value="K" size="sm" class="text-zinc-500 dark:text-zinc-400 bg-transparent">K</UKbd>
+            <UKbd v-if="!isSmallScreen" value="meta" size="sm" class="ml-2 mr-1 text-zinc-500 dark:text-zinc-400 bg-transparent"></UKbd>
+            <UKbd v-if="!isSmallScreen" value="K" size="sm" class="text-zinc-500 dark:text-zinc-400 bg-transparent">K</UKbd>
         </button>
         <button ref="globeButton" @click="globeButtonClicked" v-show="showGlobeButton"
             class="text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 ml-2 px-2 pt-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700">
@@ -189,6 +189,7 @@ const globeButton = ref<HTMLElement | null>(null);
 const showGlobeButton = ref<boolean>(false);
 const olympicsButton = ref<HTMLElement | null>(null);
 const showOlympicsButton = ref<boolean>(false);
+const isSmallScreen = ref(false);
 
 const searchButtonClicked = () => {
     open.value = true;
@@ -304,6 +305,13 @@ onMounted(() => {
         displayButton(showGlobeButton, globeButton, 0, 0.8);
         displayButton(showOlympicsButton, olympicsButton, 0, 0.8);
     }
+
+    const mediaQuery = window.matchMedia('(max-width: 640px)');
+    const updateScreenSize = () => {
+        isSmallScreen.value = mediaQuery.matches;
+    };
+    updateScreenSize();
+    mediaQuery.addEventListener('change', updateScreenSize);
 })
 
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showAthletePage" :transition="transition" :items="items" @close="closePage">
+    <PageModal :show="showAthletePage" :back="transition" :transition="transition" :items="items" @close="closePage" @back="router.back()">
         <div class="athlete-content">
             <div class="flex items-center mb-6">
                 <div class="athlete-photo mr-4">

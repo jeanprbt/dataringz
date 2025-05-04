@@ -1,6 +1,5 @@
 <template>
-    <PageModal :show="showSportPage" :transition="transition" :items="items" @close="closePage"
-        @back="router.back()">
+    <PageModal :show="showSportPage" :back="transition" :transition="transition" :items="items" @close="closePage" @back="router.back()">
         <div class="sport-content">
             <div class="flex items-center mb-4">
                 <div class="sport-icon mr-3">

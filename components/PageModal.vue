@@ -1,11 +1,16 @@
 <template>
-    <div v-if="show" :class="['fixed h-full w-full flex items-center justify-center z-1', modalBackgroundClass]"
-        @click="close">
+    <div v-if="show" :class="['fixed h-full w-full flex items-center justify-center z-1', modalBackgroundClass]" @click="close">
         <div :class="['relative rounded-lg p-6 w-[80%] h-[80%] overflow-auto', modalShapeClass]" @click.stop>
-            <div
-                :class="['flex items-center mb-4 opacity-0 justify-between', modalHeaderClass]">
-                <UBreadcrumb :items="items"
-                    class="text-zinc-500 dark:text-zinc-400" :ui="{ link: 'hover:text-zinc-700 dark:hover:text-zinc-200'}"/>
+            <div :class="['flex items-center mb-4 opacity-0 justify-between', modalHeaderClass]">
+                <button v-if="back && isSmallScreen" @click="emit('back')"
+                    class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <UBreadcrumb v-else :items="items" class="text-zinc-500 dark:text-zinc-400"
+                    :ui="{ link: 'hover:text-zinc-700 dark:hover:text-zinc-200' }" />
                 <button @click="close"
                     class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -34,6 +39,10 @@ const props = defineProps({
         type: Boolean,
         default: true
     },
+    back: {
+        type: Boolean,
+        default: false
+    },
     transition: {
         type: Boolean,
         default: false
@@ -47,16 +56,27 @@ const props = defineProps({
         default: false
     }
 });
-const emit = defineEmits(['close']);
-
+const emit = defineEmits(['close', 'back']);
 const items = toRef(props, "items");
 
+// UI STATE
 const exit = ref(false);
 const modalBackgroundClass = computed(() => exit.value ? props.countries ? 'animate-modal-background-countries-exit' : 'animate-modal-background-exit' : props.transition ? 'bg-black/70' : props.countries ? 'animate-modal-background dark:animate-modal-background-countries' : 'animate-modal-background');
 const modalShapeClass = computed(() => exit.value ? 'animate-modal-shape-light-exit dark:animate-modal-shape-dark-exit' : props.transition ? 'bg-white dark:bg-zinc-800' : 'animate-modal-shape-light dark:animate-modal-shape-dark');
 const modalContentClass = computed(() => exit.value ? 'animate-modal-content-exit' : props.transition ? 'animate-modal-content-transition' : 'animate-modal-content');
 const modalHeaderClass = computed(() => exit.value ? 'animate-modal-content-exit' : props.transition ? 'opacity-100' : 'animate-modal-content');
 const modalRectangleClass = computed(() => props.transition ? '' : 'animate-modal-rectangle');
+
+// HANDLE SMALL SCREENS
+const isSmallScreen = ref(false);
+onMounted(() => {
+    const mediaQuery = window.matchMedia('(max-width: 640px)');
+    const updateScreenSize = () => {
+        isSmallScreen.value = mediaQuery.matches;
+    };
+    updateScreenSize();
+    mediaQuery.addEventListener('change', updateScreenSize);
+})
 
 const close = () => {
     exit.value = true;

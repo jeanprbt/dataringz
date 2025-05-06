@@ -9,7 +9,6 @@ let markerCoordinates = new Map<Marker, [number, number]>();
 const markerDirections = reactive(new Map<Marker, Ref<number>>());
 const showMarkers = reactive(new Map<Marker, Ref<boolean>>());
 const staticMarkers = new Map<Marker, boolean>();
-let originalScrollZoom: any;
 
 // MARKERS LOGIC  --------------------------------------------------------------------------------------------------- //
 const setMarkers = async (map: mapboxgl.Map, router: Router, visible: boolean = true) => {
@@ -182,42 +181,12 @@ const settleMapCanvas = (map: mapboxgl.Map): void => {
         [lng - 1, lat - 1],
         [lng + 1, lat + 1]
     ]);
-
-    // set initial pitch based on zoom
-    const initialZoom = map.getZoom();
-    map.setPitch(Math.max(0, Math.min(60, (initialZoom - 10) * 10)));
-
-
-    // override scrollZoom renderFrame to add pitch updates
-    const scrollZoom = map.scrollZoom as any;
-    if (!originalScrollZoom) {
-        originalScrollZoom = scrollZoom.renderFrame; // Save the original renderFrame only once
-    }
-    scrollZoom.renderFrame = function () {
-        // @ts-ignore
-        const result = originalScrollZoom.call(this);
-        if (result?.zoomDelta) {
-            const targetZoom = map.getZoom() + result.zoomDelta;
-            if (targetZoom > map.getMinZoom() + 2) {
-                const newPitch = Math.max(0, Math.min(60, (targetZoom - 10) * 10));
-                if (map.transform) {
-                    map.transform._pitch = newPitch * (Math.PI / 180);
-                    map.triggerRepaint();
-                }
-            }
-        }
-        return result;
-    };
 }
 
 const unsettleMapCanvas = (map: mapboxgl.Map): void => {
     map.setMinZoom(undefined);
     // @ts-ignore
     map.setMaxBounds(undefined);
-    const scrollZoom = map.scrollZoom as any;
-    if (originalScrollZoom) {
-        scrollZoom.renderFrame = originalScrollZoom;
-    }
 }
 
 

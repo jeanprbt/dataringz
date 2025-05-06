@@ -54,7 +54,7 @@ const { section, setSection } = useSection();
 
 // UI STATE --------------------------------------------------------------------------------------------------------- //
 const tooltipRef = ref<HTMLElement | null>(null);
-const searchBarText = section.value === 'map' ? ref('athlete / sport / venue...') : ref('country...');
+const searchBarText = section.value === 'map' ? ref('athlete / sport / venue') : ref('country');
 const globeIcon = section.value === 'map' ? ref('i-heroicons-globe-europe-africa') : ref('mingcute:eiffel-tower-line');
 
 // COMMAND PALETTE -------------------------------------------------------------------------------------------------- //
@@ -224,7 +224,7 @@ const globeButtonClicked = async () => {
 
         // @ts-ignore
         groups.value = getGlobeItems(canvas.value);
-        searchBarText.value = 'country...';
+        searchBarText.value = 'country';
         globeIcon.value = 'mingcute:eiffel-tower-line';
 
         // @ts-ignore
@@ -257,7 +257,7 @@ const globeButtonClicked = async () => {
 
         // @ts-ignore
         groups.value = getMapItems(canvas.value);
-        searchBarText.value = 'athlete / sport / venue...';
+        searchBarText.value = 'athlete / sport / venue';
         globeIcon.value = 'i-heroicons-globe-europe-africa';
 
 

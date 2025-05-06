@@ -257,6 +257,27 @@ onMounted(async () => {
         }
 
         // SETTLE CANVAS -------------------------------------------------------------------------------------------- //
+        const initialZoom = canvas.getZoom();
+        canvas.setPitch(Math.max(0, Math.min(60, (initialZoom - 10) * 10)));
+
+        // override scrollZoom renderFrame to add pitch updates
+        const scrollZoom = canvas.scrollZoom as any;
+        const originalRenderFrame = scrollZoom.renderFrame;
+        scrollZoom.renderFrame = function () {
+            const result = originalRenderFrame.call(this);
+            if (result?.zoomDelta) {
+                const targetZoom = canvas.getZoom() + result.zoomDelta;
+                if (targetZoom > canvas.getMinZoom() + 2) {
+                    const newPitch = Math.max(0, Math.min(60, (targetZoom - 10) * 10));
+                    if (canvas.transform) {
+                        canvas.transform._pitch = newPitch * (Math.PI / 180);
+                        canvas.triggerRepaint();
+                    }
+                }
+            }
+            return result;
+        };
+
         if (directGlobeAccess) {
             // @ts-ignore
             settleGlobeCanvas(canvas, otherTooltipRef, router);

@@ -1,11 +1,11 @@
 <template>
     <div class="absolute flex top-5 left-1/2 transform -translate-x-1/2">
         <button ref="olympicsButton" @click="router.push('/olympics')" v-show="showOlympicsButton"
-            class="flex items-center justify-center mr-2 px-1 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 w-[50px] h-[40px]">
+            class="flex items-center justify-center mr-2 px-1 rounded-lg shadow-sm backdrop-blur-xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 w-[50px] h-[40px] bg-white/30 dark:bg-zinc-900/30">
              <img src="/img/olympics.svg" alt="olympics logo" class="size-9"/>
         </button>
         <button ref="searchButton" @click="searchButtonClicked" v-show="showSearchButton"
-            class="flex items-center text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-2xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 whitespace-nowrap">
+            class="flex items-center text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700 whitespace-nowrap bg-white/30 dark:bg-zinc-900/30">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 mr-2">
                 <path fill-rule="evenodd"
                     d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"

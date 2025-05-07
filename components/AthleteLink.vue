@@ -13,22 +13,14 @@
         <div v-if="isInline">
             <div class="font-medium text-zinc-800 dark:text-white">{{ name }}</div>
             <div v-if="countryName" class="text-sm text-zinc-500 dark:text-gray-400 flex items-center">
-                <img v-if="countryCode" 
-                     :src="`/img/flags/${countryCode.toLowerCase()}.svg`"
-                     :alt="`Flag of ${countryName}`"
-                     class="h-3 w-4 mr-1 object-cover"
-                />
+                <CountryFlag v-if="countryCode" :code="countryCode" :name="countryName" size="sm" class="mr-1" />
                 {{ countryName }}
             </div>
         </div>
         <template v-else>
             <span class="text-center text-sm font-medium text-zinc-800 dark:text-white">{{ name }}</span>
             <div v-if="countryName" class="flex items-center mt-1">
-                <img v-if="countryCode" 
-                     :src="`/img/flags/${countryCode.toLowerCase()}.svg`"
-                     :alt="`Flag of ${countryName}`"
-                     class="h-3 w-4 mr-1 object-cover"
-                />
+                <CountryFlag v-if="countryCode" :code="countryCode" :name="countryName" size="sm" class="mr-1" />
                 <span class="text-xs text-gray-500 dark:text-gray-400">{{ countryName }}</span>
             </div>
             <slot name="after"></slot>

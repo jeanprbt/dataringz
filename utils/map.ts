@@ -192,10 +192,10 @@ const unsettleMapCanvas = (map: mapboxgl.Map): void => {
 
 const flyToVenue = async (map: mapboxgl.Map, venueCoordinates: [number, number]) => {
 
-    markerCoordinates.keys().forEach(m => {
-        showMarkers.get(m)!.value = false;
-        staticMarkers.set(m, true);
-    })
+    for (const marker of markerCoordinates.keys()) {
+        showMarkers.get(marker)!.value = false;
+        staticMarkers.set(marker, true);
+    }
 
     const { lng, lat } = map.getCenter();
     if (Math.abs(venueCoordinates[0] - lng) > 1 || Math.abs(venueCoordinates[1] - lat) > 1) {
@@ -246,9 +246,9 @@ const flyToVenue = async (map: mapboxgl.Map, venueCoordinates: [number, number])
     }
 
     setTimeout(() => {
-        markerCoordinates.keys().forEach(m => {
-            staticMarkers.set(m, false);
-        })
+        for (const marker of markerCoordinates.keys()) {
+            staticMarkers.set(marker, false);
+        }
         updateMarkers(map, map.getZoom(), map.getZoom());
     }, 1500);
 }

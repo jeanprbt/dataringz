@@ -4,7 +4,8 @@
             isInline 
                 ? 'p-2 flex items-center rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors' 
                 : 'flex flex-col items-center p-3 bg-white dark:bg-zinc-700 rounded-lg shadow border border-zinc-200 dark:border-zinc-600 hover:shadow-lg hover:scale-105 hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 ease-in-out'
-        ]">
+        ]"
+        >
         <div :class="{ 'mr-2': isInline, 'mb-2': !isInline }">
             <slot name="icon">
                 <SportPicture :name="name" :slug="slug" size="sm" />

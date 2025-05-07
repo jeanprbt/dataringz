@@ -88,13 +88,13 @@
         }
 
         100% {
-            background: rgb(39, 39, 42);
+            background: rgba(39, 39, 42, .9);
         }
     }
 
     @keyframes shape-fade-out-dark {
         0% {
-            background: rgb(39, 39, 42);
+            background: rgba(39, 39, 42, .9);
             overflow: hidden;
         }
 
@@ -113,13 +113,13 @@
         }
 
         100% {
-            background: rgb(255, 255, 255);
+            background: rgba(255, 255, 255, .9);
         }
     }
 
     @keyframes shape-fade-out-light {
         0% {
-            background: rgb(255, 255, 255);
+            background: rgba(255, 255, 255, .9);
             overflow: hidden;
         }
 

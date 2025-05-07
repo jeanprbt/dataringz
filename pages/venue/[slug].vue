@@ -17,7 +17,7 @@
 
                     <!-- Dates badge -->
                     <div v-if="venue.date_start && venue.date_end"
-                        class="bg-primary bg-opacity-10 text-zinc-800 dark:text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap">
+                        class="text-zinc-800 dark:text-white px-3 py-1 text-xs whitespace-nowrap">
                         {{ formatDateRange(venue.date_start, venue.date_end) }}
                     </div>
                 </div>

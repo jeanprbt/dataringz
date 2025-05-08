@@ -1,5 +1,5 @@
 <template>
-    <div class="gender-pie-chart" ref="chartContainer"></div>
+    <div ref="chartContainer" class="w-full max-w-xs mx-auto my-4"></div>
   </template>
   
   <script setup lang="ts">
@@ -132,19 +132,5 @@
   watch(() => props.sportSlug, createPieChart);
   onMounted(createPieChart);
   </script>
-  
-  <style scoped>
-  .gender-pie-chart {
-    width: 100%;
-    max-width: 280px;
-    margin: 1rem auto;
-    font-family: 'Inter', sans-serif;
-  }
-  svg {
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
-    background-color: white;
-    transition: all 0.3s ease;
-  }
-  </style>
+
   

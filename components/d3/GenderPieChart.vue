@@ -33,7 +33,7 @@
     const data = Object.entries(genderCounts).map(([gender, count]) => ({
       gender,
       count,
-      percentage: Math.round((count / total) * 100)
+      percentage: (count / total) * 100
     }));
   
     const width = 240;
@@ -97,7 +97,8 @@
       .style('font-size', '13px')
       .style('fill', '#fff')
       .style('pointer-events', 'none')
-      .text((d: any) => `${d.data.percentage}%`);
+      .text((d: any) => `${d.data.count}`);
+
   
     // Legend group (initially hidden)
     const legendGroup = svg.append('g')
@@ -126,7 +127,8 @@
       .style('fill', '#555')
       .style('font-size', '13px')
       .style('alignment-baseline', 'middle')
-      .text(d => `${d.gender}: ${d.count}`);
+      .text(d => `${d.gender}: ${d.percentage.toFixed(1)}%`);
+
   };
   
   watch(() => props.sportSlug, createPieChart);

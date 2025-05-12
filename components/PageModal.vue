@@ -4,26 +4,14 @@
         <div :class="['relative rounded-xl flex flex-col max-w-7xl p-1 w-[95%] md:w-[90%] h-[95%] md:h-[90%] overflow-hidden', modalShapeClass]"
             @click.stop>
             <div :class="['sticky top-0 z-10 flex items-center py-4 px-4 opacity-0 justify-between', modalHeaderClass]">
-                <button v-if="back && isSmallScreen" @click="emit('back')"
-                    class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
+                <UButton v-if="back && isSmallScreen" @click="emit('back')" icon="i-heroicons-chevron-left" variant="ghost" />
+                <img v-else-if="olympics" src="/img/paris_olympics.svg" alt="olympic logo" class="h-[5vh] dark:invert dark:brightness-80" />
                 <UBreadcrumb v-else :items="items" class="text-zinc-500 dark:text-zinc-400"
                     :ui="{ link: 'hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors' }" />
-                <button @click="close"
-                    class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+                <UButton @click="close" icon="i-heroicons-x-mark" variant="ghost"/>
             </div>
-            <div :class="['flex-1 px-4 pb-4 overflow-auto', modalContentContainerClass]">
-                <div :class="['opacity-0', modalContentClass]">
+            <div :class="['flex-1 px-4 pb-4 overflow-auto h-full', modalContentContainerClass]">
+                <div :class="['opacity-0 h-full', modalContentClass]">
                     <slot></slot>
                 </div>
             </div>
@@ -59,6 +47,10 @@ const props = defineProps({
     countries: {
         type: Boolean,
         default: false
+    },
+    olympics: {
+        type: Boolean,
+        default: false
     }
 });
 const emit = defineEmits(['close', 'back']);
@@ -67,7 +59,7 @@ const items = toRef(props, "items");
 // UI STATE
 const exit = ref(false);
 const modalBackgroundClass = computed(() => exit.value ? props.countries ? 'animate-modal-background-countries-exit' : 'animate-modal-background-exit' : props.transition ? 'bg-black/70' : props.countries ? 'animate-modal-background dark:animate-modal-background-countries' : 'animate-modal-background');
-const modalShapeClass = computed(() => exit.value ? 'animate-modal-shape-light-exit dark:animate-modal-shape-dark-exit' : props.transition ? 'bg-white dark:bg-zinc-800' : 'animate-modal-shape-light dark:animate-modal-shape-dark');
+const modalShapeClass = computed(() => exit.value ? 'animate-modal-shape-light-exit dark:animate-modal-shape-dark-exit' : props.transition ? 'bg-white dark:bg-zinc-900' : 'animate-modal-shape-light dark:animate-modal-shape-dark');
 const modalContentClass = computed(() => exit.value ? 'animate-modal-content-exit' : props.transition ? 'animate-modal-content-transition' : 'animate-modal-content');
 const modalHeaderClass = computed(() => exit.value ? 'animate-modal-content-exit' : props.transition ? 'opacity-100' : 'animate-modal-content');
 const modalContentContainerClass = computed(() => exit.value ? 'opacity-0' : 'opacity-100');

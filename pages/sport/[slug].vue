@@ -51,7 +51,7 @@
             <div class="mt-6">
                 <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-3">Gender Distribution</h3>
                 <div class="bg-white dark:bg-zinc-700 rounded-lg shadow border border-zinc-200 dark:border-zinc-600 p-4">
-                    <GenderPieChart :sport-slug="slug" />
+                    <D3GenderPieChart :sport-slug="slug" />
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
             <div class="mt-6">
                 <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-3">Age Distribution</h3>
                 <div class="bg-white dark:bg-zinc-700 rounded-lg shadow border border-zinc-200 dark:border-zinc-600 p-4">
-                    <AgeHistogram :sport-slug="slug" />
+                    <D3AgeHistogram :sport-slug="slug" />
                 </div>
             </div>
 
@@ -76,8 +76,6 @@
 
 <script setup lang="ts">
 import sports from '~/data/sports.json';
-import GenderPieChart from '~/components/d3/GenderPieChart.vue';
-import AgeHistogram from '~/components/d3/AgeHistogram.vue';
 
 definePageMeta({
     middleware: ['sport', 'previous', 'breadcrumb'],

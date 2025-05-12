@@ -1,16 +1,89 @@
 <template>
-    <PageModal :show="showOlympicsPage" :transition="false" @close="closePage">
-        <h1 class="text-2xl font-bold mb-4">Olympics</h1>
-        <div class="w-full h-[65vh]">
-            <div class="text-lg mb-4">Sample tournament</div>
-            <d3-tournament :matches="sampleMatches" class="h-[calc(100%-2rem)]" />
+    <PageModal :show="showOlympicsPage" :transition="true" :olympics="true" @close="closePage">
+        <div class="grid grid-cols-12 gap-4 p-2 h-full">
+            <UCard
+                :class="selectedCard === 0 ? ['col-span-12 md:col-span-6', animationCardClass] : selectedCard === 1 ? 'col-span-12' : 'hidden'"
+                variant="soft" @click="toggleCard(1)">
+                <template #default>
+                    <div v-if="selectedCard === 1" class="h-[calc(100vh-18rem)]">
+                        <h2 class="text-xl font-bold mb-2">Tournament Brackets</h2>
+                        <!-- Custom content for card 3 -->
+                        <p>Interactive tournament visualization</p>
+                        <d3-tournament :matches="sampleMatches" />
+                    </div>
+                    <div v-else>
+                        <h3 class="font-medium">Tournaments</h3>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard
+                :class="selectedCard === 0 ? ['col-span-12 md:col-span-6', animationCardClass] : selectedCard === 2 ? 'col-span-12' : 'hidden'"
+                variant="soft" @click="toggleCard(2)">
+                <template #default>
+                    <div v-if="selectedCard === 2">
+                        <h2 class="text-xl font-bold mb-2">Athletes Performance</h2>
+                        <!-- Custom content for card 2 -->
+                        <p>Individual athlete statistics and records</p>
+                    </div>
+                    <div v-else>
+                        <h3 class="font-medium">Athletes</h3>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard
+                :class="selectedCard === 0 ? ['col-span-12 md:col-span-4', animationCardClass] : selectedCard === 3 ? 'col-span-12' : 'hidden'"
+                variant="soft" @click="toggleCard(3)">
+                <template #default>
+                    <div v-if="selectedCard === 3">
+                        <h2 class="text-xl font-bold mb-2">Gender Distribution by Trial</h2>
+                        <!-- Custom content for card 1 -->
+                        <p>Detailed statistics about gender distribution by trial</p>
+                        <D3GenderPieChart sport-slug="athletics" />
+                    </div>
+                    <div v-else>
+                        <h3 class="font-medium">Gender Distribution</h3>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard
+                :class="selectedCard === 0 ? ['col-span-12 md:col-span-4', animationCardClass] : selectedCard === 4 ? 'col-span-12' : 'hidden'"
+                variant="soft" @click="toggleCard(4)">
+                <template #default>
+                    <div v-if="selectedCard === 4">
+                        <h2 class="text-xl font-bold mb-2">Event Schedule</h2>
+                        <!-- Custom content for card 4 -->
+                        <p>Complete schedule of Olympic events</p>
+                    </div>
+                    <div v-else>
+                        <h3 class="font-medium">Schedule</h3>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard
+                :class="selectedCard === 0 ? ['col-span-12 md:col-span-4', animationCardClass] : selectedCard === 5 ? 'col-span-12' : 'hidden'"
+                variant="soft" @click="toggleCard(5)">
+                <template #default>
+                    <div v-if="selectedCard === 5">
+                        <h2 class="text-xl font-bold mb-2">Historical Data</h2>
+                        <!-- Custom content for card 5 -->
+                        <p>Historical Olympic results and records</p>
+                    </div>
+                    <div v-else>
+                        <h3 class="font-medium">History</h3>
+                    </div>
+                </template>
+            </UCard>
         </div>
     </PageModal>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-    middleware: ['olympics'],
+    // middleware: ['olympics'],
     layout: 'canvas'
 })
 
@@ -29,6 +102,14 @@ const closePage = () => {
     showOlympicsPage.value = false;
     router.push('/');
 }
+
+// UI STATE ------------------------
+const selectedCard = ref(0);
+const toggleCard = (index: number = 0) => {
+    if (selectedCard.value !== 0) selectedCard.value = 0;
+    else selectedCard.value = index;
+}
+const animationCardClass = "transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50";
 
 
 // SAMPLE MATCHES ------------------ (DELETE)

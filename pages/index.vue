@@ -28,7 +28,7 @@
         </button>
         <!-- </UTooltip> -->
     </div>
-    <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto bg-opacity-0 backdrop-blur-3xl rounded-xl"
+    <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto rounded-xl"
         :overlay="false" :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
         <template #content>
             <UCommandPalette :groups="groups" :placeholder="searchBarText" @highlight="onHighlight"

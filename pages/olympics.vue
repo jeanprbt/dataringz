@@ -1,77 +1,117 @@
 <template>
     <PageModal :show="showOlympicsPage" :transition="true" :olympics="true" @close="closePage">
-        <div class="grid grid-cols-12 gap-4 p-2 h-full">
-            <UCard
-                :class="selectedCard === 0 ? ['col-span-12 md:col-span-6', animationCardClass] : selectedCard === 1 ? 'col-span-12' : 'hidden'"
-                variant="soft" @click="toggleCard(1)">
+        <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12': selected === 0 }]">
+            <UCard variant="soft" @click="selected === 1 ? () => { } : toggleCard(1)"
+                :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
+                    'col-span-12 md:col-span-6': selected === 0,
+                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                    'animate-bento-card': selected === 0 && transitioning && previous === 1,
+                    'transition-all duration-500 transform h-full': selected === 1,
+                    'hidden': selected !== 0 && selected !== 1
+                }">
                 <template #default>
-                    <div v-if="selectedCard === 1" class="h-[calc(100vh-18rem)]">
+                    <!-- full screen -->
+                    <div v-if="selected === 1" class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                            @click.stop="toggleCard(1)" />
                         <h2 class="text-xl font-bold mb-2">Tournament Brackets</h2>
-                        <!-- Custom content for card 3 -->
                         <p>Interactive tournament visualization</p>
                         <d3-tournament :matches="sampleMatches" />
                     </div>
+                    <!-- bento -->
                     <div v-else>
                         <h3 class="font-medium">Tournaments</h3>
                     </div>
                 </template>
             </UCard>
 
-            <UCard
-                :class="selectedCard === 0 ? ['col-span-12 md:col-span-6', animationCardClass] : selectedCard === 2 ? 'col-span-12' : 'hidden'"
-                variant="soft" @click="toggleCard(2)">
+            <UCard variant="soft" @click="selected === 2 ? () => { } : toggleCard(2)"
+                :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
+                    'col-span-12 md:col-span-6': selected === 0,
+                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                    'animate-bento-card': selected === 0 && transitioning && previous === 2,
+                    'transition-all duration-500 transform h-full': selected === 2,
+                    'hidden': selected !== 0 && selected !== 2
+                }">
                 <template #default>
-                    <div v-if="selectedCard === 2">
+                    <!-- full screen -->
+                    <div v-if="selected === 2" class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                            @click.stop="toggleCard(2)" />
                         <h2 class="text-xl font-bold mb-2">Athletes Performance</h2>
-                        <!-- Custom content for card 2 -->
                         <p>Individual athlete statistics and records</p>
                     </div>
+                    <!-- bento -->
                     <div v-else>
                         <h3 class="font-medium">Athletes</h3>
                     </div>
                 </template>
             </UCard>
 
-            <UCard
-                :class="selectedCard === 0 ? ['col-span-12 md:col-span-4', animationCardClass] : selectedCard === 3 ? 'col-span-12' : 'hidden'"
-                variant="soft" @click="toggleCard(3)">
+            <UCard variant="soft" @click="selected === 3 ? () => { } : toggleCard(3)"
+                :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
+                    'col-span-12 md:col-span-4': selected === 0,
+                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                    'animate-bento-card': selected === 0 && transitioning && previous === 3,
+                    'transition-all duration-500 transform h-full': selected === 3,
+                    'hidden': selected !== 0 && selected !== 3
+                }">
                 <template #default>
-                    <div v-if="selectedCard === 3">
+                    <!-- full screen -->
+                    <div v-if="selected === 3" class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                            @click.stop="toggleCard(3)" />
                         <h2 class="text-xl font-bold mb-2">Gender Distribution by Trial</h2>
-                        <!-- Custom content for card 1 -->
                         <p>Detailed statistics about gender distribution by trial</p>
                         <D3GenderPieChart sport-slug="athletics" />
                     </div>
+                    <!-- bento -->
                     <div v-else>
                         <h3 class="font-medium">Gender Distribution</h3>
                     </div>
                 </template>
             </UCard>
 
-            <UCard
-                :class="selectedCard === 0 ? ['col-span-12 md:col-span-4', animationCardClass] : selectedCard === 4 ? 'col-span-12' : 'hidden'"
-                variant="soft" @click="toggleCard(4)">
+            <UCard variant="soft" @click="selected === 4 ? () => { } : toggleCard(4)"
+                :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
+                    'col-span-12 md:col-span-4': selected === 0,
+                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                    'animate-bento-card': selected === 0 && transitioning && previous === 4,
+                    'transition-all duration-500 transform h-full': selected === 4,
+                    'hidden': selected !== 0 && selected !== 4
+                }">
                 <template #default>
-                    <div v-if="selectedCard === 4">
+                    <!-- full screen -->
+                    <div v-if="selected === 4" class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                            @click.stop="toggleCard(4)" />
                         <h2 class="text-xl font-bold mb-2">Event Schedule</h2>
-                        <!-- Custom content for card 4 -->
                         <p>Complete schedule of Olympic events</p>
                     </div>
+                    <!-- bento -->
                     <div v-else>
                         <h3 class="font-medium">Schedule</h3>
                     </div>
                 </template>
             </UCard>
 
-            <UCard
-                :class="selectedCard === 0 ? ['col-span-12 md:col-span-4', animationCardClass] : selectedCard === 5 ? 'col-span-12' : 'hidden'"
-                variant="soft" @click="toggleCard(5)">
+            <UCard variant="soft" @click="selected === 5 ? () => { } : toggleCard(5)"
+                :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
+                    'col-span-12 md:col-span-4': selected === 0,
+                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                    'animate-bento-card': selected === 0 && transitioning && previous === 5,
+                    'transition-all duration-500 transform h-full': selected === 5,
+                    'hidden': selected !== 0 && selected !== 5
+                }">
                 <template #default>
-                    <div v-if="selectedCard === 5">
+                    <!-- full screen -->
+                    <div v-if="selected === 5" class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                            @click.stop="toggleCard(5)" />
                         <h2 class="text-xl font-bold mb-2">Historical Data</h2>
-                        <!-- Custom content for card 5 -->
                         <p>Historical Olympic results and records</p>
                     </div>
+                    <!-- bento -->
                     <div v-else>
                         <h3 class="font-medium">History</h3>
                     </div>
@@ -83,7 +123,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-    // middleware: ['olympics'],
+    //    middleware: ['olympics'],
     layout: 'canvas'
 })
 
@@ -104,13 +144,29 @@ const closePage = () => {
 }
 
 // UI STATE ------------------------
-const selectedCard = ref(0);
+const selected = ref(0);
+const previous = ref(0);
+const transitioning = ref(false);
 const toggleCard = (index: number = 0) => {
-    if (selectedCard.value !== 0) selectedCard.value = 0;
-    else selectedCard.value = index;
+    if (selected.value !== 0) {
+        previous.value = selected.value;
+        transitioning.value = true;
+        selected.value = 0;
+        setTimeout(() => {
+            transitioning.value = false;
+        }, 500);
+    }
+    else selected.value = index;
 }
-const animationCardClass = "transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50";
-
+const getCardClass = (span: number, index: number = 0) => {
+    return {
+        [`col-span-12 md:col-span-${span}`]: selected.value === 0,
+        'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected.value === 0 && !transitioning.value,
+        'animate-bento-card': selected.value === 0 && transitioning && previous.value === index,
+        'transition-all duration-500 transform h-full': selected.value === index,
+        'hidden': selected.value !== 0 && selected.value !== index
+    }
+}
 
 // SAMPLE MATCHES ------------------ (DELETE)
 const sampleMatches = ref([

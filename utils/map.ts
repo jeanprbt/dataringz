@@ -158,17 +158,17 @@ const updateMarkers = (map: mapboxgl.Map, zoom: number, lastZoom: number) => {
 }
 
 const removeMarkers = () => {
-    markerCoordinates.keys().forEach(m => {
-        showMarkers.get(m)!.value = false;
-        staticMarkers.set(m, true);
-    })
+    for (const marker of markerCoordinates.keys()) {
+        showMarkers.get(marker)!.value = false;
+        staticMarkers.set(marker, true);
+    }
 }
 
 const addMarkers = () => {
-    markerCoordinates.keys().forEach(m => {
-        showMarkers.get(m)!.value = true;
-        staticMarkers.set(m, false);
-    })
+    for (const marker of markerCoordinates.keys()) {
+        showMarkers.get(marker)!.value = true;
+        staticMarkers.set(marker, false);
+    }
 }
 
 // MAP LOGIC ------------------------------------------------------------------------------------------------ //

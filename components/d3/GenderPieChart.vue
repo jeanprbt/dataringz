@@ -116,7 +116,7 @@
   
     legend.append('rect')
       .attr('x', 0)
-      .attr('y', -10)
+      .attr('y', -7)
       .attr('width', 12)
       .attr('height', 12)
       .attr('fill', d => color(d.gender));

@@ -3,7 +3,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-2">
           <span class="text-sm text-gray-600 dark:text-gray-400">Compare with:</span>
-          <USelectMenu v-model="selectedItem" :avatar="selectedItem?.avatar" :items="items" class="w-48" />
+          <USelectMenu v-model="selectedItem" :avatar="selectedItem?.avatar" :items="items" class="w-64" />
         </div>
       </div>
       <div class="relative">

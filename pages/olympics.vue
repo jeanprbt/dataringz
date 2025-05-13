@@ -87,6 +87,7 @@
                             @click.stop="toggleCard(4)" />
                         <h2 class="text-xl font-bold mb-2">Event Schedule</h2>
                         <p>Complete schedule of Olympic events</p>
+                        <D3EventsSunburst/>
                     </div>
                     <!-- bento -->
                     <div v-else>

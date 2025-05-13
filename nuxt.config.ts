@@ -36,5 +36,11 @@ export default defineNuxtConfig({
       }
   },
 
+  nitro: {
+    routeRules: {
+      '/storage/**': { cors: true }
+    }
+  },
+
   compatibilityDate: '2025-04-28',
 });

@@ -1,45 +1,92 @@
 <template>
     <PageModal :show="showVenuePage" :transition="transition" :items="items" @close="closePage">
-        <div class="venue-content p-3">
-            <div class="max-w-3xl mx-auto">
-                <!-- Venue image -->
-                <div
-                    class="mb-4 rounded-lg overflow-hidden aspect-video shadow-lg border border-zinc-400 dark:border-zinc-600">
-                    <img :src="`/img/venues/${venue.slug}.jpg`" :alt="venue.name" class="w-full h-full object-cover" />
-                </div>
+        <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-12': selected === 0 }]">
+            <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
+                'col-span-12 md:col-span-8 row-span-4 md:row-span-8': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'hidden': selected !== 0 && selected !== 1
+            }">
+                <template #default>
+                    <img :src="`/img/venues/${venue.slug}.jpg`" :alt="venue.name"
+                        class="w-full h-full rounded-lg shadow-lg" />
+                </template>
+            </UCard>
 
-                <!-- Header with dates -->
-                <div class="flex flex-col md:flex-row justify-between items-start gap-3 mb-5">
-                    <div>
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white">{{ venue.name }}</h2>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ venue.description }}</p>
+            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
+                'col-span-12 md:col-span-4 row-span-2': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'hidden': selected !== 0 && selected !== 2
+            }">
+                <template #default>
+                    <div class="flex flex-col h-full justify-center">
+                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ venue.name }}</h2>
+                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ venue.description }}</p>
                     </div>
+                </template>
+            </UCard>
 
-                    <!-- Dates badge -->
-                    <div v-if="venue.date_start && venue.date_end"
-                        class="text-zinc-800 dark:text-white px-3 py-1 text-xs whitespace-nowrap">
-                        {{ formatDateRange(venue.date_start, venue.date_end) }}
+            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
+                'col-span-6 md:col-span-2 row-span-2': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'hidden': selected !== 0 && selected !== 3
+            }">
+                <template #default>
+                    <div class="flex flex-col h-full justify-center">
+                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white">Start</h2>
+                        <p class="text-base text-gray-600 dark:text-gray-400">{{ dateStart }}</p>
                     </div>
-                </div>
+                </template>
+            </UCard>
 
-                <!-- Sports grid (no heading) -->
-                <div v-if="venue.sports && venue.sports.length > 0"
-                    class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                    <SportLink v-for="sport in venue.sports" :key="sport.slug" :slug="sport.slug" :name="sport.name">
-                        <template #icon>
-                            <img :src="sport.icon" :alt="sport.name"
-                                class="w-10 h-10 mb-2 dark:filter dark:invert dark:brightness-90" />
-                        </template>
-                    </SportLink>
-                </div>
-                <p v-else class="text-gray-500 dark:text-gray-400 text-sm">No sports information available</p>
-            </div>
+            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
+                'col-span-6 md:col-span-2 row-span-2': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'hidden': selected !== 0 && selected !== 3
+            }">
+                <template #default>
+                    <div class="flex flex-col h-full justify-center">
+                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white">End</h2>
+                        <p class="text-base text-gray-600 dark:text-gray-400">{{ dateEnd }}</p>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
+                'col-span-12 md:col-span-4 row-span-4': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'hidden': selected !== 0 && selected !== 3
+            }">
+                <template #default>
+                    <div ref="smallMapContainer" class="w-full h-full rounded-lg"></div>
+                </template>
+            </UCard>
+
+            <UCard v-for="sport in venue.sports" :key="sport.slug" variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }"
+                :class="{
+                    'col-span-12 md:col-span-12': venue.sports.length === 1 && selected === 0,
+                    'col-span-12 md:col-span-6': venue.sports.length === 2 && selected === 0,
+                    'col-span-6 md:col-span-4': venue.sports.length === 3 && selected === 0,
+                    'col-span-6 md:col-span-3': venue.sports.length >= 4 && selected === 0,
+                    'row-span-2 md:row-span-4': selected === 0,
+                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                    'hidden': selected !== 0 && selected !== 3
+                }">
+                <template #default>
+                    <NuxtLink :to="`/sport/${sport.slug}`"
+                        class="w-full h-full flex flex-col items-center justify-center p-4">
+                        <img :src="`/img/sports/SVG/${sport.slug}.svg`" :alt="sport.name"
+                            class="w-12 h-12 mb-2 dark:filter dark:invert dark:brightness-90" />
+                        <span class="text-center text-sm font-medium text-zinc-800 dark:text-white">{{ sport.name
+                            }}</span>
+                    </NuxtLink>
+                </template>
+            </UCard>
         </div>
     </PageModal>
 </template>
 
 <script setup lang="ts">
-import { formatDateRange } from '~/utils/date';
+import mapboxgl from 'mapbox-gl';
 import venues from '~/data/venues.json';
 
 definePageMeta({
@@ -67,6 +114,71 @@ const venue = venues[slug as keyof typeof venues];
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
 
+// HANDLE TRANSITION ------------------------------
+const previousCard = useState('previous');
+const transition = computed(() => previousCard.value && previousCard.value !== '/' && !directAccess) as ComputedRef<boolean>;
+
+// HANDLE CLOSE BUTTON ----------------------------
+const closePage = () => {
+    showVenuePage.value = false;
+    router.push('/');
+}
+
+// UI STATE ------------------------
+const selected = ref(0);
+const previous = ref(0);
+const transitioning = ref(false);
+const isSmallScreen = ref(false);
+const dateStart = computed(() => formatDate(venue.date_start));
+const dateEnd = computed(() => formatDate(venue.date_end));
+
+// MAP -----------------------------
+const config = useRuntimeConfig();
+const isClient = import.meta.client;
+if (isClient) { mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '' };
+const smallMapContainer = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const updateScreenSize = () => {
+        isSmallScreen.value = mediaQuery.matches;
+    };
+    updateScreenSize();
+    mediaQuery.addEventListener('change', updateScreenSize);
+
+    if (smallMapContainer.value) {
+        const map = new mapboxgl.Map({
+            container: smallMapContainer.value as HTMLElement,
+            style: 'mapbox://styles/mapbox/standard',
+            center: [venue.location.longitude, venue.location.latitude] as [number, number],
+            zoom: 15,
+            pitch: 50,
+            bearing: 0,
+            maxZoom: 16,
+            minZoom: 14,
+        });
+        new mapboxgl.Marker({ color: 'red' })
+            .setLngLat([venue.location.longitude, venue.location.latitude] as [number, number])
+            .addTo(map)
+    } else {
+        watch(smallMapContainer, newValue => {
+            const map = new mapboxgl.Map({
+            container: newValue as HTMLElement,
+            style: 'mapbox://styles/mapbox/standard',
+            center: [venue.location.longitude, venue.location.latitude] as [number, number],
+            zoom: 15,
+            pitch: 50,
+            bearing: 0,
+            maxZoom: 16,
+            minZoom: 14,
+        });
+        new mapboxgl.Marker({ color: 'red' })
+            .setLngLat([venue.location.longitude, venue.location.latitude] as [number, number])
+            .addTo(map)
+        })
+    }
+});
+
 useHead(() => {
     const name = venue.name;
     const sports = venue.sports && venue.sports.length > 0
@@ -93,14 +205,4 @@ useHead(() => {
         ]
     };
 });
-
-// HANDLE TRANSITION ------------------------------
-const previous = useState('previous');
-const transition = computed(() => previous.value && previous.value !== '/' && !directAccess) as ComputedRef<boolean>;
-
-// HANDLE CLOSE BUTTON ----------------------------
-const closePage = () => {
-    showVenuePage.value = false;
-    router.push('/');
-}
 </script>

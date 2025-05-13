@@ -68,7 +68,7 @@ const modalRectangleClass = computed(() => props.transition ? '' : 'animate-moda
 // HANDLE SMALL SCREENS
 const isSmallScreen = ref(false);
 onMounted(() => {
-    const mediaQuery = window.matchMedia('(max-width: 640px)');
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
     const updateScreenSize = () => {
         isSmallScreen.value = mediaQuery.matches;
     };

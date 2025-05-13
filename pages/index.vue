@@ -314,7 +314,7 @@ onMounted(() => {
         displayButton(showOlympicsButton, olympicsButton, 0, 0.8);
     }
 
-    const mediaQuery = window.matchMedia('(max-width: 640px)');
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
     const updateScreenSize = () => {
         isSmallScreen.value = mediaQuery.matches;
     };

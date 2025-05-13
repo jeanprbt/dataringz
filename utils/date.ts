@@ -9,6 +9,27 @@ function yearMonthDayDate(dateString: string): string {
     });
 }
 
+// FORMAT SINGLE DATE --------------------------------------------------------------------------------------------------
+const formatDate = (dateString: string, format: 'short' | 'medium' | 'long' = 'medium'): string => {
+    if (!dateString) return 'Date not available';
+    
+    const date = new Date(dateString);
+    
+    switch(format) {
+        case 'short':
+            // July 28
+            return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+        case 'medium':
+            // July 28, 2024
+            return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        case 'long':
+            // Sunday, July 28, 2024
+            return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+        default:
+            return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    }
+};
+
 // DATE FORMAT RANGE ---------------------------------------------------------------------------------------------------
 const formatDateRange = (startDate: string, endDate: string) => {
     if (!startDate || !endDate) return 'Dates not available';
@@ -23,11 +44,13 @@ const formatDateRange = (startDate: string, endDate: string) => {
     
     // If different months but same year, show as "July 28 - Aug 3, 2024"
     if (start.getFullYear() === end.getFullYear()) {
-        return `${start.toLocaleDateString('en-US', { month: 'short' })} ${start.getDate()} - ${end.toLocaleDateString('en-US', { month: 'short' })} ${end.getDate()}, ${end.getFullYear()}`;
+        return `${start.toLocaleDateString('en-US', { month: 'long' })} ${start.getDate()} - ${end.toLocaleDateString('en-US', { month: 'long' })} ${end.getDate()}, ${end.getFullYear()}`;
     }
     
     // Otherwise show full dates
     return `${yearMonthDayDate(startDate)} - ${yearMonthDayDate(endDate)}`;
 };
 
-export { formatDateRange, yearMonthDayDate }
+
+
+export { formatDateRange, yearMonthDayDate, formatDate }

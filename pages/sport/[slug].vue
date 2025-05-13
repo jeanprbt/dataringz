@@ -106,7 +106,7 @@
                         <NuxtLink :to="`/athlete/${athlete.slug}`"
                             class=" w-full h-full flex flex-col items-center justify-center">
                             <div class="mb-2">
-                                <AthletePicture :name="athlete.name" :slug="slug" size="sm" />
+                                <AthletePicture :name="athlete.name" :slug="athlete.slug" size="sm" />
                             </div>
                             <span class="text-center text-sm font-medium text-zinc-800 dark:text-white">
                                 {{ athlete.name }}

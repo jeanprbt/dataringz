@@ -1,6 +1,10 @@
 <template>
     <div class="bg-gray-200 rounded-full overflow-hidden" :class="sizeClasses">
+        <img v-if="shouldShowImage" :src="`/storage/athletes/images/${slug}.jpg`" 
+             class="w-full h-full object-cover" 
+             :alt="name" />
         <div
+             v-else
              class="w-full h-full flex items-center justify-center text-white font-bold"
              :class="initialsClasses"
              :style="{ backgroundColor: getBackgroundColor() }">
@@ -10,7 +14,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
+import athletes from '../data/athletes.json';
+
+interface AthleteImage {
+    has_image: boolean;
+    is_verified_athlete: boolean;
+    should_show_image: boolean;
+    wikidata_id?: string | null;
+    verification_date?: string;
+}
+
+interface Athlete {
+    name: string;
+    slug: string;
+    image?: AthleteImage;
+    // other athlete properties
+}
 
 const props = defineProps({
     name: {
@@ -26,6 +46,18 @@ const props = defineProps({
         default: 'md',
         validator: (value: string) => ['sm', 'md', 'lg'].includes(value)
     }
+});
+
+const shouldShowImage = computed(() => {
+    if (!props.slug) return false;
+    
+    const athlete = (athletes as Record<string, Athlete>)[props.slug];
+    
+    // check if we have the athlete and the image information
+    if (!athlete || !athlete.image) return false;
+    
+    // use the pre-computed value from our merged data
+    return athlete.image.should_show_image;
 });
 
 // Size classes based on the size prop
@@ -91,5 +123,4 @@ function getBackgroundColor(): string {
 
     return colors[Math.abs(hash) % colors.length];
 }
-
 </script> 

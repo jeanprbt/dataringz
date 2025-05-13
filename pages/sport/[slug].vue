@@ -54,7 +54,7 @@
                 </template>
             </UCard>
 
-            <UCard variant="soft" :ui="{ 'body': 'p-3 sm:p-3 md:p-3 h-full' }" :class="{
+            <UCard variant="soft" :ui="{ 'body': 'p-3 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-1': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,

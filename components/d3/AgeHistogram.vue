@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-4 h-full">
         <div class="flex flex-wrap justify-left items-center gap-2">
             <span class="text-sm text-gray-600 dark:text-gray-400">Compare with</span>
-            <USelectMenu v-model="selectedItem" :avatar="selectedItem?.avatar" :items="items" class="w-64" />
+            <USelectMenu v-model="selectedItem" :avatar="selectedItem?.avatar" :items="items" class="w-64" ></USelectMenu>
         </div>
         <div ref="chartContainer" class="flex-1 w-full min-h-[40vh]"></div>
         <div class="flex flex-wrap items-center justify-center text-sm mt-2 gap-4">
@@ -47,7 +47,6 @@ const allSports = Object.values(sports)
     .sort((a, b) => a.name.localeCompare(b.name));
 
 const itemsWithIcons = ref([
-    { label: 'Average (All Sports)', value: 'average', icon: '/img/olympics.svg' },
     ...allSports.map(sport => ({
         label: sport.name,
         value: sport.slug,
@@ -55,16 +54,18 @@ const itemsWithIcons = ref([
     }))
 ]);
 
-const items = ref(
-    itemsWithIcons.value.map(({ label, value, icon }) => ({
+const items = ref([
+    { label: 'Average (All Sports)', value: 'average', avatar: { src: '/img/olympics.svg', alt: 'olympics' }},
+    ...itemsWithIcons.value.map(({ label, value, icon }) => ({
         label,
         value,
         avatar: {
             src: icon,
-            alt: label
+            alt: label,
+            class: 'dark:invert dark:brightness-100 bg-transparent'
         }
     }))
-);
+]);
 
 
 const selectedItem = ref(items.value[0]);

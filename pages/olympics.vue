@@ -1,8 +1,8 @@
 <template>
-    <PageModal :show="showOlympicsPage" :transition="true" :olympics="true" @close="closePage">
+    <PageModal :show="showOlympicsPage" :transition="false" :olympics="true" @close="closePage">
         <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12': selected === 0 }]">
             <UCard variant="soft" @click="selected === 1 ? () => { } : toggleCard(1)"
-                :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
+                :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
                     'col-span-12 md:col-span-6': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                     'animate-bento-card': selected === 0 && transitioning && previous === 1,
@@ -123,7 +123,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-    //    middleware: ['olympics'],
+    middleware: ['olympics'],
     layout: 'canvas'
 })
 
@@ -157,15 +157,6 @@ const toggleCard = (index: number = 0) => {
         }, 500);
     }
     else selected.value = index;
-}
-const getCardClass = (span: number, index: number = 0) => {
-    return {
-        [`col-span-12 md:col-span-${span}`]: selected.value === 0,
-        'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected.value === 0 && !transitioning.value,
-        'animate-bento-card': selected.value === 0 && transitioning && previous.value === index,
-        'transition-all duration-500 transform h-full': selected.value === index,
-        'hidden': selected.value !== 0 && selected.value !== index
-    }
 }
 
 // SAMPLE MATCHES ------------------ (DELETE)

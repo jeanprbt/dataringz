@@ -82,16 +82,18 @@
                 }">
                 <template #default>
                     <!-- full screen -->
-                    <div v-if="selected === 4" class="h-full relative">
+                    <div v-if="selected === 4" class="w-full h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(4)" />
-                        <h2 class="text-xl font-bold mb-2">Event Schedule</h2>
-                        <p>Complete schedule of Olympic events</p>
-                        <D3EventsSunburst/>
+                        <h2 class="text-xl font-bold mb-2">Event Repartition by Sport</h2>
+                        <D3EventsSunburst />
                     </div>
                     <!-- bento -->
-                    <div v-else>
-                        <h3 class="font-medium">Schedule</h3>
+                    <div v-else class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-out" class="absolute right-0"
+                            @click.stop="toggleCard(4)" />
+                        <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Events Repartition by Sport</h3>
+                        <img class="max-w-full max-h-full" src="public/img/foo_sunburst.png" alt="Foo chart" />
                     </div>
                 </template>
             </UCard>

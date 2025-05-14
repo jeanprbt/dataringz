@@ -84,7 +84,7 @@
                             <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-1">Events</h3>
                             <div class="flex justify-left gap-2">
                                 <p v-for="(event, index) in compactEvents" :key="index"
-                                    class="text-sm text-zinc-600 dark:text-gray-300 rounded-lg p-2 bg-zinc-100 dark:bg-zinc-900">
+                                    class="text-sm text-zinc-600 dark:text-gray-300 rounded-lg px-2 py-1 bg-zinc-100 dark:bg-zinc-900">
                                     {{ event }}
                                 </p>
                             </div>

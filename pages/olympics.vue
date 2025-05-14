@@ -38,12 +38,16 @@
                     <div v-if="selected === 2" class="h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(2)" />
-                        <h2 class="text-xl font-bold mb-2">Athletes Performance</h2>
-                        <p>Individual athlete statistics and records</p>
+                        <h2 class="text-xl font-bold mb-2">Medals Ranking</h2>
+                        <p>Day by day</p>
+                        <D3MedalsRace :medal-data="medals" />
                     </div>
                     <!-- bento -->
-                    <div v-else>
-                        <h3 class="font-medium">Athletes</h3>
+                    <div v-else class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-out" class="absolute right-0"
+                            @click.stop="toggleCard(2)" />
+                        <h3 class="font-medium">Medals Ranking</h3>
+                        <img class="w-1/3 object-contain mx-auto" src="public/img/podium.png" alt="Podium" />
                     </div>
                 </template>
             </UCard>
@@ -93,7 +97,7 @@
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-out" class="absolute right-0"
                             @click.stop="toggleCard(4)" />
                         <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Events Repartition by Sport</h3>
-                        <img class="max-w-full max-h-full" src="public/img/foo_sunburst.png" alt="Foo chart" />
+                        <img class="w-1/2 object-contain mx-auto py-8" src="public/img/foo_sunburst.png" alt="Sunburst chart" />
                     </div>
                 </template>
             </UCard>
@@ -129,6 +133,8 @@ definePageMeta({
     middleware: ['olympics'],
     layout: 'canvas'
 })
+
+import medals from '~/data/medals.json';
 
 // HANDLE DIRECT URL ---------------
 let directAccess = useState('olympics').value;

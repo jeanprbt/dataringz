@@ -15,7 +15,7 @@
             <UCard class="bg-zinc-500/10" :ui="{ body: 'px-2.5 py-1.5 md:px-2.5 md:py-1.5', root: 'ring-0' }">
                 <template #default>
                     <div class="flex items-center gap-2 px-2 py-1">
-                        <UIcon name="i-heroicons-chevron-double-right" class="text-zinc-500"/>
+                        <UIcon name="i-heroicons-chevron-double-right" class="text-zinc-500" />
                         <p class="text-zinc-500 text-sm font-medium">Speed</p>
                         <USlider v-model="speed" :min="1" :max="10" :default-value="5" size="xs" class="w-32" />
                     </div>
@@ -24,7 +24,8 @@
 
         </div>
 
-        <div class="w-full h-auto my-5 overflow-hidden relative" ref="chartContainer"></div>
+        <div class="w-full aspect-[3/2] my-5 overflow-hidden relative"
+            ref="chartContainer"></div>
     </div>
 </template>
 
@@ -275,7 +276,7 @@ export default {
             this.xScale = d3.scalePoint()
                 .domain(this.dates)
                 .range([this.margin.left, this.width - this.margin.right])
-                .padding(0.5);
+                .padding(0.25);
 
             this.yScale = d3.scaleLinear()
                 .domain([20.5, 0.5])
@@ -419,8 +420,8 @@ export default {
                 .on('mousemove', (event) => {
                     // Move tooltip with cursor
                     this.tooltip
-                        .style('left', (event.pageX - 200) + 'px')
-                        .style('top', (event.pageY - 370) + 'px');
+                        .style('left', (event.pageX - 150) + 'px')
+                        .style('top', (event.pageY - 200) + 'px');
                 })
                 .on('mouseout', (event, d) => {
                     d3.selectAll('.country-line').attr('opacity', 0.7).attr('stroke-width', 3);

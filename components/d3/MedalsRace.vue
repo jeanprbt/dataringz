@@ -1,19 +1,36 @@
 <template>
-    <div class="medals-race">
-        <h2>Olympic Medals Race</h2>
-        <div class="chart-controls">
-            <button @click="startAnimation" :disabled="isAnimating">Start</button>
-            <button @click="pauseAnimation" :disabled="!isAnimating">Pause</button>
-            <button @click="resetAnimation">Reset</button>
-            <span class="current-date">{{ currentDateFormatted }}</span>
-            <div class="speed-control">
-                <label for="speed">Speed:</label>
-                <input type="range" id="speed" v-model="speed" min="1" max="10" />
+    <div class="w-full h-full flex flex-col items-center">
+        <h2 class="mb-4 text-2xl font-semibold">Olympic Medals Race</h2>
+
+        <div class="flex flex-wrap gap-2 mb-4 items-center justify-center">
+            <button @click="startAnimation" :disabled="isAnimating"
+                class="px-4 py-2 rounded bg-blue-600 text-white text-sm transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed hover:enabled:bg-blue-700">
+                Start
+            </button>
+            <button @click="pauseAnimation" :disabled="!isAnimating"
+                class="px-4 py-2 rounded bg-blue-600 text-white text-sm transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed hover:enabled:bg-blue-700">
+                Pause
+            </button>
+            <button @click="resetAnimation"
+                class="px-4 py-2 rounded bg-blue-600 text-white text-sm transition-colors hover:bg-blue-700">
+                Reset
+            </button>
+
+            <span class="px-4 py-2 bg-gray-100 rounded font-bold min-w-[200px] text-center">
+                {{ currentDateFormatted }}
+            </span>
+
+            <div class="flex items-center gap-2">
+                <label for="speed" class="text-sm font-medium">Speed:</label>
+                <input type="range" id="speed" v-model="speed" min="1" max="10" class="w-32 accent-blue-600" />
             </div>
         </div>
-        <div class="chart-container" ref="chartContainer"></div>
+
+        <div class="w-full h-[600px] my-5 border border-gray-200 rounded-lg shadow-md overflow-hidden relative"
+            ref="chartContainer"></div>
     </div>
 </template>
+
 
 <script>
 import * as d3 from 'd3';
@@ -51,11 +68,9 @@ export default {
             width: 0,
             height: 0,
             margin: { top: 50, right: 180, bottom: 50, left: 80 },
-            debugMode: false,
             animationRunning: false,
             pathGenerator: null,
-            allCountryCodes: new Set(),
-            allTopCountryCodes: new Set() // Countries that have ever been in top 20
+            allCountryCodes: new Set()
         };
     },
     computed: {
@@ -83,33 +98,37 @@ export default {
     },
     methods: {
         processData() {
-            // Create cumulative daily medal rankings using the updated function
             this.dailyRankings = this.createCumulativeMedalRankings(this.medalData);
-
-            // Extract dates and sort them chronologically
             this.dates = Object.keys(this.dailyRankings).sort();
 
             if (this.dates.length > 0) {
                 this.currentDate = this.dates[0];
             }
 
-            // Collect all country codes and track countries that have been in top 20
+            // Create a map of country codes to their flag URLs
+            this.countries = {};
+            this.medalData.forEach(medal => {
+                if (!this.countries[medal.country_code.toLowerCase()]) {
+                    this.countries[medal.country_code.toLowerCase()] = {
+                        img: medal.img
+                    };
+                }
+            });
+
+            // Collect all country codes
             this.dates.forEach(date => {
                 this.dailyRankings[date].forEach(entry => {
-                    this.allCountryCodes.add(entry.img);
-                    if (entry.rank <= 20) {
-                        this.allTopCountryCodes.add(entry.img);
-                    }
+                    this.allCountryCodes.add(entry.countryCode);
                 });
             });
 
             // Generate consistent colors for each country
             const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
-            Array.from(this.allCountryCodes).forEach((img, i) => {
-                this.countryColors[img] = colorScale(i);
+            Array.from(this.allCountryCodes).forEach((countryCode, i) => {
+                this.countryColors[countryCode] = colorScale(i);
             });
 
-            console.log(`Processed ${this.dates.length} dates with ${this.allCountryCodes.size} countries`);
+            this.currentDateIndex = this.dates.indexOf(this.currentDate);
         },
 
         createCumulativeMedalRankings(medalData) {
@@ -140,7 +159,7 @@ export default {
                                 bronze: 0,
                                 total: 0,
                                 country: m.country,
-                                img: country
+                                countryCode: country
                             };
                         }
 
@@ -169,9 +188,10 @@ export default {
                         return a.country.localeCompare(b.country);
                     });
 
-                    // Assign ranks (no ties - unique rank for each country)
+                    // Assign ranks with max visible rank of 20, others get 20.5
                     for (let j = 0; j < snapshot.length; j++) {
-                        snapshot[j].rank = j + 1;
+                        const rank = j + 1;
+                        snapshot[j].rank = rank <= 20 ? rank : 20.5;
                     }
 
                     dailyRankings[currentDay] = snapshot;
@@ -187,7 +207,35 @@ export default {
                     medalsToday.push(medal);
                 }
             }
+            console.log(dailyRankings);
             return dailyRankings;
+        },
+
+
+        buildCountryRankHistory(dailyRankings) {
+            const countryHistory = {};
+
+            for (const [date, rankings] of Object.entries(dailyRankings)) {
+                for (const entry of rankings) {
+                    const code = entry.countryCode;
+                    if (!countryHistory[code]) {
+                        countryHistory[code] = [];
+                    }
+                    countryHistory[code].push({
+                        date: date,
+                        rank: entry.rank,
+                        country: entry.country,
+                        countryCode: code,
+                    });
+                }
+            }
+
+            // Trie les dates pour chaque pays (au cas où)
+            for (const history of Object.values(countryHistory)) {
+                history.sort((a, b) => a.date.localeCompare(b.date));
+            }
+
+            return countryHistory;
         },
 
         handleResize() {
@@ -203,6 +251,12 @@ export default {
                     if (wasAnimating) this.startAnimation();
                 }
             }, 250);
+        },
+
+        getCountryFlag(countryCode) {
+            if (!this.countries || !countryCode) return null;
+            const lowerCode = countryCode.toLowerCase();
+            return this.medalData.find(m => m.country_code.toLowerCase() === lowerCode)?.img || null;
         },
 
         initializeChart() {
@@ -227,24 +281,14 @@ export default {
                 .padding(0.5);
 
             this.yScale = d3.scaleLinear()
-                .domain([20.5, 0.5]) // Inverted to have rank 1 at the top
-                .range([this.height - this.margin.bottom, this.margin.top]);
-
-            // Clip path to prevent lines from extending below chart area
-            this.svg.append('defs')
-                .append('clipPath')
-                .attr('id', 'chart-area')
-                .append('rect')
-                .attr('x', this.margin.left)
-                .attr('y', this.margin.top)
-                .attr('width', this.width - this.margin.left - this.margin.right)
-                .attr('height', this.height - this.margin.top - this.margin.bottom);
+                .domain([20.5, 0.5])
+                .range([this.height - this.margin.bottom, this.margin.top])
 
             // Add horizontal grid lines
             this.svg.append('g')
                 .attr('class', 'grid-lines')
                 .selectAll('.grid-line')
-                .data(d3.range(1, 21))
+                .data(d3.range(1, 21).filter(d => this.yScale(d) <= this.yScale(20)))
                 .enter()
                 .append('line')
                 .attr('class', 'grid-line')
@@ -263,8 +307,7 @@ export default {
                 });
 
             const yAxis = d3.axisLeft(this.yScale)
-                .tickValues(d3.range(1, 21))
-                .tickFormat(d => d);
+                .tickValues([...d3.range(1, 21), 20]);
 
             this.svg.append('g')
                 .attr('class', 'x-axis')
@@ -277,10 +320,7 @@ export default {
                 .call(yAxis);
 
             // Create groups for drawing elements
-            this.svg.append('g')
-                .attr('class', 'lines-group')
-                .attr('clip-path', 'url(#chart-area)'); // Apply clip path to lines
-
+            this.svg.append('g').attr('class', 'lines-group');
             this.svg.append('g').attr('class', 'labels-group');
             this.svg.append('g').attr('class', 'date-indicator');
 
@@ -289,6 +329,19 @@ export default {
                 .x(d => this.xScale(d.date))
                 .y(d => this.yScale(d.rank))
                 .curve(d3.curveMonotoneX);
+
+            this.tooltip = d3.select(container)
+                .append('div')
+                .attr('id', 'tooltip')
+                .style('position', 'absolute')
+                .style('pointer-events', 'none')
+                .style('background', 'rgba(0,0,0,0.7)')
+                .style('color', 'white')
+                .style('padding', '5px 8px')
+                .style('border-radius', '4px')
+                .style('font-size', '12px')
+                .style('opacity', 0)
+                .style('transition', 'opacity 0.3s');
 
             // Initialize with first date
             this.updateChart(true);
@@ -308,16 +361,15 @@ export default {
 
             // Get top 20 countries for current date
             const topCountries = this.dailyRankings[this.currentDate]
-                .filter(c => c.rank <= 20)
-                .map(c => c.img);
+                .map(c => c.countryCode);
 
             // Prepare the line data - one complete path per country
             const lineData = [];
 
             // Process all countries that have ever been in top 20
-            Array.from(this.allTopCountryCodes).forEach(img => {
+            Array.from(this.allCountryCodes).forEach(countryCode => {
                 const countryPath = {
-                    img: img,
+                    countryCode: countryCode,
                     country: '',
                     points: []
                 };
@@ -326,7 +378,7 @@ export default {
                 let hasAppeared = false;
                 relevantDates.forEach(date => {
                     const dateData = this.dailyRankings[date];
-                    const countryData = dateData.find(d => d.img === img);
+                    const countryData = dateData.find(d => d.countryCode === countryCode);
 
                     if (countryData) {
                         countryPath.country = countryData.country;
@@ -340,10 +392,10 @@ export default {
 
                         if (countryData.rank <= 20) hasAppeared = true;
                     } else {
-                        // Country has no data for this date, place it off-chart but don't render below chart
+                        // Country has no data for this date, place it off-chart
                         countryPath.points.push({
                             date,
-                            rank: 21, // Just below visible area
+                            rank: 20.5, // Off chart
                             total: 0
                         });
                     }
@@ -359,17 +411,39 @@ export default {
             const linesGroup = this.svg.select('.lines-group');
 
             const lines = linesGroup.selectAll('.country-line')
-                .data(lineData, d => d.img);
+                .data(lineData, d => d.countryCode);
 
             // Enter: Add new lines
             const enterLines = lines.enter()
                 .append('path')
                 .attr('class', 'country-line')
-                .attr('id', d => `line-${d.img}`)
-                .attr('stroke', d => this.countryColors[d.img])
+                .attr('id', d => `line-${d.countryCode}`)
+                .attr('stroke', d => this.countryColors[d.countryCode])
                 .attr('stroke-width', 3)
                 .attr('fill', 'none')
-                .attr('opacity', 0.7);
+                .attr('opacity', 0.7)
+                .on('mouseover', (event, d) => {
+                    d3.selectAll('.country-line').attr('opacity', 0.1);
+                    d3.select(event.currentTarget).attr('opacity', 1).attr('stroke-width', 5);
+                    
+                    // Show tooltip
+                    this.tooltip
+                        .style('opacity', 1)
+                        .html(d.country)
+                        .style('left', (event.pageX - 300) + 'px')
+                        .style('top', (event.pageY - 300) + 'px');
+                })
+                .on('mousemove', (event) => {
+                    // Move tooltip with cursor
+                    this.tooltip
+                        .style('left', (event.pageX - 200) + 'px')
+                        .style('top', (event.pageY - 370) + 'px');
+                })
+                .on('mouseout', (event, d) => {
+                    d3.selectAll('.country-line').attr('opacity', 0.7).attr('stroke-width', 3);
+                    // Hide tooltip
+                    this.tooltip.style('opacity', 0);
+                });
 
             // Update existing lines
             lines.merge(enterLines)
@@ -378,36 +452,36 @@ export default {
                 .attr('d', d => this.pathGenerator(d.points))
                 .attr('opacity', d => {
                     // Only show if in top 20 at current date
-                    const isInTop = topCountries.includes(d.img);
-                    return isInTop ? 0.7 : 0.1;
+                    const isInTop = topCountries.includes(d.countryCode);
+                    return isInTop ? 0.7 : 0;
                 })
                 .attr('stroke-width', d => {
-                    // Make current top 20 lines thicker
-                    const isInTop = topCountries.includes(d.img);
-                    return isInTop ? 3 : 1;
+                    const isInTop = topCountries.includes(d.countryCode);
+                    return isInTop ? 3 : 3;
                 });
 
             // Update country labels (at the end of lines)
             const labelsData = [];
-            topCountries.forEach(img => {
+            topCountries.forEach(countryCode => {
                 const countryData = this.dailyRankings[this.currentDate]
-                    .find(d => d.img === img);
+                    .find(d => d.countryCode === countryCode);
 
                 if (countryData && countryData.rank <= 20) {
                     labelsData.push({
-                        img: img,
+                        countryCode: countryCode,
                         country: countryData.country,
                         rank: countryData.rank,
                         total: countryData.total,
                         x: this.xScale(this.currentDate),
-                        y: this.yScale(countryData.rank)
+                        y: this.yScale(countryData.rank),
+                        flagUrl: this.getCountryFlag(countryCode)
                     });
                 }
             });
 
             const labelsGroup = this.svg.select('.labels-group');
             const labels = labelsGroup.selectAll('.country-label')
-                .data(labelsData, d => d.img);
+                .data(labelsData, d => d.countryCode);
 
             // Remove labels that are no longer in top 20
             labels.exit()
@@ -420,36 +494,47 @@ export default {
             const enterLabels = labels.enter()
                 .append('g')
                 .attr('class', 'country-label')
-                .attr('id', d => `label-${d.img}`)
+                .attr('id', d => `label-${d.countryCode}`)
                 .attr('opacity', 0)
                 .attr('transform', d => `translate(${d.x + 10}, ${d.y})`);
 
-            // Add flag image and country name to new labels
-            enterLabels.each(function (d) {
-                const label = d3.select(this);
+            // Add flag image to new labels with error handling
+            enterLabels.append('svg:image')
+                .attr('class', 'country-flag')
+                .attr('width', 20)
+                .attr('height', 15)
+                .attr('y', -7.5)
+                .attr('x', 0)
+                .attr('href', d => {
+                    const flagUrl = this.getCountryFlag(d.countryCode);
+                    console.log('Setting flag for', d.country, ':', flagUrl);
+                    return flagUrl;
+                })
+                .on('error', function(event, d) {
+                    console.error('Flag loading error for:', d.country);
+                    d3.select(this).style('display', 'none');
+                });
 
-                // Add flag image
-                label.append('image')
-                    .attr('xlink:href', `public/img/countries/${d.img.toLowerCase()}.svg`)
-                    .attr('width', 16)
-                    .attr('height', 12)
-                    .attr('y', -6);
+            // Add country name text to new labels (adjusted x position)
+            enterLabels.append('text')
+                .attr('class', 'country-name')
+                .attr('x', 25) // Position text after flag
+                .attr('y', 4)
+                .attr('fill', d => this.countryColors[d.countryCode])
+                .style('font-size', '12px')
+                .style('font-weight', 'bold')
+                .text(d => `${d.country} (${d.total})`);
 
-                // Append country name
-                label.append('text')
-                    .attr('x', 20)
-                    .attr('dy', '0.35em')
-                    .style('font-size', '12px')
-                    .style('font-family', 'sans-serif')
-                    .text(`${d.country} (${d.total})`);
-            });
-
-            // Merge and animate labels
+            // Update all labels
             labels.merge(enterLabels)
                 .transition()
                 .duration(duration)
-                .attr('opacity', 1)
-                .attr('transform', d => `translate(${d.x + 10}, ${d.y})`);
+                .attr('transform', d => `translate(${d.x + 10}, ${d.y})`)
+                .attr('opacity', 1);
+
+            // Update existing labels' text content
+            labels.select('.country-name')
+                .text(d => `${d.country} (${d.total})`);
 
             // Update date indicator
             const dateIndicator = this.svg.select('.date-indicator');
@@ -485,7 +570,6 @@ export default {
         startAnimation() {
             if (this.isAnimating) return;
 
-            console.log('Starting animation from date index:', this.currentDateIndex);
             this.isAnimating = true;
             this.animateNextFrame();
         },
@@ -506,24 +590,26 @@ export default {
                     }
                 }, this.effectiveAnimationDelay);
             } else {
-                console.log('Animation complete');
                 this.isAnimating = false;
             }
         },
 
         pauseAnimation() {
-            console.log('Pausing animation');
             this.isAnimating = false;
             this.clearAnimation();
         },
 
         resetAnimation() {
-            console.log('Resetting animation');
             this.clearAnimation();
             this.currentDateIndex = 0;
             this.currentDate = this.dates[0];
             this.isAnimating = false;
             this.updateChart(true);
+            // Clear old lines
+            this.svg.selectAll('.country-line').remove();
+            this.svg.selectAll('.label').remove();
+            // Optionally stop any ongoing animation
+            clearInterval(this.animationInterval);
         },
 
         clearAnimation() {
@@ -535,77 +621,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-.medals-race {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-h2 {
-    margin-bottom: 15px;
-}
-
-.chart-container {
-    width: 100%;
-    height: 600px;
-    margin: 20px 0;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    position: relative;
-}
-
-.chart-controls {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    align-items: center;
-}
-
-.chart-controls button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #1976d2;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s;
-}
-
-.chart-controls button:hover:not(:disabled) {
-    background-color: #1565c0;
-}
-
-.chart-controls button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.current-date {
-    padding: 8px 16px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    font-weight: bold;
-    min-width: 200px;
-    text-align: center;
-}
-
-.speed-control {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-@media (max-width: 768px) {
-    .chart-controls {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
-</style>

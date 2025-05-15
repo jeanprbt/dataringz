@@ -93,7 +93,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -109,7 +109,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -125,7 +125,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -157,7 +157,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -429,7 +429,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -445,7 +445,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -477,7 +477,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -557,7 +557,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -589,7 +589,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -605,7 +605,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -653,7 +653,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -669,7 +669,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -685,7 +685,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -781,7 +781,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -861,7 +861,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -877,7 +877,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -1037,7 +1037,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -1085,7 +1085,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -1101,7 +1101,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -1213,7 +1213,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -1261,7 +1261,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -1277,7 +1277,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -1293,7 +1293,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -1309,7 +1309,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -1325,7 +1325,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -1389,7 +1389,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -1405,7 +1405,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -1517,7 +1517,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -1693,7 +1693,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -1837,7 +1837,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -1885,7 +1885,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -1933,7 +1933,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -1949,7 +1949,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -1997,7 +1997,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2013,7 +2013,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -2045,7 +2045,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2061,7 +2061,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -2109,7 +2109,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -2141,7 +2141,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2237,7 +2237,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2253,7 +2253,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -2269,7 +2269,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -2397,7 +2397,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2525,7 +2525,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -2605,7 +2605,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2653,7 +2653,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2701,7 +2701,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2749,7 +2749,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2765,7 +2765,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -2781,7 +2781,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -2797,7 +2797,7 @@
         "country_code": "PRK",
         "country": "DPR Korea",
         "country_long": "Democratic People's Republic of Korea",
-        "img": null
+        "img": "/img/countries/kp.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2813,7 +2813,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -2845,7 +2845,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -2861,7 +2861,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -2909,7 +2909,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -2973,7 +2973,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -2989,7 +2989,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -3021,7 +3021,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -3037,7 +3037,7 @@
         "country_code": "PRK",
         "country": "DPR Korea",
         "country_long": "Democratic People's Republic of Korea",
-        "img": null
+        "img": "/img/countries/kp.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -3069,7 +3069,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -3389,7 +3389,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -3549,7 +3549,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -3581,7 +3581,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -3725,7 +3725,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -3757,7 +3757,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -3821,7 +3821,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -3917,7 +3917,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -4061,7 +4061,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -4141,7 +4141,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -4285,7 +4285,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -4381,7 +4381,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -4445,7 +4445,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -4461,7 +4461,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -4493,7 +4493,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -4509,7 +4509,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -4525,7 +4525,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -4557,7 +4557,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -4605,7 +4605,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -4621,7 +4621,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -4637,7 +4637,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -4765,7 +4765,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -4829,7 +4829,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -4925,7 +4925,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -5005,7 +5005,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -5261,7 +5261,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -5341,7 +5341,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -5357,7 +5357,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -5405,7 +5405,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -5485,7 +5485,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -5533,7 +5533,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -5581,7 +5581,7 @@
         "country_code": "AIN",
         "country": "AIN",
         "country_long": "AIN",
-        "img": null
+        "img": "/img/countries/ru.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -5597,7 +5597,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -5613,7 +5613,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -5645,7 +5645,7 @@
         "country_code": "AIN",
         "country": "AIN",
         "country_long": "AIN",
-        "img": null
+        "img": "/img/countries/ru.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -5677,7 +5677,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -5693,7 +5693,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -5805,7 +5805,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -5821,7 +5821,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -5853,7 +5853,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -5885,7 +5885,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -5965,7 +5965,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -5981,7 +5981,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -6029,7 +6029,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -6045,7 +6045,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -6093,7 +6093,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -6109,7 +6109,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -6125,7 +6125,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -6301,7 +6301,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -6381,7 +6381,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -6429,7 +6429,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -6461,7 +6461,7 @@
         "country_code": "AIN",
         "country": "AIN",
         "country_long": "AIN",
-        "img": null
+        "img": "/img/countries/ru.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -6685,7 +6685,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -6733,7 +6733,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -6749,7 +6749,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -6829,7 +6829,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -6845,7 +6845,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -6893,7 +6893,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -6925,7 +6925,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -6957,7 +6957,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -6973,7 +6973,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -6989,7 +6989,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -7037,7 +7037,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -7053,7 +7053,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -7085,7 +7085,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -7117,7 +7117,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -7133,7 +7133,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -7149,7 +7149,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -7165,7 +7165,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -7181,7 +7181,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -7277,7 +7277,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -7293,7 +7293,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -7309,7 +7309,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -7341,7 +7341,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -7485,7 +7485,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -7661,7 +7661,7 @@
         "country_code": "PRK",
         "country": "DPR Korea",
         "country_long": "Democratic People's Republic of Korea",
-        "img": null
+        "img": "/img/countries/kp.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -7677,7 +7677,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -7693,7 +7693,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -7837,7 +7837,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -7917,7 +7917,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -7933,7 +7933,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -7981,7 +7981,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -7997,7 +7997,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -8029,7 +8029,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -8061,7 +8061,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -8109,7 +8109,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -8125,7 +8125,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -8221,7 +8221,7 @@
         "country_code": "AIN",
         "country": "AIN",
         "country_long": "AIN",
-        "img": null
+        "img": "/img/countries/ru.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -8333,7 +8333,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -8381,7 +8381,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -8413,7 +8413,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -8477,7 +8477,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -8525,7 +8525,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -8573,7 +8573,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -8701,7 +8701,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -8717,7 +8717,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -8797,7 +8797,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -8813,7 +8813,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -8973,7 +8973,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -8989,7 +8989,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9005,7 +9005,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -9037,7 +9037,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9053,7 +9053,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -9117,7 +9117,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -9181,7 +9181,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9213,7 +9213,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -9245,7 +9245,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -9309,7 +9309,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -9341,7 +9341,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -9421,7 +9421,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9437,7 +9437,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9453,7 +9453,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9533,7 +9533,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9629,7 +9629,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -9645,7 +9645,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9661,7 +9661,7 @@
         "country_code": "PRK",
         "country": "DPR Korea",
         "country_long": "Democratic People's Republic of Korea",
-        "img": null
+        "img": "/img/countries/kp.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -9805,7 +9805,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9821,7 +9821,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -9853,7 +9853,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -9885,7 +9885,7 @@
         "country_code": "PRK",
         "country": "DPR Korea",
         "country_long": "Democratic People's Republic of Korea",
-        "img": null
+        "img": "/img/countries/kp.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -9901,7 +9901,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -9965,7 +9965,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -9981,7 +9981,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -10077,7 +10077,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -10109,7 +10109,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -10221,7 +10221,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -10429,7 +10429,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -10589,7 +10589,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -10637,7 +10637,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -10669,7 +10669,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -10749,7 +10749,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -10765,7 +10765,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -10797,7 +10797,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -10829,7 +10829,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -10845,7 +10845,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -10957,7 +10957,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -11021,7 +11021,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -11069,7 +11069,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -11085,7 +11085,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -11101,7 +11101,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -11149,7 +11149,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -11165,7 +11165,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -11229,7 +11229,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -11245,7 +11245,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -11277,7 +11277,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -11309,7 +11309,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -11389,7 +11389,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -11437,7 +11437,7 @@
         "country_code": "EOR",
         "country": "EOR",
         "country_long": "Refugee Olympic Team",
-        "img": null
+        "img": "/img/olympics.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -11453,7 +11453,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -11693,7 +11693,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -11709,7 +11709,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -12013,7 +12013,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -12029,7 +12029,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -12077,7 +12077,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -12109,7 +12109,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -12125,7 +12125,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -12221,7 +12221,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -12269,7 +12269,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -12349,7 +12349,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -12429,7 +12429,7 @@
         "country_code": "PRK",
         "country": "DPR Korea",
         "country_long": "Democratic People's Republic of Korea",
-        "img": null
+        "img": "/img/countries/kp.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -12445,7 +12445,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -12509,7 +12509,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -12653,7 +12653,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -12781,7 +12781,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -12909,7 +12909,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -12957,7 +12957,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -13005,7 +13005,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -13117,7 +13117,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -13325,7 +13325,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -13357,7 +13357,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -13437,7 +13437,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -13613,7 +13613,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -13677,7 +13677,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -13757,7 +13757,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -13789,7 +13789,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -13853,7 +13853,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -13917,7 +13917,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -13981,7 +13981,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -13997,7 +13997,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -14061,7 +14061,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -14077,7 +14077,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -14093,7 +14093,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -14141,7 +14141,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -14221,7 +14221,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -14301,7 +14301,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -14381,7 +14381,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -14477,7 +14477,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -14573,7 +14573,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -14765,7 +14765,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -14829,7 +14829,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -14909,7 +14909,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -15037,7 +15037,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -15085,7 +15085,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -15149,7 +15149,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -15277,7 +15277,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -15309,7 +15309,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -15341,7 +15341,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -15357,7 +15357,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -15453,7 +15453,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -15629,7 +15629,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -15661,7 +15661,7 @@
         "country_code": "AIN",
         "country": "AIN",
         "country_long": "AIN",
-        "img": null
+        "img": "/img/countries/ru.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -15741,7 +15741,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -15821,7 +15821,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -15965,7 +15965,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -16061,7 +16061,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -16237,7 +16237,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -16269,7 +16269,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -16317,7 +16317,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -16333,7 +16333,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",
@@ -16349,7 +16349,7 @@
         "country_code": "KOR",
         "country": "Korea",
         "country_long": "Republic of Korea",
-        "img": null
+        "img": "/img/countries/kr.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -16397,7 +16397,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -16493,7 +16493,7 @@
         "country_code": "IRI",
         "country": "IR Iran",
         "country_long": "Islamic Republic of Iran",
-        "img": null
+        "img": "/img/countries/ir.svg"
     },
     {
         "medal_type": "Gold Medal",
@@ -16525,7 +16525,7 @@
         "country_code": "USA",
         "country": "United States",
         "country_long": "United States of America",
-        "img": null
+        "img": "/img/countries/us.svg"
     },
     {
         "medal_type": "Bronze Medal",
@@ -16573,7 +16573,7 @@
         "country_code": "CHN",
         "country": "China",
         "country_long": "People's Republic of China",
-        "img": null
+        "img": "/img/countries/cn.svg"
     },
     {
         "medal_type": "Silver Medal",

@@ -38,8 +38,7 @@
                     <div v-if="selected === 2" class="h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(2)" />
-                        <h2 class="text-xl font-bold mb-2">Medals Ranking</h2>
-                        <p>Day by day</p>
+                        <h2 class="text-xl font-bold mb-2">Medals Ranking Day by Day</h2>
                         <D3MedalsRace :medal-data="medals" />
                     </div>
                     <!-- bento -->

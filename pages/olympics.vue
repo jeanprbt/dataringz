@@ -38,7 +38,6 @@
                     <div v-if="selected === 2" class="h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(2)" />
-                        <h2 class="text-xl font-bold mb-2">Medals Ranking Day by Day</h2>
                         <D3MedalsRace :medal-data="medals" />
                     </div>
                     <!-- bento -->
@@ -46,7 +45,9 @@
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-out" class="absolute right-0"
                             @click.stop="toggleCard(2)" />
                         <h3 class="font-medium">Medals Ranking</h3>
-                        <img class="w-1/3 object-contain mx-auto" src="public/img/podium.png" alt="Podium" />
+                        <div class="flex h-full items-center justify-center">
+                            <img class="w-1/3 object-contain mx-auto pb-10" src="public/img/podium.png" alt="Podium" />
+                        </div>
                     </div>
                 </template>
             </UCard>
@@ -88,15 +89,16 @@
                     <div v-if="selected === 4" class="w-full h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(4)" />
-                        <h2 class="text-xl font-bold mb-2">Event Repartition by Sport</h2>
                         <D3EventsSunburst />
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-out" class="absolute right-0"
                             @click.stop="toggleCard(4)" />
-                        <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Events Repartition by Sport</h3>
-                        <img class="w-1/2 object-contain mx-auto py-8" src="public/img/foo_sunburst.png" alt="Sunburst chart" />
+                        <h3 class="font-medium text-zinc-800 dark:text-white">Events Repartition</h3>
+                        <div class="flex h-full items-center justify-center">
+                            <img class="w-2/3 object-contain" src="public/img/foo_sunburst.png" alt="Sunburst chart" />
+                        </div>
                     </div>
                 </template>
             </UCard>

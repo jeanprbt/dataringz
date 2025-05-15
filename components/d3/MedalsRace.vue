@@ -1,33 +1,30 @@
 <template>
     <div class="w-full h-full flex flex-col items-center">
-        <h2 class="mb-4 text-2xl font-semibold">Olympic Medals Race</h2>
-
         <div class="flex flex-wrap gap-2 mb-4 items-center justify-center">
-            <button @click="startAnimation" :disabled="isAnimating"
-                class="px-4 py-2 rounded bg-blue-600 text-white text-sm transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed hover:enabled:bg-blue-700">
-                Start
-            </button>
-            <button @click="pauseAnimation" :disabled="!isAnimating"
-                class="px-4 py-2 rounded bg-blue-600 text-white text-sm transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed hover:enabled:bg-blue-700">
-                Pause
-            </button>
-            <button @click="resetAnimation"
-                class="px-4 py-2 rounded bg-blue-600 text-white text-sm transition-colors hover:bg-blue-700">
-                Reset
-            </button>
+            <UButton variant="soft" @click="startAnimation" :disabled="isAnimating" icon="i-heroicons-play">Start
+            </UButton>
+            <UButton variant="soft" @click="pauseAnimation" :disabled="!isAnimating" icon="i-heroicons-pause">Pause
+            </UButton>
+            <UButton variant="soft" @click="resetAnimation" icon="i-heroicons-arrow-uturn-left">Reset</UButton>
 
-            <span class="px-4 py-2 bg-gray-100 rounded font-bold min-w-[200px] text-center">
-                {{ currentDateFormatted }}
+            <span class="py-1 bg-transparent rounded font-medium text-zinc-600 min-w-[10vw] text-center">{{
+                currentDateFormatted }}
             </span>
 
-            <div class="flex items-center gap-2">
-                <label for="speed" class="text-sm font-medium">Speed:</label>
-                <input type="range" id="speed" v-model="speed" min="1" max="10" class="w-32 accent-blue-600" />
-            </div>
+
+            <UCard class="bg-zinc-500/10" :ui="{ body: 'px-2.5 py-1.5 md:px-2.5 md:py-1.5', root: 'ring-0' }">
+                <template #default>
+                    <div class="flex items-center gap-2 px-2 py-1">
+                        <UIcon name="i-heroicons-chevron-double-right" class="text-zinc-500"/>
+                        <p class="text-zinc-500 text-sm font-medium">Speed</p>
+                        <USlider v-model="speed" :min="1" :max="10" :default-value="5" size="xs" class="w-32" />
+                    </div>
+                </template>
+            </UCard>
+
         </div>
 
-        <div class="w-full h-[600px] my-5 border border-gray-200 rounded-lg shadow-md overflow-hidden relative"
-            ref="chartContainer"></div>
+        <div class="w-full h-auto my-5 overflow-hidden relative" ref="chartContainer"></div>
     </div>
 </template>
 
@@ -284,20 +281,6 @@ export default {
                 .domain([20.5, 0.5])
                 .range([this.height - this.margin.bottom, this.margin.top])
 
-            // Add horizontal grid lines
-            this.svg.append('g')
-                .attr('class', 'grid-lines')
-                .selectAll('.grid-line')
-                .data(d3.range(1, 21).filter(d => this.yScale(d) <= this.yScale(20)))
-                .enter()
-                .append('line')
-                .attr('class', 'grid-line')
-                .attr('x1', this.margin.left)
-                .attr('x2', this.width - this.margin.right)
-                .attr('y1', d => this.yScale(d))
-                .attr('y2', d => this.yScale(d))
-                .attr('stroke', '#e0e0e0')
-                .attr('stroke-width', 1);
 
             // Add axes
             const xAxis = d3.axisBottom(this.xScale)
@@ -425,7 +408,7 @@ export default {
                 .on('mouseover', (event, d) => {
                     d3.selectAll('.country-line').attr('opacity', 0.1);
                     d3.select(event.currentTarget).attr('opacity', 1).attr('stroke-width', 5);
-                    
+
                     // Show tooltip
                     this.tooltip
                         .style('opacity', 1)
@@ -510,7 +493,7 @@ export default {
                     console.log('Setting flag for', d.country, ':', flagUrl);
                     return flagUrl;
                 })
-                .on('error', function(event, d) {
+                .on('error', function (event, d) {
                     console.error('Flag loading error for:', d.country);
                     d3.select(this).style('display', 'none');
                 });
@@ -542,16 +525,16 @@ export default {
             // Add line if it doesn't exist
             if (dateIndicator.select('line').empty()) {
                 dateIndicator.append('line')
-                    .attr('stroke', 'red')
+                    .attr('stroke', 'gray')
                     .attr('stroke-width', 2)
-                    .attr('stroke-dasharray', '5,5')
+                    .attr('stroke-dasharray', '2')
                     .attr('y1', this.margin.top)
                     .attr('y2', this.height - this.margin.bottom);
 
                 dateIndicator.append('text')
                     .attr('text-anchor', 'middle')
                     .attr('y', this.margin.top - 10)
-                    .style('fill', 'red')
+                    .style('fill', 'gray')
                     .style('font-weight', 'bold');
             }
 

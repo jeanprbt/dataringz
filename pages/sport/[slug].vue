@@ -33,7 +33,7 @@
                 'animate-bento-card': selected === 0 && transitioning && previous === 3,
                 'transition-all duration-500 transform h-full': selected === 3,
                 'hidden': selected !== 0 && selected !== 3
-            }" @click="isSmallScreen ? selected === 3 ? () => { } : toggleCard(3) : () => { }">
+            }" @click="isSmallScreen ? selected === 3 ? () => { } : toggleCard(3) : () => {  }">
                 <template #default>
                     <div v-if="selected === 3 && isSmallScreen" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"

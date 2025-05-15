@@ -1,6 +1,6 @@
 <template>
-    <PageModal :show="showAthletePage" :back="transition" :transition="transition" :items="items" @close="closePage" @back="router.back()">
-        <div class="athlete-content">
+    <PageModal :show="showAthletePage" :back="transition" :transition="true" :items="items" @close="closePage" @back="router.back()">
+        <!-- <div class="athlete-content">
             <div class="flex items-center mb-6">
                 <div class="athlete-photo mr-4">
                     <AthletePicture :name="athlete.name" :slug="slug" size="lg" />
@@ -20,7 +20,6 @@
                 <p class="text-zinc-700 dark:text-zinc-300">{{ athlete.bio }}</p>
             </div>
 
-            <!-- Additional information -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div v-if="athlete.birth_place" class="text-sm text-zinc-700 dark:text-zinc-300 flex items-start">
                     <UIcon name="i-heroicons-map-pin" class="w-4 h-4 mr-2 mt-0.5 text-primary flex-shrink-0" />
@@ -69,7 +68,6 @@
                 </div>
             </div>
 
-            <!-- Athlete accomplishments and personal information -->
             <div class="grid grid-cols-1 gap-4 mt-6">
                 <div v-if="athlete.nickname" class="text-sm text-zinc-700 dark:text-zinc-300 flex items-start">
                     <UIcon name="i-heroicons-identification" class="w-4 h-4 mr-2 mt-0.5 text-primary flex-shrink-0" />
@@ -107,7 +105,6 @@
                 </div>
             </div>
 
-            <!-- Sports the athlete competes in -->
             <div class="mt-6">
                 <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-2 flex items-center">
                     <UIcon name="i-heroicons-trophy" class="w-5 h-5 mr-2 text-primary" />
@@ -119,7 +116,6 @@
                 </div>
             </div>
 
-            <!-- Events the athlete participates in -->
             <div v-if="athlete.events && athlete.events.length > 0" class="mt-6">
                 <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-2 flex items-center">
                     <UIcon name="i-heroicons-calendar" class="w-5 h-5 mr-2 text-primary" />
@@ -133,7 +129,6 @@
                 </ul>
             </div>
 
-            <!-- Medal achievements section -->
             <div v-if="athlete.achievements && athlete.achievements.length > 0" class="mt-6">
                 <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-2 flex items-center">
                     <UIcon name="i-heroicons-fire" class="w-5 h-5 mr-2 text-primary" />
@@ -153,7 +148,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+        
     </PageModal>
 </template>
 
@@ -162,7 +158,7 @@ import { yearMonthDayDate } from '~/utils/date';
 import athletes from '~/data/athletes.json';
 
 definePageMeta({
-    middleware: ['athlete', 'previous', 'breadcrumb'],
+    middleware: ['previous', 'breadcrumb'],
     layout: 'canvas'
 });
 
@@ -186,6 +182,16 @@ const athlete = athletes[slug as keyof typeof athletes] as any;
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
+
+// HANDLE TRANSITION ------------------------------
+const previous = useState('previous');
+const transition = computed(() => previous.value && previous.value !== '/' && !directAccess) as ComputedRef<boolean>;
+
+// HANDLE CLOSE BUTTON ----------------------------
+const closePage = () => {
+    showAthletePage.value = false;
+    router.push('/');
+}
 
 useHead(() => {
     const name = athlete.name;
@@ -217,16 +223,6 @@ useHead(() => {
         ]
     };
 });
-
-// HANDLE TRANSITION ------------------------------
-const previous = useState('previous');
-const transition = computed(() => previous.value && previous.value !== '/' && !directAccess) as ComputedRef<boolean>;
-
-// HANDLE CLOSE BUTTON ----------------------------
-const closePage = () => {
-    showAthletePage.value = false;
-    router.push('/');
-}
 
 // MEDAL STYLING FUNCTIONS ------------------------
 const medalClasses = (medalType: string): string => {

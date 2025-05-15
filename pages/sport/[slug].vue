@@ -33,7 +33,7 @@
                 'animate-bento-card': selected === 0 && transitioning && previous === 3,
                 'transition-all duration-500 transform h-full': selected === 3,
                 'hidden': selected !== 0 && selected !== 3
-            }" @click="isSmallScreen ? selected === 3 ? () => { } : toggleCard(3) : () => {  }">
+            }" @click="isSmallScreen ? selected === 3 ? () => { } : toggleCard(3) : () => { }">
                 <template #default>
                     <div v-if="selected === 3 && isSmallScreen" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
@@ -52,26 +52,41 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-3 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-1': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && sport.events.length > compactEvents.length,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && Object.keys(sport.events).length > compactEvents.length,
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,
                 'transition-all duration-500 transform h-full': selected === 4,
                 'hidden': selected !== 0 && selected !== 4
             }"
-                @click="sport.events.length > compactEvents.length ? selected === 4 ? () => { } : toggleCard(4) : () => { }">
+                @click="Object.keys(sport.events).length > compactEvents.length ? selected === 4 ? () => { } : toggleCard(4) : () => { }">
                 <template #default>
                     <!-- full screen -->
                     <div v-if="selected === 4" class="h-full relative overflow-auto">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-50"
                             @click.stop="toggleCard(4)" />
-                        <div class="grid [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] gap-4">
-                            <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-1">Events</h3>
-                            <p v-for="(event, index) in sport.events" :key="index"
-                                class="text-sm text-zinc-600 dark:text-gray-300 rounded-lg p-2 bg-zinc-100 dark:bg-zinc-900 whitespace-nowrap">
-                                {{ event }}
-                            </p>
-                        </div>
+
+                        <transition enter-active-class="transition-opacity duration-300" enter-from-class="opacity-0"
+                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300"
+                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                            <div v-if="selectedEvent" class="h-full relative">
+                                <UButton variant="ghost" icon="i-heroicons-arrow-left" class="absolute left-0"
+                                    @click.stop="selectedEvent = null" />
+                                <div class="flex items-center justify-center h-full">
+                                    <!-- Empty div as requested, can be populated with content later -->
+                                </div>
+                            </div>
+                            <div v-else class="grid [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] gap-4">
+                                <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-1">Events
+                                </h3>
+                                <p v-for="([event_name, event], index) in Object.entries(sport.events)" :key="index"
+                                    class="text-sm text-zinc-600 dark:text-gray-300 rounded-lg p-2 bg-zinc-100 dark:bg-zinc-900 whitespace-nowrap cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                                    @click.stop="selectEvent(event_name)">
+                                    {{ event_name }}
+                                </p>
+                            </div>
+                        </transition>
 
                     </div>
+
                     <!-- bento -->
                     <div v-else class="h-full relative">
                         <div class="flex flex-col justify-center ">
@@ -186,6 +201,7 @@ const selected = ref(0);
 const previous = ref(0);
 const transitioning = ref(false);
 const isSmallScreen = ref(false);
+const selectedEvent = ref<string | null>(null);
 
 onMounted(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -212,7 +228,7 @@ const compactEvents = computed(() => {
     const maxTotalChars = 35;
     let totalChars = 0;
     let result = [];
-    const sortedEvents = [...sport.events].sort((a, b) => a.length - b.length);
+    const sortedEvents = [...Object.keys(sport.events)].sort((a, b) => a.length - b.length);
     for (const event of sortedEvents) {
         if (result.length >= maxEvents) break;
         totalChars += event.length;
@@ -221,11 +237,12 @@ const compactEvents = computed(() => {
     }
     return result;
 });
-const compactAthletes = computed(() => sortByMedals(sport.athletes).slice(0, 4))
+const compactAthletes = computed(() => sortByMedals(sport.athletes).slice(0, 4));
+const selectEvent = (event: string) => selectedEvent.value = event;
 
 useHead(() => {
     const sportName = sport.name;
-    const eventCount = sport.events?.length || 0;
+    const eventCount = Object.keys(sport.events)?.length || 0;
     const athleteCount = sport.athletes?.length || 0;
 
     const title = `${sportName} - Paris 2024 Olympic Games`;

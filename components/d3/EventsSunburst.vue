@@ -43,7 +43,7 @@ export default {
       return {
         name: 'Olympic Sports',
         children: Object.values(sportsData).map(sport => {
-          const events = sport.events;
+          const events = Object.keys(sport.events)
           const originalSize = events.length;
           
           // Determine if we need to scale sizes

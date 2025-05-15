@@ -6,7 +6,6 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-2 sm:p-6 h-full' }" :class="{
                 'col-span-4 md:col-span-2 row-span-1 md:row-span-2': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'hidden': selected !== 0 && selected !== 1
             }">
                 <template #default>
@@ -17,7 +16,6 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-4 h-full' }" :class="{
                 'col-span-8 md:col-span-4 row-span-1': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'hidden': selected !== 0 && selected !== 2
             }">
                 <template #default>
@@ -31,11 +29,11 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-6 row-span-1 md:row-span-3': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && isSmallScreen,
                 'animate-bento-card': selected === 0 && transitioning && previous === 3,
                 'transition-all duration-500 transform h-full': selected === 3,
                 'hidden': selected !== 0 && selected !== 3
-            }">
+            }" @click="isSmallScreen ? selected === 3 ? () => { } : toggleCard(3) : () => { }">
                 <template #default>
                     <div v-if="selected === 3 && isSmallScreen" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
@@ -43,8 +41,6 @@
                         <D3GenderPieChart :sport-slug="slug" />
                     </div>
                     <div v-else-if="isSmallScreen" class="h-full relative flex items-center">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-out" class="absolute right-0"
-                            @click.stop="toggleCard(3)" />
                         <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Gender distribution</h3>
                     </div>
                     <div v-else class="h-full">
@@ -56,11 +52,12 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-3 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-1': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && sport.events.length > compactEvents.length,
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,
                 'transition-all duration-500 transform h-full': selected === 4,
                 'hidden': selected !== 0 && selected !== 4
-            }">
+            }"
+                @click="sport.events.length > compactEvents.length ? selected === 4 ? () => { } : toggleCard(4) : () => { }">
                 <template #default>
                     <!-- full screen -->
                     <div v-if="selected === 4" class="h-full relative overflow-auto">
@@ -77,9 +74,6 @@
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <UButton v-if="sport.events.length > compactEvents.length" variant="ghost"
-                            icon="i-heroicons-arrows-pointing-out" @click="toggleCard(4)" class="absolute right-0">
-                        </UButton>
                         <div class="flex flex-col justify-center ">
                             <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-1">Events</h3>
                             <div class="flex justify-left gap-2">
@@ -128,7 +122,7 @@
                 'animate-bento-card': selected === 0 && transitioning && previous === 6,
                 'transition-all duration-500 transform h-full': selected === 6,
                 'hidden': selected !== 0 && selected !== 6
-            }">
+            }" @click="selected === 6 ? () => { } : toggleCard(6)">
                 <template #default>
                     <div v-if="selected === 6" class="h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
@@ -137,11 +131,9 @@
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-out" class="absolute right-0"
-                            @click.stop="toggleCard(6)" />
                         <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Age distribution</h3>
-                        <img v-if="!isSmallScreen " class="w-full h-full p-12"
-                            src="/img/foo_age_chart.png" alt="Foo chart" />
+                        <img v-if="!isSmallScreen" class="w-full h-full p-12" src="/img/foo_age_chart.png"
+                            alt="Foo chart" />
                     </div>
                 </template>
             </UCard>

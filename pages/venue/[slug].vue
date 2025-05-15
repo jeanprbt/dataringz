@@ -3,7 +3,6 @@
         <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-12': selected === 0 }]">
             <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
                 'col-span-12 md:col-span-8 row-span-4 md:row-span-8': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'hidden': selected !== 0 && selected !== 1
             }">
                 <template #default>
@@ -14,7 +13,7 @@
 
             <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-2': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                // 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'hidden': selected !== 0 && selected !== 2
             }">
                 <template #default>
@@ -27,7 +26,6 @@
 
             <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
                 'col-span-6 md:col-span-2 row-span-2': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'hidden': selected !== 0 && selected !== 3
             }">
                 <template #default>
@@ -40,7 +38,6 @@
 
             <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
                 'col-span-6 md:col-span-2 row-span-2': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'hidden': selected !== 0 && selected !== 3
             }">
                 <template #default>
@@ -53,7 +50,6 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-4': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'hidden': selected !== 0 && selected !== 3
             }">
                 <template #default>

@@ -1,11 +1,23 @@
 <template>
   <div class="w-full h-full flex items-center justify-center">
-    <div ref="sunburstContainer" class="relative flex-1 aspect-square max-h-[calc(100%-3rem)]"></div>
+    <div ref="sunburstContainer" class="relative flex-1 aspect-square max-h-[calc(100%-3rem)]">
+      <!-- Center Icon Container -->
+      <div ref="centerIcon"
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-50 w-20 h-20">
+        <UButton v-if="isDetailView" @click="zoomToRoot" icon="i-heroicons-arrow-uturn-left" variant="soft"
+          class="rounded-full" size="xl" color="gray" />
+        <div v-else-if="currentHoverIcon" class="w-full h-full p-2 flex items-center justify-center">
+          <img :src="currentHoverIcon" class="w-16 h-16 object-contain transition-opacity duration-200"
+            alt="Sport icon" />
+        </div>
+      </div>
+    </div>
     <div ref="tooltip"
       class="absolute hidden bg-white dark:bg-zinc-800 p-2 rounded shadow-lg border border-gray-200 dark:border-zinc-700 text-sm z-10">
     </div>
   </div>
 </template>
+
 
 <script>
 import * as d3 from 'd3';
@@ -17,7 +29,9 @@ export default {
     return {
       sunburstData: this.transformSportsData(sportsData),
       tooltipTimer: null,
-      tooltipDelay: 500 // ms to delay before showing tooltip
+      tooltipDelay: 500, // ms to delay before showing tooltip
+      currentHoverIcon: null, // Track the current icon being displayed
+      isDetailView: false // Rename from showBackButton to be more semantic
     };
   },
   mounted() {
@@ -35,8 +49,14 @@ export default {
     handleResize() {
       // Clear the existing chart and redraw
       if (this.$refs.sunburstContainer) {
+        // Preserve the center icon and its container
+        const centerIcon = this.$refs.centerIcon;
         this.$refs.sunburstContainer.innerHTML = '';
-        this.createSunburstChart();
+        // Reattach the center icon
+        if (centerIcon) {
+          this.$refs.sunburstContainer.appendChild(centerIcon);
+        }
+        this.createSunbustChart();
       }
     },
     transformSportsData(sportsData) {
@@ -45,12 +65,13 @@ export default {
         children: Object.values(sportsData).map(sport => {
           const events = Object.keys(sport.events)
           const originalSize = events.length;
-          
+
           // Determine if we need to scale sizes
           const adjustedSize = originalSize < 6 ? 6 / originalSize : 1;
 
           return {
             name: sport.name,
+            icon: sport.icon, // Keep track of the icon URL
             children: events.map(event => ({
               name: event,
               size: adjustedSize
@@ -63,12 +84,12 @@ export default {
     showTooltip(text, event) {
       // Clear any existing timer
       if (this.tooltipTimer) clearTimeout(this.tooltipTimer);
-      
+
       // Set a new timer to show the tooltip after delay
       this.tooltipTimer = setTimeout(() => {
         const tooltip = this.$refs.tooltip;
         tooltip.innerHTML = text;
-        
+
         tooltip.style.left = `${event.clientX - 100}px`;
         tooltip.style.top = `${event.clientY - 150}px`;
         tooltip.classList.remove('hidden');
@@ -80,40 +101,57 @@ export default {
         clearTimeout(this.tooltipTimer);
         this.tooltipTimer = null;
       }
-      
+
       // Hide tooltip immediately
       if (this.$refs.tooltip) {
         this.$refs.tooltip.classList.add('hidden');
       }
     },
+
+    // Method to handle zooming back to root view
+    zoomToRoot() {
+      // This will be connected to the D3 function
+      if (this.rootZoomFunction) {
+        this.rootZoomFunction();
+      }
+    },
+
     createSunburstChart() {
       // Get container dimensions - accounting for the header and description text above the chart
       const container = this.$refs.sunburstContainer;
       if (!container) return;
-      
-      // Clear any existing content
-      container.innerHTML = '';
-      
+
+      // Clear any existing content except the center icon
+      // Preserve SVG and center icon container
+      const centerIcon = this.$refs.centerIcon;
+      // Remove only the SVG if it exists
+      container.querySelectorAll('svg').forEach(svg => svg.remove());
+
+      // Size the center icon container
+      const centerIconSize = 80; // pixels - adjust as needed
+      centerIcon.style.width = `${centerIconSize}px`;
+      centerIcon.style.height = `${centerIconSize}px`;
+
       // Get the available dimensions
       const containerWidth = container.clientWidth;
       const containerHeight = container.clientHeight;
-      
+
       // Use the smaller dimension to ensure the chart fits
       const size = Math.min(containerWidth, containerHeight);
-      
+
       // Set a maximum radius to ensure the chart fits entirely within the container
       const maxRadius = size / 2;
-      
+
       // Calculate radius to ensure good proportions for the 3 levels in our hierarchy
       const radius = maxRadius / 3;
-      
+
       // Create color scale
       const color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, this.sunburstData.children.length + 1));
 
       // Compute the hierarchy
       const hierarchy = d3.hierarchy(this.sunburstData)
         .sum(d => d.size);
-      
+
       // Don't sort - maintain original order from data
 
       const root = d3.partition()
@@ -238,82 +276,95 @@ export default {
         });
 
       // Handle mouse enter on segments
+      const self = this; // Store reference to Vue component
+
       function mouseEntered(event, d) {
-        // Skip hover effects during transitions
         if (isTransitioning) return;
 
-        // Only apply hover effects at the sports level and when viewing the root
         if (d.depth === 1 && currentView === root) {
           currentHover = d;
+          console.log('Sport data:', d.data); // Debug log
+          self.currentHoverIcon = d.data.icon;
+          console.log('Setting icon:', self.currentHoverIcon); // Debug log
 
-          // Update opacity to highlight the hovered sport and show its events
-          path
-            .transition()
-            .duration(200)
-            .attr("fill-opacity", node => {
-              if (node === d) {
-                // Highlight the hovered sport
-                return 0.85;
-              } else if (node.parent === d && node.depth === 2) {
-                // Show events of the hovered sport in the outer ring only
-                return 0.6;  // Slightly dimmer than the sport
-              } else if (node.depth === 1) {
-                // Fade other sports
-                return 0.3;
-              } else {
-                // Hide events of other sports
-                return 0;
-              }
-            })
-            .attr("d", node => {
-              if (node.parent === d && node.depth === 2) {
-                // Position events of the hovered sport in the outer ring only
-                // Use Array.from to ensure proper indexing
-                const index = Array.from(d.children).indexOf(node);
-                const count = d.children.length;
-                const arcSize = 2 * Math.PI / count;
+          // Only apply hover effects at the sports level and when viewing the root
+          if (d.depth === 1 && currentView === root) {
+            currentHover = d;
 
-                // Create temporary target for event positioning - distribute in 360° outer ring
-                node.hoverTarget = {
-                  x0: index * arcSize,
-                  x1: (index + 1) * arcSize,
-                  y0: 2,  // Start of outer ring
-                  y1: 3   // End of outer ring
-                };
+            // Show the sport icon when hovering over a sport
+            if (d.data.icon) {
+              self.currentHoverIcon = d.data.icon;
+            }
 
-                return arc(node.hoverTarget);
-              } else {
-                // Keep everyone else at their current position
-                return arc(node.current);
-              }
-            });
-
-          // Update labels for events of hovered sport
-          label
-            .transition()
-            .duration(200)
-            .attr("fill-opacity", node => {
-              if (node === d) {
-                return 1; // Show label for hovered sport
-              } else if (node.parent === d && node.depth === 2) {
-                return 0.9; // Show labels for events of hovered sport
-              } else if (node.depth === 1) {
-                return 0.2; // Fade labels of other sports
-              } else {
-                return 0; // Hide labels for events of other sports
-              }
-            })
-            .attr("transform", node => {
-              if (node.parent === d && node.depth === 2) {
-                // Position event labels in outer ring
-                if (node.hoverTarget) {
-                  const x = (node.hoverTarget.x0 + node.hoverTarget.x1) / 2 * 180 / Math.PI;
-                  const y = (node.hoverTarget.y0 + node.hoverTarget.y1) / 2 * radius;
-                  return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+            // Update opacity to highlight the hovered sport and show its events
+            path
+              .transition()
+              .duration(200)
+              .attr("fill-opacity", node => {
+                if (node === d) {
+                  // Highlight the hovered sport
+                  return 0.85;
+                } else if (node.parent === d && node.depth === 2) {
+                  // Show events of the hovered sport in the outer ring only
+                  return 0.6;  // Slightly dimmer than the sport
+                } else if (node.depth === 1) {
+                  // Fade other sports
+                  return 0.3;
+                } else {
+                  // Hide events of other sports
+                  return 0;
                 }
-              }
-              return labelTransform(node.current);
-            });
+              })
+              .attr("d", node => {
+                if (node.parent === d && node.depth === 2) {
+                  // Position events of the hovered sport in the outer ring only
+                  // Use Array.from to ensure proper indexing
+                  const index = Array.from(d.children).indexOf(node);
+                  const count = d.children.length;
+                  const arcSize = 2 * Math.PI / count;
+
+                  // Create temporary target for event positioning - distribute in 360° outer ring
+                  node.hoverTarget = {
+                    x0: index * arcSize,
+                    x1: (index + 1) * arcSize,
+                    y0: 2,  // Start of outer ring
+                    y1: 3   // End of outer ring
+                  };
+
+                  return arc(node.hoverTarget);
+                } else {
+                  // Keep everyone else at their current position
+                  return arc(node.current);
+                }
+              });
+
+            // Update labels for events of hovered sport
+            label
+              .transition()
+              .duration(200)
+              .attr("fill-opacity", node => {
+                if (node === d) {
+                  return 1; // Show label for hovered sport
+                } else if (node.parent === d && node.depth === 2) {
+                  return 0.9; // Show labels for events of hovered sport
+                } else if (node.depth === 1) {
+                  return 0.2; // Fade labels of other sports
+                } else {
+                  return 0; // Hide labels for events of other sports
+                }
+              })
+              .attr("transform", node => {
+                if (node.parent === d && node.depth === 2) {
+                  // Position event labels in outer ring
+                  if (node.hoverTarget) {
+                    const x = (node.hoverTarget.x0 + node.hoverTarget.x1) / 2 * 180 / Math.PI;
+                    const y = (node.hoverTarget.y0 + node.hoverTarget.y1) / 2 * radius;
+                    return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+                  }
+                }
+                return labelTransform(node.current);
+              });
+          }
         }
       }
 
@@ -325,6 +376,9 @@ export default {
         // Only process if we have an active hover and are at the root view
         if (currentHover && currentView === root) {
           currentHover = null;
+
+          // Clear the sport icon when no longer hovering
+          self.currentHoverIcon = null;
 
           // Restore original opacities and positions
           path
@@ -354,6 +408,10 @@ export default {
       function zoomToRoot() {
         currentView = root;
         currentHover = null;
+
+        // Hide back button, clear sport icon
+        self.isDetailView = false;
+        self.currentHoverIcon = null;
 
         // Set transition lock
         isTransitioning = true;
@@ -403,17 +461,18 @@ export default {
           .attrTween("transform", d => () => labelTransform(d.current));
       }
 
+      // Expose the zoomToRoot function to the Vue component
+      self.rootZoomFunction = zoomToRoot;
+
       // Handle click on arc segments
       function clicked(event, p) {
-        // Skip if already transitioning
         if (isTransitioning) return;
 
-        // Handle clicking on a sport
         if (p.depth === 1 && p.children) {
           currentView = p;
           currentHover = null;
+          self.currentHoverIcon = null;
 
-          // Set transition lock
           isTransitioning = true;
 
           // Calculate targets for full 360 view of the selected sport
@@ -450,11 +509,11 @@ export default {
             }
           });
 
-          // Perform the transition
           const t = svg.transition()
             .duration(event.altKey ? 7500 : 750)
             .on("end", () => {
-              // Release the transition lock when animation completes
+              // Set isDetailView after transition completes
+              self.isDetailView = true;
               isTransitioning = false;
             });
 

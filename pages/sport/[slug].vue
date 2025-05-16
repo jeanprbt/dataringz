@@ -52,7 +52,7 @@
                 </template>
             </UCard>
 
-            <UCard variant="soft" :ui="{ 'body': 'p-3 sm:p-6 md:p-6 h-full' }" :class="{
+            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-1 md:row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && eventsExpandable,
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,
@@ -68,21 +68,28 @@
                         <transition enter-active-class="transition-opacity duration-300" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+
+                            <!-- selected event -->
                             <div v-if="selectedEvent" class="h-full relative">
                                 <UButton v-if="eventsExpandable" variant="ghost" icon="i-heroicons-arrow-left"
                                     class="absolute left-0" @click.stop="selectedEvent = null" />
-                                <div class="flex items-center justify-center h-full">
-                                    Hello world
-                                    <!-- Empty div as requested, can be populated with content later -->
+                                <div class="flex flex-col items-center justify-center h-full">
+                                    <h3 class="font-medium text-zinc-500 dark:text-zinc-400 mb-5">{{ sport.name }} | {{ selectedEvent.name }}</h3>
+                                    <D3Tournament :matches="selectedEvent.matches" />
                                 </div>
                             </div>
+
+                            <!-- list of events -->
                             <div v-else
                                 class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
                                 <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-1">Events
                                 </h3>
                                 <p v-for="([event_name, event], index) in Object.entries(sport.events)" :key="index"
-                                    class="text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50"
-                                    @click.stop="selectEvent(event_name)">
+                                    :class="[
+                                        'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
+                                        { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament }
+                                    ]"    
+                                    @click.stop="event.tournament ? selectEvent(event) : () => { }">
                                     {{ event_name }}
                                 </p>
                             </div>
@@ -92,14 +99,16 @@
 
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <div class="flex flex-col justify-center h-full overflow-auto">
+                        <div class="flex flex-col justify-center h-full">
+                            <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-2">Events</h3>
                             <div class="grid [grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))] gap-3 h-full">
-                                <h3 class="col-span-full text-base md:text-lg font-medium text-zinc-800 dark:text-white">Events</h3>
-                                <p v-for="(event, index) in compactEvents" :key="index"
-                                    @mouseenter="innerHovered = true" @mouseleave="innerHovered = false"
-                                    @click="toggleCardAndSelectEvent(4, event)"
-                                    class="text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50">
-                                    {{ event }}
+                                <p v-for="([event_name, event], index) in compactEvents" :key="index"
+                                    @mouseenter="innerHovered = true" @mouseleave="innerHovered = false" @click="event.tournament ? toggleCardAndSelectEvent(4, event) : () => { }"
+                                    :class="[
+                                        'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]', 
+                                        { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament }
+                                    ]">
+                                    {{ event_name }}
                                 </p>
                             </div>
                         </div>
@@ -151,7 +160,7 @@
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Age distribution</h3>
+                        <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Age distribution</h3>
                         <img v-if="!isSmallScreen" class="w-full h-full p-12" src="/img/foo_age_chart.png"
                             alt="Foo chart" />
                     </div>
@@ -206,7 +215,8 @@ const selected = ref(0);
 const previous = ref(0);
 const transitioning = ref(false);
 const isSmallScreen = ref(false);
-const selectedEvent = ref<string | null>(null);
+type EventType = { [key: string]: any };
+const selectedEvent = ref<EventType | null>(null);
 const innerHovered = ref(false);
 
 onMounted(() => {
@@ -230,13 +240,13 @@ const toggleCard = (index: number = 0) => {
     }
     else selected.value = index;
 }
-const selectEvent = (event: string | null) => selectedEvent.value = event;
-const toggleCardAndSelectEvent = (index: number, event: string | null) => {
-    innerHovered.value = false;
+
+const selectEvent = (event: any) => selectedEvent.value = event;
+const toggleCardAndSelectEvent = (index: number, event: any) => {
     selectEvent(event);
     toggleCard(index);
 }
-const compactEvents = computed(() => Object.keys(sport.events).slice(0, 6));
+const compactEvents = computed(() => Object.entries(sport.events).slice(0, 6));
 const compactAthletes = computed(() => sortByMedals(sport.athletes).slice(0, 4));
 const eventsExpandable = computed(() => Object.keys(sport.events).length > compactEvents.value.length);
 

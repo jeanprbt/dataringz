@@ -12947,6 +12947,7 @@
         "description": "Football competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
+                "name": "Men",
                 "tournament": true,
                 "matches": [
                     {
@@ -13036,6 +13037,7 @@
                 ]
             },
             "Women": {
+                "name": "Women",
                 "tournament": true,
                 "matches": [
                     {

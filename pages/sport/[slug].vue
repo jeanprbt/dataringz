@@ -58,7 +58,8 @@
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,
                 'transition-all duration-500 transform h-full': selected === 4,
                 'hidden': selected !== 0 && selected !== 4
-            }" @click="eventsExpandable && selected !== 4 && !eventHovered ? toggleCard(4) : () => { }" @mouseenter="eventCardHovered = true" @mouseleave="eventCardHovered = false">
+            }" @click="eventsExpandable && selected !== 4 && !eventHovered ? toggleCard(4) : () => { }"
+                @mouseenter="eventCardHovered = true" @mouseleave="eventCardHovered = false">
                 <template #default>
                     <!-- full screen -->
                     <div v-if="selected === 4" class="h-full relative overflow-auto">
@@ -81,17 +82,19 @@
                             </div>
 
                             <!-- list of events -->
-                            <div v-else
-                                class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
-                                <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-1">Events
+                            <div v-else class="flex flex-col h-full">
+                                <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-4">Events
                                 </h3>
-                                <p v-for="([event_name, event], index) in Object.entries(sport.events)" :key="index"
-                                    :class="[
-                                        'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
-                                        { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament }
-                                    ]" @click.stop="event.tournament ? selectEvent(event) : () => { }">
-                                    {{ event_name }}
-                                </p>
+                                <div
+                                    class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
+                                    <p v-for="([event_name, event], index) in Object.entries(sport.events)" :key="index"
+                                        :class="[
+                                            'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
+                                            { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament }
+                                        ]" @click.stop="event.tournament ? selectEvent(event) : () => { }">
+                                        {{ event_name }}
+                                    </p>
+                                </div>
                             </div>
                         </transition>
 
@@ -99,7 +102,8 @@
 
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                         <UIcon v-if="eventCardHovered && eventsExpandable" name="i-heroicons-arrow-up-right" class="absolute right-0" />
+                        <UIcon v-if="eventCardHovered && eventsExpandable" name="i-heroicons-arrow-up-right"
+                            class="absolute right-0" />
                         <div class="flex flex-col justify-center h-full">
                             <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-2">Events</h3>
                             <div class="grid [grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))] gap-3 h-full">
@@ -131,26 +135,30 @@
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-50"
                             @click.stop="toggleCard(5)" />
 
-                        <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
-                            <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-1">Medallists
+                        <div class="flex flex-col h-full">
+                            <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-4">Medallists
                             </h3>
-                            <NuxtLink v-for="athlete in sport.athletes" :key="athlete.slug"
-                                :to="`/athlete/${athlete.slug}`"
-                                class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 p-2">
-                                <div class="mb-2">
-                                    <AthletePicture :name="athlete.name" :slug="athlete.slug" size="sm" />
-                                </div>
-                                <span class="text-center text-xs md:text-sm font-medium text-zinc-800 dark:text-white">
-                                    {{ athlete.name }}
-                                </span>
-                                <div v-if="athlete.country" class="flex items-center mt-1">
-                                    <CountryFlag v-if="athlete.countryCode" :code="athlete.countryCode"
-                                        :name="athlete.country" size="sm" class="mr-1" />
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">{{
-                                        athlete.country }}</span>
-                                </div>
-                                <MedalDisplay :medals="athlete.medals" class="mt-2" />
-                            </NuxtLink>
+
+                            <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
+                                <NuxtLink v-for="athlete in sport.athletes" :key="athlete.slug"
+                                    :to="`/athlete/${athlete.slug}`"
+                                    class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 p-2">
+                                    <div class="mb-2">
+                                        <AthletePicture :name="athlete.name" :slug="athlete.slug" size="sm" />
+                                    </div>
+                                    <span
+                                        class="text-center text-xs md:text-sm font-medium text-zinc-800 dark:text-white">
+                                        {{ athlete.name }}
+                                    </span>
+                                    <div v-if="athlete.country" class="flex items-center mt-1">
+                                        <CountryFlag v-if="athlete.countryCode" :code="athlete.countryCode"
+                                            :name="athlete.country" size="sm" class="mr-1" />
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">{{
+                                            athlete.country }}</span>
+                                    </div>
+                                    <MedalDisplay :medals="athlete.medals" class="mt-2" />
+                                </NuxtLink>
+                            </div>
                         </div>
                     </div>
 
@@ -215,7 +223,6 @@
 
 <script setup lang="ts">
 import sports from '~/data/sports.json';
-import athlete from '~/middleware/athlete';
 
 definePageMeta({
     middleware: ['sport', 'previous', 'breadcrumb'],

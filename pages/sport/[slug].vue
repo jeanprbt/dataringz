@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showSportPage" :back="transition" :transition="true" :items="items" @close="closePage"
+    <PageModal :show="showSportPage" :back="transition" :transition="transition" :items="items" @close="closePage"
         @back="router.back()">
 
         <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-6': selected === 0 }]">
@@ -58,7 +58,7 @@
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,
                 'transition-all duration-500 transform h-full': selected === 4,
                 'hidden': selected !== 0 && selected !== 4
-            }" @click="eventsExpandable && selected !== 4 && !innerHovered ? toggleCard(4) : () => { }">
+            }" @click="eventsExpandable && selected !== 4 && !eventHovered ? toggleCard(4) : () => { }" @mouseenter="eventCardHovered = true" @mouseleave="eventCardHovered = false">
                 <template #default>
                     <!-- full screen -->
                     <div v-if="selected === 4" class="h-full relative overflow-auto">
@@ -74,7 +74,8 @@
                                 <UButton v-if="eventsExpandable" variant="ghost" icon="i-heroicons-arrow-left"
                                     class="absolute left-0" @click.stop="selectedEvent = null" />
                                 <div class="flex flex-col items-center justify-center h-full">
-                                    <h3 class="font-medium text-zinc-500 dark:text-zinc-400 mb-5">{{ sport.name }} | {{ selectedEvent.name }}</h3>
+                                    <h3 class="font-medium text-zinc-500 dark:text-zinc-400 mb-5">{{ sport.name }} | {{
+                                        selectedEvent.name }}</h3>
                                     <D3Tournament :matches="selectedEvent.matches" />
                                 </div>
                             </div>
@@ -88,8 +89,7 @@
                                     :class="[
                                         'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
                                         { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament }
-                                    ]"    
-                                    @click.stop="event.tournament ? selectEvent(event) : () => { }">
+                                    ]" @click.stop="event.tournament ? selectEvent(event) : () => { }">
                                     {{ event_name }}
                                 </p>
                             </div>
@@ -99,13 +99,14 @@
 
                     <!-- bento -->
                     <div v-else class="h-full relative">
+                         <UIcon v-if="eventCardHovered && eventsExpandable" name="i-heroicons-arrow-up-right" class="absolute right-0" />
                         <div class="flex flex-col justify-center h-full">
                             <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-2">Events</h3>
                             <div class="grid [grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))] gap-3 h-full">
                                 <p v-for="([event_name, event], index) in compactEvents" :key="index"
-                                    @mouseenter="innerHovered = true" @mouseleave="innerHovered = false" @click="event.tournament ? toggleCardAndSelectEvent(4, event) : () => { }"
-                                    :class="[
-                                        'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]', 
+                                    @mouseenter="hoverEvent()" @mouseleave="unhoverEvent()"
+                                    @click="event.tournament ? toggleCardAndSelectEvent(4, event) : () => { }" :class="[
+                                        'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
                                         { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament }
                                     ]">
                                     {{ event_name }}
@@ -116,34 +117,74 @@
                 </template>
             </UCard>
 
-            <div :class="{
-                'col-span-12 md:col-span-6 row-span-4 grid grid-cols-2 grid-rows-2 gap-4 h-full': true,
-                'hidden': selected !== 0
-            }">
-                <UCard v-for="athlete in compactAthletes" :key="athlete.slug" variant="soft"
-                    :ui="{ 'body': 'p-0 md:p-4 h-full' }" :class="{
-                        'col-span-1 row-span-1': selected === 0,
-                        'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    }">
-                    <template #default>
-                        <NuxtLink :to="`/athlete/${athlete.slug}`"
-                            class=" w-full h-full flex flex-col items-center justify-center">
-                            <div class="mb-2">
-                                <AthletePicture :name="athlete.name" :slug="athlete.slug" size="sm" />
+            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
+                'col-span-12 md:col-span-6 row-span-3': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning,
+                'animate-bento-card': selected === 0 && transitioning && previous === 5,
+                'transition-all duration-500 transform h-full': selected === 5,
+                'hidden': selected !== 0 && selected !== 5
+            }" @click="selected !== 5 && !athleteHovered ? toggleCard(5) : () => { }"
+                @mouseenter="athleteCardHovered = true" @mouseleave="athleteCardHovered = false">
+                <template #default>
+                    <!-- full screen -->
+                    <div v-if="selected === 5" class="h-full relative overflow-auto">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-50"
+                            @click.stop="toggleCard(5)" />
+
+                        <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
+                            <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-1">Medallists
+                            </h3>
+                            <NuxtLink v-for="athlete in sport.athletes" :key="athlete.slug"
+                                :to="`/athlete/${athlete.slug}`"
+                                class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 p-2">
+                                <div class="mb-2">
+                                    <AthletePicture :name="athlete.name" :slug="athlete.slug" size="sm" />
+                                </div>
+                                <span class="text-center text-xs md:text-sm font-medium text-zinc-800 dark:text-white">
+                                    {{ athlete.name }}
+                                </span>
+                                <div v-if="athlete.country" class="flex items-center mt-1">
+                                    <CountryFlag v-if="athlete.countryCode" :code="athlete.countryCode"
+                                        :name="athlete.country" size="sm" class="mr-1" />
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">{{
+                                        athlete.country }}</span>
+                                </div>
+                                <MedalDisplay :medals="athlete.medals" class="mt-2" />
+                            </NuxtLink>
+                        </div>
+                    </div>
+
+                    <!-- bento -->
+                    <div v-else class="h-full relative">
+                        <UIcon v-if="athleteCardHovered" name="i-heroicons-arrow-up-right" class="absolute right-0" />
+                        <div class="flex flex-col justify-center h-full">
+                            <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-2">Medallists
+                            </h3>
+                            <div class="grid grid-cols-2 grid-rows-2 gap-4 h-full">
+                                <NuxtLink v-for="athlete in compactAthletes" :key="athlete.slug"
+                                    @mouseenter="hoverAthlete()" @mouseleave="unhoverAthlete()"
+                                    :to="`/athlete/${athlete.slug}`"
+                                    class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 p-2">
+                                    <div class="mb-2">
+                                        <AthletePicture :name="athlete.name" :slug="athlete.slug" size="sm" />
+                                    </div>
+                                    <span
+                                        class="text-center text-xs md:text-sm font-medium text-zinc-800 dark:text-white">
+                                        {{ athlete.name }}
+                                    </span>
+                                    <div v-if="athlete.country" class="flex items-center mt-1">
+                                        <CountryFlag v-if="athlete.countryCode" :code="athlete.countryCode"
+                                            :name="athlete.country" size="sm" class="mr-1" />
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">{{
+                                            athlete.country }}</span>
+                                    </div>
+                                    <MedalDisplay :medals="athlete.medals" class="mt-2" />
+                                </NuxtLink>
                             </div>
-                            <span class="text-center text-xs md:text-sm font-medium text-zinc-800 dark:text-white">
-                                {{ athlete.name }}
-                            </span>
-                            <div v-if="athlete.country" class="flex items-center mt-1">
-                                <CountryFlag v-if="athlete.countryCode" :code="athlete.countryCode"
-                                    :name="athlete.country" size="sm" class="mr-1" />
-                                <span class="text-xs text-gray-500 dark:text-gray-400">{{ athlete.country }}</span>
-                            </div>
-                            <MedalDisplay :medals="athlete.medals" class="mt-2" />
-                        </NuxtLink>
-                    </template>
-                </UCard>
-            </div>
+                        </div>
+                    </div>
+                </template>
+            </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-6 row-span-1 md:row-span-3': selected === 0,
@@ -174,9 +215,10 @@
 
 <script setup lang="ts">
 import sports from '~/data/sports.json';
+import athlete from '~/middleware/athlete';
 
 definePageMeta({
-    middleware: ['previous', 'breadcrumb'],
+    middleware: ['sport', 'previous', 'breadcrumb'],
     layout: 'canvas'
 });
 
@@ -217,7 +259,10 @@ const transitioning = ref(false);
 const isSmallScreen = ref(false);
 type EventType = { [key: string]: any };
 const selectedEvent = ref<EventType | null>(null);
-const innerHovered = ref(false);
+const eventHovered = ref(false);
+const eventCardHovered = ref(false);
+const athleteHovered = ref(false);
+const athleteCardHovered = ref(false);
 
 onMounted(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -229,7 +274,7 @@ onMounted(() => {
 });
 
 const toggleCard = (index: number = 0) => {
-    innerHovered.value = false;
+    eventHovered.value = false;
     if (selected.value !== 0) {
         previous.value = selected.value;
         transitioning.value = true;
@@ -245,6 +290,24 @@ const selectEvent = (event: any) => selectedEvent.value = event;
 const toggleCardAndSelectEvent = (index: number, event: any) => {
     selectEvent(event);
     toggleCard(index);
+}
+
+
+const hoverEvent = () => {
+    eventCardHovered.value = false;
+    eventHovered.value = true;
+}
+const unhoverEvent = () => {
+    eventCardHovered.value = true;
+    eventHovered.value = false;
+}
+const hoverAthlete = () => {
+    athleteCardHovered.value = false;
+    athleteHovered.value = true;
+}
+const unhoverAthlete = () => {
+    athleteCardHovered.value = true;
+    athleteHovered.value = false;
 }
 const compactEvents = computed(() => Object.entries(sport.events).slice(0, 6));
 const compactAthletes = computed(() => sortByMedals(sport.athletes).slice(0, 4));

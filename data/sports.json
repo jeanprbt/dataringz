@@ -6,19 +6,24 @@
         "description": "Archery competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Individual"
             },
             "Women's Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Individual"
             },
             "Men's Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Team"
             },
             "Women's Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Team"
             },
             "Mixed Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Mixed Team"
             }
         },
         "athletes": [
@@ -394,46 +399,60 @@
         "description": "Artistic Gymnastics competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Team"
             },
             "Men's All-Around": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's All-Around"
             },
             "Men's Floor Exercise": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Floor Exercise"
             },
             "Men's Pommel Horse": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Pommel Horse"
             },
             "Men's Rings": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Rings"
             },
             "Men's Vault": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Vault"
             },
             "Men's Parallel Bars": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Parallel Bars"
             },
             "Men's Horizontal Bar": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Horizontal Bar"
             },
             "Women's Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Team"
             },
             "Women's All-Around": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's All-Around"
             },
             "Women's Vault": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Vault"
             },
             "Women's Uneven Bars": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Uneven Bars"
             },
             "Women's Balance Beam": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Balance Beam"
             },
             "Women's Floor Exercise": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Floor Exercise"
             }
         },
         "athletes": [
@@ -1183,10 +1202,12 @@
         "description": "Artistic Swimming competitions at the Paris 2024 Olympic Games",
         "events": {
             "Duet": {
-                "tournament": false
+                "tournament": false,
+                "name": "Duet"
             },
             "Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Team"
             }
         },
         "athletes": [
@@ -1636,148 +1657,196 @@
         "description": "Athletics competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's 100m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 100m"
             },
             "Men's 200m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 200m"
             },
             "Men's 400m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 400m"
             },
             "Men's 800m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 800m"
             },
             "Men's 1500m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 1500m"
             },
             "Men's 5000m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 5000m"
             },
             "Men's 10,000m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 10,000m"
             },
             "Men's Marathon": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Marathon"
             },
             "Men's 3000m Steeplechase": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 3000m Steeplechase"
             },
             "Men's 110m Hurdles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 110m Hurdles"
             },
             "Men's 400m Hurdles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 400m Hurdles"
             },
             "Men's High Jump": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's High Jump"
             },
             "Men's Pole Vault": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Pole Vault"
             },
             "Men's Long Jump": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Long Jump"
             },
             "Men's Triple Jump": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Triple Jump"
             },
             "Men's Shot Put": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Shot Put"
             },
             "Men's Discus Throw": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Discus Throw"
             },
             "Men's Hammer Throw": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Hammer Throw"
             },
             "Men's Javelin Throw": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Javelin Throw"
             },
             "Men's Decathlon": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Decathlon"
             },
             "Men's 20km Race Walk": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 20km Race Walk"
             },
             "Men's 4 x 100m Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 4 x 100m Relay"
             },
             "Men's 4 x 400m Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 4 x 400m Relay"
             },
             "Women's 100m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 100m"
             },
             "Women's 200m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 200m"
             },
             "Women's 400m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 400m"
             },
             "Women's 800m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 800m"
             },
             "Women's 1500m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 1500m"
             },
             "Women's 5000m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 5000m"
             },
             "Women's 10,000m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 10,000m"
             },
             "Women's Marathon": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Marathon"
             },
             "Women's 3000m Steeplechase": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 3000m Steeplechase"
             },
             "Women's 100m Hurdles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 100m Hurdles"
             },
             "Women's 400m Hurdles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 400m Hurdles"
             },
             "Women's High Jump": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's High Jump"
             },
             "Women's Pole Vault": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Pole Vault"
             },
             "Women's Long Jump": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Long Jump"
             },
             "Women's Triple Jump": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Triple Jump"
             },
             "Women's Shot Put": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Shot Put"
             },
             "Women's Discus Throw": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Discus Throw"
             },
             "Women's Hammer Throw": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Hammer Throw"
             },
             "Women's Javelin Throw": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Javelin Throw"
             },
             "Women's Heptathlon": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Heptathlon"
             },
             "Women's 20km Race Walk": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 20km Race Walk"
             },
             "Women's 4 x 100m Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 4 x 100m Relay"
             },
             "Women's 4 x 400m Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 4 x 400m Relay"
             },
             "4 x 400m Relay Mixed": {
-                "tournament": false
+                "tournament": false,
+                "name": "4 x 400m Relay Mixed"
             },
             "Marathon Race Walk Relay Mixed": {
-                "tournament": false
+                "tournament": false,
+                "name": "Marathon Race Walk Relay Mixed"
             }
         },
         "athletes": [
@@ -4575,6 +4644,11 @@
         ],
         "venues": [
             {
+                "slug": "stade-de-france",
+                "name": "Stade de France",
+                "description": "Venue for Athletics"
+            },
+            {
                 "slug": "hotel-de-ville",
                 "name": "Hôtel de Ville",
                 "description": "Venue for Athletics"
@@ -4582,11 +4656,6 @@
             {
                 "slug": "invalides",
                 "name": "Invalides",
-                "description": "Venue for Athletics"
-            },
-            {
-                "slug": "stade-de-france",
-                "name": "Stade de France",
                 "description": "Venue for Athletics"
             },
             {
@@ -4604,19 +4673,24 @@
         "description": "Badminton competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Singles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Singles"
             },
             "Women's Singles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Singles"
             },
             "Men's Doubles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Doubles"
             },
             "Women's Doubles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Doubles"
             },
             "Mixed Doubles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Mixed Doubles"
             }
         },
         "athletes": [
@@ -5015,10 +5089,12 @@
         "description": "Basketball competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -5954,10 +6030,12 @@
         "description": "3x3 Basketball competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -6334,10 +6412,12 @@
         "description": "Beach Volleyball competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -6570,43 +6650,56 @@
         "description": "Boxing competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's 51kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 51kg"
             },
             "Men's 57kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 57kg"
             },
             "Men's 63.5kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 63.5kg"
             },
             "Men's 71kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 71kg"
             },
             "Men's 80kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 80kg"
             },
             "Men's 92kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 92kg"
             },
             "Men's +92kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's +92kg"
             },
             "Women's 50kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 50kg"
             },
             "Women's 54kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 54kg"
             },
             "Women's 57kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 57kg"
             },
             "Women's 60kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 60kg"
             },
             "Women's 66kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 66kg"
             },
             "Women's 75kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 75kg"
             }
         },
         "athletes": [
@@ -7610,10 +7703,12 @@
         "description": "Breaking competitions at the Paris 2024 Olympic Games",
         "events": {
             "B-Boys": {
-                "tournament": false
+                "tournament": false,
+                "name": "B-Boys"
             },
             "B-Girls": {
-                "tournament": false
+                "tournament": false,
+                "name": "B-Girls"
             }
         },
         "athletes": [
@@ -7774,22 +7869,28 @@
         "description": "Canoe Slalom competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Kayak Single": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Kayak Single"
             },
             "Women's Kayak Single": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Kayak Single"
             },
             "Men's Canoe Single": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Canoe Single"
             },
             "Women's Canoe Single": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Canoe Single"
             },
             "Men's Kayak Cross": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Kayak Cross"
             },
             "Women's Kayak Cross": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Kayak Cross"
             }
         },
         "athletes": [
@@ -8114,34 +8215,44 @@
         "description": "Canoe Sprint competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Kayak Single 1000m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Kayak Single 1000m"
             },
             "Men's Kayak Double 500m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Kayak Double 500m"
             },
             "Men's Kayak Four 500m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Kayak Four 500m"
             },
             "Men's Canoe Single 1000m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Canoe Single 1000m"
             },
             "Men's Canoe Double 500m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Canoe Double 500m"
             },
             "Women's Kayak Single 500m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Kayak Single 500m"
             },
             "Women's Kayak Double 500m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Kayak Double 500m"
             },
             "Women's Kayak Four 500m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Kayak Four 500m"
             },
             "Women's Canoe Single 200m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Canoe Single 200m"
             },
             "Women's Canoe Double 500m": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Canoe Double 500m"
             }
         },
         "athletes": [
@@ -8917,10 +9028,12 @@
         "description": "Cycling BMX Freestyle competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's Park": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Park"
             },
             "Men's Park": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Park"
             }
         },
         "athletes": [
@@ -9081,10 +9194,12 @@
         "description": "Cycling BMX Racing competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             },
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             }
         },
         "athletes": [
@@ -9223,10 +9338,12 @@
         "description": "Cycling Mountain Bike competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Cross-country": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Cross-country"
             },
             "Women's Cross-country": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Cross-country"
             }
         },
         "athletes": [
@@ -9376,16 +9493,20 @@
         "description": "Cycling Road competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Road Race": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Road Race"
             },
             "Women's Road Race": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Road Race"
             },
             "Men's Individual Time Trial": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Individual Time Trial"
             },
             "Women's Individual Time Trial": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Individual Time Trial"
             }
         },
         "athletes": [
@@ -9627,40 +9748,52 @@
         "description": "Cycling Track competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Team Sprint": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Team Sprint"
             },
             "Men's Sprint": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Sprint"
             },
             "Men's Keirin": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Keirin"
             },
             "Men's Team Pursuit": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Team Pursuit"
             },
             "Men's Omnium": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Omnium"
             },
             "Men's Madison": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Madison"
             },
             "Women's Team Sprint": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Team Sprint"
             },
             "Women's Sprint": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Sprint"
             },
             "Women's Keirin": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Keirin"
             },
             "Women's Team Pursuit": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Team Pursuit"
             },
             "Women's Omnium": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Omnium"
             },
             "Women's Madison": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Madison"
             }
         },
         "athletes": [
@@ -10655,28 +10788,36 @@
         "description": "Diving competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's 3m Springboard": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 3m Springboard"
             },
             "Women's 10m Platform": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 10m Platform"
             },
             "Women's Synchronised 3m Springboard": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Synchronised 3m Springboard"
             },
             "Women's Synchronised 10m Platform": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Synchronised 10m Platform"
             },
             "Men's 3m Springboard": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 3m Springboard"
             },
             "Men's 10m Platform": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 10m Platform"
             },
             "Men's Synchronised 3m Springboard": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Synchronised 3m Springboard"
             },
             "Men's Synchronised 10m Platform": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Synchronised 10m Platform"
             }
         },
         "athletes": [
@@ -11123,22 +11264,28 @@
         "description": "Equestrian competitions at the Paris 2024 Olympic Games",
         "events": {
             "Eventing Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Eventing Team"
             },
             "Eventing Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Eventing Individual"
             },
             "Dressage Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Dressage Team"
             },
             "Dressage Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Dressage Individual"
             },
             "Jumping Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Jumping Team"
             },
             "Jumping Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Jumping Individual"
             }
         },
         "athletes": [
@@ -11752,40 +11899,52 @@
         "description": "Fencing competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's Épée Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Épée Individual"
             },
             "Women's Foil Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Foil Individual"
             },
             "Women's Sabre Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Sabre Individual"
             },
             "Men's Épée Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Épée Individual"
             },
             "Men's Foil Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Foil Individual"
             },
             "Men's Sabre Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Sabre Individual"
             },
             "Women's Épée Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Épée Team"
             },
             "Women's Foil Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Foil Team"
             },
             "Women's Sabre Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Sabre Team"
             },
             "Men's Épée Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Épée Team"
             },
             "Men's Foil Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Foil Team"
             },
             "Men's Sabre Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Sabre Team"
             }
         },
         "athletes": [
@@ -13044,85 +13203,85 @@
                         "id": "r0m0",
                         "round": 0,
                         "match": 0,
-                        "team1": "Brazil",
-                        "team2": "Canada",
-                        "team1Code": "BR",
-                        "team2Code": "CA",
-                        "winner": "Brazil",
-                        "score1": 1,
-                        "score2": 0
+                        "team1": "France",
+                        "team2": "Brazil",
+                        "team1Code": "FR",
+                        "team2Code": "BR",
+                        "score1": 0,
+                        "score2": 1,
+                        "winner": "Brazil"
                     },
                     {
                         "id": "r0m1",
                         "round": 0,
                         "match": 1,
-                        "team1": "Colombia",
-                        "team2": "France",
-                        "team1Code": "CO",
-                        "team2Code": "FR",
-                        "winner": "Colombia",
+                        "team1": "Spain",
+                        "team2": "Colombia",
+                        "team1Code": "ES",
+                        "team2Code": "CO",
                         "score1": 2,
-                        "score2": 0
+                        "score2": 2,
+                        "winner": "Spain"
                     },
                     {
                         "id": "r0m2",
                         "round": 0,
                         "match": 2,
-                        "team1": "Germany",
+                        "team1": "United States",
                         "team2": "Japan",
-                        "team1Code": "DE",
+                        "team1Code": "US",
                         "team2Code": "JP",
-                        "winner": "Japan",
-                        "score1": 0,
-                        "score2": 0
+                        "score1": 1,
+                        "score2": 0,
+                        "winner": "United States"
                     },
                     {
                         "id": "r0m3",
                         "round": 0,
                         "match": 3,
-                        "team1": "Spain",
-                        "team2": "United States of America",
-                        "team1Code": "ES",
-                        "team2Code": "US",
-                        "winner": "Spain",
-                        "score1": 2,
-                        "score2": 1
+                        "team1": "Canada",
+                        "team2": "Germany",
+                        "team1Code": "CA",
+                        "team2Code": "DE",
+                        "score1": 0,
+                        "score2": 0,
+                        "winner": "Germany"
                     },
                     {
                         "id": "r1m0",
                         "round": 1,
                         "match": 0,
                         "team1": "Brazil",
-                        "team2": "Germany",
+                        "team2": "Spain",
                         "team1Code": "BR",
-                        "team2Code": "DE",
-                        "winner": "Brazil",
+                        "team2Code": "ES",
                         "score1": 4,
-                        "score2": 0
+                        "score2": 2,
+                        "winner": "Brazil"
                     },
                     {
                         "id": "r1m1",
                         "round": 1,
                         "match": 1,
-                        "team1": "Spain",
-                        "team2": "United States of America",
-                        "team1Code": "ES",
-                        "team2Code": "US",
-                        "winner": "Spain",
-                        "score1": 2,
-                        "score2": 1
+                        "team1": "United States",
+                        "team2": "Germany",
+                        "team1Code": "US",
+                        "team2Code": "DE",
+                        "score1": 1,
+                        "score2": 0,
+                        "winner": "United States"
                     },
                     {
                         "id": "r2m0",
                         "round": 2,
                         "match": 0,
                         "team1": "Brazil",
-                        "team2": "United States of America",
+                        "team2": "United States",
                         "team1Code": "BR",
                         "team2Code": "US",
-                        "winner": "United States of America",
                         "score1": 0,
-                        "score2": 1
+                        "score2": 1,
+                        "winner": "United States"
                     }
                 ]
             }
@@ -14687,6 +14846,11 @@
         ],
         "venues": [
             {
+                "slug": "parc-des-princes",
+                "name": "Parc des Princes",
+                "description": "Venue for Football"
+            },
+            {
                 "slug": "bordeaux-stadium",
                 "name": "Bordeaux Stadium",
                 "description": "Venue for Football"
@@ -14715,11 +14879,6 @@
                 "slug": "nice-stadium",
                 "name": "Nice Stadium",
                 "description": "Venue for Football"
-            },
-            {
-                "slug": "parc-des-princes",
-                "name": "Parc des Princes",
-                "description": "Venue for Football"
             }
         ],
         "icon": "/img/sports/SVG/football.svg"
@@ -14731,10 +14890,12 @@
         "description": "Golf competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Individual Stroke Play": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Individual Stroke Play"
             },
             "Women's Individual Stroke Play": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Individual Stroke Play"
             }
         },
         "athletes": [
@@ -14895,10 +15056,12 @@
         "description": "Handball competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -16109,10 +16272,12 @@
         "description": "Hockey competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -17414,49 +17579,64 @@
         "description": "Judo competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women -48 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women -48 kg"
             },
             "Women -52 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women -52 kg"
             },
             "Women -57 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women -57 kg"
             },
             "Women -63 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women -63 kg"
             },
             "Women -70 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women -70 kg"
             },
             "Women -78 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women -78 kg"
             },
             "Women +78 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women +78 kg"
             },
             "Men -60 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men -60 kg"
             },
             "Men -66 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men -66 kg"
             },
             "Men -73 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men -73 kg"
             },
             "Men -81 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men -81 kg"
             },
             "Men -90 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men -90 kg"
             },
             "Men -100 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men -100 kg"
             },
             "Men +100 kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men +100 kg"
             },
             "Mixed Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Mixed Team"
             }
         },
         "athletes": [
@@ -18749,10 +18929,12 @@
         "description": "Marathon Swimming competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's 10km": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 10km"
             },
             "Men's 10km": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 10km"
             }
         },
         "athletes": [
@@ -18902,10 +19084,12 @@
         "description": "Modern Pentathlon competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Individual"
             },
             "Men's Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Individual"
             }
         },
         "athletes": [
@@ -19071,10 +19255,12 @@
         "description": "Rhythmic Gymnastics competitions at the Paris 2024 Olympic Games",
         "events": {
             "Individual All-Around": {
-                "tournament": false
+                "tournament": false,
+                "name": "Individual All-Around"
             },
             "Group All-Around": {
-                "tournament": false
+                "tournament": false,
+                "name": "Group All-Around"
             }
         },
         "athletes": [
@@ -19368,46 +19554,60 @@
         "description": "Rowing competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's Pair": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Pair"
             },
             "Men's Pair": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Pair"
             },
             "Women's Double Sculls": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Double Sculls"
             },
             "Men's Double Sculls": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Double Sculls"
             },
             "Women's Four": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Four"
             },
             "Men's Four": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Four"
             },
             "Women's Single Sculls": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Single Sculls"
             },
             "Men's Single Sculls": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Single Sculls"
             },
             "Lightweight Women's Double Sculls": {
-                "tournament": false
+                "tournament": false,
+                "name": "Lightweight Women's Double Sculls"
             },
             "Lightweight Men's Double Sculls": {
-                "tournament": false
+                "tournament": false,
+                "name": "Lightweight Men's Double Sculls"
             },
             "Women's Quadruple Sculls": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Quadruple Sculls"
             },
             "Men's Quadruple Sculls": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Quadruple Sculls"
             },
             "Women's Eight": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Eight"
             },
             "Men's Eight": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Eight"
             }
         },
         "athletes": [
@@ -21286,10 +21486,12 @@
         "description": "Rugby Sevens competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -22314,34 +22516,44 @@
         "description": "Sailing competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Windsurfing": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Windsurfing"
             },
             "Men's Kite": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Kite"
             },
             "Men's Dinghy": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Dinghy"
             },
             "Men's Skiff": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Skiff"
             },
             "Women's Windsurfing": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Windsurfing"
             },
             "Women's Kite": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Kite"
             },
             "Women's Dinghy": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Dinghy"
             },
             "Women's Skiff": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Skiff"
             },
             "Mixed Dinghy": {
-                "tournament": false
+                "tournament": false,
+                "name": "Mixed Dinghy"
             },
             "Mixed Multihull": {
-                "tournament": false
+                "tournament": false,
+                "name": "Mixed Multihull"
             }
         },
         "athletes": [
@@ -23077,49 +23289,64 @@
         "description": "Shooting competitions at the Paris 2024 Olympic Games",
         "events": {
             "10m Air Rifle Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "10m Air Rifle Men"
             },
             "50m Rifle 3 Positions Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "50m Rifle 3 Positions Men"
             },
             "10m Air Pistol Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "10m Air Pistol Men"
             },
             "25m Rapid Fire Pistol Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "25m Rapid Fire Pistol Men"
             },
             "Trap Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Trap Men"
             },
             "Skeet Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Skeet Men"
             },
             "10m Air Rifle Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "10m Air Rifle Women"
             },
             "50m Rifle 3 Positions Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "50m Rifle 3 Positions Women"
             },
             "10m Air Pistol Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "10m Air Pistol Women"
             },
             "25m Pistol Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "25m Pistol Women"
             },
             "Trap Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Trap Women"
             },
             "Skeet Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Skeet Women"
             },
             "10m Air Rifle Mixed Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "10m Air Rifle Mixed Team"
             },
             "10m Air Pistol Mixed Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "10m Air Pistol Mixed Team"
             },
             "Skeet Mixed Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Skeet Mixed Team"
             }
         },
         "athletes": [
@@ -23939,16 +24166,20 @@
         "description": "Skateboarding competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's Street": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Street"
             },
             "Men's Street": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Street"
             },
             "Women's Park": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Park"
             },
             "Men's Park": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Park"
             }
         },
         "athletes": [
@@ -24170,16 +24401,20 @@
         "description": "Sport Climbing competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's Boulder & Lead": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Boulder & Lead"
             },
             "Women's Speed": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Speed"
             },
             "Men's Boulder & Lead": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Boulder & Lead"
             },
             "Men's Speed": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Speed"
             }
         },
         "athletes": [
@@ -24434,10 +24669,12 @@
         "description": "Surfing competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -24576,109 +24813,144 @@
         "description": "Swimming competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's 50m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 50m Freestyle"
             },
             "Women's 100m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 100m Freestyle"
             },
             "Women's 200m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 200m Freestyle"
             },
             "Women's 400m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 400m Freestyle"
             },
             "Women's 800m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 800m Freestyle"
             },
             "Women's 1500m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 1500m Freestyle"
             },
             "Women's 100m Backstroke": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 100m Backstroke"
             },
             "Women's 200m Backstroke": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 200m Backstroke"
             },
             "Women's 100m Breaststroke": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 100m Breaststroke"
             },
             "Women's 200m Breaststroke": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 200m Breaststroke"
             },
             "Women's 100m Butterfly": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 100m Butterfly"
             },
             "Women's 200m Butterfly": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 200m Butterfly"
             },
             "Women's 200m Individual Medley": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 200m Individual Medley"
             },
             "Women's 400m Individual Medley": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 400m Individual Medley"
             },
             "Women's 4 x 100m Freestyle Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 4 x 100m Freestyle Relay"
             },
             "Women's 4 x 200m Freestyle Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 4 x 200m Freestyle Relay"
             },
             "Women's 4 x 100m Medley Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 4 x 100m Medley Relay"
             },
             "Men's 50m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 50m Freestyle"
             },
             "Men's 100m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 100m Freestyle"
             },
             "Men's 200m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 200m Freestyle"
             },
             "Men's 400m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 400m Freestyle"
             },
             "Men's 800m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 800m Freestyle"
             },
             "Men's 1500m Freestyle": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 1500m Freestyle"
             },
             "Men's 100m Backstroke": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 100m Backstroke"
             },
             "Men's 200m Backstroke": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 200m Backstroke"
             },
             "Men's 100m Breaststroke": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 100m Breaststroke"
             },
             "Men's 200m Breaststroke": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 200m Breaststroke"
             },
             "Men's 100m Butterfly": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 100m Butterfly"
             },
             "Men's 200m Butterfly": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 200m Butterfly"
             },
             "Men's 200m Individual Medley": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 200m Individual Medley"
             },
             "Men's 400m Individual Medley": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 400m Individual Medley"
             },
             "Men's 4 x 100m Freestyle Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 4 x 100m Freestyle Relay"
             },
             "Men's 4 x 200m Freestyle Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 4 x 200m Freestyle Relay"
             },
             "Men's 4 x 100m Medley Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 4 x 100m Medley Relay"
             },
             "Mixed 4 x 100m Medley Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Mixed 4 x 100m Medley Relay"
             }
         },
         "athletes": [
@@ -26410,19 +26682,24 @@
         "description": "Table Tennis competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Singles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Singles"
             },
             "Women's Singles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Singles"
             },
             "Mixed Doubles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Mixed Doubles"
             },
             "Men's Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Team"
             },
             "Women's Team": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Team"
             }
         },
         "athletes": [
@@ -26763,28 +27040,36 @@
         "description": "Taekwondo competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men -58kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men -58kg"
             },
             "Men -68kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men -68kg"
             },
             "Men -80kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men -80kg"
             },
             "Men +80kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men +80kg"
             },
             "Women -49kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women -49kg"
             },
             "Women -57kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women -57kg"
             },
             "Women -67kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women -67kg"
             },
             "Women +67kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women +67kg"
             }
         },
         "athletes": [
@@ -27444,19 +27729,24 @@
         "description": "Tennis competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Singles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Singles"
             },
             "Women's Singles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Singles"
             },
             "Men's Doubles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Doubles"
             },
             "Women's Doubles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Doubles"
             },
             "Mixed Doubles": {
-                "tournament": false
+                "tournament": false,
+                "name": "Mixed Doubles"
             }
         },
         "athletes": [
@@ -27888,10 +28178,12 @@
         "description": "Trampoline Gymnastics competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -28030,13 +28322,16 @@
         "description": "Triathlon competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Individual"
             },
             "Men's Individual": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Individual"
             },
             "Mixed Relay": {
-                "tournament": false
+                "tournament": false,
+                "name": "Mixed Relay"
             }
         },
         "athletes": [
@@ -28317,10 +28612,12 @@
         "description": "Volleyball competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -29334,10 +29631,12 @@
         "description": "Water Polo competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men"
             },
             "Women": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women"
             }
         },
         "athletes": [
@@ -30367,34 +30666,44 @@
         "description": "Weightlifting competitions at the Paris 2024 Olympic Games",
         "events": {
             "Women's 49kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 49kg"
             },
             "Women's 59kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 59kg"
             },
             "Women's 71kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 71kg"
             },
             "Women's 81kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's 81kg"
             },
             "Women's +81kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's +81kg"
             },
             "Men's 61kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 61kg"
             },
             "Men's 73kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 73kg"
             },
             "Men's 89kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 89kg"
             },
             "Men's 102kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's 102kg"
             },
             "Men's +102kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's +102kg"
             }
         },
         "athletes": [
@@ -30997,58 +31306,76 @@
         "description": "Wrestling competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's Greco-Roman 60kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Greco-Roman 60kg"
             },
             "Men's Greco-Roman 67kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Greco-Roman 67kg"
             },
             "Men's Greco-Roman 77kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Greco-Roman 77kg"
             },
             "Men's Greco-Roman 87kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Greco-Roman 87kg"
             },
             "Men's Greco-Roman 97kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Greco-Roman 97kg"
             },
             "Men's Greco-Roman 130kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Greco-Roman 130kg"
             },
             "Women's Freestyle 50kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Freestyle 50kg"
             },
             "Women's Freestyle 53kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Freestyle 53kg"
             },
             "Women's Freestyle 57kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Freestyle 57kg"
             },
             "Women's Freestyle 62kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Freestyle 62kg"
             },
             "Women's Freestyle 68kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Freestyle 68kg"
             },
             "Women's Freestyle 76kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Women's Freestyle 76kg"
             },
             "Men's Freestyle 57kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Freestyle 57kg"
             },
             "Men's Freestyle 65kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Freestyle 65kg"
             },
             "Men's Freestyle 74kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Freestyle 74kg"
             },
             "Men's Freestyle 86kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Freestyle 86kg"
             },
             "Men's Freestyle 97kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Freestyle 97kg"
             },
             "Men's Freestyle 125kg": {
-                "tournament": false
+                "tournament": false,
+                "name": "Men's Freestyle 125kg"
             }
         },
         "athletes": [

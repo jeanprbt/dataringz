@@ -102,8 +102,12 @@
 
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <UIcon v-if="eventCardHovered && eventsExpandable" name="i-heroicons-arrow-up-right"
-                            class="absolute right-0" />
+                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                            <UIcon v-if="eventCardHovered && eventsExpandable" name="i-heroicons-arrow-up-right"
+                                class="absolute right-0" />
+                        </transition>
                         <div class="flex flex-col justify-center h-full">
                             <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-2">Events</h3>
                             <div class="grid [grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))] gap-3 h-full">
@@ -164,7 +168,12 @@
 
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <UIcon v-if="athleteCardHovered" name="i-heroicons-arrow-up-right" class="absolute right-0" />
+                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                            <UIcon v-if="athleteCardHovered" name="i-heroicons-arrow-up-right"
+                                class="absolute right-0" />
+                        </transition>
                         <div class="flex flex-col justify-center h-full">
                             <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-2">Medallists
                             </h3>

@@ -2,7 +2,7 @@
     <PageModal :show="showAthletePage" :back="transition" :transition="true" :items="items" @close="closePage"
         @back="router.back()">
 
-        <div :class="['gap-2 md:gap-4 p-2 h-full', { 
+        <div :class="['gap-2 md:gap-4 p-2 h-full overflow-x-hidden', { 
             'grid grid-cols-12': selected === 0,
             'grid-rows-9': selected === 0 && !hasBottomCards,
             'grid-rows-12': selected === 0 && hasOneBottomCard,

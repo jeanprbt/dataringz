@@ -44,7 +44,7 @@ const props = defineProps({
     size: {
         type: String,
         default: 'md',
-        validator: (value: string) => ['sm', 'md', 'lg'].includes(value)
+        validator: (value: string) => ['sm', 'md', 'lg', 'xl'].includes(value)
     }
 });
 
@@ -65,6 +65,7 @@ const sizeClasses = computed(() => {
     switch (props.size) {
         case 'sm': return 'w-8 h-8';
         case 'lg': return 'w-24 h-24';
+        case 'xl': return 'w-32 h-32';
         default: return 'w-12 h-12'; // md size
     }
 });
@@ -74,6 +75,7 @@ const initialsClasses = computed(() => {
     switch (props.size) {
         case 'sm': return 'text-xs';
         case 'lg': return 'text-2xl';
+        case 'xl': return 'text-3xl';
         default: return 'text-sm'; // md size
     }
 });

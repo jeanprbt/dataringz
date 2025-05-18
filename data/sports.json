@@ -7,23 +7,28 @@
         "events": {
             "Men's Individual": {
                 "tournament": false,
-                "name": "Men's Individual"
+                "name": "Men's Individual",
+                "ranking": false
             },
             "Women's Individual": {
                 "tournament": false,
-                "name": "Women's Individual"
+                "name": "Women's Individual",
+                "ranking": false
             },
             "Men's Team": {
                 "tournament": false,
-                "name": "Men's Team"
+                "name": "Men's Team",
+                "ranking": false
             },
             "Women's Team": {
                 "tournament": false,
-                "name": "Women's Team"
+                "name": "Women's Team",
+                "ranking": false
             },
             "Mixed Team": {
                 "tournament": false,
-                "name": "Mixed Team"
+                "name": "Mixed Team",
+                "ranking": false
             }
         },
         "athletes": [
@@ -259,7 +264,7 @@
                 "slug": "mete-gazoz",
                 "name": "GAZOZ Mete",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 0,
@@ -271,7 +276,7 @@
                 "slug": "berkim-tumer",
                 "name": "TUMER Berkim",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 0,
@@ -283,7 +288,7 @@
                 "slug": "abdullah-yildirmis",
                 "name": "YILDIRMIS Abdullah",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 0,
@@ -373,7 +378,7 @@
             },
             {
                 "slug": "turkiye",
-                "name": "Türkiye",
+                "name": "T\u00fcrkiye",
                 "code": "TR",
                 "medals": {
                     "gold": 0,
@@ -390,7 +395,7 @@
                 "description": "Venue for Archery"
             }
         ],
-        "icon": "/img/sports/SVG/archery.svg"
+        "icon": "\/img\/sports\/SVG\/archery.svg"
     },
     "artistic-gymnastics": {
         "name": "Artistic Gymnastics",
@@ -400,59 +405,73 @@
         "events": {
             "Men's Team": {
                 "tournament": false,
-                "name": "Men's Team"
+                "name": "Men's Team",
+                "ranking": false
             },
             "Men's All-Around": {
                 "tournament": false,
-                "name": "Men's All-Around"
+                "name": "Men's All-Around",
+                "ranking": false
             },
             "Men's Floor Exercise": {
                 "tournament": false,
-                "name": "Men's Floor Exercise"
+                "name": "Men's Floor Exercise",
+                "ranking": false
             },
             "Men's Pommel Horse": {
                 "tournament": false,
-                "name": "Men's Pommel Horse"
+                "name": "Men's Pommel Horse",
+                "ranking": false
             },
             "Men's Rings": {
                 "tournament": false,
-                "name": "Men's Rings"
+                "name": "Men's Rings",
+                "ranking": false
             },
             "Men's Vault": {
                 "tournament": false,
-                "name": "Men's Vault"
+                "name": "Men's Vault",
+                "ranking": false
             },
             "Men's Parallel Bars": {
                 "tournament": false,
-                "name": "Men's Parallel Bars"
+                "name": "Men's Parallel Bars",
+                "ranking": false
             },
             "Men's Horizontal Bar": {
                 "tournament": false,
-                "name": "Men's Horizontal Bar"
+                "name": "Men's Horizontal Bar",
+                "ranking": false
             },
             "Women's Team": {
                 "tournament": false,
-                "name": "Women's Team"
+                "name": "Women's Team",
+                "ranking": false
             },
             "Women's All-Around": {
                 "tournament": false,
-                "name": "Women's All-Around"
+                "name": "Women's All-Around",
+                "ranking": false
             },
             "Women's Vault": {
                 "tournament": false,
-                "name": "Women's Vault"
+                "name": "Women's Vault",
+                "ranking": false
             },
             "Women's Uneven Bars": {
                 "tournament": false,
-                "name": "Women's Uneven Bars"
+                "name": "Women's Uneven Bars",
+                "ranking": false
             },
             "Women's Balance Beam": {
                 "tournament": false,
-                "name": "Women's Balance Beam"
+                "name": "Women's Balance Beam",
+                "ranking": false
             },
             "Women's Floor Exercise": {
                 "tournament": false,
-                "name": "Women's Floor Exercise"
+                "name": "Women's Floor Exercise",
+                "ranking": false
             }
         },
         "athletes": [
@@ -1193,7 +1212,7 @@
                 "description": "Venue for Artistic Gymnastics"
             }
         ],
-        "icon": "/img/sports/SVG/artistic-gymnastics.svg"
+        "icon": "\/img\/sports\/SVG\/artistic-gymnastics.svg"
     },
     "artistic-swimming": {
         "name": "Artistic Swimming",
@@ -1203,11 +1222,13 @@
         "events": {
             "Duet": {
                 "tournament": false,
-                "name": "Duet"
+                "name": "Duet",
+                "ranking": false
             },
             "Team": {
                 "tournament": false,
-                "name": "Team"
+                "name": "Team",
+                "ranking": false
             }
         },
         "athletes": [
@@ -1648,7 +1669,7 @@
                 "description": "Venue for Artistic Swimming"
             }
         ],
-        "icon": "/img/sports/SVG/artistic-swimming.svg"
+        "icon": "\/img\/sports\/SVG\/artistic-swimming.svg"
     },
     "athletics": {
         "name": "Athletics",
@@ -1657,196 +1678,318 @@
         "description": "Athletics competitions at the Paris 2024 Olympic Games",
         "events": {
             "Men's 100m": {
+                "name": "Men's 100m",
                 "tournament": false,
-                "name": "Men's 100m"
+                "ranking": true,
+                "ranks": [
+                    {
+                        "participant_name": "LYLES Noah",
+                        "participant_country": "United States",
+                        "country_code": "US",
+                        "rank": 1.0,
+                        "result": "9.79",
+                        "result_type": "TIME",
+                        "start_order": 7.0
+                    },
+                    {
+                        "participant_name": "THOMPSON Kishane",
+                        "participant_country": "Jamaica",
+                        "country_code": "JM",
+                        "rank": 2.0,
+                        "result": "9.79",
+                        "result_type": "TIME",
+                        "start_order": 4.0
+                    },
+                    {
+                        "participant_name": "KERLEY Fred",
+                        "participant_country": "United States",
+                        "country_code": "US",
+                        "rank": 3.0,
+                        "result": "9.81",
+                        "result_type": "TIME",
+                        "start_order": 3.0
+                    },
+                    {
+                        "participant_name": "SIMBINE Akani",
+                        "participant_country": "South Africa",
+                        "country_code": "ZA",
+                        "rank": 4.0,
+                        "result": "9.82",
+                        "result_type": "TIME",
+                        "start_order": 5.0
+                    },
+                    {
+                        "participant_name": "JACOBS Lamont Marcell",
+                        "participant_country": "Italy",
+                        "country_code": "IT",
+                        "rank": 5.0,
+                        "result": "9.85",
+                        "result_type": "TIME",
+                        "start_order": 9.0
+                    },
+                    {
+                        "participant_name": "TEBOGO Letsile",
+                        "participant_country": "Botswana",
+                        "country_code": "BW",
+                        "rank": 6.0,
+                        "result": "9.86",
+                        "result_type": "TIME",
+                        "start_order": 8.0
+                    },
+                    {
+                        "participant_name": "BEDNAREK Kenneth",
+                        "participant_country": "United States",
+                        "country_code": "US",
+                        "rank": 7.0,
+                        "result": "9.88",
+                        "result_type": "TIME",
+                        "start_order": 2.0
+                    },
+                    {
+                        "participant_name": "SEVILLE Oblique",
+                        "participant_country": "Jamaica",
+                        "country_code": "JM",
+                        "rank": 8.0,
+                        "result": "9.91",
+                        "result_type": "TIME",
+                        "start_order": 6.0
+                    }
+                ]
             },
             "Men's 200m": {
                 "tournament": false,
-                "name": "Men's 200m"
+                "name": "Men's 200m",
+                "ranking": false
             },
             "Men's 400m": {
                 "tournament": false,
-                "name": "Men's 400m"
+                "name": "Men's 400m",
+                "ranking": false
             },
             "Men's 800m": {
                 "tournament": false,
-                "name": "Men's 800m"
+                "name": "Men's 800m",
+                "ranking": false
             },
             "Men's 1500m": {
                 "tournament": false,
-                "name": "Men's 1500m"
+                "name": "Men's 1500m",
+                "ranking": false
             },
             "Men's 5000m": {
                 "tournament": false,
-                "name": "Men's 5000m"
+                "name": "Men's 5000m",
+                "ranking": false
             },
             "Men's 10,000m": {
                 "tournament": false,
-                "name": "Men's 10,000m"
+                "name": "Men's 10,000m",
+                "ranking": false
             },
             "Men's Marathon": {
                 "tournament": false,
-                "name": "Men's Marathon"
+                "name": "Men's Marathon",
+                "ranking": false
             },
             "Men's 3000m Steeplechase": {
                 "tournament": false,
-                "name": "Men's 3000m Steeplechase"
+                "name": "Men's 3000m Steeplechase",
+                "ranking": false
             },
             "Men's 110m Hurdles": {
                 "tournament": false,
-                "name": "Men's 110m Hurdles"
+                "name": "Men's 110m Hurdles",
+                "ranking": false
             },
             "Men's 400m Hurdles": {
                 "tournament": false,
-                "name": "Men's 400m Hurdles"
+                "name": "Men's 400m Hurdles",
+                "ranking": false
             },
             "Men's High Jump": {
                 "tournament": false,
-                "name": "Men's High Jump"
+                "name": "Men's High Jump",
+                "ranking": false
             },
             "Men's Pole Vault": {
                 "tournament": false,
-                "name": "Men's Pole Vault"
+                "name": "Men's Pole Vault",
+                "ranking": false
             },
             "Men's Long Jump": {
                 "tournament": false,
-                "name": "Men's Long Jump"
+                "name": "Men's Long Jump",
+                "ranking": false
             },
             "Men's Triple Jump": {
                 "tournament": false,
-                "name": "Men's Triple Jump"
+                "name": "Men's Triple Jump",
+                "ranking": false
             },
             "Men's Shot Put": {
                 "tournament": false,
-                "name": "Men's Shot Put"
+                "name": "Men's Shot Put",
+                "ranking": false
             },
             "Men's Discus Throw": {
                 "tournament": false,
-                "name": "Men's Discus Throw"
+                "name": "Men's Discus Throw",
+                "ranking": false
             },
             "Men's Hammer Throw": {
                 "tournament": false,
-                "name": "Men's Hammer Throw"
+                "name": "Men's Hammer Throw",
+                "ranking": false
             },
             "Men's Javelin Throw": {
                 "tournament": false,
-                "name": "Men's Javelin Throw"
+                "name": "Men's Javelin Throw",
+                "ranking": false
             },
             "Men's Decathlon": {
                 "tournament": false,
-                "name": "Men's Decathlon"
+                "name": "Men's Decathlon",
+                "ranking": false
             },
             "Men's 20km Race Walk": {
                 "tournament": false,
-                "name": "Men's 20km Race Walk"
+                "name": "Men's 20km Race Walk",
+                "ranking": false
             },
             "Men's 4 x 100m Relay": {
                 "tournament": false,
-                "name": "Men's 4 x 100m Relay"
+                "name": "Men's 4 x 100m Relay",
+                "ranking": false
             },
             "Men's 4 x 400m Relay": {
                 "tournament": false,
-                "name": "Men's 4 x 400m Relay"
+                "name": "Men's 4 x 400m Relay",
+                "ranking": false
             },
             "Women's 100m": {
                 "tournament": false,
-                "name": "Women's 100m"
+                "name": "Women's 100m",
+                "ranking": false
             },
             "Women's 200m": {
                 "tournament": false,
-                "name": "Women's 200m"
+                "name": "Women's 200m",
+                "ranking": false
             },
             "Women's 400m": {
                 "tournament": false,
-                "name": "Women's 400m"
+                "name": "Women's 400m",
+                "ranking": false
             },
             "Women's 800m": {
                 "tournament": false,
-                "name": "Women's 800m"
+                "name": "Women's 800m",
+                "ranking": false
             },
             "Women's 1500m": {
                 "tournament": false,
-                "name": "Women's 1500m"
+                "name": "Women's 1500m",
+                "ranking": false
             },
             "Women's 5000m": {
                 "tournament": false,
-                "name": "Women's 5000m"
+                "name": "Women's 5000m",
+                "ranking": false
             },
             "Women's 10,000m": {
                 "tournament": false,
-                "name": "Women's 10,000m"
+                "name": "Women's 10,000m",
+                "ranking": false
             },
             "Women's Marathon": {
                 "tournament": false,
-                "name": "Women's Marathon"
+                "name": "Women's Marathon",
+                "ranking": false
             },
             "Women's 3000m Steeplechase": {
                 "tournament": false,
-                "name": "Women's 3000m Steeplechase"
+                "name": "Women's 3000m Steeplechase",
+                "ranking": false
             },
             "Women's 100m Hurdles": {
                 "tournament": false,
-                "name": "Women's 100m Hurdles"
+                "name": "Women's 100m Hurdles",
+                "ranking": false
             },
             "Women's 400m Hurdles": {
                 "tournament": false,
-                "name": "Women's 400m Hurdles"
+                "name": "Women's 400m Hurdles",
+                "ranking": false
             },
             "Women's High Jump": {
                 "tournament": false,
-                "name": "Women's High Jump"
+                "name": "Women's High Jump",
+                "ranking": false
             },
             "Women's Pole Vault": {
                 "tournament": false,
-                "name": "Women's Pole Vault"
+                "name": "Women's Pole Vault",
+                "ranking": false
             },
             "Women's Long Jump": {
                 "tournament": false,
-                "name": "Women's Long Jump"
+                "name": "Women's Long Jump",
+                "ranking": false
             },
             "Women's Triple Jump": {
                 "tournament": false,
-                "name": "Women's Triple Jump"
+                "name": "Women's Triple Jump",
+                "ranking": false
             },
             "Women's Shot Put": {
                 "tournament": false,
-                "name": "Women's Shot Put"
+                "name": "Women's Shot Put",
+                "ranking": false
             },
             "Women's Discus Throw": {
                 "tournament": false,
-                "name": "Women's Discus Throw"
+                "name": "Women's Discus Throw",
+                "ranking": false
             },
             "Women's Hammer Throw": {
                 "tournament": false,
-                "name": "Women's Hammer Throw"
+                "name": "Women's Hammer Throw",
+                "ranking": false
             },
             "Women's Javelin Throw": {
                 "tournament": false,
-                "name": "Women's Javelin Throw"
+                "name": "Women's Javelin Throw",
+                "ranking": false
             },
             "Women's Heptathlon": {
                 "tournament": false,
-                "name": "Women's Heptathlon"
+                "name": "Women's Heptathlon",
+                "ranking": false
             },
             "Women's 20km Race Walk": {
                 "tournament": false,
-                "name": "Women's 20km Race Walk"
+                "name": "Women's 20km Race Walk",
+                "ranking": false
             },
             "Women's 4 x 100m Relay": {
                 "tournament": false,
-                "name": "Women's 4 x 100m Relay"
+                "name": "Women's 4 x 100m Relay",
+                "ranking": false
             },
             "Women's 4 x 400m Relay": {
                 "tournament": false,
-                "name": "Women's 4 x 400m Relay"
+                "name": "Women's 4 x 400m Relay",
+                "ranking": false
             },
             "4 x 400m Relay Mixed": {
                 "tournament": false,
-                "name": "4 x 400m Relay Mixed"
+                "name": "4 x 400m Relay Mixed",
+                "ranking": false
             },
             "Marathon Race Walk Relay Mixed": {
                 "tournament": false,
-                "name": "Marathon Race Walk Relay Mixed"
+                "name": "Marathon Race Walk Relay Mixed",
+                "ranking": false
             }
         },
         "athletes": [
@@ -4650,7 +4793,7 @@
             },
             {
                 "slug": "hotel-de-ville",
-                "name": "Hôtel de Ville",
+                "name": "H\u00f4tel de Ville",
                 "description": "Venue for Athletics"
             },
             {
@@ -4660,11 +4803,11 @@
             },
             {
                 "slug": "trocadero",
-                "name": "Trocadéro",
+                "name": "Trocad\u00e9ro",
                 "description": "Venue for Athletics"
             }
         ],
-        "icon": "/img/sports/SVG/athletics.svg"
+        "icon": "\/img\/sports\/SVG\/athletics.svg"
     },
     "badminton": {
         "name": "Badminton",
@@ -4674,23 +4817,28 @@
         "events": {
             "Men's Singles": {
                 "tournament": false,
-                "name": "Men's Singles"
+                "name": "Men's Singles",
+                "ranking": false
             },
             "Women's Singles": {
                 "tournament": false,
-                "name": "Women's Singles"
+                "name": "Women's Singles",
+                "ranking": false
             },
             "Men's Doubles": {
                 "tournament": false,
-                "name": "Men's Doubles"
+                "name": "Men's Doubles",
+                "ranking": false
             },
             "Women's Doubles": {
                 "tournament": false,
-                "name": "Women's Doubles"
+                "name": "Women's Doubles",
+                "ranking": false
             },
             "Mixed Doubles": {
                 "tournament": false,
-                "name": "Mixed Doubles"
+                "name": "Mixed Doubles",
+                "ranking": false
             }
         },
         "athletes": [
@@ -5080,7 +5228,7 @@
                 "description": "Venue for Badminton"
             }
         ],
-        "icon": "/img/sports/SVG/badminton.svg"
+        "icon": "\/img\/sports\/SVG\/badminton.svg"
     },
     "basketball": {
         "name": "Basketball",
@@ -5090,11 +5238,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -6021,7 +6171,7 @@
                 "description": "Venue for Basketball"
             }
         ],
-        "icon": "/img/sports/SVG/basketball.svg"
+        "icon": "\/img\/sports\/SVG\/basketball.svg"
     },
     "3x3-basketball": {
         "name": "3x3 Basketball",
@@ -6031,11 +6181,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -6403,7 +6555,7 @@
                 "description": "Venue for 3x3 Basketball"
             }
         ],
-        "icon": "/img/sports/SVG/3x3-basketball.svg"
+        "icon": "\/img\/sports\/SVG\/3x3-basketball.svg"
     },
     "beach-volleyball": {
         "name": "Beach Volleyball",
@@ -6413,11 +6565,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -6641,7 +6795,7 @@
                 "description": "Venue for Beach Volleyball"
             }
         ],
-        "icon": "/img/sports/SVG/beach-volleyball.svg"
+        "icon": "\/img\/sports\/SVG\/beach-volleyball.svg"
     },
     "boxing": {
         "name": "Boxing",
@@ -6651,55 +6805,68 @@
         "events": {
             "Men's 51kg": {
                 "tournament": false,
-                "name": "Men's 51kg"
+                "name": "Men's 51kg",
+                "ranking": false
             },
             "Men's 57kg": {
                 "tournament": false,
-                "name": "Men's 57kg"
+                "name": "Men's 57kg",
+                "ranking": false
             },
             "Men's 63.5kg": {
                 "tournament": false,
-                "name": "Men's 63.5kg"
+                "name": "Men's 63.5kg",
+                "ranking": false
             },
             "Men's 71kg": {
                 "tournament": false,
-                "name": "Men's 71kg"
+                "name": "Men's 71kg",
+                "ranking": false
             },
             "Men's 80kg": {
                 "tournament": false,
-                "name": "Men's 80kg"
+                "name": "Men's 80kg",
+                "ranking": false
             },
             "Men's 92kg": {
                 "tournament": false,
-                "name": "Men's 92kg"
+                "name": "Men's 92kg",
+                "ranking": false
             },
             "Men's +92kg": {
                 "tournament": false,
-                "name": "Men's +92kg"
+                "name": "Men's +92kg",
+                "ranking": false
             },
             "Women's 50kg": {
                 "tournament": false,
-                "name": "Women's 50kg"
+                "name": "Women's 50kg",
+                "ranking": false
             },
             "Women's 54kg": {
                 "tournament": false,
-                "name": "Women's 54kg"
+                "name": "Women's 54kg",
+                "ranking": false
             },
             "Women's 57kg": {
                 "tournament": false,
-                "name": "Women's 57kg"
+                "name": "Women's 57kg",
+                "ranking": false
             },
             "Women's 60kg": {
                 "tournament": false,
-                "name": "Women's 60kg"
+                "name": "Women's 60kg",
+                "ranking": false
             },
             "Women's 66kg": {
                 "tournament": false,
-                "name": "Women's 66kg"
+                "name": "Women's 66kg",
+                "ranking": false
             },
             "Women's 75kg": {
                 "tournament": false,
-                "name": "Women's 75kg"
+                "name": "Women's 75kg",
+                "ranking": false
             }
         },
         "athletes": [
@@ -6911,7 +7078,7 @@
                 "slug": "hatice-akbas",
                 "name": "AKBAS Hatice",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 1,
@@ -6947,7 +7114,7 @@
                 "slug": "buse-cakiroglu",
                 "name": "CAKIROGLU Buse Naz",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 1,
@@ -7259,7 +7426,7 @@
                 "slug": "yildiz-kahraman",
                 "name": "YILDIZ KAHRAMAN Esra",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 0,
@@ -7419,7 +7586,7 @@
             },
             {
                 "slug": "turkiye",
-                "name": "Türkiye",
+                "name": "T\u00fcrkiye",
                 "code": "TR",
                 "medals": {
                     "gold": 0,
@@ -7694,7 +7861,7 @@
                 "description": "Venue for Boxing"
             }
         ],
-        "icon": "/img/sports/SVG/boxing.svg"
+        "icon": "\/img\/sports\/SVG\/boxing.svg"
     },
     "breaking": {
         "name": "Breaking",
@@ -7704,11 +7871,13 @@
         "events": {
             "B-Boys": {
                 "tournament": false,
-                "name": "B-Boys"
+                "name": "B-Boys",
+                "ranking": false
             },
             "B-Girls": {
                 "tournament": false,
-                "name": "B-Girls"
+                "name": "B-Girls",
+                "ranking": false
             }
         },
         "athletes": [
@@ -7860,7 +8029,7 @@
                 "description": "Venue for Breaking"
             }
         ],
-        "icon": "/img/sports/SVG/breaking.svg"
+        "icon": "\/img\/sports\/SVG\/breaking.svg"
     },
     "canoe-kayak-slalom": {
         "name": "Canoe Slalom",
@@ -7870,27 +8039,33 @@
         "events": {
             "Men's Kayak Single": {
                 "tournament": false,
-                "name": "Men's Kayak Single"
+                "name": "Men's Kayak Single",
+                "ranking": false
             },
             "Women's Kayak Single": {
                 "tournament": false,
-                "name": "Women's Kayak Single"
+                "name": "Women's Kayak Single",
+                "ranking": false
             },
             "Men's Canoe Single": {
                 "tournament": false,
-                "name": "Men's Canoe Single"
+                "name": "Men's Canoe Single",
+                "ranking": false
             },
             "Women's Canoe Single": {
                 "tournament": false,
-                "name": "Women's Canoe Single"
+                "name": "Women's Canoe Single",
+                "ranking": false
             },
             "Men's Kayak Cross": {
                 "tournament": false,
-                "name": "Men's Kayak Cross"
+                "name": "Men's Kayak Cross",
+                "ranking": false
             },
             "Women's Kayak Cross": {
                 "tournament": false,
-                "name": "Women's Kayak Cross"
+                "name": "Women's Kayak Cross",
+                "ranking": false
             }
         },
         "athletes": [
@@ -8206,7 +8381,7 @@
                 "description": "Venue for Canoe Slalom"
             }
         ],
-        "icon": "/img/sports/SVG/canoe-kayak-flatwater.svg"
+        "icon": "\/img\/sports\/SVG\/canoe-kayak-flatwater.svg"
     },
     "canoe-kayak-flatwater": {
         "name": "Canoe Sprint",
@@ -8216,43 +8391,53 @@
         "events": {
             "Men's Kayak Single 1000m": {
                 "tournament": false,
-                "name": "Men's Kayak Single 1000m"
+                "name": "Men's Kayak Single 1000m",
+                "ranking": false
             },
             "Men's Kayak Double 500m": {
                 "tournament": false,
-                "name": "Men's Kayak Double 500m"
+                "name": "Men's Kayak Double 500m",
+                "ranking": false
             },
             "Men's Kayak Four 500m": {
                 "tournament": false,
-                "name": "Men's Kayak Four 500m"
+                "name": "Men's Kayak Four 500m",
+                "ranking": false
             },
             "Men's Canoe Single 1000m": {
                 "tournament": false,
-                "name": "Men's Canoe Single 1000m"
+                "name": "Men's Canoe Single 1000m",
+                "ranking": false
             },
             "Men's Canoe Double 500m": {
                 "tournament": false,
-                "name": "Men's Canoe Double 500m"
+                "name": "Men's Canoe Double 500m",
+                "ranking": false
             },
             "Women's Kayak Single 500m": {
                 "tournament": false,
-                "name": "Women's Kayak Single 500m"
+                "name": "Women's Kayak Single 500m",
+                "ranking": false
             },
             "Women's Kayak Double 500m": {
                 "tournament": false,
-                "name": "Women's Kayak Double 500m"
+                "name": "Women's Kayak Double 500m",
+                "ranking": false
             },
             "Women's Kayak Four 500m": {
                 "tournament": false,
-                "name": "Women's Kayak Four 500m"
+                "name": "Women's Kayak Four 500m",
+                "ranking": false
             },
             "Women's Canoe Single 200m": {
                 "tournament": false,
-                "name": "Women's Canoe Single 200m"
+                "name": "Women's Canoe Single 200m",
+                "ranking": false
             },
             "Women's Canoe Double 500m": {
                 "tournament": false,
-                "name": "Women's Canoe Double 500m"
+                "name": "Women's Canoe Double 500m",
+                "ranking": false
             }
         },
         "athletes": [
@@ -9019,7 +9204,7 @@
                 "description": "Venue for Canoe Sprint"
             }
         ],
-        "icon": "/img/sports/SVG/canoe-kayak-slalom.svg"
+        "icon": "\/img\/sports\/SVG\/canoe-kayak-slalom.svg"
     },
     "cycling-bmx-freestyle": {
         "name": "Cycling BMX Freestyle",
@@ -9029,11 +9214,13 @@
         "events": {
             "Women's Park": {
                 "tournament": false,
-                "name": "Women's Park"
+                "name": "Women's Park",
+                "ranking": false
             },
             "Men's Park": {
                 "tournament": false,
-                "name": "Men's Park"
+                "name": "Men's Park",
+                "ranking": false
             }
         },
         "athletes": [
@@ -9185,7 +9372,7 @@
                 "description": "Venue for Cycling BMX Freestyle"
             }
         ],
-        "icon": "/img/sports/SVG/cycling-bmx-freestyle.svg"
+        "icon": "\/img\/sports\/SVG\/cycling-bmx-freestyle.svg"
     },
     "cycling-bmx-racing": {
         "name": "Cycling BMX Racing",
@@ -9195,11 +9382,13 @@
         "events": {
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             },
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             }
         },
         "athletes": [
@@ -9329,7 +9518,7 @@
                 "description": "Venue for Cycling BMX Racing"
             }
         ],
-        "icon": "/img/sports/SVG/cycling-bmx-racing.svg"
+        "icon": "\/img\/sports\/SVG\/cycling-bmx-racing.svg"
     },
     "cycling-mountain-bike": {
         "name": "Cycling Mountain Bike",
@@ -9339,11 +9528,13 @@
         "events": {
             "Men's Cross-country": {
                 "tournament": false,
-                "name": "Men's Cross-country"
+                "name": "Men's Cross-country",
+                "ranking": false
             },
             "Women's Cross-country": {
                 "tournament": false,
-                "name": "Women's Cross-country"
+                "name": "Women's Cross-country",
+                "ranking": false
             }
         },
         "athletes": [
@@ -9484,7 +9675,7 @@
                 "description": "Venue for Cycling Mountain Bike"
             }
         ],
-        "icon": "/img/sports/SVG/cycling-mountain-bike.svg"
+        "icon": "\/img\/sports\/SVG\/cycling-mountain-bike.svg"
     },
     "cycling-road": {
         "name": "Cycling Road",
@@ -9494,19 +9685,23 @@
         "events": {
             "Men's Road Race": {
                 "tournament": false,
-                "name": "Men's Road Race"
+                "name": "Men's Road Race",
+                "ranking": false
             },
             "Women's Road Race": {
                 "tournament": false,
-                "name": "Women's Road Race"
+                "name": "Women's Road Race",
+                "ranking": false
             },
             "Men's Individual Time Trial": {
                 "tournament": false,
-                "name": "Men's Individual Time Trial"
+                "name": "Men's Individual Time Trial",
+                "ranking": false
             },
             "Women's Individual Time Trial": {
                 "tournament": false,
-                "name": "Women's Individual Time Trial"
+                "name": "Women's Individual Time Trial",
+                "ranking": false
             }
         },
         "athletes": [
@@ -9735,11 +9930,11 @@
             },
             {
                 "slug": "trocadero",
-                "name": "Trocadéro",
+                "name": "Trocad\u00e9ro",
                 "description": "Venue for Cycling Road"
             }
         ],
-        "icon": "/img/sports/SVG/cycling-road.svg"
+        "icon": "\/img\/sports\/SVG\/cycling-road.svg"
     },
     "cycling-track": {
         "name": "Cycling Track",
@@ -9749,51 +9944,63 @@
         "events": {
             "Men's Team Sprint": {
                 "tournament": false,
-                "name": "Men's Team Sprint"
+                "name": "Men's Team Sprint",
+                "ranking": false
             },
             "Men's Sprint": {
                 "tournament": false,
-                "name": "Men's Sprint"
+                "name": "Men's Sprint",
+                "ranking": false
             },
             "Men's Keirin": {
                 "tournament": false,
-                "name": "Men's Keirin"
+                "name": "Men's Keirin",
+                "ranking": false
             },
             "Men's Team Pursuit": {
                 "tournament": false,
-                "name": "Men's Team Pursuit"
+                "name": "Men's Team Pursuit",
+                "ranking": false
             },
             "Men's Omnium": {
                 "tournament": false,
-                "name": "Men's Omnium"
+                "name": "Men's Omnium",
+                "ranking": false
             },
             "Men's Madison": {
                 "tournament": false,
-                "name": "Men's Madison"
+                "name": "Men's Madison",
+                "ranking": false
             },
             "Women's Team Sprint": {
                 "tournament": false,
-                "name": "Women's Team Sprint"
+                "name": "Women's Team Sprint",
+                "ranking": false
             },
             "Women's Sprint": {
                 "tournament": false,
-                "name": "Women's Sprint"
+                "name": "Women's Sprint",
+                "ranking": false
             },
             "Women's Keirin": {
                 "tournament": false,
-                "name": "Women's Keirin"
+                "name": "Women's Keirin",
+                "ranking": false
             },
             "Women's Team Pursuit": {
                 "tournament": false,
-                "name": "Women's Team Pursuit"
+                "name": "Women's Team Pursuit",
+                "ranking": false
             },
             "Women's Omnium": {
                 "tournament": false,
-                "name": "Women's Omnium"
+                "name": "Women's Omnium",
+                "ranking": false
             },
             "Women's Madison": {
                 "tournament": false,
-                "name": "Women's Madison"
+                "name": "Women's Madison",
+                "ranking": false
             }
         },
         "athletes": [
@@ -10779,7 +10986,7 @@
                 "description": "Venue for Cycling Track"
             }
         ],
-        "icon": "/img/sports/SVG/cycling-track.svg"
+        "icon": "\/img\/sports\/SVG\/cycling-track.svg"
     },
     "diving": {
         "name": "Diving",
@@ -10789,35 +10996,43 @@
         "events": {
             "Women's 3m Springboard": {
                 "tournament": false,
-                "name": "Women's 3m Springboard"
+                "name": "Women's 3m Springboard",
+                "ranking": false
             },
             "Women's 10m Platform": {
                 "tournament": false,
-                "name": "Women's 10m Platform"
+                "name": "Women's 10m Platform",
+                "ranking": false
             },
             "Women's Synchronised 3m Springboard": {
                 "tournament": false,
-                "name": "Women's Synchronised 3m Springboard"
+                "name": "Women's Synchronised 3m Springboard",
+                "ranking": false
             },
             "Women's Synchronised 10m Platform": {
                 "tournament": false,
-                "name": "Women's Synchronised 10m Platform"
+                "name": "Women's Synchronised 10m Platform",
+                "ranking": false
             },
             "Men's 3m Springboard": {
                 "tournament": false,
-                "name": "Men's 3m Springboard"
+                "name": "Men's 3m Springboard",
+                "ranking": false
             },
             "Men's 10m Platform": {
                 "tournament": false,
-                "name": "Men's 10m Platform"
+                "name": "Men's 10m Platform",
+                "ranking": false
             },
             "Men's Synchronised 3m Springboard": {
                 "tournament": false,
-                "name": "Men's Synchronised 3m Springboard"
+                "name": "Men's Synchronised 3m Springboard",
+                "ranking": false
             },
             "Men's Synchronised 10m Platform": {
                 "tournament": false,
-                "name": "Men's Synchronised 10m Platform"
+                "name": "Men's Synchronised 10m Platform",
+                "ranking": false
             }
         },
         "athletes": [
@@ -11255,7 +11470,7 @@
                 "description": "Venue for Diving"
             }
         ],
-        "icon": "/img/sports/SVG/diving.svg"
+        "icon": "\/img\/sports\/SVG\/diving.svg"
     },
     "equestrian": {
         "name": "Equestrian",
@@ -11265,27 +11480,33 @@
         "events": {
             "Eventing Team": {
                 "tournament": false,
-                "name": "Eventing Team"
+                "name": "Eventing Team",
+                "ranking": false
             },
             "Eventing Individual": {
                 "tournament": false,
-                "name": "Eventing Individual"
+                "name": "Eventing Individual",
+                "ranking": false
             },
             "Dressage Team": {
                 "tournament": false,
-                "name": "Dressage Team"
+                "name": "Dressage Team",
+                "ranking": false
             },
             "Dressage Individual": {
                 "tournament": false,
-                "name": "Dressage Individual"
+                "name": "Dressage Individual",
+                "ranking": false
             },
             "Jumping Team": {
                 "tournament": false,
-                "name": "Jumping Team"
+                "name": "Jumping Team",
+                "ranking": false
             },
             "Jumping Individual": {
                 "tournament": false,
-                "name": "Jumping Individual"
+                "name": "Jumping Individual",
+                "ranking": false
             }
         },
         "athletes": [
@@ -11886,11 +12107,11 @@
         "venues": [
             {
                 "slug": "chateau-de-versailles",
-                "name": "Château de Versailles",
+                "name": "Ch\u00e2teau de Versailles",
                 "description": "Venue for Equestrian"
             }
         ],
-        "icon": "/img/sports/SVG/equestrian.svg"
+        "icon": "\/img\/sports\/SVG\/equestrian.svg"
     },
     "fencing": {
         "name": "Fencing",
@@ -11898,53 +12119,65 @@
         "slug": "fencing",
         "description": "Fencing competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's Épée Individual": {
+            "Women's \u00c9p\u00e9e Individual": {
                 "tournament": false,
-                "name": "Women's Épée Individual"
+                "name": "Women's \u00c9p\u00e9e Individual",
+                "ranking": false
             },
             "Women's Foil Individual": {
                 "tournament": false,
-                "name": "Women's Foil Individual"
+                "name": "Women's Foil Individual",
+                "ranking": false
             },
             "Women's Sabre Individual": {
                 "tournament": false,
-                "name": "Women's Sabre Individual"
+                "name": "Women's Sabre Individual",
+                "ranking": false
             },
-            "Men's Épée Individual": {
+            "Men's \u00c9p\u00e9e Individual": {
                 "tournament": false,
-                "name": "Men's Épée Individual"
+                "name": "Men's \u00c9p\u00e9e Individual",
+                "ranking": false
             },
             "Men's Foil Individual": {
                 "tournament": false,
-                "name": "Men's Foil Individual"
+                "name": "Men's Foil Individual",
+                "ranking": false
             },
             "Men's Sabre Individual": {
                 "tournament": false,
-                "name": "Men's Sabre Individual"
+                "name": "Men's Sabre Individual",
+                "ranking": false
             },
-            "Women's Épée Team": {
+            "Women's \u00c9p\u00e9e Team": {
                 "tournament": false,
-                "name": "Women's Épée Team"
+                "name": "Women's \u00c9p\u00e9e Team",
+                "ranking": false
             },
             "Women's Foil Team": {
                 "tournament": false,
-                "name": "Women's Foil Team"
+                "name": "Women's Foil Team",
+                "ranking": false
             },
             "Women's Sabre Team": {
                 "tournament": false,
-                "name": "Women's Sabre Team"
+                "name": "Women's Sabre Team",
+                "ranking": false
             },
-            "Men's Épée Team": {
+            "Men's \u00c9p\u00e9e Team": {
                 "tournament": false,
-                "name": "Men's Épée Team"
+                "name": "Men's \u00c9p\u00e9e Team",
+                "ranking": false
             },
             "Men's Foil Team": {
                 "tournament": false,
-                "name": "Men's Foil Team"
+                "name": "Men's Foil Team",
+                "ranking": false
             },
             "Men's Sabre Team": {
                 "tournament": false,
-                "name": "Men's Sabre Team"
+                "name": "Men's Sabre Team",
+                "ranking": false
             }
         },
         "athletes": [
@@ -13097,7 +13330,7 @@
                 "description": "Venue for Fencing"
             }
         ],
-        "icon": "/img/sports/SVG/fencing.svg"
+        "icon": "\/img\/sports\/SVG\/fencing.svg"
     },
     "football": {
         "name": "Football",
@@ -13193,7 +13426,8 @@
                         "score1": 3,
                         "score2": 5
                     }
-                ]
+                ],
+                "ranking": false
             },
             "Women": {
                 "name": "Women",
@@ -13283,7 +13517,8 @@
                         "score2": 1,
                         "winner": "United States"
                     }
-                ]
+                ],
+                "ranking": false
             }
         },
         "athletes": [
@@ -14881,7 +15116,7 @@
                 "description": "Venue for Football"
             }
         ],
-        "icon": "/img/sports/SVG/football.svg"
+        "icon": "\/img\/sports\/SVG\/football.svg"
     },
     "golf": {
         "name": "Golf",
@@ -14891,11 +15126,13 @@
         "events": {
             "Men's Individual Stroke Play": {
                 "tournament": false,
-                "name": "Men's Individual Stroke Play"
+                "name": "Men's Individual Stroke Play",
+                "ranking": false
             },
             "Women's Individual Stroke Play": {
                 "tournament": false,
-                "name": "Women's Individual Stroke Play"
+                "name": "Women's Individual Stroke Play",
+                "ranking": false
             }
         },
         "athletes": [
@@ -15047,7 +15284,7 @@
                 "description": "Venue for Golf"
             }
         ],
-        "icon": "/img/sports/SVG/golf.svg"
+        "icon": "\/img\/sports\/SVG\/golf.svg"
     },
     "handball": {
         "name": "Handball",
@@ -15057,11 +15294,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -16263,7 +16502,7 @@
                 "description": "Venue for Handball"
             }
         ],
-        "icon": "/img/sports/SVG/handball.svg"
+        "icon": "\/img\/sports\/SVG\/handball.svg"
     },
     "hockey": {
         "name": "Hockey",
@@ -16273,11 +16512,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -17570,7 +17811,7 @@
                 "description": "Venue for Hockey"
             }
         ],
-        "icon": "/img/sports/SVG/hockey.svg"
+        "icon": "\/img\/sports\/SVG\/hockey.svg"
     },
     "judo": {
         "name": "Judo",
@@ -17580,63 +17821,78 @@
         "events": {
             "Women -48 kg": {
                 "tournament": false,
-                "name": "Women -48 kg"
+                "name": "Women -48 kg",
+                "ranking": false
             },
             "Women -52 kg": {
                 "tournament": false,
-                "name": "Women -52 kg"
+                "name": "Women -52 kg",
+                "ranking": false
             },
             "Women -57 kg": {
                 "tournament": false,
-                "name": "Women -57 kg"
+                "name": "Women -57 kg",
+                "ranking": false
             },
             "Women -63 kg": {
                 "tournament": false,
-                "name": "Women -63 kg"
+                "name": "Women -63 kg",
+                "ranking": false
             },
             "Women -70 kg": {
                 "tournament": false,
-                "name": "Women -70 kg"
+                "name": "Women -70 kg",
+                "ranking": false
             },
             "Women -78 kg": {
                 "tournament": false,
-                "name": "Women -78 kg"
+                "name": "Women -78 kg",
+                "ranking": false
             },
             "Women +78 kg": {
                 "tournament": false,
-                "name": "Women +78 kg"
+                "name": "Women +78 kg",
+                "ranking": false
             },
             "Men -60 kg": {
                 "tournament": false,
-                "name": "Men -60 kg"
+                "name": "Men -60 kg",
+                "ranking": false
             },
             "Men -66 kg": {
                 "tournament": false,
-                "name": "Men -66 kg"
+                "name": "Men -66 kg",
+                "ranking": false
             },
             "Men -73 kg": {
                 "tournament": false,
-                "name": "Men -73 kg"
+                "name": "Men -73 kg",
+                "ranking": false
             },
             "Men -81 kg": {
                 "tournament": false,
-                "name": "Men -81 kg"
+                "name": "Men -81 kg",
+                "ranking": false
             },
             "Men -90 kg": {
                 "tournament": false,
-                "name": "Men -90 kg"
+                "name": "Men -90 kg",
+                "ranking": false
             },
             "Men -100 kg": {
                 "tournament": false,
-                "name": "Men -100 kg"
+                "name": "Men -100 kg",
+                "ranking": false
             },
             "Men +100 kg": {
                 "tournament": false,
-                "name": "Men +100 kg"
+                "name": "Men +100 kg",
+                "ranking": false
             },
             "Mixed Team": {
                 "tournament": false,
-                "name": "Mixed Team"
+                "name": "Mixed Team",
+                "ranking": false
             }
         },
         "athletes": [
@@ -18920,7 +19176,7 @@
                 "description": "Venue for Judo"
             }
         ],
-        "icon": "/img/sports/SVG/judo.svg"
+        "icon": "\/img\/sports\/SVG\/judo.svg"
     },
     "marathon-swimming": {
         "name": "Marathon Swimming",
@@ -18930,11 +19186,13 @@
         "events": {
             "Women's 10km": {
                 "tournament": false,
-                "name": "Women's 10km"
+                "name": "Women's 10km",
+                "ranking": false
             },
             "Men's 10km": {
                 "tournament": false,
-                "name": "Men's 10km"
+                "name": "Men's 10km",
+                "ranking": false
             }
         },
         "athletes": [
@@ -19075,7 +19333,7 @@
                 "description": "Venue for Marathon Swimming"
             }
         ],
-        "icon": "/img/sports/SVG/marathon-swimming.svg"
+        "icon": "\/img\/sports\/SVG\/marathon-swimming.svg"
     },
     "modern-pentathlon": {
         "name": "Modern Pentathlon",
@@ -19085,11 +19343,13 @@
         "events": {
             "Women's Individual": {
                 "tournament": false,
-                "name": "Women's Individual"
+                "name": "Women's Individual",
+                "ranking": false
             },
             "Men's Individual": {
                 "tournament": false,
-                "name": "Men's Individual"
+                "name": "Men's Individual",
+                "ranking": false
             }
         },
         "athletes": [
@@ -19237,7 +19497,7 @@
         "venues": [
             {
                 "slug": "chateau-de-versailles",
-                "name": "Château de Versailles",
+                "name": "Ch\u00e2teau de Versailles",
                 "description": "Venue for Modern Pentathlon"
             },
             {
@@ -19246,7 +19506,7 @@
                 "description": "Venue for Modern Pentathlon"
             }
         ],
-        "icon": "/img/sports/SVG/modern-pentathlon.svg"
+        "icon": "\/img\/sports\/SVG\/modern-pentathlon.svg"
     },
     "rhythmic-gymnastics": {
         "name": "Rhythmic Gymnastics",
@@ -19256,11 +19516,13 @@
         "events": {
             "Individual All-Around": {
                 "tournament": false,
-                "name": "Individual All-Around"
+                "name": "Individual All-Around",
+                "ranking": false
             },
             "Group All-Around": {
                 "tournament": false,
-                "name": "Group All-Around"
+                "name": "Group All-Around",
+                "ranking": false
             }
         },
         "athletes": [
@@ -19545,7 +19807,7 @@
                 "description": "Venue for Rhythmic Gymnastics"
             }
         ],
-        "icon": "/img/sports/SVG/rhythmic-gymnastics.svg"
+        "icon": "\/img\/sports\/SVG\/rhythmic-gymnastics.svg"
     },
     "rowing": {
         "name": "Rowing",
@@ -19555,59 +19817,73 @@
         "events": {
             "Women's Pair": {
                 "tournament": false,
-                "name": "Women's Pair"
+                "name": "Women's Pair",
+                "ranking": false
             },
             "Men's Pair": {
                 "tournament": false,
-                "name": "Men's Pair"
+                "name": "Men's Pair",
+                "ranking": false
             },
             "Women's Double Sculls": {
                 "tournament": false,
-                "name": "Women's Double Sculls"
+                "name": "Women's Double Sculls",
+                "ranking": false
             },
             "Men's Double Sculls": {
                 "tournament": false,
-                "name": "Men's Double Sculls"
+                "name": "Men's Double Sculls",
+                "ranking": false
             },
             "Women's Four": {
                 "tournament": false,
-                "name": "Women's Four"
+                "name": "Women's Four",
+                "ranking": false
             },
             "Men's Four": {
                 "tournament": false,
-                "name": "Men's Four"
+                "name": "Men's Four",
+                "ranking": false
             },
             "Women's Single Sculls": {
                 "tournament": false,
-                "name": "Women's Single Sculls"
+                "name": "Women's Single Sculls",
+                "ranking": false
             },
             "Men's Single Sculls": {
                 "tournament": false,
-                "name": "Men's Single Sculls"
+                "name": "Men's Single Sculls",
+                "ranking": false
             },
             "Lightweight Women's Double Sculls": {
                 "tournament": false,
-                "name": "Lightweight Women's Double Sculls"
+                "name": "Lightweight Women's Double Sculls",
+                "ranking": false
             },
             "Lightweight Men's Double Sculls": {
                 "tournament": false,
-                "name": "Lightweight Men's Double Sculls"
+                "name": "Lightweight Men's Double Sculls",
+                "ranking": false
             },
             "Women's Quadruple Sculls": {
                 "tournament": false,
-                "name": "Women's Quadruple Sculls"
+                "name": "Women's Quadruple Sculls",
+                "ranking": false
             },
             "Men's Quadruple Sculls": {
                 "tournament": false,
-                "name": "Men's Quadruple Sculls"
+                "name": "Men's Quadruple Sculls",
+                "ranking": false
             },
             "Women's Eight": {
                 "tournament": false,
-                "name": "Women's Eight"
+                "name": "Women's Eight",
+                "ranking": false
             },
             "Men's Eight": {
                 "tournament": false,
-                "name": "Men's Eight"
+                "name": "Men's Eight",
+                "ranking": false
             }
         },
         "athletes": [
@@ -21477,7 +21753,7 @@
                 "description": "Venue for Rowing"
             }
         ],
-        "icon": "/img/sports/SVG/rowing.svg"
+        "icon": "\/img\/sports\/SVG\/rowing.svg"
     },
     "rugby-sevens": {
         "name": "Rugby Sevens",
@@ -21487,11 +21763,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -22507,7 +22785,7 @@
                 "description": "Venue for Rugby Sevens"
             }
         ],
-        "icon": "/img/sports/SVG/rugby-sevens.svg"
+        "icon": "\/img\/sports\/SVG\/rugby-sevens.svg"
     },
     "sailing": {
         "name": "Sailing",
@@ -22517,43 +22795,53 @@
         "events": {
             "Men's Windsurfing": {
                 "tournament": false,
-                "name": "Men's Windsurfing"
+                "name": "Men's Windsurfing",
+                "ranking": false
             },
             "Men's Kite": {
                 "tournament": false,
-                "name": "Men's Kite"
+                "name": "Men's Kite",
+                "ranking": false
             },
             "Men's Dinghy": {
                 "tournament": false,
-                "name": "Men's Dinghy"
+                "name": "Men's Dinghy",
+                "ranking": false
             },
             "Men's Skiff": {
                 "tournament": false,
-                "name": "Men's Skiff"
+                "name": "Men's Skiff",
+                "ranking": false
             },
             "Women's Windsurfing": {
                 "tournament": false,
-                "name": "Women's Windsurfing"
+                "name": "Women's Windsurfing",
+                "ranking": false
             },
             "Women's Kite": {
                 "tournament": false,
-                "name": "Women's Kite"
+                "name": "Women's Kite",
+                "ranking": false
             },
             "Women's Dinghy": {
                 "tournament": false,
-                "name": "Women's Dinghy"
+                "name": "Women's Dinghy",
+                "ranking": false
             },
             "Women's Skiff": {
                 "tournament": false,
-                "name": "Women's Skiff"
+                "name": "Women's Skiff",
+                "ranking": false
             },
             "Mixed Dinghy": {
                 "tournament": false,
-                "name": "Mixed Dinghy"
+                "name": "Mixed Dinghy",
+                "ranking": false
             },
             "Mixed Multihull": {
                 "tournament": false,
-                "name": "Mixed Multihull"
+                "name": "Mixed Multihull",
+                "ranking": false
             }
         },
         "athletes": [
@@ -23280,7 +23568,7 @@
                 "description": "Venue for Sailing"
             }
         ],
-        "icon": "/img/sports/SVG/sailing.svg"
+        "icon": "\/img\/sports\/SVG\/sailing.svg"
     },
     "shooting": {
         "name": "Shooting",
@@ -23290,63 +23578,78 @@
         "events": {
             "10m Air Rifle Men": {
                 "tournament": false,
-                "name": "10m Air Rifle Men"
+                "name": "10m Air Rifle Men",
+                "ranking": false
             },
             "50m Rifle 3 Positions Men": {
                 "tournament": false,
-                "name": "50m Rifle 3 Positions Men"
+                "name": "50m Rifle 3 Positions Men",
+                "ranking": false
             },
             "10m Air Pistol Men": {
                 "tournament": false,
-                "name": "10m Air Pistol Men"
+                "name": "10m Air Pistol Men",
+                "ranking": false
             },
             "25m Rapid Fire Pistol Men": {
                 "tournament": false,
-                "name": "25m Rapid Fire Pistol Men"
+                "name": "25m Rapid Fire Pistol Men",
+                "ranking": false
             },
             "Trap Men": {
                 "tournament": false,
-                "name": "Trap Men"
+                "name": "Trap Men",
+                "ranking": false
             },
             "Skeet Men": {
                 "tournament": false,
-                "name": "Skeet Men"
+                "name": "Skeet Men",
+                "ranking": false
             },
             "10m Air Rifle Women": {
                 "tournament": false,
-                "name": "10m Air Rifle Women"
+                "name": "10m Air Rifle Women",
+                "ranking": false
             },
             "50m Rifle 3 Positions Women": {
                 "tournament": false,
-                "name": "50m Rifle 3 Positions Women"
+                "name": "50m Rifle 3 Positions Women",
+                "ranking": false
             },
             "10m Air Pistol Women": {
                 "tournament": false,
-                "name": "10m Air Pistol Women"
+                "name": "10m Air Pistol Women",
+                "ranking": false
             },
             "25m Pistol Women": {
                 "tournament": false,
-                "name": "25m Pistol Women"
+                "name": "25m Pistol Women",
+                "ranking": false
             },
             "Trap Women": {
                 "tournament": false,
-                "name": "Trap Women"
+                "name": "Trap Women",
+                "ranking": false
             },
             "Skeet Women": {
                 "tournament": false,
-                "name": "Skeet Women"
+                "name": "Skeet Women",
+                "ranking": false
             },
             "10m Air Rifle Mixed Team": {
                 "tournament": false,
-                "name": "10m Air Rifle Mixed Team"
+                "name": "10m Air Rifle Mixed Team",
+                "ranking": false
             },
             "10m Air Pistol Mixed Team": {
                 "tournament": false,
-                "name": "10m Air Pistol Mixed Team"
+                "name": "10m Air Pistol Mixed Team",
+                "ranking": false
             },
             "Skeet Mixed Team": {
                 "tournament": false,
-                "name": "Skeet Mixed Team"
+                "name": "Skeet Mixed Team",
+                "ranking": false
             }
         },
         "athletes": [
@@ -23726,7 +24029,7 @@
                 "slug": "sevval-tarhan",
                 "name": "TARHAN Sevval Ilayda",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 1,
@@ -23738,7 +24041,7 @@
                 "slug": "yusuf-dikec",
                 "name": "DIKEC Yusuf",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 1,
@@ -24041,7 +24344,7 @@
             },
             {
                 "slug": "turkiye",
-                "name": "Türkiye",
+                "name": "T\u00fcrkiye",
                 "code": "TR",
                 "medals": {
                     "gold": 0,
@@ -24157,7 +24460,7 @@
                 "description": "Venue for Shooting"
             }
         ],
-        "icon": "/img/sports/SVG/shooting.svg"
+        "icon": "\/img\/sports\/SVG\/shooting.svg"
     },
     "skateboarding": {
         "name": "Skateboarding",
@@ -24167,19 +24470,23 @@
         "events": {
             "Women's Street": {
                 "tournament": false,
-                "name": "Women's Street"
+                "name": "Women's Street",
+                "ranking": false
             },
             "Men's Street": {
                 "tournament": false,
-                "name": "Men's Street"
+                "name": "Men's Street",
+                "ranking": false
             },
             "Women's Park": {
                 "tournament": false,
-                "name": "Women's Park"
+                "name": "Women's Park",
+                "ranking": false
             },
             "Men's Park": {
                 "tournament": false,
-                "name": "Men's Park"
+                "name": "Men's Park",
+                "ranking": false
             }
         },
         "athletes": [
@@ -24392,7 +24699,7 @@
                 "description": "Venue for Skateboarding"
             }
         ],
-        "icon": "/img/sports/SVG/skateboarding.svg"
+        "icon": "\/img\/sports\/SVG\/skateboarding.svg"
     },
     "sport-climbing": {
         "name": "Sport Climbing",
@@ -24402,19 +24709,23 @@
         "events": {
             "Women's Boulder & Lead": {
                 "tournament": false,
-                "name": "Women's Boulder & Lead"
+                "name": "Women's Boulder & Lead",
+                "ranking": false
             },
             "Women's Speed": {
                 "tournament": false,
-                "name": "Women's Speed"
+                "name": "Women's Speed",
+                "ranking": false
             },
             "Men's Boulder & Lead": {
                 "tournament": false,
-                "name": "Men's Boulder & Lead"
+                "name": "Men's Boulder & Lead",
+                "ranking": false
             },
             "Men's Speed": {
                 "tournament": false,
-                "name": "Men's Speed"
+                "name": "Men's Speed",
+                "ranking": false
             }
         },
         "athletes": [
@@ -24660,7 +24971,7 @@
                 "description": "Venue for Sport Climbing"
             }
         ],
-        "icon": "/img/sports/SVG/sport-climbing.svg"
+        "icon": "\/img\/sports\/SVG\/sport-climbing.svg"
     },
     "surfing": {
         "name": "Surfing",
@@ -24670,11 +24981,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -24804,7 +25117,7 @@
                 "description": "Venue for Surfing"
             }
         ],
-        "icon": "/img/sports/SVG/surfing.svg"
+        "icon": "\/img\/sports\/SVG\/surfing.svg"
     },
     "swimming": {
         "name": "Swimming",
@@ -24814,143 +25127,178 @@
         "events": {
             "Women's 50m Freestyle": {
                 "tournament": false,
-                "name": "Women's 50m Freestyle"
+                "name": "Women's 50m Freestyle",
+                "ranking": false
             },
             "Women's 100m Freestyle": {
                 "tournament": false,
-                "name": "Women's 100m Freestyle"
+                "name": "Women's 100m Freestyle",
+                "ranking": false
             },
             "Women's 200m Freestyle": {
                 "tournament": false,
-                "name": "Women's 200m Freestyle"
+                "name": "Women's 200m Freestyle",
+                "ranking": false
             },
             "Women's 400m Freestyle": {
                 "tournament": false,
-                "name": "Women's 400m Freestyle"
+                "name": "Women's 400m Freestyle",
+                "ranking": false
             },
             "Women's 800m Freestyle": {
                 "tournament": false,
-                "name": "Women's 800m Freestyle"
+                "name": "Women's 800m Freestyle",
+                "ranking": false
             },
             "Women's 1500m Freestyle": {
                 "tournament": false,
-                "name": "Women's 1500m Freestyle"
+                "name": "Women's 1500m Freestyle",
+                "ranking": false
             },
             "Women's 100m Backstroke": {
                 "tournament": false,
-                "name": "Women's 100m Backstroke"
+                "name": "Women's 100m Backstroke",
+                "ranking": false
             },
             "Women's 200m Backstroke": {
                 "tournament": false,
-                "name": "Women's 200m Backstroke"
+                "name": "Women's 200m Backstroke",
+                "ranking": false
             },
             "Women's 100m Breaststroke": {
                 "tournament": false,
-                "name": "Women's 100m Breaststroke"
+                "name": "Women's 100m Breaststroke",
+                "ranking": false
             },
             "Women's 200m Breaststroke": {
                 "tournament": false,
-                "name": "Women's 200m Breaststroke"
+                "name": "Women's 200m Breaststroke",
+                "ranking": false
             },
             "Women's 100m Butterfly": {
                 "tournament": false,
-                "name": "Women's 100m Butterfly"
+                "name": "Women's 100m Butterfly",
+                "ranking": false
             },
             "Women's 200m Butterfly": {
                 "tournament": false,
-                "name": "Women's 200m Butterfly"
+                "name": "Women's 200m Butterfly",
+                "ranking": false
             },
             "Women's 200m Individual Medley": {
                 "tournament": false,
-                "name": "Women's 200m Individual Medley"
+                "name": "Women's 200m Individual Medley",
+                "ranking": false
             },
             "Women's 400m Individual Medley": {
                 "tournament": false,
-                "name": "Women's 400m Individual Medley"
+                "name": "Women's 400m Individual Medley",
+                "ranking": false
             },
             "Women's 4 x 100m Freestyle Relay": {
                 "tournament": false,
-                "name": "Women's 4 x 100m Freestyle Relay"
+                "name": "Women's 4 x 100m Freestyle Relay",
+                "ranking": false
             },
             "Women's 4 x 200m Freestyle Relay": {
                 "tournament": false,
-                "name": "Women's 4 x 200m Freestyle Relay"
+                "name": "Women's 4 x 200m Freestyle Relay",
+                "ranking": false
             },
             "Women's 4 x 100m Medley Relay": {
                 "tournament": false,
-                "name": "Women's 4 x 100m Medley Relay"
+                "name": "Women's 4 x 100m Medley Relay",
+                "ranking": false
             },
             "Men's 50m Freestyle": {
                 "tournament": false,
-                "name": "Men's 50m Freestyle"
+                "name": "Men's 50m Freestyle",
+                "ranking": false
             },
             "Men's 100m Freestyle": {
                 "tournament": false,
-                "name": "Men's 100m Freestyle"
+                "name": "Men's 100m Freestyle",
+                "ranking": false
             },
             "Men's 200m Freestyle": {
                 "tournament": false,
-                "name": "Men's 200m Freestyle"
+                "name": "Men's 200m Freestyle",
+                "ranking": false
             },
             "Men's 400m Freestyle": {
                 "tournament": false,
-                "name": "Men's 400m Freestyle"
+                "name": "Men's 400m Freestyle",
+                "ranking": false
             },
             "Men's 800m Freestyle": {
                 "tournament": false,
-                "name": "Men's 800m Freestyle"
+                "name": "Men's 800m Freestyle",
+                "ranking": false
             },
             "Men's 1500m Freestyle": {
                 "tournament": false,
-                "name": "Men's 1500m Freestyle"
+                "name": "Men's 1500m Freestyle",
+                "ranking": false
             },
             "Men's 100m Backstroke": {
                 "tournament": false,
-                "name": "Men's 100m Backstroke"
+                "name": "Men's 100m Backstroke",
+                "ranking": false
             },
             "Men's 200m Backstroke": {
                 "tournament": false,
-                "name": "Men's 200m Backstroke"
+                "name": "Men's 200m Backstroke",
+                "ranking": false
             },
             "Men's 100m Breaststroke": {
                 "tournament": false,
-                "name": "Men's 100m Breaststroke"
+                "name": "Men's 100m Breaststroke",
+                "ranking": false
             },
             "Men's 200m Breaststroke": {
                 "tournament": false,
-                "name": "Men's 200m Breaststroke"
+                "name": "Men's 200m Breaststroke",
+                "ranking": false
             },
             "Men's 100m Butterfly": {
                 "tournament": false,
-                "name": "Men's 100m Butterfly"
+                "name": "Men's 100m Butterfly",
+                "ranking": false
             },
             "Men's 200m Butterfly": {
                 "tournament": false,
-                "name": "Men's 200m Butterfly"
+                "name": "Men's 200m Butterfly",
+                "ranking": false
             },
             "Men's 200m Individual Medley": {
                 "tournament": false,
-                "name": "Men's 200m Individual Medley"
+                "name": "Men's 200m Individual Medley",
+                "ranking": false
             },
             "Men's 400m Individual Medley": {
                 "tournament": false,
-                "name": "Men's 400m Individual Medley"
+                "name": "Men's 400m Individual Medley",
+                "ranking": false
             },
             "Men's 4 x 100m Freestyle Relay": {
                 "tournament": false,
-                "name": "Men's 4 x 100m Freestyle Relay"
+                "name": "Men's 4 x 100m Freestyle Relay",
+                "ranking": false
             },
             "Men's 4 x 200m Freestyle Relay": {
                 "tournament": false,
-                "name": "Men's 4 x 200m Freestyle Relay"
+                "name": "Men's 4 x 200m Freestyle Relay",
+                "ranking": false
             },
             "Men's 4 x 100m Medley Relay": {
                 "tournament": false,
-                "name": "Men's 4 x 100m Medley Relay"
+                "name": "Men's 4 x 100m Medley Relay",
+                "ranking": false
             },
             "Mixed 4 x 100m Medley Relay": {
                 "tournament": false,
-                "name": "Mixed 4 x 100m Medley Relay"
+                "name": "Mixed 4 x 100m Medley Relay",
+                "ranking": false
             }
         },
         "athletes": [
@@ -26673,7 +27021,7 @@
                 "description": "Venue for Swimming"
             }
         ],
-        "icon": "/img/sports/SVG/swimming.svg"
+        "icon": "\/img\/sports\/SVG\/swimming.svg"
     },
     "table-tennis": {
         "name": "Table Tennis",
@@ -26683,23 +27031,28 @@
         "events": {
             "Men's Singles": {
                 "tournament": false,
-                "name": "Men's Singles"
+                "name": "Men's Singles",
+                "ranking": false
             },
             "Women's Singles": {
                 "tournament": false,
-                "name": "Women's Singles"
+                "name": "Women's Singles",
+                "ranking": false
             },
             "Mixed Doubles": {
                 "tournament": false,
-                "name": "Mixed Doubles"
+                "name": "Mixed Doubles",
+                "ranking": false
             },
             "Men's Team": {
                 "tournament": false,
-                "name": "Men's Team"
+                "name": "Men's Team",
+                "ranking": false
             },
             "Women's Team": {
                 "tournament": false,
-                "name": "Women's Team"
+                "name": "Women's Team",
+                "ranking": false
             }
         },
         "athletes": [
@@ -27031,7 +27384,7 @@
                 "description": "Venue for Table Tennis"
             }
         ],
-        "icon": "/img/sports/SVG/table-tennis.svg"
+        "icon": "\/img\/sports\/SVG\/table-tennis.svg"
     },
     "taekwondo": {
         "name": "Taekwondo",
@@ -27041,35 +27394,43 @@
         "events": {
             "Men -58kg": {
                 "tournament": false,
-                "name": "Men -58kg"
+                "name": "Men -58kg",
+                "ranking": false
             },
             "Men -68kg": {
                 "tournament": false,
-                "name": "Men -68kg"
+                "name": "Men -68kg",
+                "ranking": false
             },
             "Men -80kg": {
                 "tournament": false,
-                "name": "Men -80kg"
+                "name": "Men -80kg",
+                "ranking": false
             },
             "Men +80kg": {
                 "tournament": false,
-                "name": "Men +80kg"
+                "name": "Men +80kg",
+                "ranking": false
             },
             "Women -49kg": {
                 "tournament": false,
-                "name": "Women -49kg"
+                "name": "Women -49kg",
+                "ranking": false
             },
             "Women -57kg": {
                 "tournament": false,
-                "name": "Women -57kg"
+                "name": "Women -57kg",
+                "ranking": false
             },
             "Women -67kg": {
                 "tournament": false,
-                "name": "Women -67kg"
+                "name": "Women -67kg",
+                "ranking": false
             },
             "Women +67kg": {
                 "tournament": false,
-                "name": "Women +67kg"
+                "name": "Women +67kg",
+                "ranking": false
             }
         },
         "athletes": [
@@ -27425,7 +27786,7 @@
                 "slug": "cheick-cisse",
                 "name": "CISSE Cheick Sallah",
                 "countryCode": "CI",
-                "country": "Côte d'Ivoire",
+                "country": "C\u00f4te d'Ivoire",
                 "medals": {
                     "gold": 0,
                     "silver": 0,
@@ -27449,7 +27810,7 @@
                 "slug": "kus-aydin",
                 "name": "KUS AYDIN Nafia",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 0,
@@ -27692,7 +28053,7 @@
             },
             {
                 "slug": "cote-divoire",
-                "name": "Côte d'Ivoire",
+                "name": "C\u00f4te d'Ivoire",
                 "code": "CI",
                 "medals": {
                     "gold": 0,
@@ -27703,7 +28064,7 @@
             },
             {
                 "slug": "turkiye",
-                "name": "Türkiye",
+                "name": "T\u00fcrkiye",
                 "code": "TR",
                 "medals": {
                     "gold": 0,
@@ -27720,7 +28081,7 @@
                 "description": "Venue for Taekwondo"
             }
         ],
-        "icon": "/img/sports/SVG/taekwondo.svg"
+        "icon": "\/img\/sports\/SVG\/taekwondo.svg"
     },
     "tennis": {
         "name": "Tennis",
@@ -27730,23 +28091,28 @@
         "events": {
             "Men's Singles": {
                 "tournament": false,
-                "name": "Men's Singles"
+                "name": "Men's Singles",
+                "ranking": false
             },
             "Women's Singles": {
                 "tournament": false,
-                "name": "Women's Singles"
+                "name": "Women's Singles",
+                "ranking": false
             },
             "Men's Doubles": {
                 "tournament": false,
-                "name": "Men's Doubles"
+                "name": "Men's Doubles",
+                "ranking": false
             },
             "Women's Doubles": {
                 "tournament": false,
-                "name": "Women's Doubles"
+                "name": "Women's Doubles",
+                "ranking": false
             },
             "Mixed Doubles": {
                 "tournament": false,
-                "name": "Mixed Doubles"
+                "name": "Mixed Doubles",
+                "ranking": false
             }
         },
         "athletes": [
@@ -28169,7 +28535,7 @@
                 "description": "Venue for Tennis"
             }
         ],
-        "icon": "/img/sports/SVG/tennis.svg"
+        "icon": "\/img\/sports\/SVG\/tennis.svg"
     },
     "trampoline-gymnastics": {
         "name": "Trampoline Gymnastics",
@@ -28179,11 +28545,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -28313,7 +28681,7 @@
                 "description": "Venue for Trampoline Gymnastics"
             }
         ],
-        "icon": "/img/sports/SVG/trampoline-gymnastics.svg"
+        "icon": "\/img\/sports\/SVG\/trampoline-gymnastics.svg"
     },
     "triathlon": {
         "name": "Triathlon",
@@ -28323,15 +28691,18 @@
         "events": {
             "Women's Individual": {
                 "tournament": false,
-                "name": "Women's Individual"
+                "name": "Women's Individual",
+                "ranking": false
             },
             "Men's Individual": {
                 "tournament": false,
-                "name": "Men's Individual"
+                "name": "Men's Individual",
+                "ranking": false
             },
             "Mixed Relay": {
                 "tournament": false,
-                "name": "Mixed Relay"
+                "name": "Mixed Relay",
+                "ranking": false
             }
         },
         "athletes": [
@@ -28603,7 +28974,7 @@
                 "description": "Venue for Triathlon"
             }
         ],
-        "icon": "/img/sports/SVG/triathlon.svg"
+        "icon": "\/img\/sports\/SVG\/triathlon.svg"
     },
     "volleyball": {
         "name": "Volleyball",
@@ -28613,11 +28984,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -29622,7 +29995,7 @@
                 "description": "Venue for Volleyball"
             }
         ],
-        "icon": "/img/sports/SVG/volleyball.svg"
+        "icon": "\/img\/sports\/SVG\/volleyball.svg"
     },
     "water-polo": {
         "name": "Water Polo",
@@ -29632,11 +30005,13 @@
         "events": {
             "Men": {
                 "tournament": false,
-                "name": "Men"
+                "name": "Men",
+                "ranking": false
             },
             "Women": {
                 "tournament": false,
-                "name": "Women"
+                "name": "Women",
+                "ranking": false
             }
         },
         "athletes": [
@@ -30657,7 +31032,7 @@
                 "description": "Venue for Water Polo"
             }
         ],
-        "icon": "/img/sports/SVG/water-polo.svg"
+        "icon": "\/img\/sports\/SVG\/water-polo.svg"
     },
     "weightlifting": {
         "name": "Weightlifting",
@@ -30667,43 +31042,53 @@
         "events": {
             "Women's 49kg": {
                 "tournament": false,
-                "name": "Women's 49kg"
+                "name": "Women's 49kg",
+                "ranking": false
             },
             "Women's 59kg": {
                 "tournament": false,
-                "name": "Women's 59kg"
+                "name": "Women's 59kg",
+                "ranking": false
             },
             "Women's 71kg": {
                 "tournament": false,
-                "name": "Women's 71kg"
+                "name": "Women's 71kg",
+                "ranking": false
             },
             "Women's 81kg": {
                 "tournament": false,
-                "name": "Women's 81kg"
+                "name": "Women's 81kg",
+                "ranking": false
             },
             "Women's +81kg": {
                 "tournament": false,
-                "name": "Women's +81kg"
+                "name": "Women's +81kg",
+                "ranking": false
             },
             "Men's 61kg": {
                 "tournament": false,
-                "name": "Men's 61kg"
+                "name": "Men's 61kg",
+                "ranking": false
             },
             "Men's 73kg": {
                 "tournament": false,
-                "name": "Men's 73kg"
+                "name": "Men's 73kg",
+                "ranking": false
             },
             "Men's 89kg": {
                 "tournament": false,
-                "name": "Men's 89kg"
+                "name": "Men's 89kg",
+                "ranking": false
             },
             "Men's 102kg": {
                 "tournament": false,
-                "name": "Men's 102kg"
+                "name": "Men's 102kg",
+                "ranking": false
             },
             "Men's +102kg": {
                 "tournament": false,
-                "name": "Men's +102kg"
+                "name": "Men's +102kg",
+                "ranking": false
             }
         },
         "athletes": [
@@ -31297,7 +31682,7 @@
                 "description": "Venue for Weightlifting"
             }
         ],
-        "icon": "/img/sports/SVG/weightlifting.svg"
+        "icon": "\/img\/sports\/SVG\/weightlifting.svg"
     },
     "wrestling": {
         "name": "Wrestling",
@@ -31307,75 +31692,93 @@
         "events": {
             "Men's Greco-Roman 60kg": {
                 "tournament": false,
-                "name": "Men's Greco-Roman 60kg"
+                "name": "Men's Greco-Roman 60kg",
+                "ranking": false
             },
             "Men's Greco-Roman 67kg": {
                 "tournament": false,
-                "name": "Men's Greco-Roman 67kg"
+                "name": "Men's Greco-Roman 67kg",
+                "ranking": false
             },
             "Men's Greco-Roman 77kg": {
                 "tournament": false,
-                "name": "Men's Greco-Roman 77kg"
+                "name": "Men's Greco-Roman 77kg",
+                "ranking": false
             },
             "Men's Greco-Roman 87kg": {
                 "tournament": false,
-                "name": "Men's Greco-Roman 87kg"
+                "name": "Men's Greco-Roman 87kg",
+                "ranking": false
             },
             "Men's Greco-Roman 97kg": {
                 "tournament": false,
-                "name": "Men's Greco-Roman 97kg"
+                "name": "Men's Greco-Roman 97kg",
+                "ranking": false
             },
             "Men's Greco-Roman 130kg": {
                 "tournament": false,
-                "name": "Men's Greco-Roman 130kg"
+                "name": "Men's Greco-Roman 130kg",
+                "ranking": false
             },
             "Women's Freestyle 50kg": {
                 "tournament": false,
-                "name": "Women's Freestyle 50kg"
+                "name": "Women's Freestyle 50kg",
+                "ranking": false
             },
             "Women's Freestyle 53kg": {
                 "tournament": false,
-                "name": "Women's Freestyle 53kg"
+                "name": "Women's Freestyle 53kg",
+                "ranking": false
             },
             "Women's Freestyle 57kg": {
                 "tournament": false,
-                "name": "Women's Freestyle 57kg"
+                "name": "Women's Freestyle 57kg",
+                "ranking": false
             },
             "Women's Freestyle 62kg": {
                 "tournament": false,
-                "name": "Women's Freestyle 62kg"
+                "name": "Women's Freestyle 62kg",
+                "ranking": false
             },
             "Women's Freestyle 68kg": {
                 "tournament": false,
-                "name": "Women's Freestyle 68kg"
+                "name": "Women's Freestyle 68kg",
+                "ranking": false
             },
             "Women's Freestyle 76kg": {
                 "tournament": false,
-                "name": "Women's Freestyle 76kg"
+                "name": "Women's Freestyle 76kg",
+                "ranking": false
             },
             "Men's Freestyle 57kg": {
                 "tournament": false,
-                "name": "Men's Freestyle 57kg"
+                "name": "Men's Freestyle 57kg",
+                "ranking": false
             },
             "Men's Freestyle 65kg": {
                 "tournament": false,
-                "name": "Men's Freestyle 65kg"
+                "name": "Men's Freestyle 65kg",
+                "ranking": false
             },
             "Men's Freestyle 74kg": {
                 "tournament": false,
-                "name": "Men's Freestyle 74kg"
+                "name": "Men's Freestyle 74kg",
+                "ranking": false
             },
             "Men's Freestyle 86kg": {
                 "tournament": false,
-                "name": "Men's Freestyle 86kg"
+                "name": "Men's Freestyle 86kg",
+                "ranking": false
             },
             "Men's Freestyle 97kg": {
                 "tournament": false,
-                "name": "Men's Freestyle 97kg"
+                "name": "Men's Freestyle 97kg",
+                "ranking": false
             },
             "Men's Freestyle 125kg": {
                 "tournament": false,
-                "name": "Men's Freestyle 125kg"
+                "name": "Men's Freestyle 125kg",
+                "ranking": false
             }
         },
         "athletes": [
@@ -31863,7 +32266,7 @@
                 "slug": "cavusoglu-tosun",
                 "name": "CAVUSOGLU TOSUN Buse",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 0,
@@ -32103,7 +32506,7 @@
                 "slug": "taha-akgul",
                 "name": "AKGUL Taha",
                 "countryCode": "TR",
-                "country": "Türkiye",
+                "country": "T\u00fcrkiye",
                 "medals": {
                     "gold": 0,
                     "silver": 0,
@@ -32445,7 +32848,7 @@
             },
             {
                 "slug": "turkiye",
-                "name": "Türkiye",
+                "name": "T\u00fcrkiye",
                 "code": "TR",
                 "medals": {
                     "gold": 0,
@@ -32539,6 +32942,6 @@
                 "description": "Venue for Wrestling"
             }
         ],
-        "icon": "/img/sports/SVG/wrestling.svg"
+        "icon": "\/img\/sports\/SVG\/wrestling.svg"
     }
 }

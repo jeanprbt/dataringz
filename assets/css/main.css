@@ -3,6 +3,17 @@
 
 @theme {
     --animate-bento-card: scale-return 500ms ease;
+    --animate-full-screen: scale-go 500ms ease;
+
+    @keyframes scale-go {
+        0% {
+            transform: scale(1.02);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
 
     @keyframes scale-return {
         0% {

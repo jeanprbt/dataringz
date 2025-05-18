@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import * as d3 from 'd3';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
 
 // Types
 interface Match {
@@ -74,16 +75,37 @@ const DEFAULT_ROUND_TITLES = [
 
 // Colors
 const COLORS = {
-    winner: {
-        background: '#dcfce7',
-        text: '#059669'
+    light: {
+        winner: {
+            background: '#dcfce7',
+            text: '#059669'
+        },
+        loser: {
+            background: '#f3f4f6',
+            text: '#4b5563'
+        },
+        border: '#d1d5db',
+        title: '#374151'
     },
-    loser: {
-        background: '#f3f4f6',
-        text: '#4b5563'
-    },
-    border: '#d1d5db'
+    dark: {
+        winner: {
+            background: '#065f46',
+            text: '#d1fae5'
+        },
+        loser: {
+            background: '#1f2937',
+            text: '#9ca3af'
+        },
+        border: '#4b5563',
+        title: '#e5e7eb'
+    }
 };
+
+// Reactive state
+const isDarkMode = ref(false);
+
+// Function to get current color scheme
+const getColors = () => isDarkMode.value ? COLORS.dark : COLORS.light;
 
 // Track team paths
 const teamPaths = new Map<string, TeamPathInfo[]>();
@@ -206,154 +228,6 @@ const addFlag = (
         .on("mouseleave", () => resetHighlight());
 };
 
-// Draw a single match box
-const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undefined>, match: Match, boxWidth: number, boxHeight: number) => {
-    matchGroup.attr("data-match-id", match.id);
-    
-    const teamHeight = boxHeight / 2;
-
-    [0, 1].forEach((index) => {
-        const isWinner = index === 0 ? match.winner === match.team1 : match.winner === match.team2;
-        const colors = isWinner ? COLORS.winner : COLORS.loser;
-
-        matchGroup.append("rect")
-            .attr("y", index * teamHeight)
-            .attr("width", boxWidth)
-            .attr("height", teamHeight)
-            .attr("rx", 5)
-            .attr("ry", 5)
-            .attr("fill", colors.background)
-            .attr("stroke", COLORS.border)
-            .attr("stroke-width", 1)
-            .attr("data-team", index === 0 ? match.team1 : match.team2)
-            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-            .on("mouseleave", () => resetHighlight());
-    });
-
-    // Team 1 info
-    const team1Group = matchGroup.append("g")
-        .attr("transform", `translate(10, ${teamHeight / 2})`)
-        .attr("data-team", match.team1);
-
-    // Add flag for team1 if country code exists
-    const hasTeam1Flag = !!match.team1Code;
-    const textX = hasTeam1Flag ? TEXT_PADDING : 0;
-    
-    if (hasTeam1Flag) {
-        addFlag(team1Group, match.team1Code!, 0, 0, match.team1);
-    }
-    
-    // Add team name with font-weight based on winner
-    const isTeam1Winner = match.winner === match.team1;
-    team1Group.append("text")
-        .attr("x", textX)
-        .attr("dy", "0.32em")
-        .attr("fill", isTeam1Winner ? COLORS.winner.text : COLORS.loser.text)
-        .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
-        .attr("data-team", match.team1)
-        .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-        .on("mouseleave", () => resetHighlight())
-        .text(match.team1);
-
-    if (match.score1 !== undefined) {
-        team1Group.append("text")
-            .attr("x", boxWidth - 30)
-            .attr("dy", "0.32em")
-            .attr("fill", isTeam1Winner ? COLORS.winner.text : COLORS.loser.text)
-            .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
-            .attr("text-anchor", "end")
-            .attr("data-team", match.team1)
-            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-            .on("mouseleave", () => resetHighlight())
-            .text(match.score1.toString());
-    }
-
-    // Team 2 info
-    const team2Group = matchGroup.append("g")
-        .attr("transform", `translate(10, ${teamHeight * 1.5})`)
-        .attr("data-team", match.team2);
-
-    // Add flag for team2 if country code exists
-    const hasTeam2Flag = !!match.team2Code;
-    const team2TextX = hasTeam2Flag ? TEXT_PADDING : 0;
-    
-    if (hasTeam2Flag) {
-        addFlag(team2Group, match.team2Code!, 0, 0, match.team2);
-    }
-    
-    // Add team name with font-weight based on winner
-    const isTeam2Winner = match.winner === match.team2;
-    team2Group.append("text")
-        .attr("x", team2TextX)
-        .attr("dy", "0.32em")
-        .attr("fill", isTeam2Winner ? COLORS.winner.text : COLORS.loser.text)
-        .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
-        .attr("data-team", match.team2)
-        .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-        .on("mouseleave", () => resetHighlight())
-        .text(match.team2);
-
-    if (match.score2 !== undefined) {
-        team2Group.append("text")
-            .attr("x", boxWidth - 30)
-            .attr("dy", "0.32em")
-            .attr("fill", isTeam2Winner ? COLORS.winner.text : COLORS.loser.text)
-            .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
-            .attr("text-anchor", "end")
-            .attr("data-team", match.team2)
-            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-            .on("mouseleave", () => resetHighlight())
-            .text(match.score2.toString());
-    }
-};
-
-// Draw connecting lines between matches
-const drawConnectingLines = (
-    svgElement: d3.Selection<SVGElement, unknown, null, undefined>,
-    match: Match,
-    position: MatchPosition,
-    prevMatch1: Match,
-    prevMatch2: Match,
-    pos1: MatchPosition,
-    pos2: MatchPosition,
-    roundWidth: number,
-    matchHeight: number
-) => {
-    const boxWidth = roundWidth * MATCH_BOX_WIDTH_RATIO;
-    const boxHeight = matchHeight * MATCH_BOX_HEIGHT_RATIO;
-    const teamHeight = boxHeight / 2;
-    const boxCornerRadius = 5;
-
-    const startX1 = pos1.x + boxWidth - boxCornerRadius;
-    const startY1 = pos1.y + teamHeight;
-    const startX2 = pos2.x + boxWidth - boxCornerRadius;
-    const startY2 = pos2.y + teamHeight;
-    const endX = position.x + boxCornerRadius;
-    const endY = position.y + teamHeight;
-    
-    const joinX = startX1 + (endX - startX1) * JOIN_POINT_RATIO;
-    const midY = (startY1 + startY2) / 2;
-
-    [
-        { startY: startY1, prevMatch: prevMatch1 },
-        { startY: startY2, prevMatch: prevMatch2 }
-    ].forEach((data, index) => {
-        const isTop = index === 0;
-        svgElement.append("path")
-            .attr("d", `M ${isTop ? startX1 : startX2} ${data.startY} 
-                       H ${joinX - CORNER_RADIUS}
-                       Q ${joinX} ${data.startY}, ${joinX} ${data.startY + (isTop ? CORNER_RADIUS : -CORNER_RADIUS)}
-                       V ${midY + (isTop ? -CORNER_RADIUS : CORNER_RADIUS)}
-                       Q ${joinX} ${midY}, ${joinX + CORNER_RADIUS} ${midY}
-                       H ${endX}`)
-            .attr("stroke", COLORS.border)
-            .attr("stroke-width", LINE_THICKNESS)
-            .attr("fill", "none")
-            .attr("data-match", match.id)
-            .attr("data-prev-match", data.prevMatch.id);
-    });
-};
-
 // Highlight team path
 const highlightTeamPath = (team: string) => {
     if (!team) return;
@@ -446,6 +320,158 @@ const getRoundTitle = (roundIndex: number, maxRound: number): string => {
     return `Round ${roundIndex + 1}`;
 };
 
+// Draw a single match box
+const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undefined>, match: Match, boxWidth: number, boxHeight: number) => {
+    matchGroup.attr("data-match-id", match.id);
+    
+    const teamHeight = boxHeight / 2;
+    const currentColors = getColors();
+
+    [0, 1].forEach((index) => {
+        const isWinner = index === 0 ? match.winner === match.team1 : match.winner === match.team2;
+        const colors = isWinner ? currentColors.winner : currentColors.loser;
+
+        matchGroup.append("rect")
+            .attr("y", index * teamHeight)
+            .attr("width", boxWidth)
+            .attr("height", teamHeight)
+            .attr("rx", 5)
+            .attr("ry", 5)
+            .attr("fill", colors.background)
+            .attr("stroke", currentColors.border)
+            .attr("stroke-width", 1)
+            .attr("data-team", index === 0 ? match.team1 : match.team2)
+            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+            .on("mouseleave", () => resetHighlight());
+    });
+
+    // Team 1 info
+    const team1Group = matchGroup.append("g")
+        .attr("transform", `translate(10, ${teamHeight / 2})`)
+        .attr("data-team", match.team1);
+
+    // Add flag for team1 if country code exists
+    const hasTeam1Flag = !!match.team1Code;
+    const textX = hasTeam1Flag ? TEXT_PADDING : 0;
+    
+    if (hasTeam1Flag) {
+        addFlag(team1Group, match.team1Code!, 0, 0, match.team1);
+    }
+    
+    // Add team name with font-weight based on winner
+    const isTeam1Winner = match.winner === match.team1;
+    const team1Colors = isTeam1Winner ? currentColors.winner : currentColors.loser;
+    team1Group.append("text")
+        .attr("x", textX)
+        .attr("dy", "0.32em")
+        .attr("fill", team1Colors.text)
+        .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
+        .attr("data-team", match.team1)
+        .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+        .on("mouseleave", () => resetHighlight())
+        .text(match.team1);
+
+    if (match.score1 !== undefined) {
+        team1Group.append("text")
+            .attr("x", boxWidth - 30)
+            .attr("dy", "0.32em")
+            .attr("fill", team1Colors.text)
+            .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
+            .attr("text-anchor", "end")
+            .attr("data-team", match.team1)
+            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+            .on("mouseleave", () => resetHighlight())
+            .text(match.score1.toString());
+    }
+
+    // Team 2 info
+    const team2Group = matchGroup.append("g")
+        .attr("transform", `translate(10, ${teamHeight * 1.5})`)
+        .attr("data-team", match.team2);
+
+    // Add flag for team2 if country code exists
+    const hasTeam2Flag = !!match.team2Code;
+    const team2TextX = hasTeam2Flag ? TEXT_PADDING : 0;
+    
+    if (hasTeam2Flag) {
+        addFlag(team2Group, match.team2Code!, 0, 0, match.team2);
+    }
+    
+    // Add team name with font-weight based on winner
+    const isTeam2Winner = match.winner === match.team2;
+    const team2Colors = isTeam2Winner ? currentColors.winner : currentColors.loser;
+    team2Group.append("text")
+        .attr("x", team2TextX)
+        .attr("dy", "0.32em")
+        .attr("fill", team2Colors.text)
+        .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
+        .attr("data-team", match.team2)
+        .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+        .on("mouseleave", () => resetHighlight())
+        .text(match.team2);
+
+    if (match.score2 !== undefined) {
+        team2Group.append("text")
+            .attr("x", boxWidth - 30)
+            .attr("dy", "0.32em")
+            .attr("fill", team2Colors.text)
+            .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
+            .attr("text-anchor", "end")
+            .attr("data-team", match.team2)
+            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+            .on("mouseleave", () => resetHighlight())
+            .text(match.score2.toString());
+    }
+};
+
+// Draw connecting lines between matches
+const drawConnectingLines = (
+    svgElement: d3.Selection<SVGElement, unknown, null, undefined>,
+    match: Match,
+    position: MatchPosition,
+    prevMatch1: Match,
+    prevMatch2: Match,
+    pos1: MatchPosition,
+    pos2: MatchPosition,
+    roundWidth: number,
+    matchHeight: number
+) => {
+    const boxWidth = roundWidth * MATCH_BOX_WIDTH_RATIO;
+    const boxHeight = matchHeight * MATCH_BOX_HEIGHT_RATIO;
+    const teamHeight = boxHeight / 2;
+    const boxCornerRadius = 5;
+    const currentColors = getColors();
+
+    const startX1 = pos1.x + boxWidth - boxCornerRadius;
+    const startY1 = pos1.y + teamHeight;
+    const startX2 = pos2.x + boxWidth - boxCornerRadius;
+    const startY2 = pos2.y + teamHeight;
+    const endX = position.x + boxCornerRadius;
+    const endY = position.y + teamHeight;
+    
+    const joinX = startX1 + (endX - startX1) * JOIN_POINT_RATIO;
+    const midY = (startY1 + startY2) / 2;
+
+    [
+        { startY: startY1, prevMatch: prevMatch1 },
+        { startY: startY2, prevMatch: prevMatch2 }
+    ].forEach((data, index) => {
+        const isTop = index === 0;
+        svgElement.append("path")
+            .attr("d", `M ${isTop ? startX1 : startX2} ${data.startY} 
+                       H ${joinX - CORNER_RADIUS}
+                       Q ${joinX} ${data.startY}, ${joinX} ${data.startY + (isTop ? CORNER_RADIUS : -CORNER_RADIUS)}
+                       V ${midY + (isTop ? -CORNER_RADIUS : CORNER_RADIUS)}
+                       Q ${joinX} ${midY}, ${joinX + CORNER_RADIUS} ${midY}
+                       H ${endX}`)
+            .attr("stroke", currentColors.border)
+            .attr("stroke-width", LINE_THICKNESS)
+            .attr("fill", "none")
+            .attr("data-match", match.id)
+            .attr("data-prev-match", data.prevMatch.id);
+    });
+};
+
 // Draw round titles
 const drawRoundTitles = (
     svgElement: d3.Selection<SVGElement, unknown, null, undefined>,
@@ -455,6 +481,8 @@ const drawRoundTitles = (
     roundWidth: number,
     maxRound: number
 ) => {
+    const currentColors = getColors();
+    
     // For each round, add a title
     for (let round = 0; round <= maxRound; round++) {
         const x = margin + round * roundWidth + (roundWidth / 2);
@@ -466,7 +494,7 @@ const drawRoundTitles = (
             .attr("text-anchor", "middle")
             .attr("font-size", TITLE_FONT_SIZE)
             .attr("font-weight", "bold")
-            .attr("fill", "#374151")
+            .attr("fill", currentColors.title)
             .text(getRoundTitle(round, maxRound));
     }
 };
@@ -529,8 +557,21 @@ watch(() => props.matches, () => {
     drawTournament();
 }, { deep: true });
 
+// Watch for dark mode changes
+const checkDarkMode = () => {
+    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    isDarkMode.value = darkModeQuery.matches;
+    
+    // Listen for changes in user preference
+    darkModeQuery.addEventListener('change', (e) => {
+        isDarkMode.value = e.matches;
+        drawTournament();
+    });
+};
+
 // Lifecycle hooks
 onMounted(() => {
+    checkDarkMode();
     drawTournament();
     
     resizeObserver = new ResizeObserver(() => {

@@ -56,9 +56,10 @@
                 'col-span-12 md:col-span-4 row-span-1 md:row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && eventsExpandable,
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,
-                'transition-all duration-500 transform h-full': selected === 4,
+                'animate-full-screen h-full': selected === 4,
                 'hidden': selected !== 0 && selected !== 4
-            }" @click="eventsExpandable && selected !== 4 && !eventHovered ? toggleCard(4) : () => { }"
+            }" :key="selected === 0 && transitioning && previous === 4 ? 'animate' : 'static'"
+                @click="eventsExpandable && selected !== 4 && !eventHovered ? toggleCard(4) : () => { }"
                 @mouseenter="eventCardHovered = true" @mouseleave="eventCardHovered = false">
                 <template #default>
                     <!-- full screen -->
@@ -77,7 +78,8 @@
                                 <div class="flex flex-col items-center justify-center h-full">
                                     <h3 class="font-medium text-zinc-500 dark:text-zinc-400 mb-5">{{ sport.name }} | {{
                                         selectedEvent.name }}</h3>
-                                    <D3Tournament :matches="selectedEvent.matches" />
+                                    <D3Tournament v-if="selectedEvent.tournament" :matches="selectedEvent.matches" />
+                                    <UTable v-if="selectedEvent.ranking" :data="selectedEvent.ranks" />
                                 </div>
                             </div>
 
@@ -90,8 +92,9 @@
                                     <p v-for="([event_name, event], index) in Object.entries(sport.events)" :key="index"
                                         :class="[
                                             'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
-                                            { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament }
-                                        ]" @click.stop="event.tournament ? selectEvent(event) : () => { }">
+                                            { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament || event.ranking }
+                                        ]"
+                                        @click.stop="event.tournament || event.ranking ? selectEvent(event) : () => { }">
                                         {{ event_name }}
                                     </p>
                                 </div>
@@ -110,12 +113,13 @@
                         </transition>
                         <div class="flex flex-col justify-center h-full">
                             <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-2">Events</h3>
-                            <div class="grid [grid-template-columns:repeat(auto-fill,minmax(10rem,1fr))] gap-3 h-full">
+                            <div class="grid [grid-template-columns:repeat(auto-fill,minmax(5rem,1fr))] gap-3 h-full">
                                 <p v-for="([event_name, event], index) in compactEvents" :key="index"
                                     @mouseenter="hoverEvent()" @mouseleave="unhoverEvent()"
-                                    @click="event.tournament ? toggleCardAndSelectEvent(4, event) : () => { }" :class="[
+                                    @click="event.tournament || event.ranking ? toggleCardAndSelectEvent(4, event) : () => { }"
+                                    :class="[
                                         'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
-                                        { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament }
+                                        { 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50': event.tournament || event.ranking }
                                     ]">
                                     {{ event_name }}
                                 </p>
@@ -285,6 +289,9 @@ onMounted(() => {
 
 const toggleCard = (index: number = 0) => {
     eventHovered.value = false;
+    eventCardHovered.value = false;
+    athleteHovered.value = false;
+    athleteCardHovered.value = false;
     if (selected.value !== 0) {
         previous.value = selected.value;
         transitioning.value = true;
@@ -319,7 +326,7 @@ const unhoverAthlete = () => {
     athleteCardHovered.value = true;
     athleteHovered.value = false;
 }
-const compactEvents = computed(() => Object.entries(sport.events).slice(0, 6));
+const compactEvents = computed(() => Object.entries(sport.events).slice(0, 3));
 const compactAthletes = computed(() => sortByMedals(sport.athletes).slice(0, 4));
 const eventsExpandable = computed(() => Object.keys(sport.events).length > compactEvents.value.length);
 

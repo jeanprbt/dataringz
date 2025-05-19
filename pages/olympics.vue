@@ -1,27 +1,28 @@
 <template>
     <PageModal :show="showOlympicsPage" :transition="false" :olympics="true" @close="closePage">
         <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12': selected === 0 }]">
-            <UCard variant="soft" @click="selected === 1 ? () => { } : toggleCard(1)"
-                :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
-                    'col-span-12 md:col-span-6': selected === 0,
-                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previous === 1,
-                    'transition-all duration-500 transform h-full': selected === 1,
-                    'hidden': selected !== 0 && selected !== 1
-                }">
+            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
+                'col-span-12 md:col-span-3': selected === 0,
+                'transition-all duration-300': selected === 0 && !transitioning,
+                'animate-bento-card': selected === 0 && transitioning && previous === 1,
+                'transition-all duration-500 transform h-full': selected === 1,
+                'hidden': selected !== 0 && selected !== 1
+            }">
                 <template #default>
-                    <!-- full screen -->
-                    <div v-if="selected === 1" class="h-full relative">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
-                            @click.stop="toggleCard(1)" />
-                        <h2 class="text-xl font-bold mb-2">Tournament Brackets</h2>
-                        <p>Interactive tournament visualization</p>
-                        <d3-tournament :matches="sampleMatches" />
-                    </div>
                     <!-- bento -->
-                    <div v-else>
-                        <h3 class="font-medium">Tournaments</h3>
+                    <div class="flex flex-col justify-center items-center h-full text-center space-y-6">
+                        <div
+                            class="text-6xl md:text-7xl font-extrabold text-primary dark:text-white leading-none drop-shadow-sm">
+                            XXXIII
+                        </div>
+                        <div
+                            class="text-xl md:text-2xl font-medium text-muted-foreground dark:text-zinc-300 max-w-xs md:max-w-sm">
+                            Olympics of the Modern Era
+                        </div>
                     </div>
+
+
+
                 </template>
             </UCard>
 
@@ -38,38 +39,53 @@
                     <div v-if="selected === 2" class="h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(2)" />
-                        <D3MedalsRace :medal-data="medals" />
+                        <MedalsRanking :medal-data="medals_total"/>
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
                         <h3 class="font-medium">Medals Ranking</h3>
                         <div class="flex h-full items-center justify-center">
-                            <img class="w-1/3 object-contain mx-auto pb-10" src="public/img/podium.png" alt="Podium" />
+                            <img class="w-1/3 object-contain mx-auto pb-10" src="/img/podium.png"/>
                         </div>
                     </div>
                 </template>
             </UCard>
 
-            <UCard variant="soft" @click="selected === 3 ? () => { } : toggleCard(3)"
+            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
+                'col-span-12 md:col-span-3': selected === 0,
+                'transition-all duration-300': selected === 0 && !transitioning,
+                'animate-bento-card': selected === 0 && transitioning && previous === 3,
+                'transition-all duration-500 transform h-full': selected === 3,
+                'hidden': selected !== 0 && selected !== 3
+            }">
+                <template #default>
+                    <!-- bento -->
+                    <div class="h-full relative">
+                        <StatsCaroussel />
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard variant="soft" @click="selected === 4 ? () => { } : toggleCard(4)"
                 :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
-                    'col-span-12 md:col-span-4': selected === 0,
+                    'col-span-12 md:col-span-6': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previous === 3,
-                    'transition-all duration-500 transform h-full': selected === 3,
-                    'hidden': selected !== 0 && selected !== 3
+                    'animate-bento-card': selected === 0 && transitioning && previous === 4,
+                    'transition-all duration-500 transform h-full': selected === 4,
+                    'hidden': selected !== 0 && selected !== 4
                 }">
                 <template #default>
                     <!-- full screen -->
-                    <div v-if="selected === 3" class="w-full h-full relative">
+                    <div v-if="selected === 4" class="w-full h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
-                            @click.stop="toggleCard(3)" />
+                            @click.stop="toggleCard(4)" />
                         <D3EventsSunburst />
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
                         <h3 class="font-medium text-zinc-800 dark:text-white">Events Repartition</h3>
                         <div class="flex h-full items-center justify-center">
-                            <img class="w-2/3 object-contain" src="public/img/foo_sunburst.png" alt="Sunburst chart" />
+                            <img class="w-1/3 object-contain" src="/img/foo_sunburst.png"/>
                         </div>
                     </div>
                 </template>
@@ -77,7 +93,7 @@
 
             <UCard variant="soft" @click="selected === 5 ? () => { } : toggleCard(5)"
                 :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
-                    'col-span-12 md:col-span-8': selected === 0,
+                    'col-span-12 md:col-span-6': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                     'animate-bento-card': selected === 0 && transitioning && previous === 5,
                     'transition-all duration-500 transform h-full': selected === 5,
@@ -88,12 +104,15 @@
                     <div v-if="selected === 5" class="h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(5)" />
-                        <h2 class="text-xl font-bold mb-2">Historical Data</h2>
-                        <p>Historical Olympic results and records</p>
+                        <D3MedalsRace :medal-data="medals" />
                     </div>
                     <!-- bento -->
-                    <div v-else>
-                        <h3 class="font-medium">History</h3>
+                    <div v-else class="h-full relative">
+                        <h3 class="font-medium">Medals Race</h3>
+                        <div class="flex h-full items-center justify-center">
+                            <img class="w-1/3 object-contain mx-auto pb-10" src="/img/medals-race.png"
+                                alt="Podium" />
+                        </div>
                     </div>
                 </template>
             </UCard>
@@ -108,6 +127,7 @@ definePageMeta({
 })
 
 import medals from '~/data/medals.json';
+import medals_total from '~/data/medals_total.json';
 
 // HANDLE DIRECT URL ---------------
 let directAccess = useState('olympics').value;
@@ -140,7 +160,4 @@ const toggleCard = (index: number = 0) => {
     }
     else selected.value = index;
 }
-
-// SAMPLE MATCHES ------------------ (DELETE)
-const sampleMatches = ref([{'id': 'r0m0', 'round': 0, 'match': 0, 'team1': 'Argentina', 'team2': 'Egypt', 'team1Code': 'AR', 'team2Code': 'EG', 'winner': 'Egypt', 'score1': 0, 'score2': 1}, {'id': 'r0m1', 'round': 0, 'match': 1, 'team1': 'France', 'team2': 'Japan', 'team1Code': 'FR', 'team2Code': 'JP', 'winner': 'France', 'score1': 1, 'score2': 0}, {'id': 'r0m2', 'round': 0, 'match': 2, 'team1': 'Morocco', 'team2': 'Paraguay', 'team1Code': 'MA', 'team2Code': 'PY', 'winner': 'Morocco', 'score1': 4, 'score2': 1}, {'id': 'r0m3', 'round': 0, 'match': 3, 'team1': 'Spain', 'team2': 'United States of America', 'team1Code': 'ES', 'team2Code': 'US', 'winner': 'Spain', 'score1': 3, 'score2': 0}, {'id': 'r1m0', 'round': 1, 'match': 0, 'team1': 'Egypt', 'team2': 'France', 'team1Code': 'EG', 'team2Code': 'FR', 'winner': 'France', 'score1': 1, 'score2': 3}, {'id': 'r1m1', 'round': 1, 'match': 1, 'team1': 'Morocco', 'team2': 'Spain', 'team1Code': 'MA', 'team2Code': 'ES', 'winner': 'Spain', 'score1': 1, 'score2': 2}, {'id': 'r2m0', 'round': 2, 'match': 0, 'team1': 'France', 'team2': 'Spain', 'team1Code': 'FR', 'team2Code': 'ES', 'winner': 'Spain', 'score1': 3, 'score2': 5}]);
 </script>

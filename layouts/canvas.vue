@@ -345,6 +345,24 @@ const skipIntro = async () => {
     if (canvas.getLayer('greek-line-layer')) canvas.removeLayer('greek-line-layer');
     if (canvas.getSource('greek-line')) canvas.removeSource('greek-line');
 
+    // override scrollZoom renderFrame to add pitch updates
+    const scrollZoom = canvas.scrollZoom as any;
+    const originalRenderFrame = scrollZoom.renderFrame;
+    scrollZoom.renderFrame = function () {
+        const result = originalRenderFrame.call(this);
+        if (result?.zoomDelta) {
+            const targetZoom = canvas.getZoom() + result.zoomDelta;
+            if (targetZoom > canvas.getMinZoom() + 2) {
+                const newPitch = Math.max(0, Math.min(60, (targetZoom - 10) * 10));
+                if (canvas.transform) {
+                    canvas.transform._pitch = newPitch * (Math.PI / 180);
+                    canvas.triggerRepaint();
+                }
+            }
+        }
+        return result;
+    };
+
     // settle canvas
     settleMapCanvas(canvas);
     await setMarkers(canvas, router);

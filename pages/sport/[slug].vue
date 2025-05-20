@@ -80,7 +80,7 @@
                                         selectedEvent.name }}</h3>
                                     <D3Tournament v-if="selectedEvent.tournament" :matches="selectedEvent.matches" />
                                     <UTable v-if="selectedEvent.ranking" :data="selectedEvent.ranks"
-                                        :columns="eventColumns" />
+                                        :columns="eventColumns" sticky />
                                 </div>
                             </div>
 
@@ -382,7 +382,10 @@ const eventColumns = [
         cell: ({ row }: { row: any }) => {
             const resultType = row.original["result_type"];
             const result = row.getValue('result');
-            return `${result} ${resultType}`;
+            if (resultType === "TIME") return formatTime(result);
+            else if (resultType === "DISTANCE") return formatDistance(result);
+            else if (resultType === "POINTS") return `${result} pts`
+            return result;
         }
     }
 ]

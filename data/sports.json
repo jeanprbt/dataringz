@@ -1684,75 +1684,75 @@
                 "ranks": [
                     {
                         "participant_name": "LYLES Noah",
+                        "participant_slug": "noah-lyles",
                         "participant_country": "United States",
-                        "country_code": "US",
+                        "country_code": "us",
                         "rank": 1.0,
                         "result": "9.79",
-                        "result_type": "TIME",
-                        "start_order": 7.0
+                        "result_type": "s"
                     },
                     {
                         "participant_name": "THOMPSON Kishane",
+                        "participant_slug": "kishane-thompson",
                         "participant_country": "Jamaica",
-                        "country_code": "JM",
+                        "country_code": "jm",
                         "rank": 2.0,
                         "result": "9.79",
-                        "result_type": "TIME",
-                        "start_order": 4.0
+                        "result_type": "s"
                     },
                     {
                         "participant_name": "KERLEY Fred",
+                        "participant_slug": "fred-kerley",
                         "participant_country": "United States",
-                        "country_code": "US",
+                        "country_code": "us",
                         "rank": 3.0,
                         "result": "9.81",
-                        "result_type": "TIME",
-                        "start_order": 3.0
+                        "result_type": "s"
                     },
                     {
                         "participant_name": "SIMBINE Akani",
+                        "participant_slug": "akani-simbine",
                         "participant_country": "South Africa",
-                        "country_code": "ZA",
+                        "country_code": "za",
                         "rank": 4.0,
                         "result": "9.82",
-                        "result_type": "TIME",
-                        "start_order": 5.0
+                        "result_type": "s"
                     },
                     {
                         "participant_name": "JACOBS Lamont Marcell",
+                        "participant_slug": "lamont-jacobs",
                         "participant_country": "Italy",
-                        "country_code": "IT",
+                        "country_code": "it",
                         "rank": 5.0,
                         "result": "9.85",
-                        "result_type": "TIME",
-                        "start_order": 9.0
+                        "result_type": "s"
                     },
                     {
                         "participant_name": "TEBOGO Letsile",
                         "participant_country": "Botswana",
-                        "country_code": "BW",
+                        "participant_slug": "letsile-tebogo",
+                        "country_code": "bw",
                         "rank": 6.0,
                         "result": "9.86",
-                        "result_type": "TIME",
-                        "start_order": 8.0
+                        "result_type": "s"
                     },
                     {
                         "participant_name": "BEDNAREK Kenneth",
                         "participant_country": "United States",
-                        "country_code": "US",
+                        "participant_slug": "kenneth-bednarek",
+                        "country_code": "us",
                         "rank": 7.0,
                         "result": "9.88",
-                        "result_type": "TIME",
-                        "start_order": 2.0
+                        "result_type": "s"
                     },
                     {
                         "participant_name": "SEVILLE Oblique",
                         "participant_country": "Jamaica",
-                        "country_code": "JM",
+                        "participant_slug": "oblique-seville",
+                        "country_code": "jm",
                         "rank": 8.0,
                         "result": "9.91",
-                        "result_type": "TIME",
-                        "start_order": 6.0
+                        "result_type": "s"
                     }
                 ]
             },
@@ -13348,8 +13348,8 @@
                         "match": 0,
                         "team1": "Argentina",
                         "team2": "Egypt",
-                        "team1Code": "AR",
-                        "team2Code": "EG",
+                        "team1Code": "ar",
+                        "team2Code": "eg",
                         "winner": "Egypt",
                         "score1": 0,
                         "score2": 1
@@ -13360,8 +13360,8 @@
                         "match": 1,
                         "team1": "France",
                         "team2": "Japan",
-                        "team1Code": "FR",
-                        "team2Code": "JP",
+                        "team1Code": "fr",
+                        "team2Code": "jp",
                         "winner": "France",
                         "score1": 1,
                         "score2": 0
@@ -13372,8 +13372,8 @@
                         "match": 2,
                         "team1": "Morocco",
                         "team2": "Paraguay",
-                        "team1Code": "MA",
-                        "team2Code": "PY",
+                        "team1Code": "ma",
+                        "team2Code": "py",
                         "winner": "Morocco",
                         "score1": 4,
                         "score2": 1
@@ -13384,8 +13384,8 @@
                         "match": 3,
                         "team1": "Spain",
                         "team2": "United States of America",
-                        "team1Code": "ES",
-                        "team2Code": "US",
+                        "team1Code": "es",
+                        "team2Code": "us",
                         "winner": "Spain",
                         "score1": 3,
                         "score2": 0
@@ -13396,8 +13396,8 @@
                         "match": 0,
                         "team1": "Egypt",
                         "team2": "France",
-                        "team1Code": "EG",
-                        "team2Code": "FR",
+                        "team1Code": "eg",
+                        "team2Code": "fr",
                         "winner": "France",
                         "score1": 1,
                         "score2": 3
@@ -13408,8 +13408,8 @@
                         "match": 1,
                         "team1": "Morocco",
                         "team2": "Spain",
-                        "team1Code": "MA",
-                        "team2Code": "ES",
+                        "team1Code": "ma",
+                        "team2Code": "es",
                         "winner": "Spain",
                         "score1": 1,
                         "score2": 2
@@ -13420,8 +13420,8 @@
                         "match": 0,
                         "team1": "France",
                         "team2": "Spain",
-                        "team1Code": "FR",
-                        "team2Code": "ES",
+                        "team1Code": "fr",
+                        "team2Code": "es",
                         "winner": "Spain",
                         "score1": 3,
                         "score2": 5
@@ -13439,8 +13439,8 @@
                         "match": 0,
                         "team1": "France",
                         "team2": "Brazil",
-                        "team1Code": "FR",
-                        "team2Code": "BR",
+                        "team1Code": "fr",
+                        "team2Code": "br",
                         "score1": 0,
                         "score2": 1,
                         "winner": "Brazil"
@@ -13451,8 +13451,8 @@
                         "match": 1,
                         "team1": "Spain",
                         "team2": "Colombia",
-                        "team1Code": "ES",
-                        "team2Code": "CO",
+                        "team1Code": "es",
+                        "team2Code": "co",
                         "score1": 2,
                         "score2": 2,
                         "winner": "Spain"
@@ -13463,8 +13463,8 @@
                         "match": 2,
                         "team1": "United States",
                         "team2": "Japan",
-                        "team1Code": "US",
-                        "team2Code": "JP",
+                        "team1Code": "us",
+                        "team2Code": "jp",
                         "score1": 1,
                         "score2": 0,
                         "winner": "United States"
@@ -13475,8 +13475,8 @@
                         "match": 3,
                         "team1": "Canada",
                         "team2": "Germany",
-                        "team1Code": "CA",
-                        "team2Code": "DE",
+                        "team1Code": "ca",
+                        "team2Code": "de",
                         "score1": 0,
                         "score2": 0,
                         "winner": "Germany"
@@ -13487,8 +13487,8 @@
                         "match": 0,
                         "team1": "Brazil",
                         "team2": "Spain",
-                        "team1Code": "BR",
-                        "team2Code": "ES",
+                        "team1Code": "br",
+                        "team2Code": "es",
                         "score1": 4,
                         "score2": 2,
                         "winner": "Brazil"
@@ -13499,8 +13499,8 @@
                         "match": 1,
                         "team1": "United States",
                         "team2": "Germany",
-                        "team1Code": "US",
-                        "team2Code": "DE",
+                        "team1Code": "us",
+                        "team2Code": "de",
                         "score1": 1,
                         "score2": 0,
                         "winner": "United States"
@@ -13511,8 +13511,8 @@
                         "match": 0,
                         "team1": "Brazil",
                         "team2": "United States",
-                        "team1Code": "BR",
-                        "team2Code": "US",
+                        "team1Code": "br",
+                        "team2Code": "us",
                         "score1": 0,
                         "score2": 1,
                         "winner": "United States"

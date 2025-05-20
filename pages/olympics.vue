@@ -20,9 +20,6 @@
                             Olympics of the Modern Era
                         </div>
                     </div>
-
-
-
                 </template>
             </UCard>
 

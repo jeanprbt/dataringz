@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showSportPage" :back="transition" :transition="transition" :items="items" @close="closePage"
+    <PageModal :show="showSportPage" :back="transition" :transition="true" :items="items" @close="closePage"
         @back="router.back()">
 
         <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-6': selected === 0 }]">
@@ -79,7 +79,8 @@
                                     <h3 class="font-medium text-zinc-500 dark:text-zinc-400 mb-5">{{ sport.name }} | {{
                                         selectedEvent.name }}</h3>
                                     <D3Tournament v-if="selectedEvent.tournament" :matches="selectedEvent.matches" />
-                                    <UTable v-if="selectedEvent.ranking" :data="selectedEvent.ranks" />
+                                    <UTable v-if="selectedEvent.ranking" :data="selectedEvent.ranks"
+                                        :columns="eventColumns" />
                                 </div>
                             </div>
 
@@ -232,7 +233,7 @@
 import sports from '~/data/sports.json';
 
 definePageMeta({
-    middleware: ['sport', 'previous', 'breadcrumb'],
+    middleware: ['previous', 'breadcrumb'],
     layout: 'canvas'
 });
 
@@ -329,6 +330,62 @@ const unhoverAthlete = () => {
 const compactEvents = computed(() => Object.entries(sport.events).slice(0, 3));
 const compactAthletes = computed(() => sortByMedals(sport.athletes).slice(0, 4));
 const eventsExpandable = computed(() => Object.keys(sport.events).length > compactEvents.value.length);
+
+const NuxtLink = resolveComponent('NuxtLink');
+const eventColumns = [
+    {
+        accessorKey: 'rank',
+        header: '',
+        cell: ({ row }: { row: any }) => {
+            let rank = row.getValue('rank');
+            if (rank === 1) rank = '🥇';
+            else if (rank === 2) rank = '🥈';
+            else if (rank === 3) rank = '🥉';
+            return h('div', { class: 'flex justify-center' }, [
+                h('span', { class: 'font-bold' }, rank)
+            ]);
+        }
+    },
+    {
+        accessorKey: 'participant_name',
+        header: 'Athlete',
+        cell: ({ row }: { row: any }) => {
+            const athleteName = row.getValue('participant_name');
+            const athleteSlug = row.original["participant_slug"];
+            return athleteSlug ? h(NuxtLink, {
+                class: 'flex items-center justify-left hover:bg-zinc-200/70 dark:hover:bg-zinc-900 hover:px-3 rounded-lg py-1 transition-all duration-300 ease',
+                to: `/athlete/${athleteSlug}`
+            }, [
+                athleteName
+            ]) : athleteName;
+        }
+    },
+    {
+        accessorKey: 'participant_country',
+        header: 'Country',
+        cell: ({ row }: { row: any }) => {
+            const countryCode = row.original["country_code"];
+            const countryName = row.getValue('participant_country');
+            return h('div', { class: 'flex items-center' }, [
+                countryCode ? h('img', {
+                    src: `/img/countries/${countryCode}.svg`,
+                    alt: countryName,
+                    class: 'w-5 h-5 mr-2 rounded-full object-cover'
+                }) : null,
+                countryName
+            ]);
+        }
+    },
+    {
+        accessorKey: 'result',
+        header: 'Result',
+        cell: ({ row }: { row: any }) => {
+            const resultType = row.original["result_type"];
+            const result = row.getValue('result');
+            return `${result} ${resultType}`;
+        }
+    }
+]
 
 useHead(() => {
     const sportName = sport.name;

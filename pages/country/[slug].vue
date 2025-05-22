@@ -8,7 +8,8 @@
             </div>
 
             <!-- Country Name -->
-            <UCard variant="soft" :ui="{ 'body': 'p-6 md:p-6 h-full flex items-center justify-center' }" class="col-span-4 row-span-3">
+            <UCard variant="soft" :ui="{ 'body': 'p-6 md:p-6 h-full flex items-center justify-center' }"
+                class="col-span-4 row-span-3">
                 <template #default>
                     <h1 class="text-3xl font-semibold text-gray-800 text-center">
                         {{ country.name }} ({{ country.country_code }})
@@ -17,10 +18,12 @@
             </UCard>
 
             <!-- Medal Ranking -->
-            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full flex items-center justify-center' }" class="col-span-2 row-span-3">
+            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full flex items-center justify-center' }"
+                class="col-span-2 row-span-3">
                 <template #default>
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-primary" v-if="countryMedals">#{{ countryMedals.rank }}</div>
+                        <div class="text-3xl font-bold text-primary" v-if="countryMedals">#{{ countryMedals.rank }}
+                        </div>
                         <div class="text-3xl font-bold text-gray-400" v-else>-</div>
                         <div class="text-sm text-gray-600">Medal Ranking</div>
                     </div>
@@ -28,7 +31,8 @@
             </UCard>
 
             <!-- Athletes -->
-            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full flex items-center justify-center' }" class="col-span-2 row-span-3">
+            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full flex items-center justify-center' }"
+                class="col-span-2 row-span-3">
                 <template #default>
                     <div class="text-center">
                         <div class="text-3xl font-bold text-primary">{{ athleteCount }}</div>
@@ -38,14 +42,20 @@
             </UCard>
 
             <!-- Sports -->
-            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full flex items-center justify-center' }" class="col-span-2 row-span-3">
+            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full flex items-center justify-center' }"
+                class="col-span-2 row-span-3">
                 <template #default>
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-primary">{{ uniqueSportsCount }}</div>
-                        <div class="text-sm text-gray-600">Sports</div>
+                        <div class="flex items-center justify-center gap-1">
+                            <span class="text-3xl font-bold text-primary">{{ uniqueSportsCount }}</span>
+                            <span class="text-lg text-gray-500 font-medium">/</span>
+                            <span class="text-lg text-gray-500 font-medium">45</span>
+                        </div>
+                        <div class="text-sm text-gray-600 mt-1">Olympic Sports</div>
                     </div>
                 </template>
             </UCard>
+
 
             <!-- Gender Repartition -->
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" class="col-span-6 row-span-5 flex flex-col">
@@ -73,10 +83,12 @@
                 <template #default>
                     <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Best Sport</h3>
                     <div class="flex-grow flex items-center justify-center px-5">
-                        <div v-if="bestSport" class="flex flex-col md:flex-row items-center md:space-x-8 space-y-4 md:space-y-0">
+                        <div v-if="bestSport"
+                            class="flex flex-col md:flex-row items-center md:space-x-8 space-y-4 md:space-y-0">
                             <div class="flex flex-col items-center space-y-2">
                                 <img :src="`/img/sports/SVG/${bestSport.slug}.svg`" class="w-16 h-16" />
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ bestSport.name }}</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ bestSport.name
+                                    }}</span>
                             </div>
                             <div class="flex flex-col space-y-2">
                                 <div class="flex items-center justify-center md:justify-start space-x-2">
@@ -107,15 +119,18 @@
                         <div class="flex-grow flex items-center justify-center">
                             <div class="flex justify-around items-center space-x-8">
                                 <div class="flex flex-col items-center">
-                                    <span class="text-3xl font-bold text-yellow-500">{{ countryTotalMedals.gold }}</span>
+                                    <span class="text-3xl font-bold text-yellow-500">{{ countryTotalMedals.gold
+                                        }}</span>
                                     <span class="text-sm">Gold</span>
                                 </div>
                                 <div class="flex flex-col items-center">
-                                    <span class="text-3xl font-bold text-gray-400">{{ countryTotalMedals.silver }}</span>
+                                    <span class="text-3xl font-bold text-gray-400">{{ countryTotalMedals.silver
+                                        }}</span>
                                     <span class="text-sm">Silver</span>
                                 </div>
                                 <div class="flex flex-col items-center">
-                                    <span class="text-3xl font-bold text-amber-700">{{ countryTotalMedals.bronze }}</span>
+                                    <span class="text-3xl font-bold text-amber-700">{{ countryTotalMedals.bronze
+                                        }}</span>
                                     <span class="text-sm">Bronze</span>
                                 </div>
                             </div>
@@ -251,27 +266,29 @@ const countryTotalMedals = computed(() => {
     return totalMedals;
 });
 
-// Count unique sports the country participates in
+// Calculate number of unique sports for this country
 const uniqueSportsCount = computed(() => {
-    // Get all athlete entries for this country
+    // Get all athletes from this country
     const countryAthletes = Object.values(athletes)
         .filter(athlete => athlete.country.name === country.name);
 
-    // Get unique sport disciplines from these athletes
-    const uniqueSports = new Set();
+    // Create a Set to store unique sport slugs
+    const uniqueSportsSlugs = new Set();
 
-    // First, collect all disciplines
+    // Add each sport slug to the Set
     countryAthletes.forEach(athlete => {
-        if (athlete.discipline) {
-            // Get the base sport slug for the discipline
-            const sportSlug = getSportSlugFromDiscipline(athlete.discipline);
-            uniqueSports.add(sportSlug);
+        if (athlete.sports && athlete.sports.length > 0) {
+            athlete.sports.forEach(sport => {
+                if (sport.slug) {
+                    uniqueSportsSlugs.add(sport.slug);
+                }
+            });
         }
     });
-
     // Return the count of unique sports
-    return uniqueSports.size;
+    return uniqueSportsSlugs.size;
 });
+
 
 // Calculate best sport by medals using medals.json
 const bestSport = computed(() => {

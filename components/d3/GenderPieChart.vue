@@ -42,16 +42,12 @@ const createPieChart = () => {
 
   const filteredAthletes = Object.values(athletes).filter((athlete: any) => {
     if (props.type === 'sport') {
-      console.log("je suis sport")
       return athlete.sports?.some((s: any) => s.slug === props.slug);
     } else if (props.type === 'country') {
-      console.log("je suis country")
       return athlete.country.slug === props.slug;
     }
     return false;
   });
-
-  console.log(props.type)
 
   const genderCounts: Record<string, number> = filteredAthletes.reduce((acc: Record<string, number>, athlete: any) => {
     acc[athlete.gender] = (acc[athlete.gender] || 0) + 1;

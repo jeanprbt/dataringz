@@ -29,7 +29,7 @@
                     <div v-if="selected === 3 && isSmallScreen" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(3)" />
-                        <D3GenderPieChart :sport-slug="slug" />
+                        <D3GenderPieChart :slug="slug" :type="'sport'"/>
                     </div>
                     <div v-else-if="isSmallScreen" class="h-full relative flex items-center">
                         <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Gender distribution
@@ -37,7 +37,7 @@
                     </div>
                     <div v-else class="h-full">
                         <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Gender distribution</h3>
-                        <D3GenderPieChart :sport-slug="slug" />
+                        <D3GenderPieChart :slug="slug" :type="'sport'"/>
                     </div>
                 </template>
             </UCard>

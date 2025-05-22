@@ -1,5 +1,5 @@
 <template>
-    <div ref="chartContainer" class="w-full h-full"></div>
+      <div ref="chartContainer" class="w-full h-full max-w-full max-h-full overflow-hidden"></div>
 </template>
   
 <script setup lang="ts">
@@ -8,9 +8,14 @@ import * as d3 from 'd3';
 import athletes from '~/data/athletes.json';
   
 const props = defineProps({
-  sportSlug: {
+  slug: {
     type: String,
     required: true
+  },
+  type: {
+    type: String as () => 'sport' | 'country',
+    required: true,
+    validator: (val: string) => ['sport', 'country'].includes(val)
   }
 });
   
@@ -35,11 +40,20 @@ const createPieChart = () => {
   const margin = width * 0.08; // Responsive margin (8% of width)
   const radius = Math.min(width, height) / 2 - margin;
 
-  const sportAthletes = Object.values(athletes).filter((athlete: any) =>
-    athlete.sports?.some((s: any) => s.slug === props.sportSlug)
-  );
+  const filteredAthletes = Object.values(athletes).filter((athlete: any) => {
+    if (props.type === 'sport') {
+      console.log("je suis sport")
+      return athlete.sports?.some((s: any) => s.slug === props.slug);
+    } else if (props.type === 'country') {
+      console.log("je suis country")
+      return athlete.country.slug === props.slug;
+    }
+    return false;
+  });
 
-  const genderCounts: Record<string, number> = sportAthletes.reduce((acc: Record<string, number>, athlete: any) => {
+  console.log(props.type)
+
+  const genderCounts: Record<string, number> = filteredAthletes.reduce((acc: Record<string, number>, athlete: any) => {
     acc[athlete.gender] = (acc[athlete.gender] || 0) + 1;
     return acc;
   }, {});

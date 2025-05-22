@@ -6,7 +6,9 @@
             "latitude": 33.7680065
         },
         "img": "/img/countries/af.svg",
-        "slug": "afghanistan"
+        "slug": "afghanistan",
+        "country_code": "AFG",
+        "country_long": "Afghanistan"
     },
     "albania": {
         "name": "Albania",
@@ -15,7 +17,9 @@
             "latitude": 41.000028
         },
         "img": "/img/countries/al.svg",
-        "slug": "albania"
+        "slug": "albania",
+        "country_code": "ALB",
+        "country_long": "Albania"
     },
     "algeria": {
         "name": "Algeria",
@@ -24,7 +28,9 @@
             "latitude": 28.0000272
         },
         "img": "/img/countries/dz.svg",
-        "slug": "algeria"
+        "slug": "algeria",
+        "country_code": "ALG",
+        "country_long": "Algeria"
     },
     "andorra": {
         "name": "Andorra",
@@ -33,7 +39,9 @@
             "latitude": 42.5407167
         },
         "img": "/img/countries/ad.svg",
-        "slug": "andorra"
+        "slug": "andorra",
+        "country_code": "AND",
+        "country_long": "Andorra"
     },
     "angola": {
         "name": "Angola",
@@ -42,7 +50,9 @@
             "latitude": -11.8775768
         },
         "img": "/img/countries/ao.svg",
-        "slug": "angola"
+        "slug": "angola",
+        "country_code": "ANG",
+        "country_long": "Angola"
     },
     "antigua-and-barbuda": {
         "name": "Antigua and Barbuda",
@@ -51,7 +61,9 @@
             "latitude": 17.2234721
         },
         "img": "/img/countries/ag.svg",
-        "slug": "antigua-and-barbuda"
+        "slug": "antigua-and-barbuda",
+        "country_code": "ANT",
+        "country_long": "Antigua and Barbuda"
     },
     "argentina": {
         "name": "Argentina",
@@ -60,7 +72,9 @@
             "latitude": -34.9964963
         },
         "img": "/img/countries/ar.svg",
-        "slug": "argentina"
+        "slug": "argentina",
+        "country_code": "ARG",
+        "country_long": "Argentina"
     },
     "armenia": {
         "name": "Armenia",
@@ -69,7 +83,9 @@
             "latitude": 40.7696272
         },
         "img": "/img/countries/am.svg",
-        "slug": "armenia"
+        "slug": "armenia",
+        "country_code": "ARM",
+        "country_long": "Armenia"
     },
     "australia": {
         "name": "Australia",
@@ -78,7 +94,9 @@
             "latitude": -24.7761086
         },
         "img": "/img/countries/au.svg",
-        "slug": "australia"
+        "slug": "australia",
+        "country_code": "AUS",
+        "country_long": "Australia"
     },
     "austria": {
         "name": "Austria",
@@ -87,7 +105,9 @@
             "latitude": 47.59397
         },
         "img": "/img/countries/at.svg",
-        "slug": "austria"
+        "slug": "austria",
+        "country_code": "AUT",
+        "country_long": "Austria"
     },
     "azerbaijan": {
         "name": "Azerbaijan",
@@ -96,7 +116,9 @@
             "latitude": 40.3936294
         },
         "img": "/img/countries/az.svg",
-        "slug": "azerbaijan"
+        "slug": "azerbaijan",
+        "country_code": "AZE",
+        "country_long": "Azerbaijan"
     },
     "bahamas": {
         "name": "Bahamas",
@@ -105,7 +127,9 @@
             "latitude": 24.7736546
         },
         "img": "/img/countries/bs.svg",
-        "slug": "bahamas"
+        "slug": "bahamas",
+        "country_code": "BAH",
+        "country_long": "Bahamas"
     },
     "bahrain": {
         "name": "Bahrain",
@@ -114,7 +138,9 @@
             "latitude": 26.1551249
         },
         "img": "/img/countries/bh.svg",
-        "slug": "bahrain"
+        "slug": "bahrain",
+        "country_code": "BRN",
+        "country_long": "Bahrain"
     },
     "bangladesh": {
         "name": "Bangladesh",
@@ -123,7 +149,9 @@
             "latitude": 24.4769288
         },
         "img": "/img/countries/bd.svg",
-        "slug": "bangladesh"
+        "slug": "bangladesh",
+        "country_code": "BAN",
+        "country_long": "Bangladesh"
     },
     "barbados": {
         "name": "Barbados",
@@ -132,7 +160,9 @@
             "latitude": 13.1500331
         },
         "img": "/img/countries/bb.svg",
-        "slug": "barbados"
+        "slug": "barbados",
+        "country_code": "BAR",
+        "country_long": "Barbados"
     },
     "belarus": {
         "name": "Belarus",
@@ -141,7 +171,9 @@
             "latitude": 53.4250605
         },
         "img": "/img/countries/by.svg",
-        "slug": "belarus"
+        "slug": "belarus",
+        "country_code": "BLR",
+        "country_long": "Belarus"
     },
     "belgium": {
         "name": "Belgium",
@@ -150,7 +182,9 @@
             "latitude": 50.6402809
         },
         "img": "/img/countries/be.svg",
-        "slug": "belgium"
+        "slug": "belgium",
+        "country_code": "BEL",
+        "country_long": "Belgium"
     },
     "belize": {
         "name": "Belize",
@@ -159,7 +193,9 @@
             "latitude": 17.1204943
         },
         "img": "/img/countries/bz.svg",
-        "slug": "belize"
+        "slug": "belize",
+        "country_code": "BIZ",
+        "country_long": "Belize"
     },
     "benin": {
         "name": "Benin",
@@ -168,7 +204,9 @@
             "latitude": 9.5293472
         },
         "img": "/img/countries/bj.svg",
-        "slug": "benin"
+        "slug": "benin",
+        "country_code": "BEN",
+        "country_long": "Benin"
     },
     "bhutan": {
         "name": "Bhutan",
@@ -177,7 +215,9 @@
             "latitude": 27.549511
         },
         "img": "/img/countries/bt.svg",
-        "slug": "bhutan"
+        "slug": "bhutan",
+        "country_code": "BHU",
+        "country_long": "Bhutan"
     },
     "bolivia": {
         "name": "Bolivia",
@@ -186,7 +226,9 @@
             "latitude": -17.0568696
         },
         "img": "/img/countries/bo.svg",
-        "slug": "bolivia"
+        "slug": "bolivia",
+        "country_code": "BOL",
+        "country_long": "Bolivia"
     },
     "bosnia-&-herzegovina": {
         "name": "Bosnia & Herzegovina",
@@ -195,7 +237,9 @@
             "latitude": 44.3053476
         },
         "img": "/img/countries/ba.svg",
-        "slug": "bosnia-&-herzegovina"
+        "slug": "bosnia-&-herzegovina",
+        "country_code": "BIH",
+        "country_long": "Bosnia and Herzegovina"
     },
     "botswana": {
         "name": "Botswana",
@@ -204,7 +248,9 @@
             "latitude": -23.1681782
         },
         "img": "/img/countries/bw.svg",
-        "slug": "botswana"
+        "slug": "botswana",
+        "country_code": "BOT",
+        "country_long": "Botswana"
     },
     "brazil": {
         "name": "Brazil",
@@ -213,7 +259,9 @@
             "latitude": -10.3333333
         },
         "img": "/img/countries/br.svg",
-        "slug": "brazil"
+        "slug": "brazil",
+        "country_code": "BRA",
+        "country_long": "Brazil"
     },
     "brunei-darussalam": {
         "name": "Brunei Darussalam",
@@ -222,7 +270,9 @@
             "latitude": 4.4137155
         },
         "img": "/img/countries/bn.svg",
-        "slug": "brunei-darussalam"
+        "slug": "brunei-darussalam",
+        "country_code": "BRU",
+        "country_long": "Brunei Darussalam"
     },
     "bulgaria": {
         "name": "Bulgaria",
@@ -231,7 +281,9 @@
             "latitude": 42.6073975
         },
         "img": "/img/countries/bg.svg",
-        "slug": "bulgaria"
+        "slug": "bulgaria",
+        "country_code": "BUL",
+        "country_long": "Bulgaria"
     },
     "burkina-faso": {
         "name": "Burkina Faso",
@@ -240,7 +292,9 @@
             "latitude": 12.0753083
         },
         "img": "/img/countries/bf.svg",
-        "slug": "burkina-faso"
+        "slug": "burkina-faso",
+        "country_code": "BUR",
+        "country_long": "Burkina Faso"
     },
     "burundi": {
         "name": "Burundi",
@@ -249,7 +303,9 @@
             "latitude": -3.426449
         },
         "img": "/img/countries/bi.svg",
-        "slug": "burundi"
+        "slug": "burundi",
+        "country_code": "BDI",
+        "country_long": "Burundi"
     },
     "cabo-verde": {
         "name": "Cabo Verde",
@@ -258,7 +314,9 @@
             "latitude": 16.0000552
         },
         "img": "/img/countries/cv.svg",
-        "slug": "cabo-verde"
+        "slug": "cabo-verde",
+        "country_code": "CPV",
+        "country_long": "Cabo Verde"
     },
     "cambodia": {
         "name": "Cambodia",
@@ -267,7 +325,9 @@
             "latitude": 12.5433216
         },
         "img": "/img/countries/kh.svg",
-        "slug": "cambodia"
+        "slug": "cambodia",
+        "country_code": "CAM",
+        "country_long": "Cambodia"
     },
     "cameroon": {
         "name": "Cameroon",
@@ -276,7 +336,9 @@
             "latitude": 4.6125522
         },
         "img": "/img/countries/cm.svg",
-        "slug": "cameroon"
+        "slug": "cameroon",
+        "country_code": "CMR",
+        "country_long": "Cameroon"
     },
     "canada": {
         "name": "Canada",
@@ -285,7 +347,9 @@
             "latitude": 61.0666922
         },
         "img": "/img/countries/ca.svg",
-        "slug": "canada"
+        "slug": "canada",
+        "country_code": "CAN",
+        "country_long": "Canada"
     },
     "centr-afric-re": {
         "name": "Centr Afric Re",
@@ -303,7 +367,9 @@
             "latitude": 15.6134137
         },
         "img": "/img/countries/td.svg",
-        "slug": "chad"
+        "slug": "chad",
+        "country_code": "CHA",
+        "country_long": "Chad"
     },
     "chile": {
         "name": "Chile",
@@ -312,7 +378,9 @@
             "latitude": -31.7613365
         },
         "img": "/img/countries/cl.svg",
-        "slug": "chile"
+        "slug": "chile",
+        "country_code": "CHI",
+        "country_long": "Chile"
     },
     "china": {
         "name": "China",
@@ -321,7 +389,9 @@
             "latitude": 35.0000663
         },
         "img": "/img/countries/cn.svg",
-        "slug": "china"
+        "slug": "china",
+        "country_code": "CHN",
+        "country_long": "People's Republic of China"
     },
     "chinese-taipei": {
         "name": "Chinese Taipei",
@@ -330,7 +400,9 @@
             "latitude": 31.5203374
         },
         "img": "/img/countries/tw.svg",
-        "slug": "chinese-taipei"
+        "slug": "chinese-taipei",
+        "country_code": "TPE",
+        "country_long": "Chinese Taipei"
     },
     "colombia": {
         "name": "Colombia",
@@ -339,7 +411,9 @@
             "latitude": 4.099917
         },
         "img": "/img/countries/co.svg",
-        "slug": "colombia"
+        "slug": "colombia",
+        "country_code": "COL",
+        "country_long": "Colombia"
     },
     "comoros": {
         "name": "Comoros",
@@ -348,7 +422,9 @@
             "latitude": -12.2045176
         },
         "img": "/img/countries/km.svg",
-        "slug": "comoros"
+        "slug": "comoros",
+        "country_code": "COM",
+        "country_long": "Comoros"
     },
     "congo": {
         "name": "Congo",
@@ -357,7 +433,9 @@
             "latitude": -2.9814344
         },
         "img": "/img/countries/cg.svg",
-        "slug": "congo"
+        "slug": "congo",
+        "country_code": "CGO",
+        "country_long": "Congo"
     },
     "costa-rica": {
         "name": "Costa Rica",
@@ -366,7 +444,9 @@
             "latitude": 10.2735633
         },
         "img": "/img/countries/cr.svg",
-        "slug": "costa-rica"
+        "slug": "costa-rica",
+        "country_code": "CRC",
+        "country_long": "Costa Rica"
     },
     "croatia": {
         "name": "Croatia",
@@ -375,7 +455,9 @@
             "latitude": 45.3658443
         },
         "img": "/img/countries/hr.svg",
-        "slug": "croatia"
+        "slug": "croatia",
+        "country_code": "CRO",
+        "country_long": "Croatia"
     },
     "cuba": {
         "name": "Cuba",
@@ -384,7 +466,9 @@
             "latitude": 23.0131338
         },
         "img": "/img/countries/cu.svg",
-        "slug": "cuba"
+        "slug": "cuba",
+        "country_code": "CUB",
+        "country_long": "Cuba"
     },
     "cyprus": {
         "name": "Cyprus",
@@ -393,7 +477,9 @@
             "latitude": 34.9174159
         },
         "img": "/img/countries/cy.svg",
-        "slug": "cyprus"
+        "slug": "cyprus",
+        "country_code": "CYP",
+        "country_long": "Cyprus"
     },
     "czechia": {
         "name": "Czechia",
@@ -402,7 +488,9 @@
             "latitude": 49.7439047
         },
         "img": "/img/countries/cz.svg",
-        "slug": "czechia"
+        "slug": "czechia",
+        "country_code": "CZE",
+        "country_long": "Czechia"
     },
     "côte-d'ivoire": {
         "name": "Côte d'Ivoire",
@@ -411,7 +499,9 @@
             "latitude": 7.9897371
         },
         "img": "/img/countries/ci.svg",
-        "slug": "côte-d'ivoire"
+        "slug": "côte-d'ivoire",
+        "country_code": "CIV",
+        "country_long": "Côte d'Ivoire"
     },
     "denmark": {
         "name": "Denmark",
@@ -420,7 +510,9 @@
             "latitude": 55.670249
         },
         "img": "/img/countries/dk.svg",
-        "slug": "denmark"
+        "slug": "denmark",
+        "country_code": "DEN",
+        "country_long": "Denmark"
     },
     "djibouti": {
         "name": "Djibouti",
@@ -429,7 +521,9 @@
             "latitude": 11.8145966
         },
         "img": "/img/countries/dj.svg",
-        "slug": "djibouti"
+        "slug": "djibouti",
+        "country_code": "DJI",
+        "country_long": "Djibouti"
     },
     "dominica": {
         "name": "Dominica",
@@ -438,7 +532,9 @@
             "latitude": 15.4113138
         },
         "img": "/img/countries/dm.svg",
-        "slug": "dominica"
+        "slug": "dominica",
+        "country_code": "DMA",
+        "country_long": "Dominica"
     },
     "dominican-republic": {
         "name": "Dominican Republic",
@@ -447,7 +543,9 @@
             "latitude": 19.0974031
         },
         "img": "/img/countries/do.svg",
-        "slug": "dominican-republic"
+        "slug": "dominican-republic",
+        "country_code": "DOM",
+        "country_long": "Dominican Republic"
     },
     "dpr-korea": {
         "name": "DPR Korea",
@@ -456,7 +554,9 @@
             "latitude": 40.3736611
         },
         "img": "/img/countries/kp.svg",
-        "slug": "dpr-korea"
+        "slug": "dpr-korea",
+        "country_code": "PRK",
+        "country_long": "Democratic People's Republic of Korea"
     },
     "dr-congo": {
         "name": "DR Congo",
@@ -465,7 +565,9 @@
             "latitude": -2.9814344
         },
         "img": "/img/countries/cd.svg",
-        "slug": "dr-congo"
+        "slug": "dr-congo",
+        "country_code": "COD",
+        "country_long": "Democratic Republic of the Congo"
     },
     "ecuador": {
         "name": "Ecuador",
@@ -474,7 +576,9 @@
             "latitude": -1.3397668
         },
         "img": "/img/countries/ec.svg",
-        "slug": "ecuador"
+        "slug": "ecuador",
+        "country_code": "ECU",
+        "country_long": "Ecuador"
     },
     "egypt": {
         "name": "Egypt",
@@ -483,7 +587,9 @@
             "latitude": 26.2540493
         },
         "img": "/img/countries/eg.svg",
-        "slug": "egypt"
+        "slug": "egypt",
+        "country_code": "EGY",
+        "country_long": "Egypt"
     },
     "el-salvador": {
         "name": "El Salvador",
@@ -492,7 +598,9 @@
             "latitude": 13.8000382
         },
         "img": "/img/countries/sv.svg",
-        "slug": "el-salvador"
+        "slug": "el-salvador",
+        "country_code": "ESA",
+        "country_long": "El Salvador"
     },
     "equatorial-guinea": {
         "name": "Equatorial Guinea",
@@ -501,7 +609,9 @@
             "latitude": 1.613172
         },
         "img": "/img/countries/gq.svg",
-        "slug": "equatorial-guinea"
+        "slug": "equatorial-guinea",
+        "country_code": "GEQ",
+        "country_long": "Equatorial Guinea"
     },
     "eritrea": {
         "name": "Eritrea",
@@ -510,7 +620,9 @@
             "latitude": 15.9500319
         },
         "img": "/img/countries/er.svg",
-        "slug": "eritrea"
+        "slug": "eritrea",
+        "country_code": "ERI",
+        "country_long": "Eritrea"
     },
     "estonia": {
         "name": "Estonia",
@@ -519,7 +631,9 @@
             "latitude": 58.7523778
         },
         "img": "/img/countries/ee.svg",
-        "slug": "estonia"
+        "slug": "estonia",
+        "country_code": "EST",
+        "country_long": "Estonia"
     },
     "eswatini": {
         "name": "Eswatini",
@@ -528,7 +642,9 @@
             "latitude": -26.5624806
         },
         "img": "/img/countries/sz.svg",
-        "slug": "eswatini"
+        "slug": "eswatini",
+        "country_code": "SWZ",
+        "country_long": "Eswatini"
     },
     "ethiopia": {
         "name": "Ethiopia",
@@ -537,7 +653,9 @@
             "latitude": 10.2116702
         },
         "img": "/img/countries/et.svg",
-        "slug": "ethiopia"
+        "slug": "ethiopia",
+        "country_code": "ETH",
+        "country_long": "Ethiopia"
     },
     "fiji": {
         "name": "Fiji",
@@ -546,7 +664,9 @@
             "latitude": -18.1239696
         },
         "img": "/img/countries/fj.svg",
-        "slug": "fiji"
+        "slug": "fiji",
+        "country_code": "FIJ",
+        "country_long": "Fiji"
     },
     "finland": {
         "name": "Finland",
@@ -555,7 +675,9 @@
             "latitude": 63.2467777
         },
         "img": "/img/countries/fi.svg",
-        "slug": "finland"
+        "slug": "finland",
+        "country_code": "FIN",
+        "country_long": "Finland"
     },
     "france": {
         "name": "France",
@@ -564,7 +686,9 @@
             "latitude": 46.603354
         },
         "img": "/img/countries/fr.svg",
-        "slug": "france"
+        "slug": "france",
+        "country_code": "FRA",
+        "country_long": "France"
     },
     "gabon": {
         "name": "Gabon",
@@ -573,7 +697,9 @@
             "latitude": -0.8999695
         },
         "img": "/img/countries/ga.svg",
-        "slug": "gabon"
+        "slug": "gabon",
+        "country_code": "GAB",
+        "country_long": "Gabon"
     },
     "gambia": {
         "name": "Gambia",
@@ -582,7 +708,9 @@
             "latitude": 13.470062
         },
         "img": "/img/countries/gm.svg",
-        "slug": "gambia"
+        "slug": "gambia",
+        "country_code": "GAM",
+        "country_long": "Gambia"
     },
     "georgia": {
         "name": "Georgia",
@@ -591,7 +719,9 @@
             "latitude": 32.3293809
         },
         "img": "/img/countries/ge.svg",
-        "slug": "georgia"
+        "slug": "georgia",
+        "country_code": "GEO",
+        "country_long": "Georgia"
     },
     "germany": {
         "name": "Germany",
@@ -600,7 +730,9 @@
             "latitude": 51.1638175
         },
         "img": "/img/countries/de.svg",
-        "slug": "germany"
+        "slug": "germany",
+        "country_code": "GER",
+        "country_long": "Germany"
     },
     "ghana": {
         "name": "Ghana",
@@ -609,7 +741,9 @@
             "latitude": 8.0300284
         },
         "img": "/img/countries/gh.svg",
-        "slug": "ghana"
+        "slug": "ghana",
+        "country_code": "GHA",
+        "country_long": "Ghana"
     },
     "great-britain": {
         "name": "Great Britain",
@@ -618,7 +752,9 @@
             "latitude": 54.3151594
         },
         "img": "/img/countries/gb.svg",
-        "slug": "great-britain"
+        "slug": "great-britain",
+        "country_code": "GBR",
+        "country_long": "Great Britain"
     },
     "greece": {
         "name": "Greece",
@@ -627,7 +763,9 @@
             "latitude": 38.9953683
         },
         "img": "/img/countries/gr.svg",
-        "slug": "greece"
+        "slug": "greece",
+        "country_code": "GRE",
+        "country_long": "Greece"
     },
     "grenada": {
         "name": "Grenada",
@@ -636,7 +774,9 @@
             "latitude": 12.1360374
         },
         "img": "/img/countries/gd.svg",
-        "slug": "grenada"
+        "slug": "grenada",
+        "country_code": "GRN",
+        "country_long": "Grenada"
     },
     "guatemala": {
         "name": "Guatemala",
@@ -645,7 +785,9 @@
             "latitude": 15.5855545
         },
         "img": "/img/countries/gt.svg",
-        "slug": "guatemala"
+        "slug": "guatemala",
+        "country_code": "GUA",
+        "country_long": "Guatemala"
     },
     "guinea": {
         "name": "Guinea",
@@ -654,7 +796,9 @@
             "latitude": 10.7226226
         },
         "img": "/img/countries/gn.svg",
-        "slug": "guinea"
+        "slug": "guinea",
+        "country_code": "GUI",
+        "country_long": "Guinea"
     },
     "guinea-bissau": {
         "name": "Guinea-Bissau",
@@ -663,7 +807,9 @@
             "latitude": 11.815215
         },
         "img": "/img/countries/gw.svg",
-        "slug": "guinea-bissau"
+        "slug": "guinea-bissau",
+        "country_code": "GBS",
+        "country_long": "Guinea-Bissau"
     },
     "guyana": {
         "name": "Guyana",
@@ -672,7 +818,9 @@
             "latitude": 4.8417097
         },
         "img": "/img/countries/gy.svg",
-        "slug": "guyana"
+        "slug": "guyana",
+        "country_code": "GUY",
+        "country_long": "Guyana"
     },
     "haiti": {
         "name": "Haiti",
@@ -681,7 +829,9 @@
             "latitude": 19.1399952
         },
         "img": "/img/countries/ht.svg",
-        "slug": "haiti"
+        "slug": "haiti",
+        "country_code": "HAI",
+        "country_long": "Haiti"
     },
     "honduras": {
         "name": "Honduras",
@@ -690,7 +840,9 @@
             "latitude": 15.2572432
         },
         "img": "/img/countries/hn.svg",
-        "slug": "honduras"
+        "slug": "honduras",
+        "country_code": "HON",
+        "country_long": "Honduras"
     },
     "hong-kong,-china": {
         "name": "Hong Kong, China",
@@ -699,7 +851,9 @@
             "latitude": 22.350627
         },
         "img": "/img/countries/hk.svg",
-        "slug": "hong-kong,-china"
+        "slug": "hong-kong,-china",
+        "country_code": "HKG",
+        "country_long": "Hong Kong, China"
     },
     "hungary": {
         "name": "Hungary",
@@ -708,7 +862,9 @@
             "latitude": 47.1817585
         },
         "img": "/img/countries/hu.svg",
-        "slug": "hungary"
+        "slug": "hungary",
+        "country_code": "HUN",
+        "country_long": "Hungary"
     },
     "iceland": {
         "name": "Iceland",
@@ -717,7 +873,9 @@
             "latitude": 64.9841821
         },
         "img": "/img/countries/is.svg",
-        "slug": "iceland"
+        "slug": "iceland",
+        "country_code": "ISL",
+        "country_long": "Iceland"
     },
     "india": {
         "name": "India",
@@ -726,7 +884,9 @@
             "latitude": 22.3511148
         },
         "img": "/img/countries/in.svg",
-        "slug": "india"
+        "slug": "india",
+        "country_code": "IND",
+        "country_long": "India"
     },
     "indonesia": {
         "name": "Indonesia",
@@ -735,7 +895,9 @@
             "latitude": -2.4833826
         },
         "img": "/img/countries/id.svg",
-        "slug": "indonesia"
+        "slug": "indonesia",
+        "country_code": "INA",
+        "country_long": "Indonesia"
     },
     "ir-iran": {
         "name": "IR Iran",
@@ -744,7 +906,9 @@
             "latitude": 32.6475314
         },
         "img": "/img/countries/ir.svg",
-        "slug": "ir-iran"
+        "slug": "ir-iran",
+        "country_code": "IRI",
+        "country_long": "Islamic Republic of Iran"
     },
     "iraq": {
         "name": "Iraq",
@@ -753,7 +917,9 @@
             "latitude": 33.0955793
         },
         "img": "/img/countries/iq.svg",
-        "slug": "iraq"
+        "slug": "iraq",
+        "country_code": "IRQ",
+        "country_long": "Iraq"
     },
     "ireland": {
         "name": "Ireland",
@@ -762,7 +928,9 @@
             "latitude": 52.865196
         },
         "img": "/img/countries/ie.svg",
-        "slug": "ireland"
+        "slug": "ireland",
+        "country_code": "IRL",
+        "country_long": "Ireland"
     },
     "israel": {
         "name": "Israel",
@@ -771,7 +939,9 @@
             "latitude": 30.8124247
         },
         "img": "/img/countries/il.svg",
-        "slug": "israel"
+        "slug": "israel",
+        "country_code": "ISR",
+        "country_long": "Israel"
     },
     "italy": {
         "name": "Italy",
@@ -780,7 +950,9 @@
             "latitude": 42.6384261
         },
         "img": "/img/countries/it.svg",
-        "slug": "italy"
+        "slug": "italy",
+        "country_code": "ITA",
+        "country_long": "Italy"
     },
     "jamaica": {
         "name": "Jamaica",
@@ -789,7 +961,9 @@
             "latitude": 18.1850507
         },
         "img": "/img/countries/jm.svg",
-        "slug": "jamaica"
+        "slug": "jamaica",
+        "country_code": "JAM",
+        "country_long": "Jamaica"
     },
     "japan": {
         "name": "Japan",
@@ -798,7 +972,9 @@
             "latitude": 36.5748441
         },
         "img": "/img/countries/jp.svg",
-        "slug": "japan"
+        "slug": "japan",
+        "country_code": "JPN",
+        "country_long": "Japan"
     },
     "jordan": {
         "name": "Jordan",
@@ -807,7 +983,9 @@
             "latitude": 44.6663146
         },
         "img": "/img/countries/jo.svg",
-        "slug": "jordan"
+        "slug": "jordan",
+        "country_code": "JOR",
+        "country_long": "Jordan"
     },
     "kazakhstan": {
         "name": "Kazakhstan",
@@ -816,7 +994,9 @@
             "latitude": 48.1012954
         },
         "img": "/img/countries/kz.svg",
-        "slug": "kazakhstan"
+        "slug": "kazakhstan",
+        "country_code": "KAZ",
+        "country_long": "Kazakhstan"
     },
     "kenya": {
         "name": "Kenya",
@@ -825,7 +1005,9 @@
             "latitude": 1.4419683
         },
         "img": "/img/countries/ke.svg",
-        "slug": "kenya"
+        "slug": "kenya",
+        "country_code": "KEN",
+        "country_long": "Kenya"
     },
     "kiribati": {
         "name": "Kiribati",
@@ -834,7 +1016,9 @@
             "latitude": 0.3448612
         },
         "img": "/img/countries/ki.svg",
-        "slug": "kiribati"
+        "slug": "kiribati",
+        "country_code": "KIR",
+        "country_long": "Kiribati"
     },
     "korea": {
         "name": "Korea",
@@ -843,7 +1027,9 @@
             "latitude": 37.9528488
         },
         "img": "/img/countries/kr.svg",
-        "slug": "korea"
+        "slug": "korea",
+        "country_code": "KOR",
+        "country_long": "Republic of Korea"
     },
     "kosovo": {
         "name": "Kosovo",
@@ -852,7 +1038,9 @@
             "latitude": 42.5869578
         },
         "img": "/img/countries/xk.svg",
-        "slug": "kosovo"
+        "slug": "kosovo",
+        "country_code": "KOS",
+        "country_long": "Kosovo"
     },
     "kuwait": {
         "name": "Kuwait",
@@ -861,7 +1049,9 @@
             "latitude": 29.3796532
         },
         "img": "/img/countries/kw.svg",
-        "slug": "kuwait"
+        "slug": "kuwait",
+        "country_code": "KUW",
+        "country_long": "Kuwait"
     },
     "kyrgyzstan": {
         "name": "Kyrgyzstan",
@@ -870,7 +1060,9 @@
             "latitude": 41.5089324
         },
         "img": "/img/countries/kg.svg",
-        "slug": "kyrgyzstan"
+        "slug": "kyrgyzstan",
+        "country_code": "KGZ",
+        "country_long": "Kyrgyzstan"
     },
     "lao-pdr": {
         "name": "Lao PDR",
@@ -879,7 +1071,9 @@
             "latitude": 17.9582181
         },
         "img": "/img/countries/la.svg",
-        "slug": "lao-pdr"
+        "slug": "lao-pdr",
+        "country_code": "LAO",
+        "country_long": "Lao People's Democratic Republic"
     },
     "latvia": {
         "name": "Latvia",
@@ -888,7 +1082,9 @@
             "latitude": 56.8406494
         },
         "img": "/img/countries/lv.svg",
-        "slug": "latvia"
+        "slug": "latvia",
+        "country_code": "LAT",
+        "country_long": "Latvia"
     },
     "lebanon": {
         "name": "Lebanon",
@@ -897,7 +1093,9 @@
             "latitude": 40.375713
         },
         "img": "/img/countries/lb.svg",
-        "slug": "lebanon"
+        "slug": "lebanon",
+        "country_code": "LBN",
+        "country_long": "Lebanon"
     },
     "lesotho": {
         "name": "Lesotho",
@@ -906,7 +1104,9 @@
             "latitude": -29.6039267
         },
         "img": "/img/countries/ls.svg",
-        "slug": "lesotho"
+        "slug": "lesotho",
+        "country_code": "LES",
+        "country_long": "Lesotho"
     },
     "liberia": {
         "name": "Liberia",
@@ -915,7 +1115,9 @@
             "latitude": 5.7499721
         },
         "img": "/img/countries/lr.svg",
-        "slug": "liberia"
+        "slug": "liberia",
+        "country_code": "LBR",
+        "country_long": "Liberia"
     },
     "libya": {
         "name": "Libya",
@@ -924,7 +1126,9 @@
             "latitude": 26.8234472
         },
         "img": "/img/countries/ly.svg",
-        "slug": "libya"
+        "slug": "libya",
+        "country_code": "LBA",
+        "country_long": "Libya"
     },
     "liechtenstein": {
         "name": "Liechtenstein",
@@ -933,7 +1137,9 @@
             "latitude": 47.1416307
         },
         "img": "/img/countries/li.svg",
-        "slug": "liechtenstein"
+        "slug": "liechtenstein",
+        "country_code": "LIE",
+        "country_long": "Liechtenstein"
     },
     "lithuania": {
         "name": "Lithuania",
@@ -942,7 +1148,9 @@
             "latitude": 55.3500003
         },
         "img": "/img/countries/lt.svg",
-        "slug": "lithuania"
+        "slug": "lithuania",
+        "country_code": "LTU",
+        "country_long": "Lithuania"
     },
     "luxembourg": {
         "name": "Luxembourg",
@@ -951,7 +1159,9 @@
             "latitude": 49.6112768
         },
         "img": "/img/countries/lu.svg",
-        "slug": "luxembourg"
+        "slug": "luxembourg",
+        "country_code": "LUX",
+        "country_long": "Luxembourg"
     },
     "madagascar": {
         "name": "Madagascar",
@@ -960,7 +1170,9 @@
             "latitude": -18.9249604
         },
         "img": "/img/countries/mg.svg",
-        "slug": "madagascar"
+        "slug": "madagascar",
+        "country_code": "MAD",
+        "country_long": "Madagascar"
     },
     "malawi": {
         "name": "Malawi",
@@ -969,7 +1181,9 @@
             "latitude": -13.2687204
         },
         "img": "/img/countries/mw.svg",
-        "slug": "malawi"
+        "slug": "malawi",
+        "country_code": "MAW",
+        "country_long": "Malawi"
     },
     "malaysia": {
         "name": "Malaysia",
@@ -978,7 +1192,9 @@
             "latitude": 4.5693754
         },
         "img": "/img/countries/my.svg",
-        "slug": "malaysia"
+        "slug": "malaysia",
+        "country_code": "MAS",
+        "country_long": "Malaysia"
     },
     "maldives": {
         "name": "Maldives",
@@ -987,7 +1203,9 @@
             "latitude": 3.7203503
         },
         "img": "/img/countries/mv.svg",
-        "slug": "maldives"
+        "slug": "maldives",
+        "country_code": "MDV",
+        "country_long": "Maldives"
     },
     "mali": {
         "name": "Mali",
@@ -996,7 +1214,9 @@
             "latitude": 16.3700359
         },
         "img": "/img/countries/ml.svg",
-        "slug": "mali"
+        "slug": "mali",
+        "country_code": "MLI",
+        "country_long": "Mali"
     },
     "malta": {
         "name": "Malta",
@@ -1005,7 +1225,9 @@
             "latitude": 35.8885993
         },
         "img": "/img/countries/mt.svg",
-        "slug": "malta"
+        "slug": "malta",
+        "country_code": "MLT",
+        "country_long": "Malta"
     },
     "marshall-islands": {
         "name": "Marshall Islands",
@@ -1014,7 +1236,9 @@
             "latitude": 8.9995549
         },
         "img": "/img/countries/mh.svg",
-        "slug": "marshall-islands"
+        "slug": "marshall-islands",
+        "country_code": "MHL",
+        "country_long": "Marshall Islands"
     },
     "mauritania": {
         "name": "Mauritania",
@@ -1023,7 +1247,9 @@
             "latitude": 20.2540382
         },
         "img": "/img/countries/mr.svg",
-        "slug": "mauritania"
+        "slug": "mauritania",
+        "country_code": "MTN",
+        "country_long": "Mauritania"
     },
     "mauritius": {
         "name": "Mauritius",
@@ -1032,7 +1258,9 @@
             "latitude": -20.2759451
         },
         "img": "/img/countries/mu.svg",
-        "slug": "mauritius"
+        "slug": "mauritius",
+        "country_code": "MRI",
+        "country_long": "Mauritius"
     },
     "mexico": {
         "name": "Mexico",
@@ -1041,7 +1269,9 @@
             "latitude": 23.6585116
         },
         "img": "/img/countries/mx.svg",
-        "slug": "mexico"
+        "slug": "mexico",
+        "country_code": "MEX",
+        "country_long": "Mexico"
     },
     "micronesia": {
         "name": "Micronesia",
@@ -1050,7 +1280,9 @@
             "latitude": 8.6062347
         },
         "img": "/img/countries/fm.svg",
-        "slug": "micronesia"
+        "slug": "micronesia",
+        "country_code": "FSM",
+        "country_long": "Federated States of Micronesia"
     },
     "monaco": {
         "name": "Monaco",
@@ -1059,7 +1291,9 @@
             "latitude": 43.7323492
         },
         "img": "/img/countries/mc.svg",
-        "slug": "monaco"
+        "slug": "monaco",
+        "country_code": "MON",
+        "country_long": "Monaco"
     },
     "mongolia": {
         "name": "Mongolia",
@@ -1068,7 +1302,9 @@
             "latitude": 46.8250388
         },
         "img": "/img/countries/mn.svg",
-        "slug": "mongolia"
+        "slug": "mongolia",
+        "country_code": "MGL",
+        "country_long": "Mongolia"
     },
     "montenegro": {
         "name": "Montenegro",
@@ -1077,7 +1313,9 @@
             "latitude": -29.6826112
         },
         "img": "/img/countries/me.svg",
-        "slug": "montenegro"
+        "slug": "montenegro",
+        "country_code": "MNE",
+        "country_long": "Montenegro"
     },
     "morocco": {
         "name": "Morocco",
@@ -1086,7 +1324,9 @@
             "latitude": 28.3347722
         },
         "img": "/img/countries/ma.svg",
-        "slug": "morocco"
+        "slug": "morocco",
+        "country_code": "MAR",
+        "country_long": "Morocco"
     },
     "mozambique": {
         "name": "Mozambique",
@@ -1095,7 +1335,9 @@
             "latitude": -19.302233
         },
         "img": "/img/countries/mz.svg",
-        "slug": "mozambique"
+        "slug": "mozambique",
+        "country_code": "MOZ",
+        "country_long": "Mozambique"
     },
     "myanmar": {
         "name": "Myanmar",
@@ -1104,7 +1346,9 @@
             "latitude": 17.1750495
         },
         "img": "/img/countries/mm.svg",
-        "slug": "myanmar"
+        "slug": "myanmar",
+        "country_code": "MYA",
+        "country_long": "Myanmar"
     },
     "namibia": {
         "name": "Namibia",
@@ -1113,7 +1357,9 @@
             "latitude": -23.2335499
         },
         "img": "/img/countries/na.svg",
-        "slug": "namibia"
+        "slug": "namibia",
+        "country_code": "NAM",
+        "country_long": "Namibia"
     },
     "nauru": {
         "name": "Nauru",
@@ -1122,7 +1368,9 @@
             "latitude": -0.5252306
         },
         "img": "/img/countries/nr.svg",
-        "slug": "nauru"
+        "slug": "nauru",
+        "country_code": "NRU",
+        "country_long": "Nauru"
     },
     "nepal": {
         "name": "Nepal",
@@ -1131,7 +1379,9 @@
             "latitude": 28.3780464
         },
         "img": "/img/countries/np.svg",
-        "slug": "nepal"
+        "slug": "nepal",
+        "country_code": "NEP",
+        "country_long": "Nepal"
     },
     "netherlands": {
         "name": "Netherlands",
@@ -1140,7 +1390,9 @@
             "latitude": 52.2434979
         },
         "img": "/img/countries/nl.svg",
-        "slug": "netherlands"
+        "slug": "netherlands",
+        "country_code": "NED",
+        "country_long": "Netherlands"
     },
     "new-zealand": {
         "name": "New Zealand",
@@ -1149,7 +1401,9 @@
             "latitude": -41.5000831
         },
         "img": "/img/countries/nz.svg",
-        "slug": "new-zealand"
+        "slug": "new-zealand",
+        "country_code": "NZL",
+        "country_long": "New Zealand"
     },
     "nicaragua": {
         "name": "Nicaragua",
@@ -1158,7 +1412,9 @@
             "latitude": 12.6090157
         },
         "img": "/img/countries/ni.svg",
-        "slug": "nicaragua"
+        "slug": "nicaragua",
+        "country_code": "NCA",
+        "country_long": "Nicaragua"
     },
     "niger": {
         "name": "Niger",
@@ -1167,7 +1423,9 @@
             "latitude": 17.7356214
         },
         "img": "/img/countries/ne.svg",
-        "slug": "niger"
+        "slug": "niger",
+        "country_code": "NIG",
+        "country_long": "Niger"
     },
     "nigeria": {
         "name": "Nigeria",
@@ -1176,7 +1434,9 @@
             "latitude": 9.6000359
         },
         "img": "/img/countries/ng.svg",
-        "slug": "nigeria"
+        "slug": "nigeria",
+        "country_code": "NGR",
+        "country_long": "Nigeria"
     },
     "north-macedonia": {
         "name": "North Macedonia",
@@ -1185,7 +1445,9 @@
             "latitude": 41.6171214
         },
         "img": "/img/countries/mk.svg",
-        "slug": "north-macedonia"
+        "slug": "north-macedonia",
+        "country_code": "MKD",
+        "country_long": "North Macedonia"
     },
     "norway": {
         "name": "Norway",
@@ -1194,7 +1456,9 @@
             "latitude": 64.5731537
         },
         "img": "/img/countries/no.svg",
-        "slug": "norway"
+        "slug": "norway",
+        "country_code": "NOR",
+        "country_long": "Norway"
     },
     "oman": {
         "name": "Oman",
@@ -1203,7 +1467,9 @@
             "latitude": 21.0000287
         },
         "img": "/img/countries/om.svg",
-        "slug": "oman"
+        "slug": "oman",
+        "country_code": "OMA",
+        "country_long": "Oman"
     },
     "pakistan": {
         "name": "Pakistan",
@@ -1212,7 +1478,9 @@
             "latitude": 30.3308401
         },
         "img": "/img/countries/pk.svg",
-        "slug": "pakistan"
+        "slug": "pakistan",
+        "country_code": "PAK",
+        "country_long": "Pakistan"
     },
     "palau": {
         "name": "Palau",
@@ -1221,7 +1489,9 @@
             "latitude": 42.5717989
         },
         "img": "/img/countries/pw.svg",
-        "slug": "palau"
+        "slug": "palau",
+        "country_code": "PLW",
+        "country_long": "Palau"
     },
     "palestine": {
         "name": "Palestine",
@@ -1230,7 +1500,9 @@
             "latitude": 31.7621153
         },
         "img": "/img/countries/ps.svg",
-        "slug": "palestine"
+        "slug": "palestine",
+        "country_code": "PLE",
+        "country_long": "Palestine"
     },
     "panama": {
         "name": "Panama",
@@ -1239,7 +1511,9 @@
             "latitude": 8.559559
         },
         "img": "/img/countries/pa.svg",
-        "slug": "panama"
+        "slug": "panama",
+        "country_code": "PAN",
+        "country_long": "Panama"
     },
     "papua-new-guinea": {
         "name": "Papua New Guinea",
@@ -1248,7 +1522,9 @@
             "latitude": -5.6816069
         },
         "img": "/img/countries/pg.svg",
-        "slug": "papua-new-guinea"
+        "slug": "papua-new-guinea",
+        "country_code": "PNG",
+        "country_long": "Papua New Guinea"
     },
     "paraguay": {
         "name": "Paraguay",
@@ -1257,7 +1533,9 @@
             "latitude": -23.3165935
         },
         "img": "/img/countries/py.svg",
-        "slug": "paraguay"
+        "slug": "paraguay",
+        "country_code": "PAR",
+        "country_long": "Paraguay"
     },
     "peru": {
         "name": "Peru",
@@ -1266,7 +1544,9 @@
             "latitude": -6.8699697
         },
         "img": "/img/countries/pe.svg",
-        "slug": "peru"
+        "slug": "peru",
+        "country_code": "PER",
+        "country_long": "Peru"
     },
     "philippines": {
         "name": "Philippines",
@@ -1275,7 +1555,9 @@
             "latitude": 12.7503486
         },
         "img": "/img/countries/ph.svg",
-        "slug": "philippines"
+        "slug": "philippines",
+        "country_code": "PHI",
+        "country_long": "Philippines"
     },
     "poland": {
         "name": "Poland",
@@ -1284,7 +1566,9 @@
             "latitude": 52.215933
         },
         "img": "/img/countries/pl.svg",
-        "slug": "poland"
+        "slug": "poland",
+        "country_code": "POL",
+        "country_long": "Poland"
     },
     "portugal": {
         "name": "Portugal",
@@ -1293,7 +1577,9 @@
             "latitude": 39.6621648
         },
         "img": "/img/countries/pt.svg",
-        "slug": "portugal"
+        "slug": "portugal",
+        "country_code": "POR",
+        "country_long": "Portugal"
     },
     "qatar": {
         "name": "Qatar",
@@ -1302,7 +1588,9 @@
             "latitude": 25.3336984
         },
         "img": "/img/countries/qa.svg",
-        "slug": "qatar"
+        "slug": "qatar",
+        "country_code": "QAT",
+        "country_long": "Qatar"
     },
     "republic-of-moldova": {
         "name": "Republic of Moldova",
@@ -1311,7 +1599,9 @@
             "latitude": 47.2879608
         },
         "img": "/img/countries/md.svg",
-        "slug": "republic-of-moldova"
+        "slug": "republic-of-moldova",
+        "country_code": "MDA",
+        "country_long": "Republic of Moldova"
     },
     "romania": {
         "name": "Romania",
@@ -1320,7 +1610,9 @@
             "latitude": 45.9852129
         },
         "img": "/img/countries/ro.svg",
-        "slug": "romania"
+        "slug": "romania",
+        "country_code": "ROU",
+        "country_long": "Romania"
     },
     "russian-federation": {
         "name": "Russian Federation",
@@ -1328,8 +1620,10 @@
             "longitude": 97.7453061,
             "latitude": 64.6863136
         },
-        "img": "/img/countries/ru.svg",
-        "slug": "russian-federation"
+        "img": "/img/olympics.svg",
+        "slug": "russian-federation",
+        "country_code": "RUS",
+        "country_long": "Russian Federation"
     },
     "rwanda": {
         "name": "Rwanda",
@@ -1338,7 +1632,9 @@
             "latitude": -1.9646631
         },
         "img": "/img/countries/rw.svg",
-        "slug": "rwanda"
+        "slug": "rwanda",
+        "country_code": "RWA",
+        "country_long": "Rwanda"
     },
     "saint-lucia": {
         "name": "Saint Lucia",
@@ -1347,7 +1643,9 @@
             "latitude": 13.8250489
         },
         "img": "/img/countries/lc.svg",
-        "slug": "saint-lucia"
+        "slug": "saint-lucia",
+        "country_code": "LCA",
+        "country_long": "Saint Lucia"
     },
     "samoa": {
         "name": "Samoa",
@@ -1356,7 +1654,9 @@
             "latitude": -13.7693895
         },
         "img": "/img/countries/ws.svg",
-        "slug": "samoa"
+        "slug": "samoa",
+        "country_code": "SAM",
+        "country_long": "Samoa"
     },
     "san-marino": {
         "name": "San Marino",
@@ -1365,7 +1665,9 @@
             "latitude": 43.9458623
         },
         "img": "/img/countries/sm.svg",
-        "slug": "san-marino"
+        "slug": "san-marino",
+        "country_code": "SMR",
+        "country_long": "San Marino"
     },
     "sao-tome-&-principe": {
         "name": "Sao Tome & Principe",
@@ -1374,7 +1676,9 @@
             "latitude": 0.3264119
         },
         "img": "/img/countries/st.svg",
-        "slug": "sao-tome-&-principe"
+        "slug": "sao-tome-&-principe",
+        "country_code": "STP",
+        "country_long": "Sao Tome and Principe"
     },
     "saudi-arabia": {
         "name": "Saudi Arabia",
@@ -1383,7 +1687,9 @@
             "latitude": 24.217621
         },
         "img": "/img/countries/sa.svg",
-        "slug": "saudi-arabia"
+        "slug": "saudi-arabia",
+        "country_code": "KSA",
+        "country_long": "Saudi Arabia"
     },
     "senegal": {
         "name": "Senegal",
@@ -1392,7 +1698,9 @@
             "latitude": 14.4750607
         },
         "img": "/img/countries/sn.svg",
-        "slug": "senegal"
+        "slug": "senegal",
+        "country_code": "SEN",
+        "country_long": "Senegal"
     },
     "serbia": {
         "name": "Serbia",
@@ -1401,7 +1709,9 @@
             "latitude": 44.0243229
         },
         "img": "/img/countries/rs.svg",
-        "slug": "serbia"
+        "slug": "serbia",
+        "country_code": "SRB",
+        "country_long": "Serbia"
     },
     "seychelles": {
         "name": "Seychelles",
@@ -1410,7 +1720,9 @@
             "latitude": -4.6574977
         },
         "img": "/img/countries/sc.svg",
-        "slug": "seychelles"
+        "slug": "seychelles",
+        "country_code": "SEY",
+        "country_long": "Seychelles"
     },
     "sierra-leone": {
         "name": "Sierra Leone",
@@ -1419,7 +1731,9 @@
             "latitude": 8.6400349
         },
         "img": "/img/countries/sl.svg",
-        "slug": "sierra-leone"
+        "slug": "sierra-leone",
+        "country_code": "SLE",
+        "country_long": "Sierra Leone"
     },
     "singapore": {
         "name": "Singapore",
@@ -1428,7 +1742,9 @@
             "latitude": 1.357107
         },
         "img": "/img/countries/sg.svg",
-        "slug": "singapore"
+        "slug": "singapore",
+        "country_code": "SGP",
+        "country_long": "Singapore"
     },
     "slovakia": {
         "name": "Slovakia",
@@ -1437,7 +1753,9 @@
             "latitude": 48.7411522
         },
         "img": "/img/countries/sk.svg",
-        "slug": "slovakia"
+        "slug": "slovakia",
+        "country_code": "SVK",
+        "country_long": "Slovakia"
     },
     "slovenia": {
         "name": "Slovenia",
@@ -1446,7 +1764,9 @@
             "latitude": 46.1199444
         },
         "img": "/img/countries/si.svg",
-        "slug": "slovenia"
+        "slug": "slovenia",
+        "country_code": "SLO",
+        "country_long": "Slovenia"
     },
     "solomon-islands": {
         "name": "Solomon Islands",
@@ -1455,7 +1775,9 @@
             "latitude": -8.7053941
         },
         "img": "/img/countries/sb.svg",
-        "slug": "solomon-islands"
+        "slug": "solomon-islands",
+        "country_code": "SOL",
+        "country_long": "Solomon Islands"
     },
     "somalia": {
         "name": "Somalia",
@@ -1464,7 +1786,9 @@
             "latitude": 8.3676771
         },
         "img": "/img/countries/so.svg",
-        "slug": "somalia"
+        "slug": "somalia",
+        "country_code": "SOM",
+        "country_long": "Somalia"
     },
     "south-africa": {
         "name": "South Africa",
@@ -1473,7 +1797,9 @@
             "latitude": -28.8166236
         },
         "img": "/img/countries/za.svg",
-        "slug": "south-africa"
+        "slug": "south-africa",
+        "country_code": "RSA",
+        "country_long": "South Africa"
     },
     "south-sudan": {
         "name": "South Sudan",
@@ -1482,7 +1808,9 @@
             "latitude": 7.8699431
         },
         "img": "/img/countries/ss.svg",
-        "slug": "south-sudan"
+        "slug": "south-sudan",
+        "country_code": "SSD",
+        "country_long": "South Sudan"
     },
     "spain": {
         "name": "Spain",
@@ -1491,7 +1819,9 @@
             "latitude": 39.3260685
         },
         "img": "/img/countries/es.svg",
-        "slug": "spain"
+        "slug": "spain",
+        "country_code": "ESP",
+        "country_long": "Spain"
     },
     "sri-lanka": {
         "name": "Sri Lanka",
@@ -1500,7 +1830,9 @@
             "latitude": 7.5554942
         },
         "img": "/img/countries/lk.svg",
-        "slug": "sri-lanka"
+        "slug": "sri-lanka",
+        "country_code": "SRI",
+        "country_long": "Sri Lanka"
     },
     "st-kitts-and-nevis": {
         "name": "St Kitts and Nevis",
@@ -1509,7 +1841,9 @@
             "latitude": 17.250512
         },
         "img": "/img/countries/kn.svg",
-        "slug": "st-kitts-and-nevis"
+        "slug": "st-kitts-and-nevis",
+        "country_code": "SKN",
+        "country_long": "Saint Kitts and Nevis"
     },
     "stvincent&grenadines": {
         "name": "StVincent&Grenadines",
@@ -1518,7 +1852,9 @@
             "latitude": 12.90447
         },
         "img": "/img/countries/vc.svg",
-        "slug": "stvincent&grenadines"
+        "slug": "stvincent&grenadines",
+        "country_code": "VIN",
+        "country_long": "St Vincent and the Grenadines"
     },
     "sudan": {
         "name": "Sudan",
@@ -1527,7 +1863,9 @@
             "latitude": 15.508457
         },
         "img": "/img/countries/sd.svg",
-        "slug": "sudan"
+        "slug": "sudan",
+        "country_code": "SUD",
+        "country_long": "Sudan"
     },
     "suriname": {
         "name": "Suriname",
@@ -1536,7 +1874,9 @@
             "latitude": 4.1413025
         },
         "img": "/img/countries/sr.svg",
-        "slug": "suriname"
+        "slug": "suriname",
+        "country_code": "SUR",
+        "country_long": "Suriname"
     },
     "sweden": {
         "name": "Sweden",
@@ -1545,7 +1885,9 @@
             "latitude": 59.6749712
         },
         "img": "/img/countries/se.svg",
-        "slug": "sweden"
+        "slug": "sweden",
+        "country_code": "SWE",
+        "country_long": "Sweden"
     },
     "switzerland": {
         "name": "Switzerland",
@@ -1554,7 +1896,9 @@
             "latitude": 46.7985624
         },
         "img": "/img/countries/ch.svg",
-        "slug": "switzerland"
+        "slug": "switzerland",
+        "country_code": "SUI",
+        "country_long": "Switzerland"
     },
     "syria": {
         "name": "Syria",
@@ -1563,7 +1907,9 @@
             "latitude": 34.8147886
         },
         "img": "/img/countries/sy.svg",
-        "slug": "syria"
+        "slug": "syria",
+        "country_code": "SYR",
+        "country_long": "Syrian Arab Republic"
     },
     "tajikistan": {
         "name": "Tajikistan",
@@ -1572,7 +1918,9 @@
             "latitude": 38.6281733
         },
         "img": "/img/countries/tj.svg",
-        "slug": "tajikistan"
+        "slug": "tajikistan",
+        "country_code": "TJK",
+        "country_long": "Tajikistan"
     },
     "tanzania": {
         "name": "Tanzania",
@@ -1581,7 +1929,9 @@
             "latitude": -6.5247123
         },
         "img": "/img/countries/tz.svg",
-        "slug": "tanzania"
+        "slug": "tanzania",
+        "country_code": "TAN",
+        "country_long": "United Republic of Tanzania"
     },
     "thailand": {
         "name": "Thailand",
@@ -1590,7 +1940,9 @@
             "latitude": 14.8971921
         },
         "img": "/img/countries/th.svg",
-        "slug": "thailand"
+        "slug": "thailand",
+        "country_code": "THA",
+        "country_long": "Thailand"
     },
     "timor-leste": {
         "name": "Timor-Leste",
@@ -1599,7 +1951,9 @@
             "latitude": -8.7443169
         },
         "img": "/img/countries/tl.svg",
-        "slug": "timor-leste"
+        "slug": "timor-leste",
+        "country_code": "TLS",
+        "country_long": "Democratic Republic of Timor-Leste"
     },
     "togo": {
         "name": "Togo",
@@ -1608,7 +1962,9 @@
             "latitude": 8.7800265
         },
         "img": "/img/countries/tg.svg",
-        "slug": "togo"
+        "slug": "togo",
+        "country_code": "TOG",
+        "country_long": "Togo"
     },
     "tonga": {
         "name": "Tonga",
@@ -1617,7 +1973,9 @@
             "latitude": -19.9160819
         },
         "img": "/img/countries/to.svg",
-        "slug": "tonga"
+        "slug": "tonga",
+        "country_code": "TGA",
+        "country_long": "Tonga"
     },
     "trinidad-and-tobago": {
         "name": "Trinidad and Tobago",
@@ -1626,7 +1984,9 @@
             "latitude": 10.7466905
         },
         "img": "/img/countries/tt.svg",
-        "slug": "trinidad-and-tobago"
+        "slug": "trinidad-and-tobago",
+        "country_code": "TTO",
+        "country_long": "Trinidad and Tobago"
     },
     "tunisia": {
         "name": "Tunisia",
@@ -1635,7 +1995,9 @@
             "latitude": 36.8002068
         },
         "img": "/img/countries/tn.svg",
-        "slug": "tunisia"
+        "slug": "tunisia",
+        "country_code": "TUN",
+        "country_long": "Tunisia"
     },
     "turkmenistan": {
         "name": "Turkmenistan",
@@ -1644,7 +2006,9 @@
             "latitude": 39.3763807
         },
         "img": "/img/countries/tm.svg",
-        "slug": "turkmenistan"
+        "slug": "turkmenistan",
+        "country_code": "TKM",
+        "country_long": "Turkmenistan"
     },
     "türkiye": {
         "name": "Türkiye",
@@ -1653,7 +2017,9 @@
             "latitude": 39.294076
         },
         "img": "/img/countries/tr.svg",
-        "slug": "türkiye"
+        "slug": "türkiye",
+        "country_code": "TUR",
+        "country_long": "Türkiye"
     },
     "ua-emirates": {
         "name": "UA Emirates",
@@ -1662,7 +2028,9 @@
             "latitude": 50.4455349
         },
         "img": "/img/countries/ae.svg",
-        "slug": "ua-emirates"
+        "slug": "ua-emirates",
+        "country_code": "UAE",
+        "country_long": "United Arab Emirates"
     },
     "uganda": {
         "name": "Uganda",
@@ -1671,7 +2039,9 @@
             "latitude": 1.5333554
         },
         "img": "/img/countries/ug.svg",
-        "slug": "uganda"
+        "slug": "uganda",
+        "country_code": "UGA",
+        "country_long": "Uganda"
     },
     "ukraine": {
         "name": "Ukraine",
@@ -1680,7 +2050,9 @@
             "latitude": 49.4871968
         },
         "img": "/img/countries/ua.svg",
-        "slug": "ukraine"
+        "slug": "ukraine",
+        "country_code": "UKR",
+        "country_long": "Ukraine"
     },
     "united-states": {
         "name": "United States",
@@ -1689,7 +2061,9 @@
             "latitude": 39.7837304
         },
         "img": "/img/countries/us.svg",
-        "slug": "united-states"
+        "slug": "united-states",
+        "country_code": "USA",
+        "country_long": "United States of America"
     },
     "uruguay": {
         "name": "Uruguay",
@@ -1698,7 +2072,9 @@
             "latitude": -32.8755548
         },
         "img": "/img/countries/uy.svg",
-        "slug": "uruguay"
+        "slug": "uruguay",
+        "country_code": "URU",
+        "country_long": "Uruguay"
     },
     "uzbekistan": {
         "name": "Uzbekistan",
@@ -1707,7 +2083,9 @@
             "latitude": 41.32373
         },
         "img": "/img/countries/uz.svg",
-        "slug": "uzbekistan"
+        "slug": "uzbekistan",
+        "country_code": "UZB",
+        "country_long": "Uzbekistan"
     },
     "vanuatu": {
         "name": "Vanuatu",
@@ -1716,7 +2094,9 @@
             "latitude": -16.5255069
         },
         "img": "/img/countries/vu.svg",
-        "slug": "vanuatu"
+        "slug": "vanuatu",
+        "country_code": "VAN",
+        "country_long": "Vanuatu"
     },
     "venezuela": {
         "name": "Venezuela",
@@ -1725,7 +2105,9 @@
             "latitude": 8.0018709
         },
         "img": "/img/countries/ve.svg",
-        "slug": "venezuela"
+        "slug": "venezuela",
+        "country_code": "VEN",
+        "country_long": "Venezuela"
     },
     "vietnam": {
         "name": "Vietnam",
@@ -1734,7 +2116,9 @@
             "latitude": 15.9266657
         },
         "img": "/img/countries/vn.svg",
-        "slug": "vietnam"
+        "slug": "vietnam",
+        "country_code": "VIE",
+        "country_long": "Vietnam"
     },
     "yemen": {
         "name": "Yemen",
@@ -1743,7 +2127,9 @@
             "latitude": 16.3471243
         },
         "img": "/img/countries/ye.svg",
-        "slug": "yemen"
+        "slug": "yemen",
+        "country_code": "YEM",
+        "country_long": "Yemen"
     },
     "zambia": {
         "name": "Zambia",
@@ -1752,7 +2138,9 @@
             "latitude": -14.5189121
         },
         "img": "/img/countries/zm.svg",
-        "slug": "zambia"
+        "slug": "zambia",
+        "country_code": "ZAM",
+        "country_long": "Zambia"
     },
     "zimbabwe": {
         "name": "Zimbabwe",
@@ -1761,6 +2149,8 @@
             "latitude": -18.4554963
         },
         "img": "/img/countries/zw.svg",
-        "slug": "zimbabwe"
+        "slug": "zimbabwe",
+        "country_code": "ZIM",
+        "country_long": "Zimbabwe"
     }
 }

@@ -375,7 +375,7 @@ const eventColumns = [
             const countryName = row.getValue('participant_country');
             return h('div', { class: 'flex items-center' }, [
                 countryCode ? h('img', {
-                    src: `/img/countries/${countryCode}.svg`,
+                    src: `/img/countries/${countryCode.toLowerCase()}.svg`,
                     alt: countryName,
                     class: 'w-5 h-5 mr-2 rounded-full object-cover'
                 }) : null,

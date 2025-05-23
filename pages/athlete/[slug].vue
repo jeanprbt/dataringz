@@ -11,7 +11,7 @@
                 'hidden': selected !== 0 && selected !== 1
             }">
                 <template #default>
-                    <div class="w-full h-full rounded-lg flex justify-center items-center">
+                    <div class="w-full h-full rounded-lg flex justify-center items-center aspect-square">
                         <img :src="`/storage/athletes/images/${slug}.jpg`" class="w-full h-full object-cover rounded-lg"
                             :alt="athlete.name" />
                     </div>
@@ -112,7 +112,7 @@
                 <template #default>
                     <div class="w-full h-full rounded-lg">
                         <h2
-                            :class="['text-lg md:text-xl font-bold text-zinc-800 dark:text-white', { 'mb-1': hasFewInfo }]">
+                            :class="['text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1']">
                             Age</h2>
                         <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                             {{ athlete.age }}

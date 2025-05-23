@@ -2,10 +2,11 @@
     <PageModal :show="showAthletePage" :back="transition" :transition="true" :items="items" @close="closePage"
         @back="router.back()">
 
-        <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-6': selected === 0 && !hasFewInfo, 'grid grid-cols-12 grid-rows-10': selected === 0 && hasFewInfo}]">
+        <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 && !hasFewInfo, 'grid grid-cols-12 md:grid-rows-10': selected === 0 && hasFewInfo}]">
 
             <UCard v-if="profilePicture" variant="soft" :ui="{ 'body': 'p-0 md:p-0 h-full' }" :class="{
-                'col-span-2 row-span-2': selected === 0,
+                'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && !hasFewInfo,
+                'col-span-6 md:col-span-2 md:row-span-4': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 1
             }">
                 <template #default>
@@ -17,13 +18,15 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-4 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-4 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-6 md:col-span-4': selected === 0 && profilePicture,
+                'col-span-12 md:col-span-4': selected === 0 && !profilePicture,
+                'row-span-1': selected === 0 && !hasFewInfo,
+                'row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 2
             }">
                 <template #default>
                     <div class="flex w-full h-full justify-left gap-4">
-                        <img class="rounded-lg w-1/6" :src="`/img/sports/SVG/${athlete.sports[0]['slug']}.svg`" />
+                        <img v-if="!isSmallScreen" class="rounded-lg w-1/6" :src="`/img/sports/SVG/${athlete.sports[0]['slug']}.svg`" />
                         <div class="flex flex-col justify-center">
                             <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ athlete.name }}
                             </h2>
@@ -36,10 +39,10 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'row-span-2': selected === 0 && !hasFewInfo,
-                'row-span-4': selected === 0 && hasFewInfo,
-                'col-span-6': profilePicture && selected === 0,
-                'col-span-8': !profilePicture && selected === 0,
+                'md:row-span-2': selected === 0 && !hasFewInfo,
+                'md:row-span-4': selected === 0 && hasFewInfo,
+                'col-span-12 md:col-span-6': profilePicture && selected === 0,
+                'col-span-12 md:col-span-8': !profilePicture && selected === 0,
                 'hidden': selected !== 0 && selected !== 3,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && athlete.events.length > 4,
                 'animate-bento-card': selected === 0 && transitioning && previousCard === 3,
@@ -81,8 +84,8 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-4 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-4 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-8 md:col-span-4 row-span-1': selected === 0 && !hasFewInfo,
+                'col-span-8 md:col-span-4 row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 4
             }">
                 <template #default>
@@ -100,8 +103,8 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-1 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-1 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-4 md:col-span-1 row-span-1': selected === 0 && !hasFewInfo,
+                'col-span-4 md:col-span-1 row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 5
             }">
                 <template #default>
@@ -115,8 +118,8 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-2 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-2 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-6 md:col-span-2 row-span-1': selected === 0 && !hasFewInfo,
+                'col-span-6 md:col-span-2 row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 6
             }">
                 <template #default>
@@ -130,8 +133,8 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-3 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-3 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-6 md:col-span-3 row-span-1': selected === 0 && !hasFewInfo,
+                'col-span-6 md:col-span-3 row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 7
             }">
                 <template #default>
@@ -157,10 +160,10 @@
             </UCard>
 
             <UCard v-if="athlete.reason || athlete.psychology" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-6 row-span-1': selected === 0 && (hasMedals && athlete.education) || (!hasMedals && !athlete.education),
-                'col-span-6 row-span-2': selected === 0 && hasFewInfo,
-                'col-span-3 row-span-1': selected === 0 && hasMedals && !athlete.education,
-                'col-span-6 row-span-4': selected === 0 && !hasMedals && athlete.education,
+                'col-span-12 md:col-span-6 md:row-span-1': selected === 0 && (hasMedals && athlete.education) || (!hasMedals && !athlete.education),
+                'col-span-12 md:col-span-6 md:row-span-2': selected === 0 && hasFewInfo,
+                'col-span-12 md:col-span-3 md:row-span-1': selected === 0 && hasMedals && !athlete.education,
+                'col-span-12 md:col-span-6 md:row-span-4': selected === 0 && !hasMedals && athlete.education,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && bioExpandable,
                 'animate-bento-card': selected === 0 && transitioning && previousCard === 8,
                 'animate-full-screen h-full': selected === 8,
@@ -228,8 +231,8 @@
             </UCard>
 
             <UCard v-if="athlete.coach && !athlete.education" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-3 row-span-1': selected === 0 && !athlete.education,
-                'col-span-3 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-12 md:col-span-3 md:row-span-1': selected === 0 && !athlete.education,
+                'col-span-12 md:col-span-3 md:row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 10
             }">
                 <template #default>
@@ -245,8 +248,8 @@
             </UCard>
 
             <UCard v-if="athlete.education" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-6 row-span-2': selected === 0 && !hasFewInfo,
-                'col-span-6 row-span-4': selected === 0 && hasFewInfo,
+                'col-span-12 md:col-span-6 md:row-span-2': selected === 0 && !hasFewInfo,
+                'col-span-12 md:col-span-6 md:row-span-4': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 9
             }">
                 <template #default>
@@ -269,7 +272,7 @@
             <UCard v-if="athlete.achievements && athlete.achievements.length > 0" variant="soft"
                 :ui="{ 'body': 'h-full' }" :class="{
                     'col-span-12 md:col-span-6 row-span-1 md:row-span-3': selected === 0 && athlete.education,
-                    'col-span-12 row-span1 md:row-span-3': selected === 0 && !athlete.education,
+                    'col-span-12 md:row-span-3': selected === 0 && !athlete.education,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && athlete.achievements.length > 3,
                     'animate-bento-card': selected === 0 && transitioning && previousCard === 11,
                     'transition-all duration-500 transform h-full': selected === 11,
@@ -398,8 +401,8 @@
             </UCard>
 
             <UCard v-if="athlete.coach && athlete.education" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-6 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-6 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-12 md:col-span-6 md:row-span-1': selected === 0 && !hasFewInfo,
+                'col-span-12 md:col-span-6 md:row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 10
             }">
                 <template #default>
@@ -415,8 +418,8 @@
             </UCard>
 
             <UCard v-if="athlete.height" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-2 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-2 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
+                'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 12
             }">
                 <template #default>
@@ -430,8 +433,8 @@
             </UCard>
 
             <UCard v-if="athlete.weight && athlete.weight !== 0" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-2 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-2 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
+                'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 13
             }">
                 <template #default>

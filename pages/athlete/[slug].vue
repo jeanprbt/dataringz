@@ -2,7 +2,8 @@
     <PageModal :show="showAthletePage" :back="transition" :transition="true" :items="items" @close="closePage"
         @back="router.back()">
 
-        <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 && !hasFewInfo, 'grid grid-cols-12 md:grid-rows-10': selected === 0 && hasFewInfo}]">
+        <div
+            :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 && !hasFewInfo, 'grid grid-cols-12 md:grid-rows-10': selected === 0 && hasFewInfo }]">
 
             <UCard v-if="profilePicture" variant="soft" :ui="{ 'body': 'p-0 md:p-0 h-full' }" :class="{
                 'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && !hasFewInfo,
@@ -26,12 +27,13 @@
             }">
                 <template #default>
                     <div class="flex w-full h-full justify-left gap-4">
-                        <img v-if="!isSmallScreen" class="rounded-lg w-1/6" :src="`/img/sports/SVG/${athlete.sports[0]['slug']}.svg`" />
+                        <img v-if="!isSmallScreen" class="rounded-lg w-1/6"
+                            :src="`/img/sports/SVG/${athlete.sports[0]['slug']}.svg`" />
                         <div class="flex flex-col justify-center">
                             <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ athlete.name }}
                             </h2>
                             <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ athlete.sports[0]["name"]
-                                }}
+                            }}
                             </p>
                         </div>
                     </div>
@@ -70,7 +72,7 @@
                             <UIcon v-if="eventsCardHovered && athlete.events.length > 4"
                                 name="i-heroicons-arrow-up-right" class="absolute top-1 right-1" />
                         </transition>
-                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
                         <div
                             class="grid gap-3 h-full [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] auto-rows-fr">
                             <p v-for="(event, index) in compactEvents" :key="index" :class="[
@@ -93,7 +95,7 @@
                         <img class="rounded-lg w-1/6" :src="`/img/countries/${athlete.country.code.toLowerCase()}.svg`"
                             :alt="athlete.country.name" />
                         <div class="flex flex-col h-full justify-center">
-                            <h2 class="text-xl font-bold text-zinc-800 dark:text-white">Country</h2>
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Country</h2>
                             <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                                 {{ athlete.country.name }}
                             </p>
@@ -109,7 +111,9 @@
             }">
                 <template #default>
                     <div class="w-full h-full rounded-lg">
-                        <h2 :class="['text-xl font-bold text-zinc-800 dark:text-white', { 'mb-1': hasFewInfo }]">Age</h2>
+                        <h2
+                            :class="['text-lg md:text-xl font-bold text-zinc-800 dark:text-white', { 'mb-1': hasFewInfo }]">
+                            Age</h2>
                         <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                             {{ athlete.age }}
                         </p>
@@ -118,13 +122,13 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-6 md:col-span-2 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-6 md:col-span-2 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-3 md:col-span-1 row-span-1': selected === 0 && !hasFewInfo,
+                'col-span-3 md:col-span-1 row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 6
             }">
                 <template #default>
                     <div class="w-full h-full rounded-lg">
-                        <h2 :class="['text-xl font-bold text-zinc-800 dark:text-white', { 'mb-1': hasFewInfo }]">Gender</h2>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Sex</h2>
                         <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                             {{ athlete.gender }}
                         </p>
@@ -133,18 +137,19 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-6 md:col-span-3 row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-6 md:col-span-3 row-span-2': selected === 0 && hasFewInfo,
+                'col-span-9 md:col-span-4 row-span-1': selected === 0 && !hasFewInfo,
+                'col-span-9 md:col-span-4 row-span-2': selected === 0 && hasFewInfo,
                 'hidden': selected !== 0 && selected !== 7
             }">
                 <template #default>
                     <div class="w-full h-full rounded-lg">
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white mb-1">Birth</h2>
-                        <div class="flex gap-3 items-center">
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Birth</h2>
+                        <div class="flex gap-2 items-center">
                             <div class="flex gap-1 items-center">
                                 <UIcon name="i-heroicons-calendar-days" />
                                 <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                                    {{ formatAthleteDate(athlete.birth_date) }}
+                                    {{ isSmallScreen ? formatDate(athlete.birth_date, "short") :
+                                        formatDate(athlete.birth_date) }}
                                 </p>
                             </div>
 
@@ -160,9 +165,9 @@
             </UCard>
 
             <UCard v-if="athlete.reason || athlete.psychology" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-12 md:col-span-6 md:row-span-1': selected === 0 && (hasMedals && athlete.education) || (!hasMedals && !athlete.education),
+                'col-span-12 md:col-span-6 md:row-span-1': selected === 0 && (hasMedals && athlete.education) || (!hasMedals && !athlete.education) || (hasMedals && !athlete.education && !athlete.coach),
                 'col-span-12 md:col-span-6 md:row-span-2': selected === 0 && hasFewInfo,
-                'col-span-12 md:col-span-3 md:row-span-1': selected === 0 && hasMedals && !athlete.education,
+                'col-span-12 md:col-span-3 md:row-span-1': selected === 0 && hasMedals && !athlete.education && athlete.coach,
                 'col-span-12 md:col-span-6 md:row-span-4': selected === 0 && !hasMedals && athlete.education,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && bioExpandable,
                 'animate-bento-card': selected === 0 && transitioning && previousCard === 8,
@@ -176,8 +181,7 @@
                             @click.stop="toggleCard(8)" />
 
                         <div class="h-full flex flex-col gap-4 p-1">
-                            <h2 class="text-xl font-bold text-zinc-800 dark:text-white">Biography</h2>
-
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Biography</h2>
                             <div v-if="athlete.reason" class="flex gap-3">
                                 <UIcon name="i-heroicons-newspaper"
                                     class="flex-shrink-0 mt-1 text-zinc-600 dark:text-zinc-400" />
@@ -204,8 +208,9 @@
                             <UIcon v-if="motivationCardHovered && bioExpandable" name="i-heroicons-arrow-up-right"
                                 class="absolute top-1 right-1" />
                         </transition>
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white mb-1">Biography</h2>
-                        <p v-if="hasMedals || (!hasMedals && !athlete.education)" class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Biography</h2>
+                        <p v-if="hasMedals || (!hasMedals && !athlete.education)"
+                            class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                             {{ compactBio }}
                         </p>
                         <div v-else class="mt-4">
@@ -233,14 +238,34 @@
             <UCard v-if="athlete.coach && !athlete.education" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                 'col-span-12 md:col-span-3 md:row-span-1': selected === 0 && !athlete.education,
                 'col-span-12 md:col-span-3 md:row-span-2': selected === 0 && hasFewInfo,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && coachExpandable,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 10,
+                'transition-all duration-500 transform h-full': selected === 10,
                 'hidden': selected !== 0 && selected !== 10
-            }">
+            }" @click="selected === 10 ? () => { } : coachExpandable ? toggleCard(10) : () => { }"
+                @mouseenter="coachCard1Hovered = true" @mouseleave="coachCard1Hovered = false">
                 <template #default>
-                    <div class="w-full h-full rounded-lg">
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
+                    <div v-if="selected === 10" class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                            @click.stop="toggleCard(10)" />
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
                         <div class="flex flex-col gap-2 h-full">
                             <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                                 {{ athlete.coach }}
+                            </p>
+                        </div>
+                    </div>
+                    <div v-else class="w- ull h-full rounded-lg relative">
+                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                            <UIcon v-if="coachCard1Hovered && coachExpandable"
+                                name="i-heroicons-arrow-up-right" class="absolute top-0 right-0" />
+                        </transition>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
+                        <div class="flex flex-col gap-2 h-full">
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                {{ compactCoach }}
                             </p>
                         </div>
                     </div>
@@ -254,7 +279,7 @@
             }">
                 <template #default>
                     <div class="w-full h-full rounded-lg">
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white mb-3">Education</h2>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-3">Education</h2>
                         <div class="flex flex-col gap-2 h-full">
                             <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                                 {{ athlete.education }}
@@ -292,7 +317,7 @@
                                         <div
                                             :class="`w-8 h-8 rounded-full flex items-center justify-center ${medalColorClass(type)} mb-1`">
                                             <span class="text-white font-bold text-base">{{ medalEmojiMap[type]
-                                            }}</span>
+                                                }}</span>
                                         </div>
                                         <div class="text-xl font-bold text-zinc-800 dark:text-white">{{ count }}</div>
                                         <div class="text-xs text-zinc-600 dark:text-gray-400">{{ type }}</div>
@@ -335,7 +360,7 @@
                                     name="i-heroicons-arrow-up-right" class="absolute top-2 right-2" />
                             </transition>
                             <div class="flex flex-col items-left">
-                                <h2 class="text-xl font-bold text-zinc-800 dark:text-white">Olympic
+                                <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Olympic
                                     Medals
                                 </h2>
                                 <div class="text-xs text-zinc-500 dark:text-gray-400">{{ athlete.achievements.length }}
@@ -347,10 +372,10 @@
                                     <div
                                         :class="`w-6 md:w-8 h-6 md:h-8 rounded-full flex items-center justify-center ${medalColorClass(type)} transition-transform hover:scale-110`">
                                         <span class="text-white font-bold text-sm md:text-base">{{ medalEmojiMap[type]
-                                        }}</span>
+                                            }}</span>
                                     </div>
                                     <div class="text-sm md:text-base font-bold text-zinc-800 dark:text-white">{{ count
-                                    }}
+                                        }}
                                     </div>
                                 </div>
                             </div>
@@ -362,7 +387,7 @@
                                             :class="`w-4 h-4 rounded-full flex shrink-0 items-center justify-center ${medalColorClass(sortedMedals[0].type)}`">
                                             <span class="text-white font-bold text-xs">{{
                                                 medalEmojiMap[sortedMedals[0].type.split(' ')[0]]
-                                            }}</span>
+                                                }}</span>
                                         </div>
                                         <div class="flex-1 truncate text-zinc-700 dark:text-zinc-300">{{
                                             sortedMedals[0].event }}</div>
@@ -400,31 +425,51 @@
                 </template>
             </UCard>
 
-            <UCard v-if="athlete.coach && athlete.education" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+             <UCard v-if="athlete.coach && athlete.education" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                 'col-span-12 md:col-span-6 md:row-span-1': selected === 0 && !hasFewInfo,
                 'col-span-12 md:col-span-6 md:row-span-2': selected === 0 && hasFewInfo,
-                'hidden': selected !== 0 && selected !== 10
-            }">
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && coachExpandable,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 12,
+                'transition-all duration-500 transform h-full': selected === 12,
+                'hidden': selected !== 0 && selected !== 12
+            }" @click="selected === 12 ? () => { } : coachExpandable ? toggleCard(12) : () => { }"
+                @mouseenter="coachCard2Hovered = true" @mouseleave="coachCard2Hovered = false">
                 <template #default>
-                    <div class="w-full h-full rounded-lg">
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
+                    <div v-if="selected === 12" class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                            @click.stop="toggleCard(12)" />
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
                         <div class="flex flex-col gap-2 h-full">
                             <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                                 {{ athlete.coach }}
                             </p>
                         </div>
                     </div>
+                    <div v-else class="w- ull h-full rounded-lg relative">
+                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                            <UIcon v-if="coachCard2Hovered && coachExpandable"
+                                name="i-heroicons-arrow-up-right" class="absolute top-0 right-0" />
+                        </transition>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
+                        <div class="flex flex-col gap-2 h-full">
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                {{ compactCoach }}
+                            </p>
+                        </div>
+                    </div>
                 </template>
             </UCard>
 
-            <UCard v-if="athlete.height" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+            <UCard v-if="athlete.height && ((!athlete.reason && !athlete.philosophy && hasMedals) || !hasMedals)" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                 'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
                 'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
-                'hidden': selected !== 0 && selected !== 12
+                'hidden': selected !== 0 && selected !== 13
             }">
                 <template #default>
                     <div class="w-full h-full rounded-lg">
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white">Height</h2>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Height</h2>
                         <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                             {{ formatHeight(athlete.height) }}
                         </p>
@@ -432,16 +477,16 @@
                 </template>
             </UCard>
 
-            <UCard v-if="athlete.weight && athlete.weight !== 0" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+             <UCard v-if="athlete.weight && ((!athlete.reason && !athlete.philosophy && hasMedals) || !hasMedals)" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                 'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
                 'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
-                'hidden': selected !== 0 && selected !== 13
+                'hidden': selected !== 0 && selected !== 14
             }">
                 <template #default>
                     <div class="w-full h-full rounded-lg">
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white">Weight</h2>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Weight</h2>
                         <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                            {{ athlete.weight }}kg
+                            {{ athlete.weight }} kg
                         </p>
                     </div>
                 </template>
@@ -527,6 +572,8 @@ const isSmallScreen = ref(false);
 const motivationCardHovered = ref(false);
 const medalsCardHovered = ref(false);
 const eventsCardHovered = ref(false);
+const coachCard1Hovered = ref(false);
+const coachCard2Hovered = ref(false);
 const bioExpandable = computed(() => {
     if ((!athlete.achievements || athlete.achievements.length === 0) && athlete.education) return false;
     if (athlete.reason && athlete.philosophy) return true;
@@ -534,6 +581,7 @@ const bioExpandable = computed(() => {
     if (athlete.philosophy) return athlete.philosophy.length > 60
     return false;
 });
+const coachExpandable = computed(() => athlete.coach && athlete.coach.length > 35);
 const compactBio = computed(() => {
     const text = athlete.reason || athlete.philosophy || '';
     const limit = athlete.coach && !athlete.education ? 30 : 60;
@@ -543,6 +591,13 @@ const compactBio = computed(() => {
     if (lastSpaceIndex === -1) return text.substring(0, limit) + '...';
     return text.substring(0, lastSpaceIndex) + '...';
 });
+const compactCoach = computed(() => {
+    const text = athlete.coach;
+    if (text.length <= 35) return text;
+    const lastSpaceIndex = text.substring(0, 35).lastIndexOf(' ');
+    if (lastSpaceIndex === -1) return text.substring(0, 35) + '...';
+    return text.substring(0, lastSpaceIndex) + '...';
+})
 const compactEvents = computed(() => athlete.events.slice(0, 4))
 const profilePicture = computed(() => slug && athlete && athlete.image && athlete.image.should_show_image);
 const hasMedals = computed(() => athlete.achievements && athlete.achievements.length > 0);
@@ -560,6 +615,9 @@ onMounted(() => {
 const toggleCard = (index: number = 0) => {
     motivationCardHovered.value = false;
     medalsCardHovered.value = false;
+    coachCard1Hovered.value = false;
+    coachCard2Hovered.value = false;
+    eventsCardHovered.value = false;
     if (selected.value !== 0) {
         previousCard.value = selected.value;
         transitioning.value = true;

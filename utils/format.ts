@@ -87,17 +87,4 @@ function formatDistance(distanceStr: string): string {
     return metersWithCm;
 }
 
-// ATHLETE NAME --------------------------------------------------------------------------------------------------------
-const formatAthleteName = (name: string) => {
-  const words = name.split(' ');
-  if (words.length <= 1) return name;
-  
-  const lastWord = words.pop();
-  words.unshift(lastWord as string);
-  
-  return words.map(word => 
-    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-  ).join(' ');
-}
-
-export { formatDateRange, yearMonthDayDate, formatDate, formatTime, formatDistance, formatAthleteName }
+export { formatDateRange, yearMonthDayDate, formatDate, formatTime, formatDistance }

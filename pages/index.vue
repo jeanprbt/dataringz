@@ -119,7 +119,7 @@ const getMapItems = (map: mapboxgl.Map) => {
         items: Object.keys(athletes).map(key => {
             let athlete = athletes[key as keyof typeof athletes] as any;
             return {
-                label: formatAthleteName(athlete.name),
+                label: athlete.name,
                 async onSelect() {
                     open.value = false;
                     const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]

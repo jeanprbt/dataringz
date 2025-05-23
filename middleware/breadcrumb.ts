@@ -34,13 +34,14 @@ export default defineNuxtRouteMiddleware((to, _) => {
     } else if (to.fullPath.includes('/athlete/')) {
         const athlete = athletes[slug as keyof typeof athletes] as any;
         const slugIndex = breadcrumb.value.findIndex(item => item.label === athlete.name)
+
         if (slugIndex !== -1) {
             breadcrumb.value = breadcrumb.value.slice(0, slugIndex + 1);
         } else {
             breadcrumb.value.push({
-                label: formatAthleteName(athlete.name),
+                label: athlete.name,
                 to: `/athlete/${slug}`,
-                icon: 'i-lucide-person-standing'
+                icon: 'i-lucide-person-standing',
             })
         }
     } else {

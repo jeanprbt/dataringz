@@ -186,7 +186,7 @@
                                     class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 p-2">
                                     <span
                                         class="text-center text-xs md:text-sm font-medium text-zinc-800 dark:text-white">
-                                        {{ formatAthleteName(athlete.name) }}
+                                        {{ athlete.name }}
                                     </span>
                                     <div v-if="athlete.country" class="flex items-center mt-1">
                                         <CountryFlag v-if="athlete.countryCode" :code="athlete.countryCode"

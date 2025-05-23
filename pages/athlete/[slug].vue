@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-else class="h-full flex flex-col justify-between gap-1">
+                    <div v-else class="h-full flex flex-col justify-between gap-1 relative">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
@@ -86,7 +86,7 @@
                 <template #default>
                     <div class="flex flex-col justify-center h-full">
                         <div class="flex gap-2 items-baseline">
-                            <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ formatAthleteName(athlete.name) }}
+                            <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ athlete.name }}
                             </h2>
                             <p v-if="athlete.nickname"
                                 class="text-sm md:text-md italic text-gray-500 dark:text-gray-500 line-clamp-2">

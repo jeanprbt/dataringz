@@ -6,6 +6,7 @@
 import { ref, onMounted, watch, onUnmounted } from 'vue';
 import * as d3 from 'd3';
 import athletes from '~/data/athletes.json';
+import countries from '~/data/countries.json';
   
 const props = defineProps({
   slug: {
@@ -20,7 +21,11 @@ const props = defineProps({
 });
   
 const chartContainer = ref<HTMLDivElement | null>(null);
-  
+
+const getCountryNameFromSlug = (slug: string): string => {
+  return countries[slug as keyof typeof countries]?.name || slug;
+};
+
 const createPieChart = () => {
   if (!chartContainer.value) return;
 
@@ -44,7 +49,8 @@ const createPieChart = () => {
     if (props.type === 'sport') {
       return athlete.sports?.some((s: any) => s.slug === props.slug);
     } else if (props.type === 'country') {
-      return athlete.country.slug === props.slug;
+      const countryName = getCountryNameFromSlug(props.slug);
+      return athlete.country.name === countryName;
     }
     return false;
   });
@@ -156,8 +162,8 @@ const createPieChart = () => {
 
   legend.append('text')
     .attr('x', legendRectSize * 1.5)
-    .attr('y', 0)
-    .style('fill', '#555')
+    .attr('y', -3)
+    .style('fill', () => document.documentElement.classList.contains('dark') ? '#e5e5e5' : '#555')
     .style('font-size', `${fontSize}px`)
     .style('alignment-baseline', 'middle')
     .style('dominant-baseline', 'middle') // Ensure text is vertically centered
@@ -198,5 +204,5 @@ onUnmounted(() => {
   }
 });
 
-watch(() => props.sportSlug, createPieChart);
+watch(() => props.slug, createPieChart);
 </script>

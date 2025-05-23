@@ -186,7 +186,7 @@
                                     class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 p-2">
                                     <span
                                         class="text-center text-xs md:text-sm font-medium text-zinc-800 dark:text-white">
-                                        {{ athlete.name }}
+                                        {{ formatAthleteName(athlete.name) }}
                                     </span>
                                     <div v-if="athlete.country" class="flex items-center mt-1">
                                         <CountryFlag v-if="athlete.countryCode" :code="athlete.countryCode"
@@ -208,7 +208,8 @@
                 'animate-bento-card': selected === 0 && transitioning && previous === 6,
                 'transition-all duration-500 transform h-full': selected === 6,
                 'hidden': selected !== 0 && selected !== 6
-            }" @click="selected === 6 ? () => { } : toggleCard(6)">
+            }" @click="selected === 6 ? () => { } : toggleCard(6)" @mouseenter="ageCardHovered = true"
+                @mouseleave="ageCardHovered = false">
                 <template #default>
                     <div v-if="selected === 6" class="h-full relative">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
@@ -217,6 +218,12 @@
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
+                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                            <UIcon v-if="ageCardHovered" name="i-heroicons-arrow-up-right"
+                                class="absolute right-0" />
+                        </transition>
                         <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Age distribution</h3>
                         <img v-if="!isSmallScreen" class="w-full h-full p-12" src="/img/foo_age_chart.png"
                             alt="Foo chart" />
@@ -278,6 +285,8 @@ const eventHovered = ref(false);
 const eventCardHovered = ref(false);
 const athleteHovered = ref(false);
 const athleteCardHovered = ref(false);
+const ageCardHovered = ref(false);
+
 
 onMounted(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');

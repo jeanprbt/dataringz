@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showAthletePage" :back="transition" :transition="true" :items="items" @close="closePage"
+    <PageModal :show="showAthletePage" :back="transition" :transition="transition" :items="items" @close="closePage"
         @back="router.back()">
 
         <div :class="['gap-2 md:gap-4 p-2 h-full overflow-x-hidden', { 
@@ -86,7 +86,7 @@
                 <template #default>
                     <div class="flex flex-col justify-center h-full">
                         <div class="flex gap-2 items-baseline">
-                            <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ athlete.name }}
+                            <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ formatAthleteName(athlete.name) }}
                             </h2>
                             <p v-if="athlete.nickname"
                                 class="text-sm md:text-md italic text-gray-500 dark:text-gray-500 line-clamp-2">
@@ -145,6 +145,7 @@
             }" @click="(athlete.reason || athlete.philosophy) ? toggleCard(4) : () => { }"
                 @mouseenter="hoveredCard = 4" @mouseleave="hoveredCard = null">
                 <template #default>
+                    <!-- full screen -->
                     <div v-if="selected === 4" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 top-0"
                             @click.stop="toggleCard(4)" />
@@ -160,7 +161,8 @@
                             </div>
                         </div>
                     </div>
-                    <div v-else class="h-full flex flex-col justify-between">
+                    <!-- bento -->
+                    <div v-else class="h-full flex flex-col justify-between relative">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
@@ -171,7 +173,6 @@
                         <div class="overflow-hidden flex flex-col my-auto">
                             <div v-if="athlete.reason" class="min-h-0 mb-auto">
                                 <div class="text-xs md:text-sm text-zinc-800 dark:text-white flex flex-col md:flex-row gap-1">
-                                    <span class="text-zinc-500 dark:text-zinc-400 flex-shrink-0">Why:</span>
                                     <div :class="[
                                         athlete.achievements?.length > 0 ? 'line-clamp-3' : 'line-clamp-5',
                                         'text-justify'
@@ -180,7 +181,6 @@
                             </div>
                             <div v-if="athlete.philosophy && !athlete.reason" class="min-h-0">
                                 <div class="text-xs md:text-sm text-zinc-800 dark:text-white flex flex-col md:flex-row gap-1">
-                                    <span class="text-zinc-500 dark:text-zinc-400 flex-shrink-0">Philosophy:</span>
                                     <div :class="[
                                         athlete.achievements?.length > 0 ? 'line-clamp-3' : 'line-clamp-5',
                                         'text-justify'
@@ -251,14 +251,14 @@
                             </div>
                         </div>
                     </div>
-                    <div v-else class="h-full flex flex-col justify-between gap-2">
+                    <div v-else class="h-full flex flex-col justify-between gap-2 relative">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
                             <UIcon v-if="hoveredCard === 5" name="i-heroicons-arrow-up-right"
                                 class="absolute top-2 right-2" />
                         </transition>
-                        <div class="flex items-center justify-between">
+                        <div class="flex flex-col items-left">
                             <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Olympic Medals</h3>
                             <div class="text-xs text-zinc-500 dark:text-gray-400">{{ athlete.achievements.length }} total</div>
                         </div>
@@ -407,7 +407,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-else class="h-full flex flex-col justify-between gap-1">
+                    <div v-else class="h-full flex flex-col justify-between gap-1 relative">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
@@ -546,7 +546,7 @@
 import athletes from '~/data/athletes.json';
 
 definePageMeta({
-    middleware: ['previous', 'breadcrumb'],
+    middleware: ['athlete', 'previous', 'breadcrumb'],
     layout: 'canvas'
 });
 
@@ -616,7 +616,6 @@ const selected = ref(0);
 const previousCard = ref(0);
 const transitioning = ref(false);
 const isSmallScreen = ref(false);
-
 const hoveredCard = ref<number | null>(null);
 
 onMounted(() => {

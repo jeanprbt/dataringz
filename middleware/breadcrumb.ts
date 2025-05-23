@@ -38,7 +38,7 @@ export default defineNuxtRouteMiddleware((to, _) => {
             breadcrumb.value = breadcrumb.value.slice(0, slugIndex + 1);
         } else {
             breadcrumb.value.push({
-                label: athlete.name,
+                label: formatAthleteName(athlete.name),
                 to: `/athlete/${slug}`,
                 icon: 'i-lucide-person-standing'
             })

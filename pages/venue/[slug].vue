@@ -1,55 +1,57 @@
 <template>
     <PageModal :show="showVenuePage" :transition="transition" :items="items" @close="closePage">
-        <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-12': selected === 0 }]">
+        <div
+            :class="['gap-4 p-2 h-full flex flex-col overflow-y-auto', { 'md:grid md:grid-cols-12 md:grid-rows-12 md:overflow-hidden': selected === 0 }]">
             <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
-                'col-span-12 md:col-span-8 row-span-4 md:row-span-8': selected === 0,
+                'col-span-12 md:col-span-8 row-span-4 md:row-span-8 flex-shrink-0 h-64 md:h-auto': selected === 0,
                 'hidden': selected !== 0 && selected !== 1
             }">
                 <template #default>
                     <img :src="`/img/venues/${venue.slug}.jpg`" :alt="venue.name"
-                        class="w-full h-full rounded-lg shadow-lg" />
+                        class="w-full h-full rounded-lg shadow-lg object-cover" />
                 </template>
             </UCard>
 
-            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
-                'col-span-12 md:col-span-4 row-span-2': selected === 0,
-                // 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
+                'col-span-12 md:col-span-4 row-span-2 flex-shrink-0': selected === 0,
                 'hidden': selected !== 0 && selected !== 2
             }">
                 <template #default>
                     <div class="flex flex-col h-full justify-center">
-                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ venue.name }}</h2>
-                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ venue.description }}</p>
+                        <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">{{ venue.name }}</h2>
+                        <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">{{ venue.description }}</p>
                     </div>
                 </template>
             </UCard>
 
-            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
-                'col-span-6 md:col-span-2 row-span-2': selected === 0,
-                'hidden': selected !== 0 && selected !== 3
-            }">
-                <template #default>
-                    <div class="flex flex-col h-full justify-center">
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white">Start</h2>
-                        <p class="text-base text-gray-600 dark:text-gray-400">{{ dateStart }}</p>
-                    </div>
-                </template>
-            </UCard>
+            <div class="grid grid-cols-2 gap-4 md:contents">
+                <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
+                    'md:col-span-2 md:row-span-2 flex-shrink-0': selected === 0,
+                    'hidden': selected !== 0 && selected !== 3
+                }">
+                    <template #default>
+                        <div class="flex flex-col h-full justify-center">
+                            <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">Start</h2>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">{{ dateStart }}</p>
+                        </div>
+                    </template>
+                </UCard>
 
-            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
-                'col-span-6 md:col-span-2 row-span-2': selected === 0,
-                'hidden': selected !== 0 && selected !== 3
-            }">
-                <template #default>
-                    <div class="flex flex-col h-full justify-center">
-                        <h2 class="text-xl font-bold text-zinc-800 dark:text-white">End</h2>
-                        <p class="text-base text-gray-600 dark:text-gray-400">{{ dateEnd }}</p>
-                    </div>
-                </template>
-            </UCard>
+                <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
+                    'md:col-span-2 md:row-span-2 flex-shrink-0': selected === 0,
+                    'hidden': selected !== 0 && selected !== 3
+                }">
+                    <template #default>
+                        <div class="flex flex-col h-full justify-center">
+                            <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">End</h2>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">{{ dateEnd }}</p>
+                        </div>
+                    </template>
+                </UCard>
+            </div>
 
             <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
-                'col-span-12 md:col-span-4 row-span-4': selected === 0,
+                'col-span-12 md:col-span-4 row-span-4 flex-shrink-0 h-64 md:h-auto': selected === 0,
                 'hidden': selected !== 0 && selected !== 3
             }">
                 <template #default>
@@ -57,26 +59,29 @@
                 </template>
             </UCard>
 
-            <UCard v-for="sport in venue.sports" :key="sport.slug" variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }"
-                :class="{
-                    'col-span-12 md:col-span-12': venue.sports.length === 1 && selected === 0,
-                    'col-span-12 md:col-span-6': venue.sports.length === 2 && selected === 0,
-                    'col-span-6 md:col-span-4': venue.sports.length === 3 && selected === 0,
-                    'col-span-6 md:col-span-3': venue.sports.length >= 4 && selected === 0,
-                    'row-span-2 md:row-span-4': selected === 0,
-                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    'hidden': selected !== 0 && selected !== 3
-                }">
-                <template #default>
-                    <NuxtLink :to="`/sport/${sport.slug}`"
-                        class="w-full h-full flex flex-col items-center justify-center p-4">
-                        <img :src="`/img/sports/SVG/${sport.slug}.svg`" :alt="sport.name"
-                            class="w-12 h-12 mb-2 dark:filter dark:invert dark:brightness-90" />
-                        <span class="text-center text-sm font-medium text-zinc-800 dark:text-white">{{ sport.name
+            <div class="grid grid-cols-2 gap-4 md:contents">
+                <UCard v-for="sport in venue.sports" :key="sport.slug" variant="soft"
+                    :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
+                        'col-span-12 md:col-span-12': venue.sports.length === 1 && selected === 0,
+                        'col-span-12 md:col-span-6': venue.sports.length === 2 && selected === 0,
+                        'col-span-6 md:col-span-4': venue.sports.length === 3 && selected === 0,
+                        'col-span-6 md:col-span-3': venue.sports.length >= 4 && selected === 0,
+                        'row-span-2 md:row-span-4': selected === 0,
+                        'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                        'hidden': selected !== 0 && selected !== 3,
+                        'flex-shrink-0 h-32 md:h-auto': true
+                    }">
+                    <template #default>
+                        <NuxtLink :to="`/sport/${sport.slug}`"
+                            class="w-full h-full flex flex-col items-center justify-center p-4">
+                            <img :src="`/img/sports/SVG/${sport.slug}.svg`" :alt="sport.name"
+                                class="w-12 h-12 mb-2 dark:filter dark:invert dark:brightness-90" />
+                            <span class="text-center text-sm font-medium text-zinc-800 dark:text-white">{{ sport.name
                             }}</span>
-                    </NuxtLink>
-                </template>
-            </UCard>
+                        </NuxtLink>
+                    </template>
+                </UCard>
+            </div>
         </div>
     </PageModal>
 </template>
@@ -124,7 +129,6 @@ const closePage = () => {
 const selected = ref(0);
 const previous = ref(0);
 const transitioning = ref(false);
-const isSmallScreen = ref(false);
 const dateStart = computed(() => formatDate(venue.date_start));
 const dateEnd = computed(() => formatDate(venue.date_end));
 
@@ -135,13 +139,6 @@ if (isClient) { mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '' };
 const smallMapContainer = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
-    const updateScreenSize = () => {
-        isSmallScreen.value = mediaQuery.matches;
-    };
-    updateScreenSize();
-    mediaQuery.addEventListener('change', updateScreenSize);
-
     if (smallMapContainer.value) {
         const map = new mapboxgl.Map({
             container: smallMapContainer.value as HTMLElement,
@@ -159,18 +156,18 @@ onMounted(() => {
     } else {
         watch(smallMapContainer, newValue => {
             const map = new mapboxgl.Map({
-            container: newValue as HTMLElement,
-            style: 'mapbox://styles/mapbox/standard',
-            center: [venue.location.longitude, venue.location.latitude] as [number, number],
-            zoom: 15,
-            pitch: 50,
-            bearing: 0,
-            maxZoom: 16,
-            minZoom: 14,
-        });
-        new mapboxgl.Marker({ color: 'red' })
-            .setLngLat([venue.location.longitude, venue.location.latitude] as [number, number])
-            .addTo(map)
+                container: newValue as HTMLElement,
+                style: 'mapbox://styles/mapbox/standard',
+                center: [venue.location.longitude, venue.location.latitude] as [number, number],
+                zoom: 15,
+                pitch: 50,
+                bearing: 0,
+                maxZoom: 16,
+                minZoom: 14,
+            });
+            new mapboxgl.Marker({ color: 'red' })
+                .setLngLat([venue.location.longitude, venue.location.latitude] as [number, number])
+                .addTo(map)
         })
     }
 });

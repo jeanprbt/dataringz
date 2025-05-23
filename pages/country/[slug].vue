@@ -62,56 +62,9 @@
                 </template>
             </UCard>
 
-            <!-- Gender Repartition - only visible in grid mode -->
-            <UCard v-if="selected === 0" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }"
-                class="col-span-6 row-span-5 flex flex-col">
-                <template #default>
-                    <div class="h-full">
-                        <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Gender distribution</h3>
-                        <D3GenderPieChart :slug="slug" :type="'country'" />
-                    </div>
-                </template>
-            </UCard>
-
-            <!-- Comparative Graph on Medals -->
-            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
-                'col-span-6 row-span-5': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                'absolute inset-0 m-2 z-20 transition-all duration-500 transform': selected === 1,
-                'hidden': selected !== 0 && selected !== 1
-            }" @click="selected === 1 ? () => { } : toggleCard(1)" @mouseenter="compareCardHovered = true"
-                @mouseleave="compareCardHovered = false">
-                <template #default>
-                    <!-- full screen -->
-                    <div v-if="selected === 1" class="h-full relative overflow-auto">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
-                            @click.stop="toggleCard(1)" />
-                        <h3 class="text-lg font-medium mb-4">Medal Comparison</h3>
-                        <!-- Full screen content here -->
-                        <div class="p-4">
-                            <D3MedalsComparisonHistogram :country-slug="country.slug" />
-                        </div>
-                    </div>
-                    <!-- bento -->
-                    <div v-else class="h-full relative">
-                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
-                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
-                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="compareCardHovered" name="i-heroicons-arrow-up-right"
-                                class="absolute right-0" />
-                        </transition>
-                        <h3 class="text-lg font-medium">Medal Comparison</h3>
-                        <div class="flex items-center justify-center h-[calc(100%)]">
-                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain"
-                                src="/img/comparison.png" alt="Foo chart" />
-                        </div>
-                    </div>
-                </template>
-            </UCard>
-
             <!-- Most Successful Sport - only visible in grid mode -->
             <UCard v-if="selected === 0" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }"
-                class="col-span-4 row-span-4 flex flex-col h-full">
+                class="col-span-6 row-span-5 flex flex-col h-full">
                 <template #default>
                     <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Best Sport</h3>
                     <div class="flex-grow h-full flex items-center justify-center px-3">
@@ -124,7 +77,7 @@
                                 </span>
                             </div>
 
-                            <div class="flex space-x-4">
+                            <div class="flex space-x-8">
                                 <div class="flex flex-col space-y-2 items-end">
                                     <span class="text-2xl font-bold text-yellow-500 leading-8">
                                         {{ bestSport.medals.gold }}
@@ -151,10 +104,9 @@
                 </template>
             </UCard>
 
-
             <!-- Medal Count - only visible in grid mode -->
             <UCard v-if="selected === 0" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }"
-                class="col-span-4 row-span-4 flex flex-col">
+                class="col-span-6 row-span-5 flex flex-col">
                 <template #default>
                     <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Paris 2024 Totals</h3>
                     <div class="flex flex-col h-full">
@@ -183,6 +135,54 @@
                     </div>
                 </template>
             </UCard>
+
+            <!-- Gender Repartition - only visible in grid mode -->
+            <UCard v-if="selected === 0" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }"
+                class="col-span-4 row-span-4 flex flex-col">
+                <template #default>
+                    <div class="h-full">
+                        <D3GenderPieChart :slug="slug" :type="'country'" />
+                    </div>
+                </template>
+            </UCard>
+
+            <!-- Comparative Graph on Medals -->
+            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
+                'col-span-4 row-span-4': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'absolute inset-0 m-2 z-20 transition-all duration-500 transform': selected === 1,
+                'hidden': selected !== 0 && selected !== 1
+            }" @click="selected === 1 ? () => { } : toggleCard(1)" @mouseenter="compareCardHovered = true"
+                @mouseleave="compareCardHovered = false">
+                <template #default>
+                    <!-- full screen -->
+                    <div v-if="selected === 1" class="h-full relative overflow-auto">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
+                            @click.stop="toggleCard(1)" />
+                        <h3 class="text-lg font-medium mb-4">Medal Comparison</h3>
+                        <!-- Full screen content here -->
+                        <div class="p-4">
+                            <D3MedalsComparisonHistogram :country-slug="country.slug" />
+                        </div>
+                    </div>
+                    <!-- bento -->
+                    <div v-else class="h-full relative">
+                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                            <UIcon v-if="compareCardHovered" name="i-heroicons-arrow-up-right"
+                                class="absolute right-0" />
+                        </transition>
+                        <h3 class="text-lg font-medium">Medal Comparison</h3>
+                        <div class="flex items-center justify-center h-[calc(110%)]">
+                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain"
+                                src="/img/comparison.png" alt="Foo chart" />
+                        </div>
+                    </div>
+                </template>
+            </UCard>
+
+            
 
             <!-- Previous Editions -->
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{

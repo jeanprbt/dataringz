@@ -30,6 +30,17 @@ const formatDate = (dateString: string, format: 'short' | 'medium' | 'long' = 'm
     }
 };
 
+// FORMAT ATHLETE DATE ------------------------------------------------------------------------------------------------
+const formatAthleteDate = (dateString: string) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    }).format(date);
+};
+
 // DATE FORMAT RANGE ---------------------------------------------------------------------------------------------------
 const formatDateRange = (startDate: string, endDate: string) => {
     if (!startDate || !endDate) return 'Dates not available';
@@ -87,4 +98,12 @@ function formatDistance(distanceStr: string): string {
     return metersWithCm;
 }
 
-export { formatDateRange, yearMonthDayDate, formatDate, formatTime, formatDistance }
+// HEIGHT --------------------------------------------------------------------------------------------------------------
+function formatHeight(height: number): string {
+    if (!height && height !== 0) return '';
+    const meters = Math.floor(height / 100);
+    const centimeters = height % 100;
+    return `${meters}.${centimeters.toString().padStart(2, '0')} m`;
+}
+
+export { formatDateRange, yearMonthDayDate, formatDate, formatTime, formatDistance, formatAthleteDate, formatHeight }

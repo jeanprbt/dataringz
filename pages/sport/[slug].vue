@@ -3,8 +3,7 @@
         @back="router.back()">
 
         <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-6': selected === 0 }]">
-
-
+            
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-4 h-full' }" :class="{
                 'col-span-12 md:col-span-6 row-span-1': selected === 0,
                 'hidden': selected !== 0 && selected !== 2
@@ -318,7 +317,6 @@ const toggleCardAndSelectEvent = (index: number, event: any) => {
     selectEvent(event);
     toggleCard(index);
 }
-
 
 const hoverEvent = () => {
     eventCardHovered.value = false;

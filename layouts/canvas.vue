@@ -80,6 +80,7 @@ onMounted(async () => {
     const athleteAccess = useState('athlete');
     const sportAccess = useState('sport');
     const countryAccess = useState('country');
+    const eventAccess = useState('event');
     const olympicsAccess = useState('olympics');
     if (venueAccess.value) {
         directMapAccess = true;
@@ -93,7 +94,20 @@ onMounted(async () => {
     } else if (athleteAccess.value) {
         directMapAccess = true;
         const athlete = athletes[athleteAccess.value as keyof typeof athletes];
-        const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
+        const sport = sports[athlete["sports"][0] as keyof typeof sports]
+        const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues] as any;
+        directCoordinates = [venue.location.longitude, venue.location.latitude];
+    } else if (eventAccess.value) {
+        directMapAccess = true;
+        let slug = eventAccess.value as string;
+        let sport: any;
+        let event: any;
+        for (const key of Object.keys(sports)) {
+            if (slug.startsWith(key + '-')) {
+                sport = sports[key as keyof typeof sports];
+                event = sport.events[slug as keyof typeof sport.events];
+            }
+        }
         const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues] as any;
         directCoordinates = [venue.location.longitude, venue.location.latitude];
     } else if (olympicsAccess.value) {

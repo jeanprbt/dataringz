@@ -1,6 +1,6 @@
 <template>
     <PageModal :show="showVenuePage" :transition="transition" :items="items" @close="closePage">
-        <div
+        <div v-if="venue"
             :class="['gap-4 p-2 h-full flex flex-col overflow-y-auto', { 'md:grid md:grid-cols-12 md:grid-rows-12 md:overflow-hidden': selected === 0 }]">
             <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
                 'col-span-12 md:col-span-8 row-span-4 md:row-span-8 flex-shrink-0 h-64 md:h-auto': selected === 0,
@@ -83,6 +83,9 @@
                 </UCard>
             </div>
         </div>
+        <div v-else class="h-full flex items-center justify-center">
+            <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Venue not found.</p>
+        </div>
     </PageModal>
 </template>
 
@@ -127,7 +130,6 @@ const closePage = () => {
 
 // UI STATE ------------------------
 const selected = ref(0);
-const previous = ref(0);
 const transitioning = ref(false);
 const dateStart = computed(() => formatDate(venue.date_start));
 const dateEnd = computed(() => formatDate(venue.date_end));
@@ -139,11 +141,12 @@ if (isClient) { mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '' };
 const smallMapContainer = ref<HTMLElement | null>(null);
 
 onMounted(() => {
+    if (venue === undefined) return;
     if (smallMapContainer.value) {
         const map = new mapboxgl.Map({
             container: smallMapContainer.value as HTMLElement,
             style: 'mapbox://styles/mapbox/standard',
-            center: [venue.location.longitude, venue.location.latitude] as [number, number],
+            center: [venue.location.longitude, venue?.location.latitude] as [number, number],
             zoom: 15,
             pitch: 50,
             bearing: 0,
@@ -173,6 +176,7 @@ onMounted(() => {
 });
 
 useHead(() => {
+    if (venue === undefined) return;
     const name = venue.name;
     const sports = venue.sports && venue.sports.length > 0
         ? venue.sports.map((s: any) => s.name).join(', ')

@@ -217,7 +217,7 @@ const medalsColumns = [
             const total = row.getValue('total');
             const rank = row.getValue('rank');
 
-            let bgColorClass = 'bg-zinc-200/50';
+            let bgColorClass = 'bg-zinc-200/50 dark:bg-zinc-900';
             if (rank === 1) {
                 bgColorClass = 'bg-amber-300/50';
             } else if (rank === 2) {

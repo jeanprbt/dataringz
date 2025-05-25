@@ -122,7 +122,7 @@ const getMapItems = (map: mapboxgl.Map) => {
                 label: athlete.name,
                 async onSelect() {
                     open.value = false;
-                    const sport = sports[athlete["sports"][0]["slug"] as keyof typeof sports]
+                    const sport = sports[athlete["sports"][0] as keyof typeof sports]
                     const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
                     const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
                     flying = true;

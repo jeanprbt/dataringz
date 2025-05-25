@@ -5,30 +5,35 @@
         "slug": "archery",
         "description": "Archery competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Individual": {
+            "archery-mens-individual": {
                 "tournament": false,
                 "name": "Men's Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "archery-mens-individual"
             },
-            "Women's Individual": {
+            "archery-womens-individual": {
                 "tournament": false,
                 "name": "Women's Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "archery-womens-individual"
             },
-            "Men's Team": {
+            "archery-mens-team": {
                 "tournament": false,
                 "name": "Men's Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "archery-mens-team"
             },
-            "Women's Team": {
+            "archery-womens-team": {
                 "tournament": false,
                 "name": "Women's Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "archery-womens-team"
             },
-            "Mixed Team": {
+            "archery-mixed-team": {
                 "tournament": false,
                 "name": "Mixed Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "archery-mixed-team"
             }
         },
         "athletes": [
@@ -403,75 +408,89 @@
         "slug": "artistic-gymnastics",
         "description": "Artistic Gymnastics competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Team": {
+            "artistic-gymnastics-mens-team": {
                 "tournament": false,
                 "name": "Men's Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-mens-team"
             },
-            "Men's All-Around": {
+            "artistic-gymnastics-mens-all-around": {
                 "tournament": false,
                 "name": "Men's All-Around",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-mens-all-around"
             },
-            "Men's Floor Exercise": {
+            "artistic-gymnastics-mens-floor-exercise": {
                 "tournament": false,
                 "name": "Men's Floor Exercise",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-mens-floor-exercise"
             },
-            "Men's Pommel Horse": {
+            "artistic-gymnastics-mens-pommel-horse": {
                 "tournament": false,
                 "name": "Men's Pommel Horse",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-mens-pommel-horse"
             },
-            "Men's Rings": {
+            "artistic-gymnastics-mens-rings": {
                 "tournament": false,
                 "name": "Men's Rings",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-mens-rings"
             },
-            "Men's Vault": {
+            "artistic-gymnastics-mens-vault": {
                 "tournament": false,
                 "name": "Men's Vault",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-mens-vault"
             },
-            "Men's Parallel Bars": {
+            "artistic-gymnastics-mens-parallel-bars": {
                 "tournament": false,
                 "name": "Men's Parallel Bars",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-mens-parallel-bars"
             },
-            "Men's Horizontal Bar": {
+            "artistic-gymnastics-mens-horizontal-bar": {
                 "tournament": false,
                 "name": "Men's Horizontal Bar",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-mens-horizontal-bar"
             },
-            "Women's Team": {
+            "artistic-gymnastics-womens-team": {
                 "tournament": false,
                 "name": "Women's Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-womens-team"
             },
-            "Women's All-Around": {
+            "artistic-gymnastics-womens-all-around": {
                 "tournament": false,
                 "name": "Women's All-Around",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-womens-all-around"
             },
-            "Women's Vault": {
+            "artistic-gymnastics-womens-vault": {
                 "tournament": false,
                 "name": "Women's Vault",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-womens-vault"
             },
-            "Women's Uneven Bars": {
+            "artistic-gymnastics-womens-uneven-bars": {
                 "tournament": false,
                 "name": "Women's Uneven Bars",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-womens-uneven-bars"
             },
-            "Women's Balance Beam": {
+            "artistic-gymnastics-womens-balance-beam": {
                 "tournament": false,
                 "name": "Women's Balance Beam",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-womens-balance-beam"
             },
-            "Women's Floor Exercise": {
+            "artistic-gymnastics-womens-floor-exercise": {
                 "tournament": false,
                 "name": "Women's Floor Exercise",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-gymnastics-womens-floor-exercise"
             }
         },
         "athletes": [
@@ -1220,15 +1239,17 @@
         "slug": "artistic-swimming",
         "description": "Artistic Swimming competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Duet": {
+            "artistic-swimming-duet": {
                 "tournament": false,
                 "name": "Duet",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-swimming-duet"
             },
-            "Team": {
+            "artistic-swimming-team": {
                 "tournament": false,
                 "name": "Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "artistic-swimming-team"
             }
         },
         "athletes": [
@@ -1677,7 +1698,7 @@
         "slug": "athletics",
         "description": "Athletics competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's 100m": {
+            "athletics-mens-100m": {
                 "name": "Men's 100m",
                 "tournament": false,
                 "ranking": true,
@@ -1754,9 +1775,10 @@
                         "result_type": "TIME",
                         "participant_slug": "oblique-seville"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-100m"
             },
-            "Men's 200m": {
+            "athletics-mens-200m": {
                 "tournament": false,
                 "name": "Men's 200m",
                 "ranking": true,
@@ -1833,9 +1855,10 @@
                         "result_type": "TIME",
                         "participant_slug": "makanakaishe-charamba"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-200m"
             },
-            "Men's 400m": {
+            "athletics-mens-400m": {
                 "tournament": false,
                 "name": "Men's 400m",
                 "ranking": true,
@@ -1912,9 +1935,10 @@
                         "result_type": "TIME",
                         "participant_slug": "michael-norman"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-400m"
             },
-            "Men's 800m": {
+            "athletics-mens-800m": {
                 "tournament": false,
                 "name": "Men's 800m",
                 "ranking": true,
@@ -1991,9 +2015,10 @@
                         "result_type": "TIME",
                         "participant_slug": "max-burgin"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-800m"
             },
-            "Men's 1500m": {
+            "athletics-mens-1500m": {
                 "tournament": false,
                 "name": "Men's 1500m",
                 "ranking": true,
@@ -2106,9 +2131,10 @@
                         "result_type": "TIME",
                         "participant_slug": "brian-komen"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-1500m"
             },
-            "Men's 5000m": {
+            "athletics-mens-5000m": {
                 "tournament": false,
                 "name": "Men's 5000m",
                 "ranking": true,
@@ -2311,9 +2337,10 @@
                         "result_type": "TIME",
                         "participant_slug": "thomas-fafard"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-5000m"
             },
-            "Men's 10,000m": {
+            "athletics-mens-10,000m": {
                 "tournament": false,
                 "name": "Men's 10,000m",
                 "ranking": true,
@@ -2561,9 +2588,10 @@
                         "result_type": "IRM",
                         "participant_slug": "celestin-ndikumana"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-10,000m"
             },
-            "Men's Marathon": {
+            "athletics-mens-marathon": {
                 "tournament": false,
                 "name": "Men's Marathon",
                 "ranking": true,
@@ -3297,9 +3325,10 @@
                         "result_type": "IRM",
                         "participant_slug": "eduardo-garcia"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-marathon"
             },
-            "Men's 3000m Steeplechase": {
+            "athletics-mens-3000m-steeplechase": {
                 "tournament": false,
                 "name": "Men's 3000m Steeplechase",
                 "ranking": true,
@@ -3448,9 +3477,10 @@
                         "result_type": "IRM",
                         "participant_slug": "lamecha-girma"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-3000m-steeplechase"
             },
-            "Men's 110m Hurdles": {
+            "athletics-mens-110m-hurdles": {
                 "tournament": false,
                 "name": "Men's 110m Hurdles",
                 "ranking": true,
@@ -3527,9 +3557,10 @@
                         "result_type": "TIME",
                         "participant_slug": "hansle-parchment"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-110m-hurdles"
             },
-            "Men's 400m Hurdles": {
+            "athletics-mens-400m-hurdles": {
                 "tournament": false,
                 "name": "Men's 400m Hurdles",
                 "ranking": true,
@@ -3606,9 +3637,10 @@
                         "result_type": "IRM",
                         "participant_slug": "roshawn-clarke"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-400m-hurdles"
             },
-            "Men's High Jump": {
+            "athletics-mens-high-jump": {
                 "tournament": false,
                 "name": "Men's High Jump",
                 "ranking": true,
@@ -3721,9 +3753,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "brian-raats"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-high-jump"
             },
-            "Men's Pole Vault": {
+            "athletics-mens-pole-vault": {
                 "tournament": false,
                 "name": "Men's Pole Vault",
                 "ranking": true,
@@ -3836,9 +3869,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "valters-kreiss"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-pole-vault"
             },
-            "Men's Long Jump": {
+            "athletics-mens-long-jump": {
                 "tournament": false,
                 "name": "Men's Long Jump",
                 "ranking": true,
@@ -3951,9 +3985,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "carey-mcleod"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-long-jump"
             },
-            "Men's Triple Jump": {
+            "athletics-mens-triple-jump": {
                 "tournament": false,
                 "name": "Men's Triple Jump",
                 "ranking": true,
@@ -4066,9 +4101,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "connor-murphy"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-triple-jump"
             },
-            "Men's Shot Put": {
+            "athletics-mens-shot-put": {
                 "tournament": false,
                 "name": "Men's Shot Put",
                 "ranking": true,
@@ -4181,9 +4217,10 @@
                         "result_type": "IRM",
                         "participant_slug": "tom-walsh"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-shot-put"
             },
-            "Men's Discus Throw": {
+            "athletics-mens-discus-throw": {
                 "tournament": false,
                 "name": "Men's Discus Throw",
                 "ranking": true,
@@ -4296,9 +4333,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "alex-rose"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-discus-throw"
             },
-            "Men's Hammer Throw": {
+            "athletics-mens-hammer-throw": {
                 "tournament": false,
                 "name": "Men's Hammer Throw",
                 "ranking": true,
@@ -4411,9 +4449,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "christos-frantzeskakis"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-hammer-throw"
             },
-            "Men's Javelin Throw": {
+            "athletics-mens-javelin-throw": {
                 "tournament": false,
                 "name": "Men's Javelin Throw",
                 "ranking": true,
@@ -4526,15 +4565,17 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "andrian-mardare"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-javelin-throw"
             },
-            "Men's Decathlon": {
+            "athletics-mens-decathlon": {
                 "tournament": false,
                 "name": "Men's Decathlon",
                 "ranking": false,
-                "ranks": []
+                "ranks": [],
+                "slug": "athletics-mens-decathlon"
             },
-            "Men's 20km Race Walk": {
+            "athletics-mens-20km-race-walk": {
                 "tournament": false,
                 "name": "Men's 20km Race Walk",
                 "ranking": true,
@@ -4980,9 +5021,10 @@
                         "result_type": "IRM",
                         "participant_slug": "jose-doctor"
                     }
-                ]
+                ],
+                "slug": "athletics-mens-20km-race-walk"
             },
-            "Men's 4 x 100m Relay": {
+            "athletics-mens-4-x-100m-relay": {
                 "tournament": false,
                 "name": "Men's 4 x 100m Relay",
                 "ranking": true,
@@ -5059,9 +5101,10 @@
                         "result_type": "IRM",
                         "participant_slug": ""
                     }
-                ]
+                ],
+                "slug": "athletics-mens-4-x-100m-relay"
             },
-            "Men's 4 x 400m Relay": {
+            "athletics-mens-4-x-400m-relay": {
                 "tournament": false,
                 "name": "Men's 4 x 400m Relay",
                 "ranking": true,
@@ -5147,9 +5190,10 @@
                         "result_type": "TIME",
                         "participant_slug": ""
                     }
-                ]
+                ],
+                "slug": "athletics-mens-4-x-400m-relay"
             },
-            "Women's 100m": {
+            "athletics-womens-100m": {
                 "tournament": false,
                 "name": "Women's 100m",
                 "ranking": true,
@@ -5226,9 +5270,10 @@
                         "result_type": "TIME",
                         "participant_slug": "ta-lou-smith"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-100m"
             },
-            "Women's 200m": {
+            "athletics-womens-200m": {
                 "tournament": false,
                 "name": "Women's 200m",
                 "ranking": true,
@@ -5305,9 +5350,10 @@
                         "result_type": "TIME",
                         "participant_slug": "jessika-gbai"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-200m"
             },
-            "Women's 400m": {
+            "athletics-womens-400m": {
                 "tournament": false,
                 "name": "Women's 400m",
                 "ranking": true,
@@ -5384,9 +5430,10 @@
                         "result_type": "TIME",
                         "participant_slug": "henriette-jaeger"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-400m"
             },
-            "Women's 800m": {
+            "athletics-womens-800m": {
                 "tournament": false,
                 "name": "Women's 800m",
                 "ranking": true,
@@ -5463,9 +5510,10 @@
                         "result_type": "TIME",
                         "participant_slug": "prudence-sekgodiso"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-800m"
             },
-            "Women's 1500m": {
+            "athletics-womens-1500m": {
                 "tournament": false,
                 "name": "Women's 1500m",
                 "ranking": true,
@@ -5578,9 +5626,10 @@
                         "result_type": "TIME",
                         "participant_slug": "gudaf-tsegay"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-1500m"
             },
-            "Women's 5000m": {
+            "athletics-womens-5000m": {
                 "tournament": false,
                 "name": "Women's 5000m",
                 "ranking": true,
@@ -5729,9 +5778,10 @@
                         "result_type": "TIME",
                         "participant_slug": "francine-niyomukunzi"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-5000m"
             },
-            "Women's 10,000m": {
+            "athletics-womens-10,000m": {
                 "tournament": false,
                 "name": "Women's 10,000m",
                 "ranking": true,
@@ -5961,9 +6011,10 @@
                         "result_type": "IRM",
                         "participant_slug": "alessia-zarbo"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-10,000m"
             },
-            "Women's Marathon": {
+            "athletics-womens-marathon": {
                 "tournament": false,
                 "name": "Women's Marathon",
                 "ranking": true,
@@ -6787,9 +6838,10 @@
                         "result_type": "IRM",
                         "participant_slug": "fiona-okeeffe"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-marathon"
             },
-            "Women's 3000m Steeplechase": {
+            "athletics-womens-3000m-steeplechase": {
                 "tournament": false,
                 "name": "Women's 3000m Steeplechase",
                 "ranking": true,
@@ -6929,9 +6981,10 @@
                         "result_type": "TIME",
                         "participant_slug": "valerie-constien"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-3000m-steeplechase"
             },
-            "Women's 100m Hurdles": {
+            "athletics-womens-100m-hurdles": {
                 "tournament": false,
                 "name": "Women's 100m Hurdles",
                 "ranking": true,
@@ -7008,9 +7061,10 @@
                         "result_type": "IRM",
                         "participant_slug": "ackera-nugent"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-100m-hurdles"
             },
-            "Women's 400m Hurdles": {
+            "athletics-womens-400m-hurdles": {
                 "tournament": false,
                 "name": "Women's 400m Hurdles",
                 "ranking": true,
@@ -7087,9 +7141,10 @@
                         "result_type": "TIME",
                         "participant_slug": "louise-maraval"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-400m-hurdles"
             },
-            "Women's High Jump": {
+            "athletics-womens-high-jump": {
                 "tournament": false,
                 "name": "Women's High Jump",
                 "ranking": true,
@@ -7211,9 +7266,10 @@
                         "result_type": "IRM",
                         "participant_slug": "angelina-topic"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-high-jump"
             },
-            "Women's Pole Vault": {
+            "athletics-womens-pole-vault": {
                 "tournament": false,
                 "name": "Women's Pole Vault",
                 "ranking": true,
@@ -7389,9 +7445,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "tina-sutej"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-pole-vault"
             },
-            "Women's Long Jump": {
+            "athletics-womens-long-jump": {
                 "tournament": false,
                 "name": "Women's Long Jump",
                 "ranking": true,
@@ -7504,9 +7561,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "prestina-ochonogor"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-long-jump"
             },
-            "Women's Triple Jump": {
+            "athletics-womens-triple-jump": {
                 "tournament": false,
                 "name": "Women's Triple Jump",
                 "ranking": true,
@@ -7619,9 +7677,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "ilionis-guillaume"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-triple-jump"
             },
-            "Women's Shot Put": {
+            "athletics-womens-shot-put": {
                 "tournament": false,
                 "name": "Women's Shot Put",
                 "ranking": true,
@@ -7734,9 +7793,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "sarah-mitton"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-shot-put"
             },
-            "Women's Discus Throw": {
+            "athletics-womens-discus-throw": {
                 "tournament": false,
                 "name": "Women's Discus Throw",
                 "ranking": true,
@@ -7849,9 +7909,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "melina-robert-michon"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-discus-throw"
             },
-            "Women's Hammer Throw": {
+            "athletics-womens-hammer-throw": {
                 "tournament": false,
                 "name": "Women's Hammer Throw",
                 "ranking": true,
@@ -7964,9 +8025,10 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "sara-fantini"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-hammer-throw"
             },
-            "Women's Javelin Throw": {
+            "athletics-womens-javelin-throw": {
                 "tournament": false,
                 "name": "Women's Javelin Throw",
                 "ranking": true,
@@ -8079,15 +8141,17 @@
                         "result_type": "DISTANCE",
                         "participant_slug": "mackenzie-little"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-javelin-throw"
             },
-            "Women's Heptathlon": {
+            "athletics-womens-heptathlon": {
                 "tournament": false,
                 "name": "Women's Heptathlon",
                 "ranking": false,
-                "ranks": []
+                "ranks": [],
+                "slug": "athletics-womens-heptathlon"
             },
-            "Women's 20km Race Walk": {
+            "athletics-womens-20km-race-walk": {
                 "tournament": false,
                 "name": "Women's 20km Race Walk",
                 "ranking": true,
@@ -8497,9 +8561,10 @@
                         "result_type": "IRM",
                         "participant_slug": "antonella-palmisano"
                     }
-                ]
+                ],
+                "slug": "athletics-womens-20km-race-walk"
             },
-            "Women's 4 x 100m Relay": {
+            "athletics-womens-4-x-100m-relay": {
                 "tournament": false,
                 "name": "Women's 4 x 100m Relay",
                 "ranking": true,
@@ -8576,9 +8641,10 @@
                         "result_type": "IRM",
                         "participant_slug": ""
                     }
-                ]
+                ],
+                "slug": "athletics-womens-4-x-100m-relay"
             },
-            "Women's 4 x 400m Relay": {
+            "athletics-womens-4-x-400m-relay": {
                 "tournament": false,
                 "name": "Women's 4 x 400m Relay",
                 "ranking": true,
@@ -8655,9 +8721,10 @@
                         "result_type": "IRM",
                         "participant_slug": ""
                     }
-                ]
+                ],
+                "slug": "athletics-womens-4-x-400m-relay"
             },
-            "4 x 400m Relay Mixed": {
+            "athletics-4-x-400m-relay-mixed": {
                 "tournament": false,
                 "name": "4 x 400m Relay Mixed",
                 "ranking": true,
@@ -8734,9 +8801,10 @@
                         "result_type": "IRM",
                         "participant_slug": ""
                     }
-                ]
+                ],
+                "slug": "athletics-4-x-400m-relay-mixed"
             },
-            "Marathon Race Walk Relay Mixed": {
+            "athletics-marathon-race-walk-relay-mixed": {
                 "tournament": false,
                 "name": "Marathon Race Walk Relay Mixed",
                 "ranking": true,
@@ -8966,7 +9034,8 @@
                         "result_type": "IRM",
                         "participant_slug": ""
                     }
-                ]
+                ],
+                "slug": "athletics-marathon-race-walk-relay-mixed"
             }
         },
         "athletes": [
@@ -11792,30 +11861,35 @@
         "slug": "badminton",
         "description": "Badminton competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Singles": {
+            "badminton-mens-singles": {
                 "tournament": false,
                 "name": "Men's Singles",
-                "ranking": false
+                "ranking": false,
+                "slug": "badminton-mens-singles"
             },
-            "Women's Singles": {
+            "badminton-womens-singles": {
                 "tournament": false,
                 "name": "Women's Singles",
-                "ranking": false
+                "ranking": false,
+                "slug": "badminton-womens-singles"
             },
-            "Men's Doubles": {
+            "badminton-mens-doubles": {
                 "tournament": false,
                 "name": "Men's Doubles",
-                "ranking": false
+                "ranking": false,
+                "slug": "badminton-mens-doubles"
             },
-            "Women's Doubles": {
+            "badminton-womens-doubles": {
                 "tournament": false,
                 "name": "Women's Doubles",
-                "ranking": false
+                "ranking": false,
+                "slug": "badminton-womens-doubles"
             },
-            "Mixed Doubles": {
+            "badminton-mixed-doubles": {
                 "tournament": false,
                 "name": "Mixed Doubles",
-                "ranking": false
+                "ranking": false,
+                "slug": "badminton-mixed-doubles"
             }
         },
         "athletes": [
@@ -12213,15 +12287,17 @@
         "slug": "basketball",
         "description": "Basketball competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "basketball-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "basketball-men"
             },
-            "Women": {
+            "basketball-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "basketball-women"
             }
         },
         "athletes": [
@@ -13156,15 +13232,17 @@
         "slug": "3x3-basketball",
         "description": "3x3 Basketball competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "3x3-basketball-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "3x3-basketball-men"
             },
-            "Women": {
+            "3x3-basketball-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "3x3-basketball-women"
             }
         },
         "athletes": [
@@ -13540,15 +13618,17 @@
         "slug": "beach-volleyball",
         "description": "Beach Volleyball competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "beach-volleyball-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "beach-volleyball-men"
             },
-            "Women": {
+            "beach-volleyball-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "beach-volleyball-women"
             }
         },
         "athletes": [
@@ -13780,70 +13860,83 @@
         "slug": "boxing",
         "description": "Boxing competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's 51kg": {
+            "boxing-mens-51kg": {
                 "tournament": false,
                 "name": "Men's 51kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-mens-51kg"
             },
-            "Men's 57kg": {
+            "boxing-mens-57kg": {
                 "tournament": false,
                 "name": "Men's 57kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-mens-57kg"
             },
-            "Men's 63.5kg": {
+            "boxing-mens-63.5kg": {
                 "tournament": false,
                 "name": "Men's 63.5kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-mens-63.5kg"
             },
-            "Men's 71kg": {
+            "boxing-mens-71kg": {
                 "tournament": false,
                 "name": "Men's 71kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-mens-71kg"
             },
-            "Men's 80kg": {
+            "boxing-mens-80kg": {
                 "tournament": false,
                 "name": "Men's 80kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-mens-80kg"
             },
-            "Men's 92kg": {
+            "boxing-mens-92kg": {
                 "tournament": false,
                 "name": "Men's 92kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-mens-92kg"
             },
-            "Men's +92kg": {
+            "boxing-mens-+92kg": {
                 "tournament": false,
                 "name": "Men's +92kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-mens-+92kg"
             },
-            "Women's 50kg": {
+            "boxing-womens-50kg": {
                 "tournament": false,
                 "name": "Women's 50kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-womens-50kg"
             },
-            "Women's 54kg": {
+            "boxing-womens-54kg": {
                 "tournament": false,
                 "name": "Women's 54kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-womens-54kg"
             },
-            "Women's 57kg": {
+            "boxing-womens-57kg": {
                 "tournament": false,
                 "name": "Women's 57kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-womens-57kg"
             },
-            "Women's 60kg": {
+            "boxing-womens-60kg": {
                 "tournament": false,
                 "name": "Women's 60kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-womens-60kg"
             },
-            "Women's 66kg": {
+            "boxing-womens-66kg": {
                 "tournament": false,
                 "name": "Women's 66kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-womens-66kg"
             },
-            "Women's 75kg": {
+            "boxing-womens-75kg": {
                 "tournament": false,
                 "name": "Women's 75kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "boxing-womens-75kg"
             }
         },
         "athletes": [
@@ -14846,15 +14939,17 @@
         "slug": "breaking",
         "description": "Breaking competitions at the Paris 2024 Olympic Games",
         "events": {
-            "B-Boys": {
+            "breaking-b-boys": {
                 "tournament": false,
                 "name": "B-Boys",
-                "ranking": false
+                "ranking": false,
+                "slug": "breaking-b-boys"
             },
-            "B-Girls": {
+            "breaking-b-girls": {
                 "tournament": false,
                 "name": "B-Girls",
-                "ranking": false
+                "ranking": false,
+                "slug": "breaking-b-girls"
             }
         },
         "athletes": [
@@ -15014,35 +15109,41 @@
         "slug": "canoe-kayak-slalom",
         "description": "Canoe Slalom competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Kayak Single": {
+            "canoe-kayak-slalom-mens-kayak-single": {
                 "tournament": false,
                 "name": "Men's Kayak Single",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-slalom-mens-kayak-single"
             },
-            "Women's Kayak Single": {
+            "canoe-kayak-slalom-womens-kayak-single": {
                 "tournament": false,
                 "name": "Women's Kayak Single",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-slalom-womens-kayak-single"
             },
-            "Men's Canoe Single": {
+            "canoe-kayak-slalom-mens-canoe-single": {
                 "tournament": false,
                 "name": "Men's Canoe Single",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-slalom-mens-canoe-single"
             },
-            "Women's Canoe Single": {
+            "canoe-kayak-slalom-womens-canoe-single": {
                 "tournament": false,
                 "name": "Women's Canoe Single",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-slalom-womens-canoe-single"
             },
-            "Men's Kayak Cross": {
+            "canoe-kayak-slalom-mens-kayak-cross": {
                 "tournament": false,
                 "name": "Men's Kayak Cross",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-slalom-mens-kayak-cross"
             },
-            "Women's Kayak Cross": {
+            "canoe-kayak-slalom-womens-kayak-cross": {
                 "tournament": false,
                 "name": "Women's Kayak Cross",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-slalom-womens-kayak-cross"
             }
         },
         "athletes": [
@@ -15366,55 +15467,65 @@
         "slug": "canoe-kayak-flatwater",
         "description": "Canoe Sprint competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Kayak Single 1000m": {
+            "canoe-kayak-flatwater-mens-kayak-single-1000m": {
                 "tournament": false,
                 "name": "Men's Kayak Single 1000m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-mens-kayak-single-1000m"
             },
-            "Men's Kayak Double 500m": {
+            "canoe-kayak-flatwater-mens-kayak-double-500m": {
                 "tournament": false,
                 "name": "Men's Kayak Double 500m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-mens-kayak-double-500m"
             },
-            "Men's Kayak Four 500m": {
+            "canoe-kayak-flatwater-mens-kayak-four-500m": {
                 "tournament": false,
                 "name": "Men's Kayak Four 500m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-mens-kayak-four-500m"
             },
-            "Men's Canoe Single 1000m": {
+            "canoe-kayak-flatwater-mens-canoe-single-1000m": {
                 "tournament": false,
                 "name": "Men's Canoe Single 1000m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-mens-canoe-single-1000m"
             },
-            "Men's Canoe Double 500m": {
+            "canoe-kayak-flatwater-mens-canoe-double-500m": {
                 "tournament": false,
                 "name": "Men's Canoe Double 500m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-mens-canoe-double-500m"
             },
-            "Women's Kayak Single 500m": {
+            "canoe-kayak-flatwater-womens-kayak-single-500m": {
                 "tournament": false,
                 "name": "Women's Kayak Single 500m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-womens-kayak-single-500m"
             },
-            "Women's Kayak Double 500m": {
+            "canoe-kayak-flatwater-womens-kayak-double-500m": {
                 "tournament": false,
                 "name": "Women's Kayak Double 500m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-womens-kayak-double-500m"
             },
-            "Women's Kayak Four 500m": {
+            "canoe-kayak-flatwater-womens-kayak-four-500m": {
                 "tournament": false,
                 "name": "Women's Kayak Four 500m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-womens-kayak-four-500m"
             },
-            "Women's Canoe Single 200m": {
+            "canoe-kayak-flatwater-womens-canoe-single-200m": {
                 "tournament": false,
                 "name": "Women's Canoe Single 200m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-womens-canoe-single-200m"
             },
-            "Women's Canoe Double 500m": {
+            "canoe-kayak-flatwater-womens-canoe-double-500m": {
                 "tournament": false,
                 "name": "Women's Canoe Double 500m",
-                "ranking": false
+                "ranking": false,
+                "slug": "canoe-kayak-flatwater-womens-canoe-double-500m"
             }
         },
         "athletes": [
@@ -16189,15 +16300,17 @@
         "slug": "cycling-bmx-freestyle",
         "description": "Cycling BMX Freestyle competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's Park": {
+            "cycling-bmx-freestyle-womens-park": {
                 "tournament": false,
                 "name": "Women's Park",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-bmx-freestyle-womens-park"
             },
-            "Men's Park": {
+            "cycling-bmx-freestyle-mens-park": {
                 "tournament": false,
                 "name": "Men's Park",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-bmx-freestyle-mens-park"
             }
         },
         "athletes": [
@@ -16357,15 +16470,17 @@
         "slug": "cycling-bmx-racing",
         "description": "Cycling BMX Racing competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women": {
+            "cycling-bmx-racing-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-bmx-racing-women"
             },
-            "Men": {
+            "cycling-bmx-racing-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-bmx-racing-men"
             }
         },
         "athletes": [
@@ -16503,15 +16618,17 @@
         "slug": "cycling-mountain-bike",
         "description": "Cycling Mountain Bike competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Cross-country": {
+            "cycling-mountain-bike-mens-cross-country": {
                 "tournament": false,
                 "name": "Men's Cross-country",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-mountain-bike-mens-cross-country"
             },
-            "Women's Cross-country": {
+            "cycling-mountain-bike-womens-cross-country": {
                 "tournament": false,
                 "name": "Women's Cross-country",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-mountain-bike-womens-cross-country"
             }
         },
         "athletes": [
@@ -16660,25 +16777,29 @@
         "slug": "cycling-road",
         "description": "Cycling Road competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Road Race": {
+            "cycling-road-mens-road-race": {
                 "tournament": false,
                 "name": "Men's Road Race",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-road-mens-road-race"
             },
-            "Women's Road Race": {
+            "cycling-road-womens-road-race": {
                 "tournament": false,
                 "name": "Women's Road Race",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-road-womens-road-race"
             },
-            "Men's Individual Time Trial": {
+            "cycling-road-mens-individual-time-trial": {
                 "tournament": false,
                 "name": "Men's Individual Time Trial",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-road-mens-individual-time-trial"
             },
-            "Women's Individual Time Trial": {
+            "cycling-road-womens-individual-time-trial": {
                 "tournament": false,
                 "name": "Women's Individual Time Trial",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-road-womens-individual-time-trial"
             }
         },
         "athletes": [
@@ -16919,65 +17040,77 @@
         "slug": "cycling-track",
         "description": "Cycling Track competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Team Sprint": {
+            "cycling-track-mens-team-sprint": {
                 "tournament": false,
                 "name": "Men's Team Sprint",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-mens-team-sprint"
             },
-            "Men's Sprint": {
+            "cycling-track-mens-sprint": {
                 "tournament": false,
                 "name": "Men's Sprint",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-mens-sprint"
             },
-            "Men's Keirin": {
+            "cycling-track-mens-keirin": {
                 "tournament": false,
                 "name": "Men's Keirin",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-mens-keirin"
             },
-            "Men's Team Pursuit": {
+            "cycling-track-mens-team-pursuit": {
                 "tournament": false,
                 "name": "Men's Team Pursuit",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-mens-team-pursuit"
             },
-            "Men's Omnium": {
+            "cycling-track-mens-omnium": {
                 "tournament": false,
                 "name": "Men's Omnium",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-mens-omnium"
             },
-            "Men's Madison": {
+            "cycling-track-mens-madison": {
                 "tournament": false,
                 "name": "Men's Madison",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-mens-madison"
             },
-            "Women's Team Sprint": {
+            "cycling-track-womens-team-sprint": {
                 "tournament": false,
                 "name": "Women's Team Sprint",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-womens-team-sprint"
             },
-            "Women's Sprint": {
+            "cycling-track-womens-sprint": {
                 "tournament": false,
                 "name": "Women's Sprint",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-womens-sprint"
             },
-            "Women's Keirin": {
+            "cycling-track-womens-keirin": {
                 "tournament": false,
                 "name": "Women's Keirin",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-womens-keirin"
             },
-            "Women's Team Pursuit": {
+            "cycling-track-womens-team-pursuit": {
                 "tournament": false,
                 "name": "Women's Team Pursuit",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-womens-team-pursuit"
             },
-            "Women's Omnium": {
+            "cycling-track-womens-omnium": {
                 "tournament": false,
                 "name": "Women's Omnium",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-womens-omnium"
             },
-            "Women's Madison": {
+            "cycling-track-womens-madison": {
                 "tournament": false,
                 "name": "Women's Madison",
-                "ranking": false
+                "ranking": false,
+                "slug": "cycling-track-womens-madison"
             }
         },
         "athletes": [
@@ -17971,45 +18104,53 @@
         "slug": "diving",
         "description": "Diving competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's 3m Springboard": {
+            "diving-womens-3m-springboard": {
                 "tournament": false,
                 "name": "Women's 3m Springboard",
-                "ranking": false
+                "ranking": false,
+                "slug": "diving-womens-3m-springboard"
             },
-            "Women's 10m Platform": {
+            "diving-womens-10m-platform": {
                 "tournament": false,
                 "name": "Women's 10m Platform",
-                "ranking": false
+                "ranking": false,
+                "slug": "diving-womens-10m-platform"
             },
-            "Women's Synchronised 3m Springboard": {
+            "diving-womens-synchronised-3m-springboard": {
                 "tournament": false,
                 "name": "Women's Synchronised 3m Springboard",
-                "ranking": false
+                "ranking": false,
+                "slug": "diving-womens-synchronised-3m-springboard"
             },
-            "Women's Synchronised 10m Platform": {
+            "diving-womens-synchronised-10m-platform": {
                 "tournament": false,
                 "name": "Women's Synchronised 10m Platform",
-                "ranking": false
+                "ranking": false,
+                "slug": "diving-womens-synchronised-10m-platform"
             },
-            "Men's 3m Springboard": {
+            "diving-mens-3m-springboard": {
                 "tournament": false,
                 "name": "Men's 3m Springboard",
-                "ranking": false
+                "ranking": false,
+                "slug": "diving-mens-3m-springboard"
             },
-            "Men's 10m Platform": {
+            "diving-mens-10m-platform": {
                 "tournament": false,
                 "name": "Men's 10m Platform",
-                "ranking": false
+                "ranking": false,
+                "slug": "diving-mens-10m-platform"
             },
-            "Men's Synchronised 3m Springboard": {
+            "diving-mens-synchronised-3m-springboard": {
                 "tournament": false,
                 "name": "Men's Synchronised 3m Springboard",
-                "ranking": false
+                "ranking": false,
+                "slug": "diving-mens-synchronised-3m-springboard"
             },
-            "Men's Synchronised 10m Platform": {
+            "diving-mens-synchronised-10m-platform": {
                 "tournament": false,
                 "name": "Men's Synchronised 10m Platform",
-                "ranking": false
+                "ranking": false,
+                "slug": "diving-mens-synchronised-10m-platform"
             }
         },
         "athletes": [
@@ -18455,35 +18596,41 @@
         "slug": "equestrian",
         "description": "Equestrian competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Eventing Team": {
+            "equestrian-eventing-team": {
                 "tournament": false,
                 "name": "Eventing Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "equestrian-eventing-team"
             },
-            "Eventing Individual": {
+            "equestrian-eventing-individual": {
                 "tournament": false,
                 "name": "Eventing Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "equestrian-eventing-individual"
             },
-            "Dressage Team": {
+            "equestrian-dressage-team": {
                 "tournament": false,
                 "name": "Dressage Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "equestrian-dressage-team"
             },
-            "Dressage Individual": {
+            "equestrian-dressage-individual": {
                 "tournament": false,
                 "name": "Dressage Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "equestrian-dressage-individual"
             },
-            "Jumping Team": {
+            "equestrian-jumping-team": {
                 "tournament": false,
                 "name": "Jumping Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "equestrian-jumping-team"
             },
-            "Jumping Individual": {
+            "equestrian-jumping-individual": {
                 "tournament": false,
                 "name": "Jumping Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "equestrian-jumping-individual"
             }
         },
         "athletes": [
@@ -19096,65 +19243,77 @@
         "slug": "fencing",
         "description": "Fencing competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's \u00c9p\u00e9e Individual": {
+            "fencing-womens-\u00e9p\u00e9e-individual": {
                 "tournament": false,
                 "name": "Women's \u00c9p\u00e9e Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-womens-\u00e9p\u00e9e-individual"
             },
-            "Women's Foil Individual": {
+            "fencing-womens-foil-individual": {
                 "tournament": false,
                 "name": "Women's Foil Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-womens-foil-individual"
             },
-            "Women's Sabre Individual": {
+            "fencing-womens-sabre-individual": {
                 "tournament": false,
                 "name": "Women's Sabre Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-womens-sabre-individual"
             },
-            "Men's \u00c9p\u00e9e Individual": {
+            "fencing-mens-\u00e9p\u00e9e-individual": {
                 "tournament": false,
                 "name": "Men's \u00c9p\u00e9e Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-mens-\u00e9p\u00e9e-individual"
             },
-            "Men's Foil Individual": {
+            "fencing-mens-foil-individual": {
                 "tournament": false,
                 "name": "Men's Foil Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-mens-foil-individual"
             },
-            "Men's Sabre Individual": {
+            "fencing-mens-sabre-individual": {
                 "tournament": false,
                 "name": "Men's Sabre Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-mens-sabre-individual"
             },
-            "Women's \u00c9p\u00e9e Team": {
+            "fencing-womens-\u00e9p\u00e9e-team": {
                 "tournament": false,
                 "name": "Women's \u00c9p\u00e9e Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-womens-\u00e9p\u00e9e-team"
             },
-            "Women's Foil Team": {
+            "fencing-womens-foil-team": {
                 "tournament": false,
                 "name": "Women's Foil Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-womens-foil-team"
             },
-            "Women's Sabre Team": {
+            "fencing-womens-sabre-team": {
                 "tournament": false,
                 "name": "Women's Sabre Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-womens-sabre-team"
             },
-            "Men's \u00c9p\u00e9e Team": {
+            "fencing-mens-\u00e9p\u00e9e-team": {
                 "tournament": false,
                 "name": "Men's \u00c9p\u00e9e Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-mens-\u00e9p\u00e9e-team"
             },
-            "Men's Foil Team": {
+            "fencing-mens-foil-team": {
                 "tournament": false,
                 "name": "Men's Foil Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-mens-foil-team"
             },
-            "Men's Sabre Team": {
+            "fencing-mens-sabre-team": {
                 "tournament": false,
                 "name": "Men's Sabre Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "fencing-mens-sabre-team"
             }
         },
         "athletes": [
@@ -20315,7 +20474,7 @@
         "slug": "football",
         "description": "Football competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "football-men": {
                 "name": "Men",
                 "tournament": true,
                 "matches": [
@@ -20404,9 +20563,10 @@
                         "score2": 5
                     }
                 ],
-                "ranking": false
+                "ranking": false,
+                "slug": "football-men"
             },
-            "Women": {
+            "football-women": {
                 "name": "Women",
                 "tournament": true,
                 "matches": [
@@ -20495,7 +20655,8 @@
                         "winner": "United States"
                     }
                 ],
-                "ranking": false
+                "ranking": false,
+                "slug": "football-women"
             }
         },
         "athletes": [
@@ -22101,15 +22262,17 @@
         "slug": "golf",
         "description": "Golf competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Individual Stroke Play": {
+            "golf-mens-individual-stroke-play": {
                 "tournament": false,
                 "name": "Men's Individual Stroke Play",
-                "ranking": false
+                "ranking": false,
+                "slug": "golf-mens-individual-stroke-play"
             },
-            "Women's Individual Stroke Play": {
+            "golf-womens-individual-stroke-play": {
                 "tournament": false,
                 "name": "Women's Individual Stroke Play",
-                "ranking": false
+                "ranking": false,
+                "slug": "golf-womens-individual-stroke-play"
             }
         },
         "athletes": [
@@ -22269,15 +22432,17 @@
         "slug": "handball",
         "description": "Handball competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "handball-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "handball-men"
             },
-            "Women": {
+            "handball-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "handball-women"
             }
         },
         "athletes": [
@@ -23487,15 +23652,17 @@
         "slug": "hockey",
         "description": "Hockey competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "hockey-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "hockey-men"
             },
-            "Women": {
+            "hockey-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "hockey-women"
             }
         },
         "athletes": [
@@ -24796,80 +24963,95 @@
         "slug": "judo",
         "description": "Judo competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women -48 kg": {
+            "judo-women--48-kg": {
                 "tournament": false,
                 "name": "Women -48 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-women--48-kg"
             },
-            "Women -52 kg": {
+            "judo-women--52-kg": {
                 "tournament": false,
                 "name": "Women -52 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-women--52-kg"
             },
-            "Women -57 kg": {
+            "judo-women--57-kg": {
                 "tournament": false,
                 "name": "Women -57 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-women--57-kg"
             },
-            "Women -63 kg": {
+            "judo-women--63-kg": {
                 "tournament": false,
                 "name": "Women -63 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-women--63-kg"
             },
-            "Women -70 kg": {
+            "judo-women--70-kg": {
                 "tournament": false,
                 "name": "Women -70 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-women--70-kg"
             },
-            "Women -78 kg": {
+            "judo-women--78-kg": {
                 "tournament": false,
                 "name": "Women -78 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-women--78-kg"
             },
-            "Women +78 kg": {
+            "judo-women-+78-kg": {
                 "tournament": false,
                 "name": "Women +78 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-women-+78-kg"
             },
-            "Men -60 kg": {
+            "judo-men--60-kg": {
                 "tournament": false,
                 "name": "Men -60 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-men--60-kg"
             },
-            "Men -66 kg": {
+            "judo-men--66-kg": {
                 "tournament": false,
                 "name": "Men -66 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-men--66-kg"
             },
-            "Men -73 kg": {
+            "judo-men--73-kg": {
                 "tournament": false,
                 "name": "Men -73 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-men--73-kg"
             },
-            "Men -81 kg": {
+            "judo-men--81-kg": {
                 "tournament": false,
                 "name": "Men -81 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-men--81-kg"
             },
-            "Men -90 kg": {
+            "judo-men--90-kg": {
                 "tournament": false,
                 "name": "Men -90 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-men--90-kg"
             },
-            "Men -100 kg": {
+            "judo-men--100-kg": {
                 "tournament": false,
                 "name": "Men -100 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-men--100-kg"
             },
-            "Men +100 kg": {
+            "judo-men-+100-kg": {
                 "tournament": false,
                 "name": "Men +100 kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-men-+100-kg"
             },
-            "Mixed Team": {
+            "judo-mixed-team": {
                 "tournament": false,
                 "name": "Mixed Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "judo-mixed-team"
             }
         },
         "athletes": [
@@ -26161,15 +26343,17 @@
         "slug": "marathon-swimming",
         "description": "Marathon Swimming competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's 10km": {
+            "marathon-swimming-womens-10km": {
                 "tournament": false,
                 "name": "Women's 10km",
-                "ranking": false
+                "ranking": false,
+                "slug": "marathon-swimming-womens-10km"
             },
-            "Men's 10km": {
+            "marathon-swimming-mens-10km": {
                 "tournament": false,
                 "name": "Men's 10km",
-                "ranking": false
+                "ranking": false,
+                "slug": "marathon-swimming-mens-10km"
             }
         },
         "athletes": [
@@ -26318,15 +26502,17 @@
         "slug": "modern-pentathlon",
         "description": "Modern Pentathlon competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's Individual": {
+            "modern-pentathlon-womens-individual": {
                 "tournament": false,
                 "name": "Women's Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "modern-pentathlon-womens-individual"
             },
-            "Men's Individual": {
+            "modern-pentathlon-mens-individual": {
                 "tournament": false,
                 "name": "Men's Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "modern-pentathlon-mens-individual"
             }
         },
         "athletes": [
@@ -26491,15 +26677,17 @@
         "slug": "rhythmic-gymnastics",
         "description": "Rhythmic Gymnastics competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Individual All-Around": {
+            "rhythmic-gymnastics-individual-all-around": {
                 "tournament": false,
                 "name": "Individual All-Around",
-                "ranking": false
+                "ranking": false,
+                "slug": "rhythmic-gymnastics-individual-all-around"
             },
-            "Group All-Around": {
+            "rhythmic-gymnastics-group-all-around": {
                 "tournament": false,
                 "name": "Group All-Around",
-                "ranking": false
+                "ranking": false,
+                "slug": "rhythmic-gymnastics-group-all-around"
             }
         },
         "athletes": [
@@ -26792,75 +26980,89 @@
         "slug": "rowing",
         "description": "Rowing competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's Pair": {
+            "rowing-womens-pair": {
                 "tournament": false,
                 "name": "Women's Pair",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-womens-pair"
             },
-            "Men's Pair": {
+            "rowing-mens-pair": {
                 "tournament": false,
                 "name": "Men's Pair",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-mens-pair"
             },
-            "Women's Double Sculls": {
+            "rowing-womens-double-sculls": {
                 "tournament": false,
                 "name": "Women's Double Sculls",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-womens-double-sculls"
             },
-            "Men's Double Sculls": {
+            "rowing-mens-double-sculls": {
                 "tournament": false,
                 "name": "Men's Double Sculls",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-mens-double-sculls"
             },
-            "Women's Four": {
+            "rowing-womens-four": {
                 "tournament": false,
                 "name": "Women's Four",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-womens-four"
             },
-            "Men's Four": {
+            "rowing-mens-four": {
                 "tournament": false,
                 "name": "Men's Four",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-mens-four"
             },
-            "Women's Single Sculls": {
+            "rowing-womens-single-sculls": {
                 "tournament": false,
                 "name": "Women's Single Sculls",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-womens-single-sculls"
             },
-            "Men's Single Sculls": {
+            "rowing-mens-single-sculls": {
                 "tournament": false,
                 "name": "Men's Single Sculls",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-mens-single-sculls"
             },
-            "Lightweight Women's Double Sculls": {
+            "rowing-lightweight-womens-double-sculls": {
                 "tournament": false,
                 "name": "Lightweight Women's Double Sculls",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-lightweight-womens-double-sculls"
             },
-            "Lightweight Men's Double Sculls": {
+            "rowing-lightweight-mens-double-sculls": {
                 "tournament": false,
                 "name": "Lightweight Men's Double Sculls",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-lightweight-mens-double-sculls"
             },
-            "Women's Quadruple Sculls": {
+            "rowing-womens-quadruple-sculls": {
                 "tournament": false,
                 "name": "Women's Quadruple Sculls",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-womens-quadruple-sculls"
             },
-            "Men's Quadruple Sculls": {
+            "rowing-mens-quadruple-sculls": {
                 "tournament": false,
                 "name": "Men's Quadruple Sculls",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-mens-quadruple-sculls"
             },
-            "Women's Eight": {
+            "rowing-womens-eight": {
                 "tournament": false,
                 "name": "Women's Eight",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-womens-eight"
             },
-            "Men's Eight": {
+            "rowing-mens-eight": {
                 "tournament": false,
                 "name": "Men's Eight",
-                "ranking": false
+                "ranking": false,
+                "slug": "rowing-mens-eight"
             }
         },
         "athletes": [
@@ -28738,15 +28940,17 @@
         "slug": "rugby-sevens",
         "description": "Rugby Sevens competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "rugby-sevens-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "rugby-sevens-men"
             },
-            "Women": {
+            "rugby-sevens-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "rugby-sevens-women"
             }
         },
         "athletes": [
@@ -29770,55 +29974,65 @@
         "slug": "sailing",
         "description": "Sailing competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Windsurfing": {
+            "sailing-mens-windsurfing": {
                 "tournament": false,
                 "name": "Men's Windsurfing",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-mens-windsurfing"
             },
-            "Men's Kite": {
+            "sailing-mens-kite": {
                 "tournament": false,
                 "name": "Men's Kite",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-mens-kite"
             },
-            "Men's Dinghy": {
+            "sailing-mens-dinghy": {
                 "tournament": false,
                 "name": "Men's Dinghy",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-mens-dinghy"
             },
-            "Men's Skiff": {
+            "sailing-mens-skiff": {
                 "tournament": false,
                 "name": "Men's Skiff",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-mens-skiff"
             },
-            "Women's Windsurfing": {
+            "sailing-womens-windsurfing": {
                 "tournament": false,
                 "name": "Women's Windsurfing",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-womens-windsurfing"
             },
-            "Women's Kite": {
+            "sailing-womens-kite": {
                 "tournament": false,
                 "name": "Women's Kite",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-womens-kite"
             },
-            "Women's Dinghy": {
+            "sailing-womens-dinghy": {
                 "tournament": false,
                 "name": "Women's Dinghy",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-womens-dinghy"
             },
-            "Women's Skiff": {
+            "sailing-womens-skiff": {
                 "tournament": false,
                 "name": "Women's Skiff",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-womens-skiff"
             },
-            "Mixed Dinghy": {
+            "sailing-mixed-dinghy": {
                 "tournament": false,
                 "name": "Mixed Dinghy",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-mixed-dinghy"
             },
-            "Mixed Multihull": {
+            "sailing-mixed-multihull": {
                 "tournament": false,
                 "name": "Mixed Multihull",
-                "ranking": false
+                "ranking": false,
+                "slug": "sailing-mixed-multihull"
             }
         },
         "athletes": [
@@ -30553,80 +30767,95 @@
         "slug": "shooting",
         "description": "Shooting competitions at the Paris 2024 Olympic Games",
         "events": {
-            "10m Air Rifle Men": {
+            "shooting-10m-air-rifle-men": {
                 "tournament": false,
                 "name": "10m Air Rifle Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-10m-air-rifle-men"
             },
-            "50m Rifle 3 Positions Men": {
+            "shooting-50m-rifle-3-positions-men": {
                 "tournament": false,
                 "name": "50m Rifle 3 Positions Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-50m-rifle-3-positions-men"
             },
-            "10m Air Pistol Men": {
+            "shooting-10m-air-pistol-men": {
                 "tournament": false,
                 "name": "10m Air Pistol Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-10m-air-pistol-men"
             },
-            "25m Rapid Fire Pistol Men": {
+            "shooting-25m-rapid-fire-pistol-men": {
                 "tournament": false,
                 "name": "25m Rapid Fire Pistol Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-25m-rapid-fire-pistol-men"
             },
-            "Trap Men": {
+            "shooting-trap-men": {
                 "tournament": false,
                 "name": "Trap Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-trap-men"
             },
-            "Skeet Men": {
+            "shooting-skeet-men": {
                 "tournament": false,
                 "name": "Skeet Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-skeet-men"
             },
-            "10m Air Rifle Women": {
+            "shooting-10m-air-rifle-women": {
                 "tournament": false,
                 "name": "10m Air Rifle Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-10m-air-rifle-women"
             },
-            "50m Rifle 3 Positions Women": {
+            "shooting-50m-rifle-3-positions-women": {
                 "tournament": false,
                 "name": "50m Rifle 3 Positions Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-50m-rifle-3-positions-women"
             },
-            "10m Air Pistol Women": {
+            "shooting-10m-air-pistol-women": {
                 "tournament": false,
                 "name": "10m Air Pistol Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-10m-air-pistol-women"
             },
-            "25m Pistol Women": {
+            "shooting-25m-pistol-women": {
                 "tournament": false,
                 "name": "25m Pistol Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-25m-pistol-women"
             },
-            "Trap Women": {
+            "shooting-trap-women": {
                 "tournament": false,
                 "name": "Trap Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-trap-women"
             },
-            "Skeet Women": {
+            "shooting-skeet-women": {
                 "tournament": false,
                 "name": "Skeet Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-skeet-women"
             },
-            "10m Air Rifle Mixed Team": {
+            "shooting-10m-air-rifle-mixed-team": {
                 "tournament": false,
                 "name": "10m Air Rifle Mixed Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-10m-air-rifle-mixed-team"
             },
-            "10m Air Pistol Mixed Team": {
+            "shooting-10m-air-pistol-mixed-team": {
                 "tournament": false,
                 "name": "10m Air Pistol Mixed Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-10m-air-pistol-mixed-team"
             },
-            "Skeet Mixed Team": {
+            "shooting-skeet-mixed-team": {
                 "tournament": false,
                 "name": "Skeet Mixed Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "shooting-skeet-mixed-team"
             }
         },
         "athletes": [
@@ -31445,25 +31674,29 @@
         "slug": "skateboarding",
         "description": "Skateboarding competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's Street": {
+            "skateboarding-womens-street": {
                 "tournament": false,
                 "name": "Women's Street",
-                "ranking": false
+                "ranking": false,
+                "slug": "skateboarding-womens-street"
             },
-            "Men's Street": {
+            "skateboarding-mens-street": {
                 "tournament": false,
                 "name": "Men's Street",
-                "ranking": false
+                "ranking": false,
+                "slug": "skateboarding-mens-street"
             },
-            "Women's Park": {
+            "skateboarding-womens-park": {
                 "tournament": false,
                 "name": "Women's Park",
-                "ranking": false
+                "ranking": false,
+                "slug": "skateboarding-womens-park"
             },
-            "Men's Park": {
+            "skateboarding-mens-park": {
                 "tournament": false,
                 "name": "Men's Park",
-                "ranking": false
+                "ranking": false,
+                "slug": "skateboarding-mens-park"
             }
         },
         "athletes": [
@@ -31684,25 +31917,29 @@
         "slug": "sport-climbing",
         "description": "Sport Climbing competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's Boulder & Lead": {
+            "sport-climbing-womens-boulder-&-lead": {
                 "tournament": false,
                 "name": "Women's Boulder & Lead",
-                "ranking": false
+                "ranking": false,
+                "slug": "sport-climbing-womens-boulder-&-lead"
             },
-            "Women's Speed": {
+            "sport-climbing-womens-speed": {
                 "tournament": false,
                 "name": "Women's Speed",
-                "ranking": false
+                "ranking": false,
+                "slug": "sport-climbing-womens-speed"
             },
-            "Men's Boulder & Lead": {
+            "sport-climbing-mens-boulder-&-lead": {
                 "tournament": false,
                 "name": "Men's Boulder & Lead",
-                "ranking": false
+                "ranking": false,
+                "slug": "sport-climbing-mens-boulder-&-lead"
             },
-            "Men's Speed": {
+            "sport-climbing-mens-speed": {
                 "tournament": false,
                 "name": "Men's Speed",
-                "ranking": false
+                "ranking": false,
+                "slug": "sport-climbing-mens-speed"
             }
         },
         "athletes": [
@@ -31956,15 +32193,17 @@
         "slug": "surfing",
         "description": "Surfing competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "surfing-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "surfing-men"
             },
-            "Women": {
+            "surfing-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "surfing-women"
             }
         },
         "athletes": [
@@ -32102,180 +32341,215 @@
         "slug": "swimming",
         "description": "Swimming competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's 50m Freestyle": {
+            "swimming-womens-50m-freestyle": {
                 "tournament": false,
                 "name": "Women's 50m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-50m-freestyle"
             },
-            "Women's 100m Freestyle": {
+            "swimming-womens-100m-freestyle": {
                 "tournament": false,
                 "name": "Women's 100m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-100m-freestyle"
             },
-            "Women's 200m Freestyle": {
+            "swimming-womens-200m-freestyle": {
                 "tournament": false,
                 "name": "Women's 200m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-200m-freestyle"
             },
-            "Women's 400m Freestyle": {
+            "swimming-womens-400m-freestyle": {
                 "tournament": false,
                 "name": "Women's 400m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-400m-freestyle"
             },
-            "Women's 800m Freestyle": {
+            "swimming-womens-800m-freestyle": {
                 "tournament": false,
                 "name": "Women's 800m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-800m-freestyle"
             },
-            "Women's 1500m Freestyle": {
+            "swimming-womens-1500m-freestyle": {
                 "tournament": false,
                 "name": "Women's 1500m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-1500m-freestyle"
             },
-            "Women's 100m Backstroke": {
+            "swimming-womens-100m-backstroke": {
                 "tournament": false,
                 "name": "Women's 100m Backstroke",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-100m-backstroke"
             },
-            "Women's 200m Backstroke": {
+            "swimming-womens-200m-backstroke": {
                 "tournament": false,
                 "name": "Women's 200m Backstroke",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-200m-backstroke"
             },
-            "Women's 100m Breaststroke": {
+            "swimming-womens-100m-breaststroke": {
                 "tournament": false,
                 "name": "Women's 100m Breaststroke",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-100m-breaststroke"
             },
-            "Women's 200m Breaststroke": {
+            "swimming-womens-200m-breaststroke": {
                 "tournament": false,
                 "name": "Women's 200m Breaststroke",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-200m-breaststroke"
             },
-            "Women's 100m Butterfly": {
+            "swimming-womens-100m-butterfly": {
                 "tournament": false,
                 "name": "Women's 100m Butterfly",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-100m-butterfly"
             },
-            "Women's 200m Butterfly": {
+            "swimming-womens-200m-butterfly": {
                 "tournament": false,
                 "name": "Women's 200m Butterfly",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-200m-butterfly"
             },
-            "Women's 200m Individual Medley": {
+            "swimming-womens-200m-individual-medley": {
                 "tournament": false,
                 "name": "Women's 200m Individual Medley",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-200m-individual-medley"
             },
-            "Women's 400m Individual Medley": {
+            "swimming-womens-400m-individual-medley": {
                 "tournament": false,
                 "name": "Women's 400m Individual Medley",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-400m-individual-medley"
             },
-            "Women's 4 x 100m Freestyle Relay": {
+            "swimming-womens-4-x-100m-freestyle-relay": {
                 "tournament": false,
                 "name": "Women's 4 x 100m Freestyle Relay",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-4-x-100m-freestyle-relay"
             },
-            "Women's 4 x 200m Freestyle Relay": {
+            "swimming-womens-4-x-200m-freestyle-relay": {
                 "tournament": false,
                 "name": "Women's 4 x 200m Freestyle Relay",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-4-x-200m-freestyle-relay"
             },
-            "Women's 4 x 100m Medley Relay": {
+            "swimming-womens-4-x-100m-medley-relay": {
                 "tournament": false,
                 "name": "Women's 4 x 100m Medley Relay",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-womens-4-x-100m-medley-relay"
             },
-            "Men's 50m Freestyle": {
+            "swimming-mens-50m-freestyle": {
                 "tournament": false,
                 "name": "Men's 50m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-50m-freestyle"
             },
-            "Men's 100m Freestyle": {
+            "swimming-mens-100m-freestyle": {
                 "tournament": false,
                 "name": "Men's 100m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-100m-freestyle"
             },
-            "Men's 200m Freestyle": {
+            "swimming-mens-200m-freestyle": {
                 "tournament": false,
                 "name": "Men's 200m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-200m-freestyle"
             },
-            "Men's 400m Freestyle": {
+            "swimming-mens-400m-freestyle": {
                 "tournament": false,
                 "name": "Men's 400m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-400m-freestyle"
             },
-            "Men's 800m Freestyle": {
+            "swimming-mens-800m-freestyle": {
                 "tournament": false,
                 "name": "Men's 800m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-800m-freestyle"
             },
-            "Men's 1500m Freestyle": {
+            "swimming-mens-1500m-freestyle": {
                 "tournament": false,
                 "name": "Men's 1500m Freestyle",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-1500m-freestyle"
             },
-            "Men's 100m Backstroke": {
+            "swimming-mens-100m-backstroke": {
                 "tournament": false,
                 "name": "Men's 100m Backstroke",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-100m-backstroke"
             },
-            "Men's 200m Backstroke": {
+            "swimming-mens-200m-backstroke": {
                 "tournament": false,
                 "name": "Men's 200m Backstroke",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-200m-backstroke"
             },
-            "Men's 100m Breaststroke": {
+            "swimming-mens-100m-breaststroke": {
                 "tournament": false,
                 "name": "Men's 100m Breaststroke",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-100m-breaststroke"
             },
-            "Men's 200m Breaststroke": {
+            "swimming-mens-200m-breaststroke": {
                 "tournament": false,
                 "name": "Men's 200m Breaststroke",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-200m-breaststroke"
             },
-            "Men's 100m Butterfly": {
+            "swimming-mens-100m-butterfly": {
                 "tournament": false,
                 "name": "Men's 100m Butterfly",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-100m-butterfly"
             },
-            "Men's 200m Butterfly": {
+            "swimming-mens-200m-butterfly": {
                 "tournament": false,
                 "name": "Men's 200m Butterfly",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-200m-butterfly"
             },
-            "Men's 200m Individual Medley": {
+            "swimming-mens-200m-individual-medley": {
                 "tournament": false,
                 "name": "Men's 200m Individual Medley",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-200m-individual-medley"
             },
-            "Men's 400m Individual Medley": {
+            "swimming-mens-400m-individual-medley": {
                 "tournament": false,
                 "name": "Men's 400m Individual Medley",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-400m-individual-medley"
             },
-            "Men's 4 x 100m Freestyle Relay": {
+            "swimming-mens-4-x-100m-freestyle-relay": {
                 "tournament": false,
                 "name": "Men's 4 x 100m Freestyle Relay",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-4-x-100m-freestyle-relay"
             },
-            "Men's 4 x 200m Freestyle Relay": {
+            "swimming-mens-4-x-200m-freestyle-relay": {
                 "tournament": false,
                 "name": "Men's 4 x 200m Freestyle Relay",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-4-x-200m-freestyle-relay"
             },
-            "Men's 4 x 100m Medley Relay": {
+            "swimming-mens-4-x-100m-medley-relay": {
                 "tournament": false,
                 "name": "Men's 4 x 100m Medley Relay",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mens-4-x-100m-medley-relay"
             },
-            "Mixed 4 x 100m Medley Relay": {
+            "swimming-mixed-4-x-100m-medley-relay": {
                 "tournament": false,
                 "name": "Mixed 4 x 100m Medley Relay",
-                "ranking": false
+                "ranking": false,
+                "slug": "swimming-mixed-4-x-100m-medley-relay"
             }
         },
         "athletes": [
@@ -34006,30 +34280,35 @@
         "slug": "table-tennis",
         "description": "Table Tennis competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Singles": {
+            "table-tennis-mens-singles": {
                 "tournament": false,
                 "name": "Men's Singles",
-                "ranking": false
+                "ranking": false,
+                "slug": "table-tennis-mens-singles"
             },
-            "Women's Singles": {
+            "table-tennis-womens-singles": {
                 "tournament": false,
                 "name": "Women's Singles",
-                "ranking": false
+                "ranking": false,
+                "slug": "table-tennis-womens-singles"
             },
-            "Mixed Doubles": {
+            "table-tennis-mixed-doubles": {
                 "tournament": false,
                 "name": "Mixed Doubles",
-                "ranking": false
+                "ranking": false,
+                "slug": "table-tennis-mixed-doubles"
             },
-            "Men's Team": {
+            "table-tennis-mens-team": {
                 "tournament": false,
                 "name": "Men's Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "table-tennis-mens-team"
             },
-            "Women's Team": {
+            "table-tennis-womens-team": {
                 "tournament": false,
                 "name": "Women's Team",
-                "ranking": false
+                "ranking": false,
+                "slug": "table-tennis-womens-team"
             }
         },
         "athletes": [
@@ -34369,45 +34648,53 @@
         "slug": "taekwondo",
         "description": "Taekwondo competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men -58kg": {
+            "taekwondo-men--58kg": {
                 "tournament": false,
                 "name": "Men -58kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "taekwondo-men--58kg"
             },
-            "Men -68kg": {
+            "taekwondo-men--68kg": {
                 "tournament": false,
                 "name": "Men -68kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "taekwondo-men--68kg"
             },
-            "Men -80kg": {
+            "taekwondo-men--80kg": {
                 "tournament": false,
                 "name": "Men -80kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "taekwondo-men--80kg"
             },
-            "Men +80kg": {
+            "taekwondo-men-+80kg": {
                 "tournament": false,
                 "name": "Men +80kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "taekwondo-men-+80kg"
             },
-            "Women -49kg": {
+            "taekwondo-women--49kg": {
                 "tournament": false,
                 "name": "Women -49kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "taekwondo-women--49kg"
             },
-            "Women -57kg": {
+            "taekwondo-women--57kg": {
                 "tournament": false,
                 "name": "Women -57kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "taekwondo-women--57kg"
             },
-            "Women -67kg": {
+            "taekwondo-women--67kg": {
                 "tournament": false,
                 "name": "Women -67kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "taekwondo-women--67kg"
             },
-            "Women +67kg": {
+            "taekwondo-women-+67kg": {
                 "tournament": false,
                 "name": "Women +67kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "taekwondo-women-+67kg"
             }
         },
         "athletes": [
@@ -35066,30 +35353,35 @@
         "slug": "tennis",
         "description": "Tennis competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Singles": {
+            "tennis-mens-singles": {
                 "tournament": false,
                 "name": "Men's Singles",
-                "ranking": false
+                "ranking": false,
+                "slug": "tennis-mens-singles"
             },
-            "Women's Singles": {
+            "tennis-womens-singles": {
                 "tournament": false,
                 "name": "Women's Singles",
-                "ranking": false
+                "ranking": false,
+                "slug": "tennis-womens-singles"
             },
-            "Men's Doubles": {
+            "tennis-mens-doubles": {
                 "tournament": false,
                 "name": "Men's Doubles",
-                "ranking": false
+                "ranking": false,
+                "slug": "tennis-mens-doubles"
             },
-            "Women's Doubles": {
+            "tennis-womens-doubles": {
                 "tournament": false,
                 "name": "Women's Doubles",
-                "ranking": false
+                "ranking": false,
+                "slug": "tennis-womens-doubles"
             },
-            "Mixed Doubles": {
+            "tennis-mixed-doubles": {
                 "tournament": false,
                 "name": "Mixed Doubles",
-                "ranking": false
+                "ranking": false,
+                "slug": "tennis-mixed-doubles"
             }
         },
         "athletes": [
@@ -35520,15 +35812,17 @@
         "slug": "trampoline-gymnastics",
         "description": "Trampoline Gymnastics competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "trampoline-gymnastics-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "trampoline-gymnastics-men"
             },
-            "Women": {
+            "trampoline-gymnastics-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "trampoline-gymnastics-women"
             }
         },
         "athletes": [
@@ -35666,20 +35960,23 @@
         "slug": "triathlon",
         "description": "Triathlon competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's Individual": {
+            "triathlon-womens-individual": {
                 "tournament": false,
                 "name": "Women's Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "triathlon-womens-individual"
             },
-            "Men's Individual": {
+            "triathlon-mens-individual": {
                 "tournament": false,
                 "name": "Men's Individual",
-                "ranking": false
+                "ranking": false,
+                "slug": "triathlon-mens-individual"
             },
-            "Mixed Relay": {
+            "triathlon-mixed-relay": {
                 "tournament": false,
                 "name": "Mixed Relay",
-                "ranking": false
+                "ranking": false,
+                "slug": "triathlon-mixed-relay"
             }
         },
         "athletes": [
@@ -35959,15 +36256,17 @@
         "slug": "volleyball",
         "description": "Volleyball competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "volleyball-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "volleyball-men"
             },
-            "Women": {
+            "volleyball-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "volleyball-women"
             }
         },
         "athletes": [
@@ -36980,15 +37279,17 @@
         "slug": "water-polo",
         "description": "Water Polo competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men": {
+            "water-polo-men": {
                 "tournament": false,
                 "name": "Men",
-                "ranking": false
+                "ranking": false,
+                "slug": "water-polo-men"
             },
-            "Women": {
+            "water-polo-women": {
                 "tournament": false,
                 "name": "Women",
-                "ranking": false
+                "ranking": false,
+                "slug": "water-polo-women"
             }
         },
         "athletes": [
@@ -38017,55 +38318,65 @@
         "slug": "weightlifting",
         "description": "Weightlifting competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Women's 49kg": {
+            "weightlifting-womens-49kg": {
                 "tournament": false,
                 "name": "Women's 49kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-womens-49kg"
             },
-            "Women's 59kg": {
+            "weightlifting-womens-59kg": {
                 "tournament": false,
                 "name": "Women's 59kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-womens-59kg"
             },
-            "Women's 71kg": {
+            "weightlifting-womens-71kg": {
                 "tournament": false,
                 "name": "Women's 71kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-womens-71kg"
             },
-            "Women's 81kg": {
+            "weightlifting-womens-81kg": {
                 "tournament": false,
                 "name": "Women's 81kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-womens-81kg"
             },
-            "Women's +81kg": {
+            "weightlifting-womens-+81kg": {
                 "tournament": false,
                 "name": "Women's +81kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-womens-+81kg"
             },
-            "Men's 61kg": {
+            "weightlifting-mens-61kg": {
                 "tournament": false,
                 "name": "Men's 61kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-mens-61kg"
             },
-            "Men's 73kg": {
+            "weightlifting-mens-73kg": {
                 "tournament": false,
                 "name": "Men's 73kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-mens-73kg"
             },
-            "Men's 89kg": {
+            "weightlifting-mens-89kg": {
                 "tournament": false,
                 "name": "Men's 89kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-mens-89kg"
             },
-            "Men's 102kg": {
+            "weightlifting-mens-102kg": {
                 "tournament": false,
                 "name": "Men's 102kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-mens-102kg"
             },
-            "Men's +102kg": {
+            "weightlifting-mens-+102kg": {
                 "tournament": false,
                 "name": "Men's +102kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "weightlifting-mens-+102kg"
             }
         },
         "athletes": [
@@ -38667,95 +38978,113 @@
         "slug": "wrestling",
         "description": "Wrestling competitions at the Paris 2024 Olympic Games",
         "events": {
-            "Men's Greco-Roman 60kg": {
+            "wrestling-mens-greco-roman-60kg": {
                 "tournament": false,
                 "name": "Men's Greco-Roman 60kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-greco-roman-60kg"
             },
-            "Men's Greco-Roman 67kg": {
+            "wrestling-mens-greco-roman-67kg": {
                 "tournament": false,
                 "name": "Men's Greco-Roman 67kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-greco-roman-67kg"
             },
-            "Men's Greco-Roman 77kg": {
+            "wrestling-mens-greco-roman-77kg": {
                 "tournament": false,
                 "name": "Men's Greco-Roman 77kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-greco-roman-77kg"
             },
-            "Men's Greco-Roman 87kg": {
+            "wrestling-mens-greco-roman-87kg": {
                 "tournament": false,
                 "name": "Men's Greco-Roman 87kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-greco-roman-87kg"
             },
-            "Men's Greco-Roman 97kg": {
+            "wrestling-mens-greco-roman-97kg": {
                 "tournament": false,
                 "name": "Men's Greco-Roman 97kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-greco-roman-97kg"
             },
-            "Men's Greco-Roman 130kg": {
+            "wrestling-mens-greco-roman-130kg": {
                 "tournament": false,
                 "name": "Men's Greco-Roman 130kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-greco-roman-130kg"
             },
-            "Women's Freestyle 50kg": {
+            "wrestling-womens-freestyle-50kg": {
                 "tournament": false,
                 "name": "Women's Freestyle 50kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-womens-freestyle-50kg"
             },
-            "Women's Freestyle 53kg": {
+            "wrestling-womens-freestyle-53kg": {
                 "tournament": false,
                 "name": "Women's Freestyle 53kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-womens-freestyle-53kg"
             },
-            "Women's Freestyle 57kg": {
+            "wrestling-womens-freestyle-57kg": {
                 "tournament": false,
                 "name": "Women's Freestyle 57kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-womens-freestyle-57kg"
             },
-            "Women's Freestyle 62kg": {
+            "wrestling-womens-freestyle-62kg": {
                 "tournament": false,
                 "name": "Women's Freestyle 62kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-womens-freestyle-62kg"
             },
-            "Women's Freestyle 68kg": {
+            "wrestling-womens-freestyle-68kg": {
                 "tournament": false,
                 "name": "Women's Freestyle 68kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-womens-freestyle-68kg"
             },
-            "Women's Freestyle 76kg": {
+            "wrestling-womens-freestyle-76kg": {
                 "tournament": false,
                 "name": "Women's Freestyle 76kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-womens-freestyle-76kg"
             },
-            "Men's Freestyle 57kg": {
+            "wrestling-mens-freestyle-57kg": {
                 "tournament": false,
                 "name": "Men's Freestyle 57kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-freestyle-57kg"
             },
-            "Men's Freestyle 65kg": {
+            "wrestling-mens-freestyle-65kg": {
                 "tournament": false,
                 "name": "Men's Freestyle 65kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-freestyle-65kg"
             },
-            "Men's Freestyle 74kg": {
+            "wrestling-mens-freestyle-74kg": {
                 "tournament": false,
                 "name": "Men's Freestyle 74kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-freestyle-74kg"
             },
-            "Men's Freestyle 86kg": {
+            "wrestling-mens-freestyle-86kg": {
                 "tournament": false,
                 "name": "Men's Freestyle 86kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-freestyle-86kg"
             },
-            "Men's Freestyle 97kg": {
+            "wrestling-mens-freestyle-97kg": {
                 "tournament": false,
                 "name": "Men's Freestyle 97kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-freestyle-97kg"
             },
-            "Men's Freestyle 125kg": {
+            "wrestling-mens-freestyle-125kg": {
                 "tournament": false,
                 "name": "Men's Freestyle 125kg",
-                "ranking": false
+                "ranking": false,
+                "slug": "wrestling-mens-freestyle-125kg"
             }
         },
         "athletes": [

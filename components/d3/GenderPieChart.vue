@@ -47,7 +47,7 @@ const createPieChart = () => {
 
   const filteredAthletes = Object.values(athletes).filter((athlete: any) => {
     if (props.type === 'sport') {
-      return athlete.sports?.some((s: any) => s.slug === props.slug);
+      return athlete.sports?.some((s: any) => s === props.slug);
     } else if (props.type === 'country') {
       const countryName = getCountryNameFromSlug(props.slug);
       return athlete.country.name === countryName;

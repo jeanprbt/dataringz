@@ -2,7 +2,7 @@
     <PageModal :show="showAthletePage" :back="transition" :transition="transition" :items="items" @close="closePage"
         @back="router.back()">
 
-        <div
+        <div v-if="athlete"
             :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 && !hasFewInfo, 'grid grid-cols-12 md:grid-rows-10': selected === 0 && hasFewInfo }]">
 
             <UCard v-if="profilePicture" variant="soft" :ui="{ 'body': 'p-0 md:p-0 h-full' }" :class="{
@@ -28,12 +28,13 @@
                 <template #default>
                     <div class="flex w-full h-full justify-left gap-4">
                         <img v-if="!isSmallScreen" class="rounded-lg w-1/6 dark:invert dark:brightness-80"
-                            :src="`/img/sports/SVG/${athlete.sports[0]['slug']}.svg`" />
+                            :src="`/img/sports/SVG/${mainSport.slug}.svg`" />
                         <div class="flex flex-col justify-center">
-                            <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ athlete.name }}
+                            <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                                {{ athlete.name }}
                             </h2>
-                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ athlete.sports[0]["name"]
-                                }}
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                {{ mainSport.name }}
                             </p>
                         </div>
                     </div>
@@ -57,11 +58,12 @@
                             @click.stop="toggleCard(3)" />
                         <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
                         <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
-                            <p v-for="(event, index) in athlete.events" :key="index" :class="[
+                            <NuxtLink v-for="(event, index) in events" :to="`/event/${event.slug}`" :key="index" :class="[
                                 'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
+                                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50'
                             ]">
-                                {{ event }}
-                            </p>
+                                {{ event.name }}
+                            </NuxtLink>
 
                         </div>
                     </div>
@@ -75,11 +77,13 @@
                         <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
                         <div
                             class="grid gap-3 h-full [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] auto-rows-fr">
-                            <p v-for="(event, index) in compactEvents" :key="index" :class="[
-                                'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
-                            ]">
-                                {{ event }}
-                            </p>
+                            <NuxtLink v-for="(event, index) in compactEvents" :to="`/event/${event.slug}`" :key="index"
+                                :class="[
+                                    'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
+                                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50'
+                                ]">
+                                {{ event.name }}
+                            </NuxtLink>
                         </div>
                     </div>
                 </template>
@@ -467,7 +471,7 @@
                             <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
                             <div class="flex flex-col gap-2 h-full">
                                 <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                                    {{ athlete.coach }}
+                                    {{ compactCoach }}
                                 </p>
                             </div>
                         </div>
@@ -511,11 +515,15 @@
                 </template>
             </UCard>
         </div>
+        <div v-else class="h-full flex items-center justify-center">
+            <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Athlete not found.</p>
+        </div>
     </PageModal>
 </template>
 
 <script setup lang="ts">
 import athletes from '~/data/athletes.json';
+import sports from '~/data/sports.json';
 
 definePageMeta({
     middleware: ['athlete', 'previous', 'breadcrumb'],
@@ -538,6 +546,18 @@ const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
 const athlete = athletes[slug as keyof typeof athletes] as any;
+const mainSport = athlete ? sports[athlete.sports[0] as keyof typeof sports] as any : {} as any;
+let events: any[] = [];
+if (athlete) {
+    for (const sportSlug of athlete.sports) {
+        let sport = sports[sportSlug as keyof typeof sports] as any;
+        const matchingEvents = Object.values(sport.events).filter((event: any) =>
+            athlete.events.includes(event.slug)
+        );
+        events.push(...matchingEvents);
+    }
+}
+
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
@@ -553,9 +573,10 @@ const closePage = () => {
 }
 
 useHead(() => {
+    if (athlete === undefined) return;
     const name = athlete.name;
     const country = athlete.country?.name || '';
-    const sports = athlete.sports.map((s: { name: any; }) => s.name).join(', ');
+    const sports = athlete.sports;
     const medals = athlete.achievements.length > 0
         ? `${athlete.achievements.length} Olympic medals`
         : 'Olympic athlete';
@@ -617,10 +638,10 @@ const compactCoach = computed(() => {
     if (lastSpaceIndex === -1) return text.substring(0, 35) + '...';
     return text.substring(0, lastSpaceIndex) + '...';
 })
-const compactEvents = computed(() => athlete.events.slice(0, 4))
+const compactEvents = computed(() => events.slice(0, 4));
 const profilePicture = computed(() => slug && athlete && athlete.image && athlete.image.should_show_image);
-const hasMedals = computed(() => athlete.achievements && athlete.achievements.length > 0);
-const hasFewInfo = computed(() => (!athlete.education && !athlete.reason && !athlete.philosophy) || (!athlete.education && !hasMedals.value) || (!hasMedals.value && !athlete.reason && !athlete.philosophy))
+const hasMedals = computed(() => athlete && athlete.achievements && athlete.achievements.length > 0);
+const hasFewInfo = computed(() => athlete && (!athlete.education && !athlete.reason && !athlete.philosophy) || (!athlete.education && !hasMedals.value) || (!hasMedals.value && !athlete.reason && !athlete.philosophy))
 
 onMounted(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -683,8 +704,8 @@ const medalCounts = computed(() => {
     return counts;
 });
 
-const sortedMedals = computed(() => {
-    return [...athlete.achievements].sort((a, b) => {
+const sortedMedals = computed(
+    () => [...athlete.achievements].sort((a, b) => {
         // Sort by date (earliest first)
         const dateA = new Date(a.date).getTime();
         const dateB = new Date(b.date).getTime();
@@ -695,20 +716,6 @@ const sortedMedals = computed(() => {
         const typeA = typeOrder[a.type.split(' ')[0] as keyof typeof typeOrder] || 0;
         const typeB = typeOrder[b.type.split(' ')[0] as keyof typeof typeOrder] || 0;
         return typeB - typeA;
-    });
-});
-
-// Add these computed properties
-const hasOneBottomCard = computed(() => {
-    return (athlete.coach || athlete.hero || athlete.hobbies) &&
-        !((athlete.coach || athlete.hero) && athlete.hobbies);
-});
-
-const hasBothBottomCards = computed(() => {
-    return (athlete.coach || athlete.hero) && athlete.hobbies;
-});
-
-const hasBottomCards = computed(() => {
-    return hasOneBottomCard.value || hasBothBottomCards.value;
-});
+    })
+);
 </script>

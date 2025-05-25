@@ -1,6 +1,6 @@
 <template>
     <PageModal :show="showCountryPage" :transition="false" :countries="true" @close="closePage">
-        <div
+        <div v-if="country"
             :class="['gap-4 p-2 h-full flex flex-col overflow-hidden', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 }]">
 
             <UCard variant="soft" :ui="{ 'body': 'p-0 md:p-0 h-full' }" :class="{
@@ -266,7 +266,9 @@
                     </div>
                 </template>
             </UCard>
-
+        </div>
+        <div v-else class="h-full flex items-center justify-center">
+            <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Country not found.</p>
         </div>
     </PageModal>
 </template>
@@ -309,64 +311,45 @@ const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
 const country = countries[slug as keyof typeof countries] as any;
-
-// Calculate number of athletes for this country
 const athleteCount = computed(() => {
-    // Using country code for more reliable matching
     return Object.values(athletes)
         .filter(athlete => athlete.country.name === country.name).length;
 });
 
-// Get medals for this country from medals_total
 const countryMedals = computed(() => {
     return medals_total.find(m => m.country_code === country.country_code);
 });
 
-// Create a map of discipline names to sport slugs using sports.json
 const createSportDisciplineMap = () => {
     const disciplineMap = {} as any;
 
     Object.entries(sports).forEach(([sportSlug, sportInfo]) => {
-        // Map the main sport name
         disciplineMap[sportInfo.name] = sportSlug;
-
-        // Some disciplines are variations of the sport name
         const variations = [
             `${sportInfo.name} - Men`,
             `${sportInfo.name} - Women`,
             `Men's ${sportInfo.name}`,
             `Women's ${sportInfo.name}`
         ];
-
         variations.forEach(variation => {
             disciplineMap[variation] = sportSlug;
         });
     });
-
     return disciplineMap;
 };
 
 const sportDisciplineMap = createSportDisciplineMap();
 
-// Function to get sport slug from discipline
 const getSportSlugFromDiscipline = (discipline: any) => {
-    // Direct match
-    if (sportDisciplineMap[discipline]) {
-        return sportDisciplineMap[discipline];
-    }
-
-    // Try to find a partial match
+    if (sportDisciplineMap[discipline]) return sportDisciplineMap[discipline];
     for (const [key, value] of Object.entries(sportDisciplineMap)) {
         if (discipline.includes(key) || key.includes(discipline)) {
             return value;
         }
     }
-
-    // Fallback: normalize the discipline name
     return discipline.toLowerCase().replace(/\s+/g, '-');
 };
 
-// Calculate total medals for the country using medals.json
 const countryTotalMedals = computed(() => {
     const countryMedals = medals.filter(medal =>
         medal.country_code === country.country_code
@@ -391,43 +374,25 @@ const countryTotalMedals = computed(() => {
     return totalMedals;
 });
 
-// Calculate number of unique sports for this country
 const uniqueSportsCount = computed(() => {
-    // Get all athletes from this country
     const countryAthletes = Object.values(athletes)
         .filter(athlete => athlete.country.name === country.name);
-
-    // Create a Set to store unique sport slugs
     const uniqueSportsSlugs = new Set();
-
-    // Add each sport slug to the Set
     countryAthletes.forEach(athlete => {
         if (athlete.sports && athlete.sports.length > 0) {
             athlete.sports.forEach((sport: any) => {
-                if (sport.slug) {
-                    uniqueSportsSlugs.add(sport.slug);
-                }
+                uniqueSportsSlugs.add(sport);
             });
         }
     });
-    // Return the count of unique sports
     return uniqueSportsSlugs.size;
 });
 
-
-// Calculate best sport by medals using medals.json
 const bestSport = computed<any>(() => {
-    const countryMedals = medals.filter(medal =>
-        medal.country_code === country.country_code
-    );
+    const countryMedals = medals.filter(medal => medal.country_code === country.country_code);
+    if (countryMedals.length === 0) return null;
 
-    if (countryMedals.length === 0) {
-        return null;
-    }
-
-    // Group medals by sport
     const sportMedals = {} as any;
-
     countryMedals.forEach(medal => {
         const discipline = medal.discipline;
         const sportSlug = getSportSlugFromDiscipline(discipline);
@@ -450,33 +415,28 @@ const bestSport = computed<any>(() => {
         }
     });
 
-    // Find the best sport prioritizing gold, then silver, then bronze
     let bestSport = null;
     let maxGold = -1;
     let maxSilver = -1;
     let maxBronze = -1;
 
     Object.values(sportMedals).forEach((sport: any) => {
-        // Check if this sport has more gold medals
         if (sport.medals.gold > maxGold) {
             maxGold = sport.medals.gold;
             maxSilver = sport.medals.silver;
             maxBronze = sport.medals.bronze;
             bestSport = sport;
         }
-        // If gold medals are tied, check silver medals
         else if (sport.medals.gold === maxGold && sport.medals.silver > maxSilver) {
             maxSilver = sport.medals.silver;
             maxBronze = sport.medals.bronze;
             bestSport = sport;
         }
-        // If gold and silver medals are tied, check bronze medals
         else if (sport.medals.gold === maxGold && sport.medals.silver === maxSilver && sport.medals.bronze > maxBronze) {
             maxBronze = sport.medals.bronze;
             bestSport = sport;
         }
     });
-
     return bestSport;
 });
 
@@ -486,7 +446,7 @@ const closePage = () => {
     router.push('/');
 }
 
-// UI STATE for expandable cards
+// UI STATE
 const selected = ref(0);
 const previous = ref(0);
 const transitioning = ref(false);
@@ -513,6 +473,7 @@ if (isClient) { mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '' };
 const countryMapContainer = ref<HTMLElement | null>(null);
 
 onMounted(() => {
+    if (country === undefined) return;
     if (countryMapContainer.value) {
         const map = new mapboxgl.Map({
             container: countryMapContainer.value as HTMLElement,

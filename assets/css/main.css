@@ -157,7 +157,7 @@
 
     --animate-modal-content: content-fade-in .5s 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
     --animate-modal-content-exit: content-fade-out .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
-    --animate-modal-content-transition: content-fade-in 1.5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    --animate-modal-content-transition: content-fade-in 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
 
     @keyframes content-fade-in {
         0% {

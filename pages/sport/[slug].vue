@@ -3,16 +3,19 @@
         @back="router.back()">
 
         <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-6': selected === 0 }]">
-            
+
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-4 h-full' }" :class="{
                 'col-span-12 md:col-span-6 row-span-1': selected === 0,
                 'hidden': selected !== 0 && selected !== 2
             }">
                 <template #default>
                     <div class="flex flex-col justify-center h-full">
-                        <h3 class="text-sm md:text-lg font-medium text-zinc-800 dark:text-white">{{ sport.name }}</h3>
-                        <p v-if="sport.description" class="text-xs md:text-sm text-zinc-600 dark:text-gray-300">{{
-                            sport.description }}</p>
+                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                            {{ sport.name }}
+                        </h2>
+                        <p v-if="sport.description" class="text-xs md:text-sm text-zinc-600 dark:text-gray-400">
+                            {{ sport.description }}
+                        </p>
                     </div>
                 </template>
             </UCard>
@@ -28,15 +31,18 @@
                     <div v-if="selected === 3 && isSmallScreen" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(3)" />
-                        <D3GenderPieChart :slug="slug" :type="'sport'"/>
+                        <D3GenderPieChart :slug="slug" :type="'sport'" />
                     </div>
                     <div v-else-if="isSmallScreen" class="h-full relative flex items-center">
-                        <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Gender distribution
-                        </h3>
+                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                            Gender distribution
+                        </h2>
                     </div>
                     <div v-else class="h-full">
-                        <h3 class="text-lg font-medium text-zinc-800 dark:text-white">Gender distribution</h3>
-                        <D3GenderPieChart :slug="slug" :type="'sport'"/>
+                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                            Gender distribution
+                        </h2>
+                        <D3GenderPieChart :slug="slug" :type="'sport'" />
                     </div>
                 </template>
             </UCard>
@@ -75,8 +81,9 @@
                                 <UButton v-if="eventsExpandable" variant="ghost" icon="i-heroicons-arrow-left"
                                     class="absolute left-0" @click.stop="selectedEvent = null" />
                                 <div class="flex flex-col items-center justify-center h-full">
-                                    <h3 class="font-medium text-zinc-500 dark:text-zinc-400 mb-5">{{ sport.name }} | {{
-                                        selectedEvent.name }}</h3>
+                                    <h3 class="font-medium text-zinc-500 dark:text-zinc-400 mb-5">
+                                        {{ sport.name }} | {{ selectedEvent.name }}
+                                    </h3>
                                     <D3Tournament v-if="selectedEvent.tournament" :matches="selectedEvent.matches" />
                                     <UTable v-if="selectedEvent.ranking" :data="selectedEvent.ranks"
                                         :columns="eventColumns" sticky />
@@ -84,9 +91,10 @@
                             </div>
 
                             <!-- list of events -->
-                            <div v-else class="flex flex-col h-full">
-                                <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-4">Events
-                                </h3>
+                            <div v-else class="flex flex-col h-full gap-2">
+                                <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                                    Events
+                                </h2>
                                 <div
                                     class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
                                     <p v-for="([event_name, event], index) in Object.entries(sport.events)" :key="index"
@@ -111,8 +119,10 @@
                             <UIcon v-if="eventCardHovered && eventsExpandable" name="i-heroicons-arrow-up-right"
                                 class="absolute right-0" />
                         </transition>
-                        <div class="flex flex-col justify-center h-full">
-                            <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-2">Events</h3>
+                        <div class="flex flex-col justify-center h-full gap-2">
+                            <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                                Events
+                            </h2>
                             <div class="grid [grid-template-columns:repeat(auto-fill,minmax(5rem,1fr))] gap-3 h-full">
                                 <p v-for="([event_name, event], index) in compactEvents" :key="index"
                                     @mouseenter="hoverEvent()" @mouseleave="unhoverEvent()"
@@ -143,10 +153,10 @@
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-50"
                             @click.stop="toggleCard(5)" />
 
-                        <div class="flex flex-col h-full">
-                            <h3 class="col-span-full text-lg font-medium text-zinc-800 dark:text-white mb-4">Medallists
-                            </h3>
-
+                        <div class="flex flex-col h-full gap-2">
+                            <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                                Medallists
+                            </h2>
                             <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
                                 <NuxtLink v-for="athlete in sport.athletes" :key="athlete.slug"
                                     :to="`/athlete/${athlete.slug}`"
@@ -175,9 +185,10 @@
                             <UIcon v-if="athleteCardHovered" name="i-heroicons-arrow-up-right"
                                 class="absolute right-0" />
                         </transition>
-                        <div class="flex flex-col justify-center h-full">
-                            <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white mb-2">Medallists
-                            </h3>
+                        <div class="flex flex-col justify-center h-full gap-2">
+                            <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                                Medallists
+                            </h2>
                             <div class="grid grid-cols-2 grid-rows-2 gap-4 h-full">
                                 <NuxtLink v-for="athlete in compactAthletes" :key="athlete.slug"
                                     @mouseenter="hoverAthlete()" @mouseleave="unhoverAthlete()"
@@ -220,10 +231,11 @@
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="ageCardHovered" name="i-heroicons-arrow-up-right"
-                                class="absolute right-0" />
+                            <UIcon v-if="ageCardHovered" name="i-heroicons-arrow-up-right" class="absolute right-0" />
                         </transition>
-                        <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Age distribution</h3>
+                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                            Age Distribution
+                        </h2>
                         <img v-if="!isSmallScreen" class="w-full h-full p-12" src="/img/foo_age_chart.png"
                             alt="Foo chart" />
                     </div>

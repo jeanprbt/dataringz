@@ -27,13 +27,13 @@
             }">
                 <template #default>
                     <div class="flex w-full h-full justify-left gap-4">
-                        <img v-if="!isSmallScreen" class="rounded-lg w-1/6"
+                        <img v-if="!isSmallScreen" class="rounded-lg w-1/6 dark:invert dark:brightness-80"
                             :src="`/img/sports/SVG/${athlete.sports[0]['slug']}.svg`" />
                         <div class="flex flex-col justify-center">
                             <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">{{ athlete.name }}
                             </h2>
                             <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ athlete.sports[0]["name"]
-                            }}
+                                }}
                             </p>
                         </div>
                     </div>
@@ -52,10 +52,10 @@
             }" @click="selected === 3 ? () => { } : athlete.events.length > 4 ? toggleCard(3) : () => { }"
                 @mouseenter="eventsCardHovered = true" @mouseleave="eventsCardHovered = false">
                 <template #default>
-                    <div v-if="selected === 3" class="h-full relative flex flex-col">
+                    <div v-if="selected === 3" class="h-full relative flex flex-col gap-2">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                             @click.stop="toggleCard(3)" />
-                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white mb-3">Events</h2>
+                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
                         <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
                             <p v-for="(event, index) in athlete.events" :key="index" :class="[
                                 'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
@@ -110,13 +110,14 @@
                 'hidden': selected !== 0 && selected !== 5
             }">
                 <template #default>
-                    <div class="w-full h-full rounded-lg">
-                        <h2
-                            :class="['text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1']">
-                            Age</h2>
-                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                            {{ athlete.age }}
-                        </p>
+                    <div class="flex items-center h-full rounded-lg">
+                        <div>
+                            <h2 :class="['text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1']">
+                                Age</h2>
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                {{ athlete.age }}
+                            </p>
+                        </div>
                     </div>
                 </template>
             </UCard>
@@ -127,11 +128,13 @@
                 'hidden': selected !== 0 && selected !== 6
             }">
                 <template #default>
-                    <div class="w-full h-full rounded-lg">
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Sex</h2>
-                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                            {{ athlete.gender }}
-                        </p>
+                    <div class="flex items-center h-full rounded-lg">
+                        <div>
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Sex</h2>
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                {{ athlete.gender }}
+                            </p>
+                        </div>
                     </div>
                 </template>
             </UCard>
@@ -142,22 +145,24 @@
                 'hidden': selected !== 0 && selected !== 7
             }">
                 <template #default>
-                    <div class="w-full h-full rounded-lg">
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Birth</h2>
-                        <div class="flex gap-2 items-center">
-                            <div class="flex gap-1 items-center">
-                                <UIcon name="i-heroicons-calendar-days" />
-                                <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                                    {{ isSmallScreen ? formatDate(athlete.birth_date, "short") :
-                                        formatDate(athlete.birth_date) }}
-                                </p>
-                            </div>
+                    <div class="flex items-center h-full rounded-lg">
+                        <div>
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Birth</h2>
+                            <div class="flex gap-2 items-center">
+                                <div class="flex gap-1 items-center">
+                                    <UIcon name="i-heroicons-calendar-days" />
+                                    <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                        {{ isSmallScreen ? formatDate(athlete.birth_date, "short") :
+                                            formatDate(athlete.birth_date) }}
+                                    </p>
+                                </div>
 
-                            <div class="flex items-center">
-                                <UIcon v-if="athlete.birth_place" name="i-heroicons-map-pin" />
-                                <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                                    {{ athlete.birth_place }}
-                                </p>
+                                <div class="flex items-center">
+                                    <UIcon v-if="athlete.birth_place" name="i-heroicons-map-pin" />
+                                    <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                        {{ athlete.birth_place }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -165,7 +170,7 @@
             </UCard>
 
             <UCard v-if="athlete.reason || athlete.psychology" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-12 md:col-span-6 md:row-span-1': selected === 0 && (hasMedals && athlete.education) || (!hasMedals && !athlete.education) || (hasMedals && !athlete.education && !athlete.coach),
+                'col-span-12 md:col-span-6 md:row-span-1': selected === 0 && (hasMedals && (athlete.education || !athlete.coach)) || (!hasMedals && !athlete.education),
                 'col-span-12 md:col-span-6 md:row-span-2': selected === 0 && hasFewInfo,
                 'col-span-12 md:col-span-3 md:row-span-1': selected === 0 && hasMedals && !athlete.education && athlete.coach,
                 'col-span-12 md:col-span-6 md:row-span-4': selected === 0 && !hasMedals && athlete.education,
@@ -201,33 +206,37 @@
                             </div>
                         </div>
                     </div>
-                    <div v-else class="w-full h-full rounded-lg relative">
+                    <div v-else
+                        :class="['h-full rounded-lg relative', { 'flex items-center': hasMedals || !athlete.education }]">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
                             <UIcon v-if="motivationCardHovered && bioExpandable" name="i-heroicons-arrow-up-right"
                                 class="absolute top-1 right-1" />
                         </transition>
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Biography</h2>
-                        <p v-if="hasMedals || (!hasMedals && !athlete.education)"
-                            class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                            {{ compactBio }}
-                        </p>
-                        <div v-else class="mt-4">
-                            <div v-if="athlete.reason" class="flex gap-3">
-                                <UIcon name="i-heroicons-newspaper"
-                                    class="flex-shrink-0 mt-1 text-zinc-600 dark:text-zinc-400" />
-                                <div class="flex-1">
-                                    <h3 class="text-base font-medium text-zinc-800 dark:text-white mb-1">Reason</h3>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ athlete.reason }}</p>
+                        <div>
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Biography</h2>
+                            <p v-if="hasMedals || (!hasMedals && !athlete.education)"
+                                class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                {{ compactBio }}
+                            </p>
+                            <div v-else class="mt-4">
+                                <div v-if="athlete.reason" class="flex gap-3">
+                                    <UIcon name="i-heroicons-newspaper"
+                                        class="flex-shrink-0 mt-1 text-zinc-600 dark:text-zinc-400" />
+                                    <div class="flex-1">
+                                        <h3 class="text-base font-medium text-zinc-800 dark:text-white mb-1">Reason</h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ athlete.reason }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div v-if="athlete.philosophy" class="flex gap-3">
-                                <UIcon name="i-heroicons-light-bulb"
-                                    class="flex-shrink-0 mt-1 text-zinc-600 dark:text-zinc-400" />
-                                <div class="flex-1">
-                                    <h3 class="text-base font-medium text-zinc-800 dark:text-white mb-1">Philosophy</h3>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ athlete.philosophy }}</p>
+                                <div v-if="athlete.philosophy" class="flex gap-3">
+                                    <UIcon name="i-heroicons-light-bulb"
+                                        class="flex-shrink-0 mt-1 text-zinc-600 dark:text-zinc-400" />
+                                    <div class="flex-1">
+                                        <h3 class="text-base font-medium text-zinc-800 dark:text-white mb-1">Philosophy
+                                        </h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ athlete.philosophy }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -255,18 +264,20 @@
                             </p>
                         </div>
                     </div>
-                    <div v-else class="w- ull h-full rounded-lg relative">
+                    <div v-else class="flex items-center h-full rounded-lg relative">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="coachCard1Hovered && coachExpandable"
-                                name="i-heroicons-arrow-up-right" class="absolute top-0 right-0" />
+                            <UIcon v-if="coachCard1Hovered && coachExpandable" name="i-heroicons-arrow-up-right"
+                                class="absolute top-0 right-0" />
                         </transition>
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
-                        <div class="flex flex-col gap-2 h-full">
-                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                                {{ compactCoach }}
-                            </p>
+                        <div>
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
+                            <div class="flex flex-col gap-2 h-full">
+                                <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                    {{ compactCoach }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -317,7 +328,7 @@
                                         <div
                                             :class="`w-8 h-8 rounded-full flex items-center justify-center ${medalColorClass(type)} mb-1`">
                                             <span class="text-white font-bold text-base">{{ medalEmojiMap[type]
-                                                }}</span>
+                                            }}</span>
                                         </div>
                                         <div class="text-xl font-bold text-zinc-800 dark:text-white">{{ count }}</div>
                                         <div class="text-xs text-zinc-600 dark:text-gray-400">{{ type }}</div>
@@ -372,10 +383,10 @@
                                     <div
                                         :class="`w-6 md:w-8 h-6 md:h-8 rounded-full flex items-center justify-center ${medalColorClass(type)} transition-transform hover:scale-110`">
                                         <span class="text-white font-bold text-sm md:text-base">{{ medalEmojiMap[type]
-                                            }}</span>
+                                        }}</span>
                                     </div>
                                     <div class="text-sm md:text-base font-bold text-zinc-800 dark:text-white">{{ count
-                                        }}
+                                    }}
                                     </div>
                                 </div>
                             </div>
@@ -387,9 +398,9 @@
                                             :class="`w-4 h-4 rounded-full flex shrink-0 items-center justify-center ${medalColorClass(sortedMedals[0].type)}`">
                                             <span class="text-white font-bold text-xs">{{
                                                 medalEmojiMap[sortedMedals[0].type.split(' ')[0]]
-                                                }}</span>
+                                            }}</span>
                                         </div>
-                                        <div class="flex-1 truncate text-zinc-700 dark:text-zinc-300">{{
+                                        <div class="flex-1 truncate text-zinc-700  dark:text-zinc-300">{{
                                             sortedMedals[0].event }}</div>
                                         <div class="text-xs text-zinc-500 dark:text-gray-400 whitespace-nowrap">{{
                                             formatAthleteDate(sortedMedals[0].date) }}</div>
@@ -425,7 +436,7 @@
                 </template>
             </UCard>
 
-             <UCard v-if="athlete.coach && athlete.education" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+            <UCard v-if="athlete.coach && athlete.education" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                 'col-span-12 md:col-span-6 md:row-span-1': selected === 0 && !hasFewInfo,
                 'col-span-12 md:col-span-6 md:row-span-2': selected === 0 && hasFewInfo,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && coachExpandable,
@@ -445,49 +456,57 @@
                             </p>
                         </div>
                     </div>
-                    <div v-else class="w- ull h-full rounded-lg relative">
+                    <div v-else class="flex items-center h-full rounded-lg relative">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="coachCard2Hovered && coachExpandable"
-                                name="i-heroicons-arrow-up-right" class="absolute top-0 right-0" />
+                            <UIcon v-if="coachCard2Hovered && coachExpandable" name="i-heroicons-arrow-up-right"
+                                class="absolute top-0 right-0" />
                         </transition>
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
-                        <div class="flex flex-col gap-2 h-full">
+                        <div>
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-1">Coach</h2>
+                            <div class="flex flex-col gap-2 h-full">
+                                <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                    {{ athlete.coach }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard v-if="athlete.height && ((!athlete.reason && !athlete.philosophy && hasMedals) || !hasMedals)"
+                variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+                    'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
+                    'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
+                    'hidden': selected !== 0 && selected !== 13
+                }">
+                <template #default>
+                    <div class="flex items-center h-full rounded-lg">
+                        <div>
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Height</h2>
                             <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                                {{ compactCoach }}
+                                {{ formatHeight(athlete.height) }}
                             </p>
                         </div>
                     </div>
                 </template>
             </UCard>
 
-            <UCard v-if="athlete.height && ((!athlete.reason && !athlete.philosophy && hasMedals) || !hasMedals)" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
-                'hidden': selected !== 0 && selected !== 13
-            }">
+            <UCard v-if="athlete.weight && ((!athlete.reason && !athlete.philosophy && hasMedals) || !hasMedals)"
+                variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+                    'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
+                    'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
+                    'hidden': selected !== 0 && selected !== 14
+                }">
                 <template #default>
-                    <div class="w-full h-full rounded-lg">
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Height</h2>
-                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                            {{ formatHeight(athlete.height) }}
-                        </p>
-                    </div>
-                </template>
-            </UCard>
-
-             <UCard v-if="athlete.weight && ((!athlete.reason && !athlete.philosophy && hasMedals) || !hasMedals)" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
-                'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
-                'hidden': selected !== 0 && selected !== 14
-            }">
-                <template #default>
-                    <div class="w-full h-full rounded-lg">
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Weight</h2>
-                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                            {{ athlete.weight }} kg
-                        </p>
+                    <div class="flex items-center h-full rounded-lg">
+                        <div>
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Weight</h2>
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                {{ athlete.weight }} kg
+                            </p>
+                        </div>
                     </div>
                 </template>
             </UCard>

@@ -15,10 +15,9 @@
                             class="text-6xl md:text-7xl font-extrabold text-primary dark:text-white leading-none drop-shadow-sm">
                             XXXIII
                         </div>
-                        <div
-                            class="text-xl md:text-2xl font-medium text-muted-foreground dark:text-zinc-300 max-w-xs md:max-w-sm">
+                        <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">
                             Olympics of the Modern Era
-                        </div>
+                        </p>
                     </div>
                 </template>
             </UCard>
@@ -28,21 +27,21 @@
                     'col-span-12 md:col-span-6': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                     'animate-bento-card': selected === 0 && transitioning && previous === 2,
-                    'transition-all duration-500 transform h-full': selected === 2,
+                    'transition-all duration-500 transform h-full overflow-auto': selected === 2,
                     'hidden': selected !== 0 && selected !== 2
                 }">
                 <template #default>
                     <!-- full screen -->
-                    <div v-if="selected === 2" class="h-full relative">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                    <div v-if="selected === 2" class="h-full relative overflow-auto">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-50"
                             @click.stop="toggleCard(2)" />
-                        <MedalsRanking :medal-data="medals_total"/>
+                        <UTable sticky :data="medals_total" :columns="medalsColumns" class="w-11/12" />
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <h3 class="font-medium">Medals Ranking</h3>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Medals ranking</h2>
                         <div class="flex h-full items-center justify-center">
-                            <img class="w-1/3 object-contain mx-auto pb-10" src="/img/podium.png"/>
+                            <img class="w-1/3 object-contain mx-auto pb-10" src="/img/podium.png" />
                         </div>
                     </div>
                 </template>
@@ -80,9 +79,9 @@
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <h3 class="font-medium text-zinc-800 dark:text-white">Events Repartition</h3>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Events repartition</h2>
                         <div class="flex h-full items-center justify-center">
-                            <img class="w-1/3 object-contain" src="/img/foo_sunburst.png"/>
+                            <img class="w-1/3 object-contain" src="/img/foo_sunburst.png" />
                         </div>
                     </div>
                 </template>
@@ -105,10 +104,9 @@
                     </div>
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <h3 class="font-medium">Medals Race</h3>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Medals race</h2>
                         <div class="flex h-full items-center justify-center">
-                            <img class="w-1/3 object-contain mx-auto pb-10" src="/img/medals-race.png"
-                                alt="Podium" />
+                            <img class="w-1/3 object-contain mx-auto pb-10" src="/img/medals-race.png" alt="Podium" />
                         </div>
                     </div>
                 </template>
@@ -119,7 +117,6 @@
 
 <script setup lang="ts">
 definePageMeta({
-    middleware: ['olympics'],
     layout: 'canvas'
 })
 
@@ -157,4 +154,82 @@ const toggleCard = (index: number = 0) => {
     }
     else selected.value = index;
 }
+
+const medalsColumns = [
+    {
+        accessorKey: 'rank',
+        header: '',
+        cell: ({ row, table }: { row: any, table: any }) => {
+            const rank = row.getValue('rank');
+            const rowIndex = row.index;
+            const rows = table.getRowModel().rows;
+            const hasSameRankAsPrevious = rowIndex > 0 &&
+                rows[rowIndex - 1].getValue('rank') === rank;
+
+            let displayRank = rank;
+            if (hasSameRankAsPrevious) {
+                displayRank = '-';
+            }
+
+            return h('div', { class: 'flex justify-center' }, [
+                h('span', { class: 'font-bold' }, displayRank)
+            ]);
+        }
+    },
+    {
+        accessorKey: 'country',
+        header: 'Country',
+        cell: ({ row }: { row: any }) => {
+            const flag = row.original["flag"];
+            const countryName = row.getValue('country');
+            return h('div', { class: 'flex items-center' }, [
+                h('img', {
+                    src: flag,
+                    alt: countryName,
+                    class: 'w-5 h-5 mr-2 rounded-full object-cover'
+                }),
+                countryName
+            ]);
+        }
+    },
+    {
+        accessorKey: 'bronze',
+        header: '🥉',
+    },
+    {
+        accessorKey: 'silver',
+        header: '🥈'
+    },
+    {
+        accessorKey: 'gold',
+        header: '🥇'
+    },
+    {
+        accessorKey: 'total',
+        header: 'Total',
+        meta: {
+            class: {
+                td: 'w-6',
+                th: 'text-center'
+            }
+        },
+        cell: ({ row }: { row: any }) => {
+            const total = row.getValue('total');
+            const rank = row.getValue('rank');
+
+            let bgColorClass = 'bg-zinc-200/50';
+            if (rank === 1) {
+                bgColorClass = 'bg-amber-300/50';
+            } else if (rank === 2) {
+                bgColorClass = 'bg-slate-300/50';
+            } else if (rank === 3) {
+                bgColorClass = 'bg-amber-700/30';
+            }
+
+            return h('div', { class: `${bgColorClass} rounded-lg px-4 py-2 flex justify-center font-bold` }, [
+                total
+            ]);
+        }
+    }
+]
 </script>

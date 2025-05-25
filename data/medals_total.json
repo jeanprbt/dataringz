@@ -6,7 +6,7 @@
     "gold": 40,
     "silver": 44,
     "bronze": 42,
-    "Total": 126,
+    "total": 126,
     "flag": "/img/countries/us.svg",
     "rank": 1
   },
@@ -17,7 +17,7 @@
     "gold": 40,
     "silver": 27,
     "bronze": 24,
-    "Total": 91,
+    "total": 91,
     "flag": "/img/countries/cn.svg",
     "rank": 2
   },
@@ -28,7 +28,7 @@
     "gold": 20,
     "silver": 12,
     "bronze": 13,
-    "Total": 45,
+    "total": 45,
     "flag": "/img/countries/jp.svg",
     "rank": 3
   },
@@ -39,7 +39,7 @@
     "gold": 18,
     "silver": 19,
     "bronze": 16,
-    "Total": 53,
+    "total": 53,
     "flag": "/img/countries/au.svg",
     "rank": 4
   },
@@ -50,7 +50,7 @@
     "gold": 16,
     "silver": 26,
     "bronze": 22,
-    "Total": 64,
+    "total": 64,
     "flag": "/img/countries/fr.svg",
     "rank": 5
   },
@@ -61,7 +61,7 @@
     "gold": 15,
     "silver": 7,
     "bronze": 12,
-    "Total": 34,
+    "total": 34,
     "flag": "/img/countries/nl.svg",
     "rank": 6
   },
@@ -72,7 +72,7 @@
     "gold": 14,
     "silver": 22,
     "bronze": 29,
-    "Total": 65,
+    "total": 65,
     "flag": "/img/countries/gb.svg",
     "rank": 7
   },
@@ -83,7 +83,7 @@
     "gold": 13,
     "silver": 9,
     "bronze": 10,
-    "Total": 32,
+    "total": 32,
     "flag": "/img/countries/kr.svg",
     "rank": 8
   },
@@ -94,7 +94,7 @@
     "gold": 12,
     "silver": 13,
     "bronze": 15,
-    "Total": 40,
+    "total": 40,
     "flag": "/img/countries/it.svg",
     "rank": 9
   },
@@ -105,7 +105,7 @@
     "gold": 12,
     "silver": 13,
     "bronze": 8,
-    "Total": 33,
+    "total": 33,
     "flag": "/img/countries/de.svg",
     "rank": 10
   },
@@ -116,7 +116,7 @@
     "gold": 10,
     "silver": 7,
     "bronze": 3,
-    "Total": 20,
+    "total": 20,
     "flag": "/img/countries/nz.svg",
     "rank": 11
   },
@@ -127,7 +127,7 @@
     "gold": 9,
     "silver": 7,
     "bronze": 11,
-    "Total": 27,
+    "total": 27,
     "flag": "/img/countries/ca.svg",
     "rank": 12
   },
@@ -138,7 +138,7 @@
     "gold": 8,
     "silver": 2,
     "bronze": 3,
-    "Total": 13,
+    "total": 13,
     "flag": "/img/countries/uz.svg",
     "rank": 13
   },
@@ -149,7 +149,7 @@
     "gold": 6,
     "silver": 7,
     "bronze": 6,
-    "Total": 19,
+    "total": 19,
     "flag": "/img/countries/hu.svg",
     "rank": 14
   },
@@ -160,7 +160,7 @@
     "gold": 5,
     "silver": 4,
     "bronze": 9,
-    "Total": 18,
+    "total": 18,
     "flag": "/img/countries/es.svg",
     "rank": 15
   },
@@ -171,7 +171,7 @@
     "gold": 4,
     "silver": 4,
     "bronze": 3,
-    "Total": 11,
+    "total": 11,
     "flag": "/img/countries/se.svg",
     "rank": 16
   },
@@ -182,7 +182,7 @@
     "gold": 4,
     "silver": 2,
     "bronze": 5,
-    "Total": 11,
+    "total": 11,
     "flag": "/img/countries/ke.svg",
     "rank": 17
   },
@@ -193,7 +193,7 @@
     "gold": 4,
     "silver": 1,
     "bronze": 3,
-    "Total": 8,
+    "total": 8,
     "flag": "/img/countries/no.svg",
     "rank": 18
   },
@@ -204,7 +204,7 @@
     "gold": 4,
     "silver": 0,
     "bronze": 3,
-    "Total": 7,
+    "total": 7,
     "flag": "/img/countries/ie.svg",
     "rank": 19
   },
@@ -215,7 +215,7 @@
     "gold": 3,
     "silver": 7,
     "bronze": 10,
-    "Total": 20,
+    "total": 20,
     "flag": "/img/countries/br.svg",
     "rank": 20
   },
@@ -226,7 +226,7 @@
     "gold": 3,
     "silver": 6,
     "bronze": 3,
-    "Total": 12,
+    "total": 12,
     "flag": "/img/countries/ir.svg",
     "rank": 21
   },
@@ -237,7 +237,7 @@
     "gold": 3,
     "silver": 5,
     "bronze": 4,
-    "Total": 12,
+    "total": 12,
     "flag": "/img/countries/ua.svg",
     "rank": 22
   },
@@ -248,7 +248,7 @@
     "gold": 3,
     "silver": 4,
     "bronze": 2,
-    "Total": 9,
+    "total": 9,
     "flag": "/img/countries/ro.svg",
     "rank": 23
   },
@@ -259,7 +259,7 @@
     "gold": 3,
     "silver": 3,
     "bronze": 1,
-    "Total": 7,
+    "total": 7,
     "flag": "/img/countries/ge.svg",
     "rank": 24
   },
@@ -270,7 +270,7 @@
     "gold": 3,
     "silver": 1,
     "bronze": 6,
-    "Total": 10,
+    "total": 10,
     "flag": "/img/countries/be.svg",
     "rank": 25
   },
@@ -281,7 +281,7 @@
     "gold": 3,
     "silver": 1,
     "bronze": 3,
-    "Total": 7,
+    "total": 7,
     "flag": "/img/countries/bg.svg",
     "rank": 26
   },
@@ -292,7 +292,7 @@
     "gold": 3,
     "silver": 1,
     "bronze": 1,
-    "Total": 5,
+    "total": 5,
     "flag": "/img/countries/rs.svg",
     "rank": 27
   },
@@ -303,7 +303,7 @@
     "gold": 3,
     "silver": 0,
     "bronze": 2,
-    "Total": 5,
+    "total": 5,
     "flag": "/img/countries/cz.svg",
     "rank": 28
   },
@@ -314,7 +314,7 @@
     "gold": 2,
     "silver": 2,
     "bronze": 5,
-    "Total": 9,
+    "total": 9,
     "flag": "/img/countries/dk.svg",
     "rank": 29
   },
@@ -325,7 +325,7 @@
     "gold": 2,
     "silver": 2,
     "bronze": 3,
-    "Total": 7,
+    "total": 7,
     "flag": "/img/countries/az.svg",
     "rank": 30
   },
@@ -336,7 +336,7 @@
     "gold": 2,
     "silver": 2,
     "bronze": 3,
-    "Total": 7,
+    "total": 7,
     "flag": "/img/countries/hr.svg",
     "rank": 30
   },
@@ -347,7 +347,7 @@
     "gold": 2,
     "silver": 1,
     "bronze": 6,
-    "Total": 9,
+    "total": 9,
     "flag": "/img/countries/cu.svg",
     "rank": 32
   },
@@ -358,7 +358,7 @@
     "gold": 2,
     "silver": 1,
     "bronze": 1,
-    "Total": 4,
+    "total": 4,
     "flag": "/img/countries/bh.svg",
     "rank": 33
   },
@@ -369,7 +369,7 @@
     "gold": 2,
     "silver": 1,
     "bronze": 0,
-    "Total": 3,
+    "total": 3,
     "flag": "/img/countries/si.svg",
     "rank": 34
   },
@@ -380,7 +380,7 @@
     "gold": 2,
     "silver": 0,
     "bronze": 5,
-    "Total": 7,
+    "total": 7,
     "flag": "/img/countries/tw.svg",
     "rank": 35
   },
@@ -391,7 +391,7 @@
     "gold": 2,
     "silver": 0,
     "bronze": 3,
-    "Total": 5,
+    "total": 5,
     "flag": "/img/countries/at.svg",
     "rank": 36
   },
@@ -402,7 +402,7 @@
     "gold": 2,
     "silver": 0,
     "bronze": 2,
-    "Total": 4,
+    "total": 4,
     "flag": "/img/countries/hk.svg",
     "rank": 37
   },
@@ -413,7 +413,7 @@
     "gold": 2,
     "silver": 0,
     "bronze": 2,
-    "Total": 4,
+    "total": 4,
     "flag": "/img/countries/ph.svg",
     "rank": 37
   },
@@ -424,7 +424,7 @@
     "gold": 2,
     "silver": 0,
     "bronze": 1,
-    "Total": 3,
+    "total": 3,
     "flag": "/img/countries/dz.svg",
     "rank": 39
   },
@@ -435,7 +435,7 @@
     "gold": 2,
     "silver": 0,
     "bronze": 0,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/id.svg",
     "rank": 40
   },
@@ -446,7 +446,7 @@
     "gold": 1,
     "silver": 5,
     "bronze": 1,
-    "Total": 7,
+    "total": 7,
     "flag": "/img/countries/il.svg",
     "rank": 41
   },
@@ -457,7 +457,7 @@
     "gold": 1,
     "silver": 4,
     "bronze": 5,
-    "Total": 10,
+    "total": 10,
     "flag": "/img/countries/pl.svg",
     "rank": 42
   },
@@ -468,7 +468,7 @@
     "gold": 1,
     "silver": 3,
     "bronze": 3,
-    "Total": 7,
+    "total": 7,
     "flag": "/img/countries/kz.svg",
     "rank": 43
   },
@@ -479,7 +479,7 @@
     "gold": 1,
     "silver": 3,
     "bronze": 2,
-    "Total": 6,
+    "total": 6,
     "flag": "/img/countries/jm.svg",
     "rank": 44
   },
@@ -490,7 +490,7 @@
     "gold": 1,
     "silver": 3,
     "bronze": 2,
-    "Total": 6,
+    "total": 6,
     "flag": "/img/countries/za.svg",
     "rank": 44
   },
@@ -501,7 +501,7 @@
     "gold": 1,
     "silver": 3,
     "bronze": 2,
-    "Total": 6,
+    "total": 6,
     "flag": "/img/countries/th.svg",
     "rank": 44
   },
@@ -512,7 +512,7 @@
     "gold": 1,
     "silver": 3,
     "bronze": 1,
-    "Total": 5,
+    "total": 5,
     "flag": "/img/olympics.svg",
     "rank": 47
   },
@@ -523,7 +523,7 @@
     "gold": 1,
     "silver": 3,
     "bronze": 0,
-    "Total": 4,
+    "total": 4,
     "flag": "/img/countries/et.svg",
     "rank": 48
   },
@@ -534,7 +534,7 @@
     "gold": 1,
     "silver": 2,
     "bronze": 5,
-    "Total": 8,
+    "total": 8,
     "flag": "/img/countries/ch.svg",
     "rank": 49
   },
@@ -545,7 +545,7 @@
     "gold": 1,
     "silver": 2,
     "bronze": 2,
-    "Total": 5,
+    "total": 5,
     "flag": "/img/countries/ec.svg",
     "rank": 50
   },
@@ -556,7 +556,7 @@
     "gold": 1,
     "silver": 2,
     "bronze": 1,
-    "Total": 4,
+    "total": 4,
     "flag": "/img/countries/pt.svg",
     "rank": 51
   },
@@ -567,7 +567,7 @@
     "gold": 1,
     "silver": 1,
     "bronze": 6,
-    "Total": 8,
+    "total": 8,
     "flag": "/img/countries/gr.svg",
     "rank": 52
   },
@@ -578,7 +578,7 @@
     "gold": 1,
     "silver": 1,
     "bronze": 1,
-    "Total": 3,
+    "total": 3,
     "flag": "/img/countries/ar.svg",
     "rank": 53
   },
@@ -589,7 +589,7 @@
     "gold": 1,
     "silver": 1,
     "bronze": 1,
-    "Total": 3,
+    "total": 3,
     "flag": "/img/countries/eg.svg",
     "rank": 53
   },
@@ -600,7 +600,7 @@
     "gold": 1,
     "silver": 1,
     "bronze": 1,
-    "Total": 3,
+    "total": 3,
     "flag": "/img/countries/tn.svg",
     "rank": 53
   },
@@ -611,7 +611,7 @@
     "gold": 1,
     "silver": 1,
     "bronze": 0,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/bw.svg",
     "rank": 56
   },
@@ -622,7 +622,7 @@
     "gold": 1,
     "silver": 1,
     "bronze": 0,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/cl.svg",
     "rank": 56
   },
@@ -633,7 +633,7 @@
     "gold": 1,
     "silver": 1,
     "bronze": 0,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/lc.svg",
     "rank": 56
   },
@@ -644,7 +644,7 @@
     "gold": 1,
     "silver": 1,
     "bronze": 0,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/ug.svg",
     "rank": 56
   },
@@ -655,7 +655,7 @@
     "gold": 1,
     "silver": 0,
     "bronze": 2,
-    "Total": 3,
+    "total": 3,
     "flag": "/img/countries/do.svg",
     "rank": 60
   },
@@ -666,7 +666,7 @@
     "gold": 1,
     "silver": 0,
     "bronze": 1,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/gt.svg",
     "rank": 61
   },
@@ -677,7 +677,7 @@
     "gold": 1,
     "silver": 0,
     "bronze": 1,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/ma.svg",
     "rank": 61
   },
@@ -688,7 +688,7 @@
     "gold": 1,
     "silver": 0,
     "bronze": 0,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/dm.svg",
     "rank": 63
   },
@@ -699,7 +699,7 @@
     "gold": 1,
     "silver": 0,
     "bronze": 0,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/pk.svg",
     "rank": 63
   },
@@ -710,7 +710,7 @@
     "gold": 0,
     "silver": 3,
     "bronze": 5,
-    "Total": 8,
+    "total": 8,
     "flag": "/img/countries/tr.svg",
     "rank": 65
   },
@@ -721,7 +721,7 @@
     "gold": 0,
     "silver": 3,
     "bronze": 2,
-    "Total": 5,
+    "total": 5,
     "flag": "/img/countries/mx.svg",
     "rank": 66
   },
@@ -732,7 +732,7 @@
     "gold": 0,
     "silver": 3,
     "bronze": 1,
-    "Total": 4,
+    "total": 4,
     "flag": "/img/countries/am.svg",
     "rank": 67
   },
@@ -743,7 +743,7 @@
     "gold": 0,
     "silver": 3,
     "bronze": 1,
-    "Total": 4,
+    "total": 4,
     "flag": "/img/countries/co.svg",
     "rank": 67
   },
@@ -754,7 +754,7 @@
     "gold": 0,
     "silver": 2,
     "bronze": 4,
-    "Total": 6,
+    "total": 6,
     "flag": "/img/countries/kp.svg",
     "rank": 69
   },
@@ -765,7 +765,7 @@
     "gold": 0,
     "silver": 2,
     "bronze": 4,
-    "Total": 6,
+    "total": 6,
     "flag": "/img/countries/kg.svg",
     "rank": 69
   },
@@ -776,7 +776,7 @@
     "gold": 0,
     "silver": 2,
     "bronze": 2,
-    "Total": 4,
+    "total": 4,
     "flag": "/img/countries/lt.svg",
     "rank": 71
   },
@@ -787,7 +787,7 @@
     "gold": 0,
     "silver": 1,
     "bronze": 5,
-    "Total": 6,
+    "total": 6,
     "flag": "/img/countries/in.svg",
     "rank": 72
   },
@@ -798,7 +798,7 @@
     "gold": 0,
     "silver": 1,
     "bronze": 3,
-    "Total": 4,
+    "total": 4,
     "flag": "/img/countries/md.svg",
     "rank": 73
   },
@@ -809,7 +809,7 @@
     "gold": 0,
     "silver": 1,
     "bronze": 1,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/xk.svg",
     "rank": 74
   },
@@ -820,7 +820,7 @@
     "gold": 0,
     "silver": 1,
     "bronze": 0,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/cy.svg",
     "rank": 75
   },
@@ -831,7 +831,7 @@
     "gold": 0,
     "silver": 1,
     "bronze": 0,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/fj.svg",
     "rank": 75
   },
@@ -842,7 +842,7 @@
     "gold": 0,
     "silver": 1,
     "bronze": 0,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/jo.svg",
     "rank": 75
   },
@@ -853,7 +853,7 @@
     "gold": 0,
     "silver": 1,
     "bronze": 0,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/mn.svg",
     "rank": 75
   },
@@ -864,7 +864,7 @@
     "gold": 0,
     "silver": 1,
     "bronze": 0,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/pa.svg",
     "rank": 75
   },
@@ -875,7 +875,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 3,
-    "Total": 3,
+    "total": 3,
     "flag": "/img/countries/tj.svg",
     "rank": 80
   },
@@ -886,7 +886,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 2,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/al.svg",
     "rank": 81
   },
@@ -897,7 +897,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 2,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/gd.svg",
     "rank": 81
   },
@@ -908,7 +908,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 2,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/my.svg",
     "rank": 81
   },
@@ -919,7 +919,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 2,
-    "Total": 2,
+    "total": 2,
     "flag": "/img/countries/pr.svg",
     "rank": 81
   },
@@ -930,7 +930,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 1,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/cv.svg",
     "rank": 85
   },
@@ -941,7 +941,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 1,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/ci.svg",
     "rank": 85
   },
@@ -952,7 +952,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 1,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/olympics.svg",
     "rank": 85
   },
@@ -963,7 +963,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 1,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/pe.svg",
     "rank": 85
   },
@@ -974,7 +974,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 1,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/qa.svg",
     "rank": 85
   },
@@ -985,7 +985,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 1,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/sg.svg",
     "rank": 85
   },
@@ -996,7 +996,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 1,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/sk.svg",
     "rank": 85
   },
@@ -1007,7 +1007,7 @@
     "gold": 0,
     "silver": 0,
     "bronze": 1,
-    "Total": 1,
+    "total": 1,
     "flag": "/img/countries/zm.svg",
     "rank": 85
   }

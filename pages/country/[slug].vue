@@ -82,7 +82,7 @@
                             <h2 class="text-lg md:text-3xl font-bold text-zinc-800 dark:text-white">
                                 {{ countryMedals?.rank }}
                             </h2>
-                            <span class="text-lg text-gray-500 font-medium">/ 204</span>
+                            <span class="text-lg text-gray-500 font-medium">/ 85</span>
                         </div>
                         <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">Medal Ranking</p>
                     </div>

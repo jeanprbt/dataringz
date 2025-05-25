@@ -1,9 +1,7 @@
 <template>
-    <PageModal :show="showCountryPage" :transition="transition" :countries="true" @close="closePage">
-        <div :class="[
-            'h-full',
-            selected === 0 ? 'grid grid-cols-12 grid-rows-6 gap-4 p-2' : 'relative'
-        ]">
+    <PageModal :show="showCountryPage" :transition="false" :countries="true" @close="closePage">
+        <div
+            :class="['gap-4 p-2 h-full flex flex-col overflow-hidden', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 }]">
 
             <UCard variant="soft" :ui="{ 'body': 'p-0 md:p-0 h-full' }" :class="{
                 'col-span-6 md:col-span-4 md:row-span-2': selected === 0,
@@ -18,8 +16,8 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
-                'col-span-12 md:col-span-3 md:row-span-1 flex-shrink-0': selected === 0 && bestSport,
-                'col-span-12 md:col-span-8 md:row-span-2': selected === 0 && !bestSport,
+                'col-span-6 md:col-span-3 md:row-span-1 flex-shrink-0': selected === 0 && bestSport,
+                'col-span-6 md:col-span-8 md:row-span-2': selected === 0 && !bestSport,
                 'hidden': selected !== 0 && selected !== 2
             }">
                 <template #default>
@@ -32,7 +30,7 @@
             </UCard>
 
             <UCard v-if="bestSport" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
-                'col-span-6 md:col-span-5 md:row-span-2': selected === 0,
+                'col-span-12 md:col-span-5 md:row-span-2': selected === 0,
                 'hidden': selected !== 0 && selected !== 3
             }">
                 <template #default>
@@ -46,23 +44,23 @@
                         </div>
 
                         <div class="flex gap-8">
-                            <div class="flex flex-col gap-2 items-start">
+                            <div class="flex flex-col gap-1 md:gap-2 items-start">
                                 <div
-                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-2">
+                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1 md:py-2">
                                     <span class="text-2xl font-bold text-yellow-500 leading-8">
                                         {{ bestSport.medals.gold }}
                                     </span>
                                     <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Gold</p>
                                 </div>
                                 <div
-                                    class="flex items-center gap-2 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-2">
+                                    class="flex items-center gap-2 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1 md:py-2">
                                     <span class="text-2xl font-bold text-gray-400 leading-8">
                                         {{ bestSport.medals.silver }}
                                     </span>
                                     <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Silver</p>
                                 </div>
                                 <div
-                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-2">
+                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1 md:py-2">
                                     <span class="text-2xl font-bold text-amber-700 leading-8">
                                         {{ bestSport.medals.bronze }}
                                     </span>
@@ -91,7 +89,7 @@
                 </template>
             </UCard>
 
-            <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
+            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-2': selected === 0,
                 'hidden': selected !== 0 && selected !== 8
             }">
@@ -115,7 +113,7 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'flex h-full items-center' }" :class="{
-                'col-span-6 md:col-span-2 md:row-span-1': selected === 0,
+                'col-span-12 md:col-span-2 md:row-span-1': selected === 0,
                 'hidden': selected !== 0 && selected !== 6
             }">
                 <template #default>
@@ -133,10 +131,10 @@
 
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
-                'col-span-6 md:col-span-4 md:row-span-2': selected === 0,
+                'col-span-12 md:col-span-4 md:row-span-2': selected === 0,
                 'hidden': selected !== 0 && selected !== 7
             }"><template #default>
-                    <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">
+                    <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">
                         Medals
                     </h2>
                     <div class="flex flex-col h-full">
@@ -145,26 +143,27 @@
                                 <div class="flex flex-col items-center">
                                     <div
                                         class="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center mb-2">
-                                        <span class="font-bold text-xl text-white dark:text-zinc-900">{{
-                                            countryTotalMedals.gold }}</span>
+                                        <span class="font-bold text-xl text-white dark:text-zinc-900">
+                                            {{ countryTotalMedals.gold }}
+                                        </span>
                                     </div>
                                     <span class="text-sm text-gray-600 dark:text-gray-400">Gold</span>
                                 </div>
                                 <div class="flex flex-col items-center">
                                     <div
                                         class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center mb-2">
-                                        <span class="font-bold text-xl text-white dark:text-zinc-900">{{
-                                            countryTotalMedals.silver
-                                        }}</span>
+                                        <span class="font-bold text-xl text-white dark:text-zinc-900">
+                                            {{ countryTotalMedals.silver }}
+                                        </span>
                                     </div>
                                     <span class="text-sm text-gray-600 dark:text-gray-400">Silver</span>
                                 </div>
                                 <div class="flex flex-col items-center">
                                     <div
                                         class="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center mb-2">
-                                        <span class="font-bold text-xl text-white dark:text-zinc-900">{{
-                                            countryTotalMedals.bronze
-                                        }}</span>
+                                        <span class="font-bold text-xl text-white dark:text-zinc-900">
+                                            {{ countryTotalMedals.bronze }}
+                                        </span>
                                     </div>
                                     <span class="text-sm text-gray-600 dark:text-gray-400">Bronze</span>
                                 </div>
@@ -175,8 +174,8 @@
             </UCard>
 
 
-            <UCard variant="soft" :ui="{ 'body': 'p-6 h-full' }" :class="{
-                'col-span-8 md:col-span-4 md:row-span-3': selected === 0,
+            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
+                'col-span-12 md:col-span-4 md:row-span-3': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && isSmallScreen,
                 'animate-bento-card': selected === 0 && transitioning && previous === 9,
                 'transition-all duration-500 transform h-full': selected === 9,
@@ -189,12 +188,12 @@
                         <D3GenderPieChart :slug="slug" :type="'country'" />
                     </div>
                     <div v-else-if="isSmallScreen" class="h-full relative flex items-center">
-                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                        <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">
                             Gender distribution
                         </h2>
                     </div>
                     <div v-else class="h-full">
-                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                        <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">
                             Gender distribution
                         </h2>
                         <D3GenderPieChart :slug="slug" :type="'country'" />
@@ -203,7 +202,7 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-4 row-span-2': selected === 0,
+                'col-span-12 md:col-span-4 row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'animate-full-screen h-full': selected === 10,
                 'animate-bento-card': selected === 0 && transitioning && previous === 10,
@@ -214,7 +213,7 @@
                     <div v-if="selected === 10" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
                             @click.stop="toggleCard(10)" />
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Previous editions</h2>
+                        <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">Previous editions</h2>
                         <OlympicMedalHistory :country-slug="country.slug" />
                     </div>
                     <div v-else class="h-full relative">
@@ -224,7 +223,7 @@
                             <UIcon v-if="historyCardHovered" name="i-heroicons-arrow-up-right"
                                 class="absolute right-0" />
                         </transition>
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">
+                        <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">
                             Previous editions
                         </h2>
                         <div class="flex items-center justify-center h-[calc(110%)]">
@@ -236,7 +235,7 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
-                'col-span-4 row-span-2': selected === 0,
+                'col-span-12 md:col-span-4 row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'animate-full-screen h-full': selected === 11,
                 'animate-bento-card': selected === 0 && transitioning && previous === 11,
@@ -247,7 +246,7 @@
                     <div v-if="selected === 11" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
                             @click.stop="toggleCard(11)" />
-                        <h3 class="text-lg font-medium mb-4">Medal Comparison</h3>
+                        <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">Medals comparison</h2>
                         <div class="p-4">
                             <D3MedalsComparisonHistogram :country-slug="country.slug" />
                         </div>
@@ -259,7 +258,7 @@
                             <UIcon v-if="compareCardHovered" name="i-heroicons-arrow-up-right"
                                 class="absolute right-0" />
                         </transition>
-                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Medals comparison</h2>
+                        <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">Medals comparison</h2>
                         <div class="flex items-center justify-center h-full">
                             <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain"
                                 src="/img/comparison.png" alt="Foo chart" />

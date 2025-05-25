@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showSportPage" :back="transition" :transition="true" :items="items" @close="closePage"
+    <PageModal :show="showSportPage" :back="transition" :transition="transition" :items="items" @close="closePage"
         @back="router.back()">
 
         <div :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-6': selected === 0 }]">
@@ -251,7 +251,7 @@
 import sports from '~/data/sports.json';
 
 definePageMeta({
-    middleware: ['previous', 'breadcrumb'],
+    middleware: ['sport', 'previous', 'breadcrumb'],
     layout: 'canvas'
 });
 

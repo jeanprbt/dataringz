@@ -1614,17 +1614,6 @@
         "country_code": "ROU",
         "country_long": "Romania"
     },
-    "russian-federation": {
-        "name": "Russian Federation",
-        "location": {
-            "longitude": 97.7453061,
-            "latitude": 64.6863136
-        },
-        "img": "/img/olympics.svg",
-        "slug": "russian-federation",
-        "country_code": "RUS",
-        "country_long": "Russian Federation"
-    },
     "rwanda": {
         "name": "Rwanda",
         "location": {

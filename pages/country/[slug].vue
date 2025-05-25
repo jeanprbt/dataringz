@@ -1,132 +1,170 @@
 <template>
-    <PageModal :show="showCountryPage" :transition="false" :countries="true" @close="closePage">
+    <PageModal :show="showCountryPage" :transition="transition" :countries="true" @close="closePage">
         <div :class="[
             'h-full',
-            selected === 0 ? 'grid grid-cols-12 grid-rows-12 gap-4 p-2' : 'relative'
+            selected === 0 ? 'grid grid-cols-12 grid-rows-6 gap-4 p-2' : 'relative'
         ]">
 
-            <div v-if="selected !== 0" class="absolute inset-0 z-5"></div>
-
-            <!-- Flag Card - only visible in grid mode -->
-            <div v-if="selected === 0"
-                class="col-span-2 row-span-3 rounded-lg overflow-hidden flex items-center justify-center">
-                <img :src="country.img" :alt="country.name + ' flag'" class="w-full h-full object-cover" />
-            </div>
-
-            <!-- Country Name - only visible in grid mode -->
-            <UCard v-if="selected === 0" variant="soft"
-                :ui="{ 'body': 'p-6 md:p-6 h-full flex items-center justify-center' }" class="col-span-4 row-span-3">
+            <UCard variant="soft" :ui="{ 'body': 'p-0 md:p-0 h-full' }" :class="{
+                'col-span-6 md:col-span-4 md:row-span-2': selected === 0,
+                'hidden': selected !== 0 && selected !== 1
+            }">
                 <template #default>
-                    <h1 class="text-3xl font-semibold text-gray-800 dark:text-gray-100 text-center">
-                        {{ country.name }} ({{ country.country_code }})
-                    </h1>
+                    <div class="w-full h-full rounded-lg flex justify-center items-center">
+                        <img :src="country.img" :alt="country.name + ' flag'"
+                            class="w-full h-full rounded-lg object-cover" />
+                    </div>
                 </template>
             </UCard>
 
-            <!-- Medal Ranking - only visible in grid mode -->
-            <UCard v-if="selected === 0" variant="soft"
-                :ui="{ 'body': 'p-4 md:p-6 h-full flex items-center justify-center' }" class="col-span-2 row-span-3">
+            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-4 h-full' }" :class="{
+                'col-span-12 md:col-span-3 md:row-span-1 flex-shrink-0': selected === 0 && bestSport,
+                'col-span-12 md:col-span-8 md:row-span-2': selected === 0 && !bestSport,
+                'hidden': selected !== 0 && selected !== 2
+            }">
                 <template #default>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-primary" v-if="countryMedals">#{{ countryMedals.rank }}
+                    <div class="flex flex-col h-full justify-center">
+                        <h2 class="text-base md:text-2xl font-bold text-zinc-800 dark:text-white">{{ country.name }}
+                        </h2>
+                        <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">{{ country.country_code }}</p>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard v-if="bestSport" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
+                'col-span-6 md:col-span-5 md:row-span-2': selected === 0,
+                'hidden': selected !== 0 && selected !== 3
+            }">
+                <template #default>
+                    <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                        Best sport
+                    </h2>
+                    <div class="flex h-full items-center justify-center gap-4 md:gap-10">
+                        <div class="flex flex-col items-center gap-4">
+                            <img :src="`/img/sports/SVG/${bestSport.slug}.svg`" class="w-full h-full dark:invert" />
+                            <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">{{ bestSport.name }}</p>
                         </div>
-                        <div class="text-3xl font-bold text-gray-400" v-else>-</div>
-                        <div class="text-sm text-gray-600 dark:text-gray-400">Medal Ranking</div>
-                    </div>
-                </template>
-            </UCard>
 
-            <!-- Athletes - only visible in grid mode -->
-            <UCard v-if="selected === 0" variant="soft"
-                :ui="{ 'body': 'p-4 md:p-6 h-full flex items-center justify-center' }" class="col-span-2 row-span-3">
-                <template #default>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-primary">{{ athleteCount }}</div>
-                        <div class="text-sm text-gray-600 dark:text-gray-400">Athletes</div>
-                    </div>
-                </template>
-            </UCard>
-
-            <!-- Sports - only visible in grid mode -->
-            <UCard v-if="selected === 0" variant="soft"
-                :ui="{ 'body': 'p-4 md:p-6 h-full flex items-center justify-center' }" class="col-span-2 row-span-3">
-                <template #default>
-                    <div class="text-center">
-                        <div class="flex items-center justify-center gap-1">
-                            <span class="text-3xl font-bold text-primary">{{ uniqueSportsCount }}</span>
-                            <span class="text-lg text-gray-500 font-medium">/</span>
-                            <span class="text-lg text-gray-500 font-medium">45</span>
-                        </div>
-                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Olympic Sports</div>
-                    </div>
-                </template>
-            </UCard>
-
-            <!-- Most Successful Sport - only visible in grid mode -->
-            <UCard v-if="selected === 0" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }"
-                class="col-span-6 row-span-5 flex flex-col h-full">
-                <template #default>
-                    <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Best Sport</h3>
-                    <div class="flex-grow h-full flex items-center justify-center px-3">
-                        <div v-if="bestSport"
-                            class="flex flex-col md:flex-row items-center md:space-x-8 space-y-4 md:space-y-0">
-                            <div class="flex flex-col items-center space-y-2">
-                                <img :src="`/img/sports/SVG/${bestSport.slug}.svg`" class="w-16 h-16 dark:invert" />
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ bestSport.name }}
-                                </span>
-                            </div>
-
-                            <div class="flex space-x-8">
-                                <div class="flex flex-col space-y-2 items-end">
+                        <div class="flex gap-8">
+                            <div class="flex flex-col gap-2 items-start">
+                                <div
+                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-2">
                                     <span class="text-2xl font-bold text-yellow-500 leading-8">
                                         {{ bestSport.medals.gold }}
                                     </span>
+                                    <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Gold</p>
+                                </div>
+                                <div
+                                    class="flex items-center gap-2 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-2">
                                     <span class="text-2xl font-bold text-gray-400 leading-8">
                                         {{ bestSport.medals.silver }}
                                     </span>
+                                    <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Silver</p>
+                                </div>
+                                <div
+                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-2">
                                     <span class="text-2xl font-bold text-amber-700 leading-8">
                                         {{ bestSport.medals.bronze }}
                                     </span>
-                                </div>
-
-                                <div class="flex flex-col space-y-2 justify-center">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400 leading-8">Gold</span>
-                                    <span class="text-sm text-gray-600 dark:text-gray-400 leading-8">Silver</span>
-                                    <span class="text-sm text-gray-600 dark:text-gray-400 leading-8">Bronze</span>
+                                    <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Bronze</p>
                                 </div>
                             </div>
-                        </div>
-                        <div v-else class="text-gray-500 text-center text-lg">
-                            No medals won
                         </div>
                     </div>
                 </template>
             </UCard>
 
-            <!-- Medal Count - only visible in grid mode -->
-            <UCard v-if="selected === 0" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }"
-                class="col-span-6 row-span-5 flex flex-col">
+            <UCard v-if="bestSport" variant="soft" :ui="{ 'body': 'flex h-full items-center' }" :class="{
+                'col-span-6 md:col-span-3 md:row-span-1': selected === 0,
+                'hidden': selected !== 0 && selected !== 4
+            }">
                 <template #default>
-                    <h3 class="text-base md:text-lg font-medium text-zinc-800 dark:text-white">Paris 2024 Totals</h3>
+                    <div class="flex flex-col h-full justify-center gap-1">
+                        <div class="flex items-center gap-1">
+                            <h2 class="text-lg md:text-3xl font-bold text-zinc-800 dark:text-white">
+                                {{ countryMedals?.rank }}
+                            </h2>
+                            <span class="text-lg text-gray-500 font-medium">/ 204</span>
+                        </div>
+                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">Medal Ranking</p>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
+                'col-span-12 md:col-span-4 row-span-2': selected === 0,
+                'hidden': selected !== 0 && selected !== 8
+            }">
+                <template #default>
+                    <div ref="countryMapContainer" class="w-full h-full rounded-lg"></div>
+                </template>
+            </UCard>
+
+            <UCard variant="soft" :ui="{ 'body': 'flex h-full items-center' }" :class="{
+                'col-span-6 md:col-span-2 md:row-span-1': selected === 0,
+                'hidden': selected !== 0 && selected !== 5
+            }">
+                <template #default>
+                    <div class="flex flex-col h-full justify-center gap-1">
+                        <h2 class="text-lg md:text-3xl font-bold text-zinc-800 dark:text-white">
+                            {{ athleteCount }}
+                        </h2>
+                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">Athletes</p>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard variant="soft" :ui="{ 'body': 'flex h-full items-center' }" :class="{
+                'col-span-6 md:col-span-2 md:row-span-1': selected === 0,
+                'hidden': selected !== 0 && selected !== 6
+            }">
+                <template #default>
+                    <div class="flex flex-col h-full justify-center gap-1">
+                        <div class="flex items-center gap-1">
+                            <h2 class="text-lg md:text-3xl font-bold text-zinc-800 dark:text-white">
+                                {{ uniqueSportsCount }}
+                            </h2>
+                            <span class="text-lg text-gray-500 font-medium">/ 45</span>
+                        </div>
+                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">Olympics Sports</p>
+                    </div>
+                </template>
+            </UCard>
+
+
+            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
+                'col-span-6 md:col-span-4 md:row-span-2': selected === 0,
+                'hidden': selected !== 0 && selected !== 7
+            }"><template #default>
+                    <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">
+                        Medals
+                    </h2>
                     <div class="flex flex-col h-full">
                         <div class="flex-grow flex items-center justify-center">
                             <div class="flex justify-around items-center space-x-8">
                                 <div class="flex flex-col items-center">
-                                    <div class="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center mb-2">
-                                        <span class="font-bold text-xl text-white">{{ countryTotalMedals.gold }}</span>
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center mb-2">
+                                        <span class="font-bold text-xl text-white dark:text-zinc-900">{{
+                                            countryTotalMedals.gold }}</span>
                                     </div>
                                     <span class="text-sm text-gray-600 dark:text-gray-400">Gold</span>
                                 </div>
                                 <div class="flex flex-col items-center">
-                                    <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center mb-2">
-                                        <span class="font-bold text-xl text-white">{{ countryTotalMedals.silver }}</span>
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center mb-2">
+                                        <span class="font-bold text-xl text-white dark:text-zinc-900">{{
+                                            countryTotalMedals.silver
+                                        }}</span>
                                     </div>
                                     <span class="text-sm text-gray-600 dark:text-gray-400">Silver</span>
                                 </div>
                                 <div class="flex flex-col items-center">
-                                    <div class="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center mb-2">
-                                        <span class="font-bold text-xl text-white">{{ countryTotalMedals.bronze }}</span>
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center mb-2">
+                                        <span class="font-bold text-xl text-white dark:text-zinc-900">{{
+                                            countryTotalMedals.bronze
+                                        }}</span>
                                     </div>
                                     <span class="text-sm text-gray-600 dark:text-gray-400">Bronze</span>
                                 </div>
@@ -136,71 +174,49 @@
                 </template>
             </UCard>
 
-            <!-- Gender Repartition - only visible in grid mode -->
-            <UCard v-if="selected === 0" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }"
-                class="col-span-4 row-span-4 flex flex-col">
+
+            <UCard variant="soft" :ui="{ 'body': 'p-6 h-full' }" :class="{
+                'col-span-8 md:col-span-4 md:row-span-3': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && isSmallScreen,
+                'animate-bento-card': selected === 0 && transitioning && previous === 9,
+                'transition-all duration-500 transform h-full': selected === 9,
+                'hidden': selected !== 0 && selected !== 9
+            }" @click="isSmallScreen ? selected === 9 ? () => { } : toggleCard(9) : () => { }">
                 <template #default>
-                    <div class="h-full">
+                    <div v-if="selected === 9 && isSmallScreen" class="h-full relative overflow-auto">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
+                            @click.stop="toggleCard(3)" />
+                        <D3GenderPieChart :slug="slug" :type="'country'" />
+                    </div>
+                    <div v-else-if="isSmallScreen" class="h-full relative flex items-center">
+                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                            Gender distribution
+                        </h2>
+                    </div>
+                    <div v-else class="h-full">
+                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                            Gender distribution
+                        </h2>
                         <D3GenderPieChart :slug="slug" :type="'country'" />
                     </div>
                 </template>
             </UCard>
 
-            <!-- Comparative Graph on Medals -->
-            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
-                'col-span-4 row-span-4': selected === 0,
+            <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+                'col-span-4 row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                'absolute inset-0 m-2 z-20 transition-all duration-500 transform': selected === 1,
-                'hidden': selected !== 0 && selected !== 1
-            }" @click="selected === 1 ? () => { } : toggleCard(1)" @mouseenter="compareCardHovered = true"
-                @mouseleave="compareCardHovered = false">
-                <template #default>
-                    <!-- full screen -->
-                    <div v-if="selected === 1" class="h-full relative overflow-auto">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
-                            @click.stop="toggleCard(1)" />
-                        <h3 class="text-lg font-medium mb-4">Medal Comparison</h3>
-                        <!-- Full screen content here -->
-                        <div class="p-4">
-                            <D3MedalsComparisonHistogram :country-slug="country.slug" />
-                        </div>
-                    </div>
-                    <!-- bento -->
-                    <div v-else class="h-full relative">
-                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
-                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
-                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="compareCardHovered" name="i-heroicons-arrow-up-right"
-                                class="absolute right-0" />
-                        </transition>
-                        <h3 class="text-lg font-medium">Medal Comparison</h3>
-                        <div class="flex items-center justify-center h-[calc(110%)]">
-                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain"
-                                src="/img/comparison.png" alt="Foo chart" />
-                        </div>
-                    </div>
-                </template>
-            </UCard>
-
-            
-
-            <!-- Previous Editions -->
-            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
-                'col-span-4 row-span-4': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                'absolute inset-0 m-2 z-20 transition-all duration-500 transform': selected === 2,
-                'hidden': selected !== 0 && selected !== 2
-            }" @click="selected === 2 ? () => { } : toggleCard(2)" @mouseenter="historyCardHovered = true"
+                'animate-full-screen h-full': selected === 10,
+                'animate-bento-card': selected === 0 && transitioning && previous === 10,
+                'hidden': selected !== 0 && selected !== 10
+            }" @click="selected === 10 ? () => { } : toggleCard(10)" @mouseenter="historyCardHovered = true"
                 @mouseleave="historyCardHovered = false">
                 <template #default>
-                    <!-- full screen -->
-                    <div v-if="selected === 2" class="h-full relative overflow-auto">
+                    <div v-if="selected === 10" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
-                            @click.stop="toggleCard(2)" />
-                        <h3 class="text-lg font-medium mb-4">Previous Editions</h3>
+                            @click.stop="toggleCard(10)" />
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Previous editions</h2>
                         <OlympicMedalHistory :country-slug="country.slug" />
                     </div>
-                    <!-- bento -->
                     <div v-else class="h-full relative">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
@@ -208,10 +224,45 @@
                             <UIcon v-if="historyCardHovered" name="i-heroicons-arrow-up-right"
                                 class="absolute right-0" />
                         </transition>
-                        <h3 class="text-lg font-medium">Previous Editions</h3>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">
+                            Previous editions
+                        </h2>
                         <div class="flex items-center justify-center h-[calc(110%)]">
                             <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain"
                                 src="/img/history_book.png" alt="History Book" />
+                        </div>
+                    </div>
+                </template>
+            </UCard>
+
+            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
+                'col-span-4 row-span-2': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'animate-full-screen h-full': selected === 11,
+                'animate-bento-card': selected === 0 && transitioning && previous === 11,
+                'hidden': selected !== 0 && selected !== 11
+            }" @click="selected === 11 ? () => { } : toggleCard(11)" @mouseenter="compareCardHovered = true"
+                @mouseleave="compareCardHovered = false">
+                <template #default>
+                    <div v-if="selected === 11" class="h-full relative overflow-auto">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
+                            @click.stop="toggleCard(11)" />
+                        <h3 class="text-lg font-medium mb-4">Medal Comparison</h3>
+                        <div class="p-4">
+                            <D3MedalsComparisonHistogram :country-slug="country.slug" />
+                        </div>
+                    </div>
+                    <div v-else class="h-full relative">
+                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                            <UIcon v-if="compareCardHovered" name="i-heroicons-arrow-up-right"
+                                class="absolute right-0" />
+                        </transition>
+                        <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Medals comparison</h2>
+                        <div class="flex items-center justify-center h-full">
+                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain"
+                                src="/img/comparison.png" alt="Foo chart" />
                         </div>
                     </div>
                 </template>
@@ -221,18 +272,14 @@
     </PageModal>
 </template>
 
+<script setup lang="ts">
+import mapboxgl from 'mapbox-gl';
 
-
-
-
-
-<script setup>
 import countries from '~/data/countries.json';
 import medals_total from '~/data/medals_total.json';
 import athletes from '~/data/athletes.json';
 import medals from '~/data/medals.json';
 import sports from '~/data/sports.json';
-import { count } from 'd3';
 
 definePageMeta({
     middleware: ['country'],
@@ -259,10 +306,10 @@ onMounted(async () => {
 // ROUTING PARAMETERS --------------
 const router = useRouter();
 const route = useRoute();
-const slug = route.params.slug;
+const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
-const country = countries[slug];
+const country = countries[slug as keyof typeof countries] as any;
 
 // Calculate number of athletes for this country
 const athleteCount = computed(() => {
@@ -278,7 +325,7 @@ const countryMedals = computed(() => {
 
 // Create a map of discipline names to sport slugs using sports.json
 const createSportDisciplineMap = () => {
-    const disciplineMap = {};
+    const disciplineMap = {} as any;
 
     Object.entries(sports).forEach(([sportSlug, sportInfo]) => {
         // Map the main sport name
@@ -303,7 +350,7 @@ const createSportDisciplineMap = () => {
 const sportDisciplineMap = createSportDisciplineMap();
 
 // Function to get sport slug from discipline
-const getSportSlugFromDiscipline = (discipline) => {
+const getSportSlugFromDiscipline = (discipline: any) => {
     // Direct match
     if (sportDisciplineMap[discipline]) {
         return sportDisciplineMap[discipline];
@@ -357,7 +404,7 @@ const uniqueSportsCount = computed(() => {
     // Add each sport slug to the Set
     countryAthletes.forEach(athlete => {
         if (athlete.sports && athlete.sports.length > 0) {
-            athlete.sports.forEach(sport => {
+            athlete.sports.forEach((sport: any) => {
                 if (sport.slug) {
                     uniqueSportsSlugs.add(sport.slug);
                 }
@@ -370,7 +417,7 @@ const uniqueSportsCount = computed(() => {
 
 
 // Calculate best sport by medals using medals.json
-const bestSport = computed(() => {
+const bestSport = computed<any>(() => {
     const countryMedals = medals.filter(medal =>
         medal.country_code === country.country_code
     );
@@ -380,12 +427,12 @@ const bestSport = computed(() => {
     }
 
     // Group medals by sport
-    const sportMedals = {};
+    const sportMedals = {} as any;
 
     countryMedals.forEach(medal => {
         const discipline = medal.discipline;
         const sportSlug = getSportSlugFromDiscipline(discipline);
-        const sportName = sports[sportSlug]?.name || discipline;
+        const sportName = sports[sportSlug as keyof typeof sports]?.name || discipline;
 
         if (!sportMedals[sportSlug]) {
             sportMedals[sportSlug] = {
@@ -410,7 +457,7 @@ const bestSport = computed(() => {
     let maxSilver = -1;
     let maxBronze = -1;
 
-    Object.values(sportMedals).forEach(sport => {
+    Object.values(sportMedals).forEach((sport: any) => {
         // Check if this sport has more gold medals
         if (sport.medals.gold > maxGold) {
             maxGold = sport.medals.gold;
@@ -448,6 +495,7 @@ const compareCardHovered = ref(false);
 const historyCardHovered = ref(false);
 
 const toggleCard = (index = 0) => {
+    historyCardHovered.value = false;
     if (selected.value !== 0) {
         previous.value = selected.value;
         transitioning.value = true;
@@ -458,4 +506,45 @@ const toggleCard = (index = 0) => {
     }
     else selected.value = index;
 }
+
+// MAP -----------------------------
+const config = useRuntimeConfig();
+const isClient = import.meta.client;
+if (isClient) { mapboxgl.accessToken = config.public.MAPBOX_API_KEY || '' };
+const countryMapContainer = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+    if (countryMapContainer.value) {
+        const map = new mapboxgl.Map({
+            container: countryMapContainer.value as HTMLElement,
+            style: 'mapbox://styles/mapbox/standard',
+            center: [country.location.longitude, country.location.latitude] as [number, number],
+            zoom: 4,
+            pitch: 10,
+            bearing: 0,
+            maxZoom: 8,
+            minZoom: 2
+        });
+        new mapboxgl.Marker({ color: 'red' })
+            .setLngLat([country.location.longitude, country.location.latitude] as [number, number])
+            .addTo(map)
+    } else {
+        watch(countryMapContainer, newValue => {
+            const map = new mapboxgl.Map({
+                container: newValue as HTMLElement,
+                style: 'mapbox://styles/mapbox/standard',
+                center: [country.location.longitude, country.location.latitude] as [number, number],
+                zoom: 4,
+                pitch: 10,
+                bearing: 0,
+                maxZoom: 8,
+                minZoom: 2
+            });
+            new mapboxgl.Marker({ color: 'red' })
+                .setLngLat([country.location.longitude, country.location.latitude] as [number, number])
+                .addTo(map)
+        })
+    }
+});
+
 </script>

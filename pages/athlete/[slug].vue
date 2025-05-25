@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showAthletePage" :back="transition" :transition="true" :items="items" @close="closePage"
+    <PageModal :show="showAthletePage" :back="transition" :transition="transition" :items="items" @close="closePage"
         @back="router.back()">
 
         <div
@@ -518,7 +518,7 @@
 import athletes from '~/data/athletes.json';
 
 definePageMeta({
-    middleware: ['previous', 'breadcrumb'],
+    middleware: ['athlete', 'previous', 'breadcrumb'],
     layout: 'canvas'
 });
 

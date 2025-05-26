@@ -1,7 +1,7 @@
 <template>
     <PageModal :show="showCountryPage" :transition="false" :countries="true" @close="closePage">
         <div v-if="country"
-            :class="['gap-4 p-2 h-full flex flex-col overflow-hidden', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 }]">
+            :class="['gap-4 p-2 h-full flex flex-col md:overflow-hidden', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 }]">
 
             <UCard variant="soft" :ui="{ 'body': 'p-0 md:p-0 h-full' }" :class="{
                 'col-span-6 md:col-span-4 md:row-span-2': selected === 0,
@@ -44,23 +44,23 @@
                         </div>
 
                         <div class="flex gap-8">
-                            <div class="flex flex-col gap-1 md:gap-2 items-start">
+                            <div class="flex flex-col gap-1 items-start">
                                 <div
-                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1 md:py-2">
+                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1">
                                     <span class="text-2xl font-bold text-yellow-500 leading-8">
                                         {{ bestSport.medals.gold }}
                                     </span>
                                     <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Gold</p>
                                 </div>
                                 <div
-                                    class="flex items-center gap-2 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1 md:py-2">
+                                    class="flex items-center gap-2 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1">
                                     <span class="text-2xl font-bold text-gray-400 leading-8">
                                         {{ bestSport.medals.silver }}
                                     </span>
                                     <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Silver</p>
                                 </div>
                                 <div
-                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1 md:py-2">
+                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1">
                                     <span class="text-2xl font-bold text-amber-700 leading-8">
                                         {{ bestSport.medals.bronze }}
                                     </span>
@@ -201,7 +201,7 @@
                 </template>
             </UCard>
 
-            <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'animate-full-screen h-full': selected === 10,
@@ -214,7 +214,7 @@
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
                             @click.stop="toggleCard(10)" />
                         <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">Previous editions</h2>
-                        <OlympicMedalHistory :country-slug="country.slug" />
+                        <D3OlympicMedalHistory :country="country.slug" />
                     </div>
                     <div v-else class="h-full relative">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
@@ -234,7 +234,7 @@
                 </template>
             </UCard>
 
-            <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
+            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'animate-full-screen h-full': selected === 11,
@@ -277,7 +277,7 @@
 import mapboxgl from 'mapbox-gl';
 
 import countries from '~/data/countries.json';
-import medals_total from '~/data/medals_total.json';
+import medalsTotal from '~/data/medals_total.json';
 import athletes from '~/data/athletes.json';
 import medals from '~/data/medals.json';
 import sports from '~/data/sports.json';
@@ -315,11 +315,9 @@ const athleteCount = computed(() => {
     return Object.values(athletes)
         .filter(athlete => athlete.country.name === country.name).length;
 });
-
 const countryMedals = computed(() => {
-    return medals_total.find(m => m.country_code === country.country_code);
+    return medalsTotal.find(m => m.country_code === country.country_code);
 });
-
 const createSportDisciplineMap = () => {
     const disciplineMap = {} as any;
 
@@ -337,9 +335,7 @@ const createSportDisciplineMap = () => {
     });
     return disciplineMap;
 };
-
 const sportDisciplineMap = createSportDisciplineMap();
-
 const getSportSlugFromDiscipline = (discipline: any) => {
     if (sportDisciplineMap[discipline]) return sportDisciplineMap[discipline];
     for (const [key, value] of Object.entries(sportDisciplineMap)) {
@@ -349,18 +345,15 @@ const getSportSlugFromDiscipline = (discipline: any) => {
     }
     return discipline.toLowerCase().replace(/\s+/g, '-');
 };
-
 const countryTotalMedals = computed(() => {
     const countryMedals = medals.filter(medal =>
         medal.country_code === country.country_code
     );
-
     const totalMedals = {
         gold: 0,
         silver: 0,
         bronze: 0
     };
-
     countryMedals.forEach(medal => {
         if (medal.medal_type === "Gold Medal") {
             totalMedals.gold += 1;
@@ -370,10 +363,8 @@ const countryTotalMedals = computed(() => {
             totalMedals.bronze += 1;
         }
     });
-
     return totalMedals;
 });
-
 const uniqueSportsCount = computed(() => {
     const countryAthletes = Object.values(athletes)
         .filter(athlete => athlete.country.name === country.name);
@@ -387,7 +378,6 @@ const uniqueSportsCount = computed(() => {
     });
     return uniqueSportsSlugs.size;
 });
-
 const bestSport = computed<any>(() => {
     const countryMedals = medals.filter(medal => medal.country_code === country.country_code);
     if (countryMedals.length === 0) return null;
@@ -452,7 +442,6 @@ const previous = ref(0);
 const transitioning = ref(false);
 const compareCardHovered = ref(false);
 const historyCardHovered = ref(false);
-
 const toggleCard = (index = 0) => {
     historyCardHovered.value = false;
     if (selected.value !== 0) {

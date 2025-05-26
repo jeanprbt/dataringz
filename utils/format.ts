@@ -106,4 +106,10 @@ function formatHeight(height: number): string {
     return `${meters}.${centimeters.toString().padStart(2, '0')} m`;
 }
 
-export { formatDateRange, yearMonthDayDate, formatDate, formatTime, formatDistance, formatAthleteDate, formatHeight }
+// CAPITALIZE --------------------------------------------------------------------------------------------------------------
+function capitalize(str: string): string {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+export { formatDateRange, yearMonthDayDate, formatDate, formatTime, formatDistance, formatAthleteDate, formatHeight, capitalize }

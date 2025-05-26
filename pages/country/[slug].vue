@@ -39,7 +39,9 @@
                     </h2>
                     <div class="flex h-full items-center justify-center gap-4 md:gap-10">
                         <div class="flex flex-col items-center gap-4">
-                            <img :src="`/img/sports/SVG/${bestSport.slug}.svg`" class="w-full h-full dark:invert" />
+                            <div class="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
+                                <img :src="`/img/sports/SVG/${bestSport.slug}.svg`" class="w-full h-full object-contain dark:invert" />
+                            </div>
                             <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">{{ bestSport.name }}</p>
                         </div>
 
@@ -227,7 +229,7 @@
                             Previous editions
                         </h2>
                         <div class="flex items-center justify-center h-[calc(110%)]">
-                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain"
+                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain dark:invert"
                                 src="/img/history_book.png" alt="History Book" />
                         </div>
                     </div>
@@ -260,7 +262,7 @@
                         </transition>
                         <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">Medals comparison</h2>
                         <div class="flex items-center justify-center h-full">
-                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain"
+                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain dark:invert"
                                 src="/img/comparison.png" alt="Foo chart" />
                         </div>
                     </div>

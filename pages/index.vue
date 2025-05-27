@@ -1,11 +1,9 @@
 <template>
     <div class="absolute flex top-5 left-1/2 transform -translate-x-1/2">
-        <!-- <UTooltip :delay-duration="0.2" arrow :content="{ side: 'bottom', sideOffset: 0 }" text="Olympics Overview"> -->
         <button ref="olympicsButton" @click="router.push('/olympics')" v-show="showOlympicsButton"
             class="flex items-center justify-center mr-2 px-1 rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 w-[50px] h-[40px] bg-white dark:bg-zinc-900">
             <img src="/img/olympics.svg" alt="olympics logo" class="size-9" />
         </button>
-        <!-- </UTooltip> -->
 
         <button ref="searchButton" @click="searchButtonClicked" v-show="showSearchButton"
             class="flex items-center text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 hover:dark:text-zinc-300 px-4 py-2 rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 whitespace-nowrap bg-white dark:bg-zinc-900">
@@ -14,22 +12,21 @@
                     d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
                     clip-rule="evenodd" />
             </svg>
-            {{ searchBarText }}
+            search...
             <UKbd v-if="!isSmallScreen" value="meta" size="sm"
                 class="ml-2 mr-1 text-zinc-500 dark:text-zinc-400 bg-transparent"></UKbd>
             <UKbd v-if="!isSmallScreen" value="K" size="sm" class="text-zinc-500 dark:text-zinc-400 bg-transparent">K
             </UKbd>
         </button>
 
-        <!-- <UTooltip :delay-duration="0" arrow :content="{ side: 'bottom', sideOffset: 0 }" :text="section === 'map' ? 'See countries stats' : 'Go back to Paris'"> -->
-        <button ref="globeButton" @click="globeButtonClicked" v-show="showGlobeButton"
+        <button ref="globeButton" @click="section === 'map' ? zoomOutToGlobe(false) : zoomInToMap(false)"
+            v-show="showGlobeButton"
             class="flex items-center justify-center text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 hover:dark:text-zinc-300 ml-2 px-[9px] rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 bg-white dark:bg-zinc-900">
             <UIcon :name="globeIcon" class="size-6" />
         </button>
-        <!-- </UTooltip> -->
     </div>
-    <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto rounded-xl"
-        :overlay="false" :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
+    <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto rounded-xl" :overlay="false"
+        :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
         <template #content>
             <UCommandPalette :groups="groups" :placeholder="searchBarText" @highlight="onHighlight"
                 :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', label: 'text-zinc-500 dark:text-zinc-400', itemLabelBase: 'text-zinc-500 dark:text-zinc-400', viewport: 'divide-zinc-300 dark:divide-zinc-600', itemLeadingAvatar: section === 'globe' ? 'bg-transparent' : 'bg-transparent dark:invert brightness-100' }">
@@ -48,6 +45,7 @@ import venues from '~/data/venues.json';
 import sports from '~/data/sports.json';
 import athletes from '~/data/athletes.json';
 import countries from '~/data/countries.json';
+import events from '~/data/events.json';
 
 definePageMeta({
     middleware: ["breadcrumb"],
@@ -62,13 +60,12 @@ const { section, setSection } = useSection();
 
 // UI STATE --------------------------------------------------------------------------------------------------------- //
 const tooltipRef = ref<HTMLElement | null>(null);
-const searchBarText = section.value === 'map' ? ref('athlete / sport / venue') : ref('country');
 const globeIcon = section.value === 'map' ? ref('i-heroicons-globe-europe-africa') : ref('mingcute:eiffel-tower-line');
 
 // COMMAND PALETTE -------------------------------------------------------------------------------------------------- //
 const groups = ref<any[]>([]);
 let flying = false;
-const getMapItems = (map: mapboxgl.Map) => {
+const getItems = (canvas: mapboxgl.Map) => {
     const res = [];
     res.push({
         id: "venues",
@@ -83,9 +80,13 @@ const getMapItems = (map: mapboxgl.Map) => {
                 async onSelect() {
                     open.value = false;
                     const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
-                    flying = true;
-                    await flyToVenue(map, coordinates);
-                    flying = false;
+                    if (section.value === 'map') {
+                        flying = true;
+                        await flyToVenue(canvas, coordinates);
+                        flying = false;
+                    } else {
+                        await zoomInToMap(true, coordinates);
+                    }
                     router.push(`/venue/${venue.slug}`);
                 }
             }
@@ -105,10 +106,40 @@ const getMapItems = (map: mapboxgl.Map) => {
                     open.value = false;
                     const venue = venues[sport["venues"][0] as keyof typeof venues];
                     const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
-                    flying = true;
-                    await flyToVenue(map, coordinates);
-                    flying = false;
+                    if (section.value === 'map') {
+                        flying = true;
+                        await flyToVenue(canvas, coordinates);
+                        flying = false;
+                    } else {
+                        await zoomInToMap(true, coordinates);
+                    }
                     router.push(`/sport/${sport.slug}`);
+                }
+            }
+        })
+    })
+    res.push({
+        id: "countries",
+        label: "Countries",
+        items: Object.keys(countries).map(key => {
+            let country = countries[key as keyof typeof countries];
+            return {
+                label: country.name,
+                avatar: {
+                    src: country.img
+                },
+                async onSelect() {
+                    open.value = false;
+                    const coordinates = [country.location.longitude, country.location.latitude] as [number, number];
+                    if (section.value === 'map') {
+                        await zoomOutToGlobe(true, coordinates, 3.5);
+                    } else {
+                        flying = true;
+                        await flyToCountry(canvas, coordinates);
+                        flying = false;
+                    }
+
+                    router.push(`/country/${country.slug}`);
                 }
             }
         })
@@ -125,36 +156,41 @@ const getMapItems = (map: mapboxgl.Map) => {
                     const sport = sports[athlete["sports"][0] as keyof typeof sports]
                     const venue = venues[sport["venues"][0] as keyof typeof venues];
                     const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
-                    flying = true;
-                    await flyToVenue(map, coordinates);
-                    flying = false;
+                    if (section.value === 'map') {
+                        flying = true;
+                        await flyToVenue(canvas, coordinates);
+                        flying = false;
+                    } else {
+                        await zoomInToMap(true, coordinates);
+                    }
                     router.push(`/athlete/${athlete.slug}`);
                 }
             }
         })
     })
-    return res;
-}
-
-const getGlobeItems = (globe: mapboxgl.Map) => {
-    const res = [];
     res.push({
-        id: "countries",
-        label: "Countries",
-        items: Object.keys(countries).map(key => {
-            let country = countries[key as keyof typeof countries];
+        id: "events",
+        label: "Events",
+        items: Object.keys(events).map(key => {
+            let event = events[key as keyof typeof events] as any;
+            let sport = sports[event["sport"] as keyof typeof sports] as any;
             return {
-                label: country.name,
+                label: `${sport.name} > ${event.name}`,
                 avatar: {
-                    src: country.img
+                    src: sport.icon
                 },
                 async onSelect() {
                     open.value = false;
-                    const coordinates = [country.location.longitude, country.location.latitude] as [number, number];
-                    flying = true;
-                    await flyToCountry(globe, coordinates);
-                    flying = false;
-                    router.push(`/country/${country.slug}`);
+                    const venue = venues[sport["venues"][0] as keyof typeof venues];
+                    const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
+                    if (section.value === 'map') {
+                        flying = true;
+                        await flyToVenue(canvas, coordinates);
+                        flying = false;
+                    } else {
+                        await zoomInToMap(true, coordinates);
+                    }
+                    router.push(`/event/${event.slug}`);
                 }
             }
         })
@@ -162,16 +198,17 @@ const getGlobeItems = (globe: mapboxgl.Map) => {
     return res;
 }
 
+
 // ITEMS & SEARCH BAR UPDATE LOGIC ---------------------------------------------------------------------------------- //
 if (canvas.value) {
     // @ts-ignore
-    groups.value = section.value === 'map' ? getMapItems(canvas.value) : getGlobeItems(canvas.value);
+    groups.value = getItems(canvas.value);
 }
 else {
     watch(canvas, (newCanvas) => {
         if (newCanvas) {
             // @ts-ignore 
-            groups.value = section.value === 'map' ? getMapItems(canvas.value) : getGlobeItems(canvas.value);
+            groups.value = getItems(canvas.value);
         }
     })
 }
@@ -205,76 +242,84 @@ const searchButtonClicked = () => {
     hideButton(showGlobeButton, globeButton, 0)
     hideButton(showOlympicsButton, olympicsButton, 0)
 }
-const globeButtonClicked = async () => {
-    if (section.value === 'map') {
-        removeMarkers();
-        hideButton(showSearchButton, searchButton, 0.5);
-        hideButton(showGlobeButton, globeButton, 0.5);
-        hideButton(showOlympicsButton, olympicsButton, 0.5);
 
-        // @ts-ignore
-        unsettleMapCanvas(canvas.value);
+const zoomInToMap = async (
+    openPage: boolean,
+    center: [number, number] = [2.294694, 48.858093],
+) => {
+    hideButton(showSearchButton, searchButton, 0.5);
+    hideButton(showGlobeButton, globeButton, 0.5);
+    hideButton(showOlympicsButton, olympicsButton, 0.5);
 
-        await new Promise<void>(async (resolve): Promise<void> => {
-            // globe view
-            canvas.value!.flyTo({
-                center: [2.209667, 46.232193],
-                zoom: 2,
-                bearing: 0,
-                pitch: 0,
-                duration: 4000,
-                essential: true,
-                curve: 1
-            });
-            canvas.value!.once('moveend', () => resolve());
-        }).catch(() => { });
-        setSection('globe');
+    // @ts-ignore
+    unsettleGlobeCanvas(canvas.value);
 
-        // @ts-ignore
-        groups.value = getGlobeItems(canvas.value);
-        searchBarText.value = 'country';
-        globeIcon.value = 'mingcute:eiffel-tower-line';
+    await new Promise<void>(async (resolve): Promise<void> => {
+        // paris view
+        canvas.value!.flyTo({
+            center: center,
+            zoom: 15.5,
+            pitch: 55,
+            bearing: 0,
+            duration: openPage ? 3000 : 4000,
+            essential: true,
+            curve: 1
+        });
+        canvas.value!.once('moveend', () => resolve());
+    }).catch(() => { });
+    setSection('map');
 
-        // @ts-ignore
-        settleGlobeCanvas(canvas.value, tooltipRef, router)
+    // @ts-ignore
+    globeIcon.value = 'i-heroicons-globe-europe-africa';
+
+    // @ts-ignore
+    settleMapCanvas(canvas.value);
+    if (!openPage) {
         displayButton(showSearchButton, searchButton, 0.5, 0.5);
         displayButton(showGlobeButton, globeButton, 0.5, 0.5);
         displayButton(showOlympicsButton, olympicsButton, 0.5, 0.5);
-    } else if (section.value === 'globe') {
-        hideButton(showSearchButton, searchButton, 0.5);
-        hideButton(showGlobeButton, globeButton, 0.5);
-        hideButton(showOlympicsButton, olympicsButton, 0.5);
+    }
+    addMarkers();
+}
 
-        // @ts-ignore
-        unsettleGlobeCanvas(canvas.value);
+const zoomOutToGlobe = async (
+    openPage: boolean,
+    center: [number, number] = [2.209667, 46.232193],
+    zoom: number = 2,
+) => {
+    removeMarkers();
+    hideButton(showSearchButton, searchButton, 0.5);
+    hideButton(showGlobeButton, globeButton, 0.5);
+    hideButton(showOlympicsButton, olympicsButton, 0.5);
 
-        await new Promise<void>(async (resolve): Promise<void> => {
-            // paris view
-            canvas.value!.flyTo({
-                center: [2.294694, 48.858093],
-                zoom: 15.5,
-                pitch: 55,
-                bearing: 0,
-                duration: 4000,
-                essential: true,
-                curve: 1
-            });
-            canvas.value!.once('moveend', () => resolve());
-        }).catch(() => { });
-        setSection('map');
+    // @ts-ignore
+    unsettleMapCanvas(canvas.value);
 
-        // @ts-ignore
-        groups.value = getMapItems(canvas.value);
-        searchBarText.value = 'athlete / sport / venue';
-        globeIcon.value = 'i-heroicons-globe-europe-africa';
+    await new Promise<void>(async (resolve): Promise<void> => {
+        // globe view
+        canvas.value!.flyTo({
+            center: center,
+            zoom: zoom,
+            bearing: 0,
+            pitch: 0,
+            duration: openPage ? 3000 : 4000,
+            essential: true,
+            curve: 1
+        });
+        canvas.value!.once('moveend', () => resolve());
+    }).catch(() => { });
+    setSection('globe');
 
+    // @ts-ignore
+    globeIcon.value = 'mingcute:eiffel-tower-line';
 
-        // @ts-ignore
-        settleMapCanvas(canvas.value);
+    // @ts-ignore
+    settleGlobeCanvas(canvas.value, tooltipRef, router)
+
+    if (!openPage) {
         displayButton(showSearchButton, searchButton, 0.5, 0.5);
         displayButton(showGlobeButton, globeButton, 0.5, 0.5);
         displayButton(showOlympicsButton, olympicsButton, 0.5, 0.5);
-        addMarkers();
     }
 }
 

@@ -1,8 +1,17 @@
 <template>
     <div class="flex flex-col gap-4 h-full">
         <div class="flex flex-wrap justify-left items-center gap-2">
-            <span class="text-sm text-gray-600 dark:text-gray-400">Compare with</span>
-            <USelectMenu v-model="selectedItem" :avatar="selectedItem?.avatar" :items="items" class="w-64" ></USelectMenu>
+            <span class="text-sm text-gray-600 dark:text-gray-400">Compare</span>
+            <div
+                class="min-w-[12rem] max-w-[16rem] w-fit relative inline-flex items-center px-3 py-1 bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-700 rounded-lg">
+                <div class="flex items-center gap-2 flex-1">
+                    <img :src="currentSportIcon" :alt="currentSportName"
+                        class="w-6 h-6 rounded-full object-cover dark:invert dark:brightness-100" />
+                    <span class="text-sm text-gray-900 dark:text-white truncate">{{ currentSportName }}</span>
+                </div>
+            </div>
+            <span class="text-sm text-gray-600 dark:text-gray-400">with</span>
+            <USelectMenu v-model="selectedItem" :avatar="selectedItem?.avatar" :items="items" class="w-64" />
         </div>
         <div ref="chartContainer" class="flex-1 w-full min-h-[40vh]"></div>
         <div class="flex flex-wrap items-center justify-center text-sm mt-2 gap-4">
@@ -11,7 +20,7 @@
                 <span class="text-xs sm:text-sm">{{ currentSportName }}</span>
             </div>
             <div class="flex items-center">
-                <div class="w-3 h-3 bg-gray-400 opacity-80 mr-1 rounded"></div>
+                <div class="w-3 h-3 bg-[#f97316] opacity-80 mr-1 rounded"></div>
                 <span class="text-xs sm:text-sm">{{ compareSportName }}</span>
             </div>
         </div>
@@ -54,18 +63,23 @@ const itemsWithIcons = ref([
     }))
 ]);
 
-const items = ref([
-    { label: 'Average (All Sports)', value: 'average', avatar: { src: '/img/olympics.svg', alt: 'olympics' }},
-    ...itemsWithIcons.value.map(({ label, value, icon }) => ({
-        label,
-        value,
-        avatar: {
-            src: icon,
-            alt: label,
-            class: 'dark:invert dark:brightness-100 bg-transparent'
-        }
-    }))
-]);
+const items = computed(() => {
+    const baseItems = [
+        { label: 'Average (All Sports)', value: 'average', avatar: { src: '/img/olympics.svg', alt: 'olympics' } },
+        ...itemsWithIcons.value
+            .filter(item => item.value !== props.sportSlug) // Filter out current sport
+            .map(({ label, value, icon }) => ({
+                label,
+                value,
+                avatar: {
+                    src: icon,
+                    alt: label,
+                    class: 'dark:invert dark:brightness-100 bg-transparent'
+                }
+            }))
+    ];
+    return baseItems;
+});
 
 
 const selectedItem = ref(items.value[0]);
@@ -82,8 +96,24 @@ const currentSportName = computed(() => {
     return sport ? sport.name : 'Selected Sport';
 });
 
+// Add new computed property for current sport icon
+const currentSportIcon = computed(() => {
+    const sport = allSports.find(s => s.slug === props.sportSlug);
+    return sport ? sport.icon : '/img/olympics.svg';
+});
+
+const getAges = (slug: string) => {
+    const filteredAthletes = Object.values(athletes)
+        .filter((a: any) => a.age && (slug === 'average' || a.sports?.includes(slug)));
+    const ages = filteredAthletes.map((a: any) => a.age);
+    return ages;
+};
+
+
 const createHistogram = () => {
-    if (!chartContainer.value) return;
+    if (!chartContainer.value) {
+        return;
+    }
 
     d3.select(chartContainer.value).selectAll('*').remove();
 
@@ -94,12 +124,6 @@ const createHistogram = () => {
     const margin = { top: 20, right: 20, bottom: 30, left: 40 };
     const width = containerWidth * 0.9;
     const height = containerHeight;
-
-    const getAges = (slug: string) => {
-        return Object.values(athletes)
-            .filter((a: any) => a.age && (slug === 'average' || a.sports?.some((s: any) => s.slug === slug)))
-            .map((a: any) => a.age);
-    };
 
     const primaryAges = getAges(props.sportSlug);
     const compareAges = getAges(compareSlug.value);
@@ -171,7 +195,7 @@ const createHistogram = () => {
 
     const calculateBarWidth = (d: any) => {
         const binWidth = x(d.x1!) - x(d.x0!);
-        return binWidth * 0.495;
+        return binWidth * 0.5;
     };
 
     // Create pairs of bars
@@ -191,32 +215,37 @@ const createHistogram = () => {
         .attr('height', d => Math.max(0, y(0) - y((d.primary.length / primaryTotal) * 100)))
         .attr('width', d => calculateBarWidth(d))
         .attr('fill', '#3b82f6')
-        .attr('opacity', 0.7)
+        .attr('opacity', 0.9)  // slightly increase default opacity
         .attr('rx', 1)
         .attr('cursor', 'pointer');
 
     // Compare bars (right side of each bin)
     const compareBars = pairs.append('rect')
         .attr('class', 'compare-bar')
-        .attr('x', d => x(d.x0!) + calculateBarWidth(d) + 1) // Add 1px gap for visual separation
+        .attr('x', d => x(d.x0!) + calculateBarWidth(d))
         .attr('y', d => y((d.compare.length / compareTotal) * 100))
         .attr('height', d => Math.max(0, y(0) - y((d.compare.length / compareTotal) * 100)))
         .attr('width', d => calculateBarWidth(d))
-        .attr('fill', '#9ca3af')
-        .attr('opacity', 0.7)
+        .attr('fill', '#f97316')  // Brighter orange
+        .attr('opacity', 0.9)
         .attr('rx', 1)
         .attr('cursor', 'pointer');
 
     // Add event handlers to primary bars
     primaryBars
         .on('mouseover', function (event, d) {
+            // Highlight this specific bar
             d3.select(this)
                 .attr('opacity', 1)
-                .attr('fill', '#1a68c7');
+                .attr('fill', '#1a68c7');  // darker blue for primary hover
 
-            // Dim all compare bars
+            // Dim all other bars significantly
+            primaryBars
+                .filter(pd => pd !== d)
+                .attr('opacity', 0.2);
+
             compareBars
-                .attr('opacity', 0.4);
+                .attr('opacity', 0.2);
 
             if (!tooltip.value) return;
 
@@ -232,11 +261,10 @@ const createHistogram = () => {
             tooltip.value.style.top = `${event.offsetY - 30}px`;
         })
         .on('mouseout', function () {
-            // Reset all bars
-            d3.select(this)
+            // Reset all bars to original opacity
+            primaryBars
                 .attr('opacity', 0.8)
                 .attr('fill', '#3b82f6');
-
 
             compareBars
                 .attr('opacity', 0.8);
@@ -252,14 +280,18 @@ const createHistogram = () => {
     // Add event handlers to compare bars
     compareBars
         .on('mouseover', function (event, d) {
-            // Highlight all compare bars
+            // Highlight this specific bar
             d3.select(this)
                 .attr('opacity', 1)
-                .attr('fill', '#6b7280');
+                .attr('fill', '#ea580c');  // Darker version of the bright orange for hover
 
-            // Dim all primary bars
+            // Dim all other bars significantly
+            compareBars
+                .filter(cd => cd !== d)
+                .attr('opacity', 0.2);
+
             primaryBars
-                .attr('opacity', 0.4);
+                .attr('opacity', 0.2);
 
             if (!tooltip.value) return;
 
@@ -275,14 +307,13 @@ const createHistogram = () => {
             tooltip.value.style.top = `${event.offsetY - 30}px`;
         })
         .on('mouseout', function () {
-            // Reset all bars
-            d3.select(this)
-                .attr('opacity', 0.8)
-                .attr('fill', '#9ca3af');
-
-
+            // Reset all bars to original opacity
             primaryBars
                 .attr('opacity', 0.8);
+
+            compareBars
+                .attr('opacity', 0.8)
+                .attr('fill', '#f97316');
 
             if (tooltip.value) tooltip.value.style.display = 'none';
         })
@@ -352,5 +383,10 @@ watch(() => [props.sportSlug, compareSlug.value], createHistogram);
 watch(selectedItem, (newVal) => {
     compareSlug.value = newVal.value;
 });
+
+// Update selectedItem to use the first item when sport changes
+watch(() => props.sportSlug, () => {
+    selectedItem.value = items.value[0];
+}, { immediate: true });
 
 </script>

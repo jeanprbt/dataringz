@@ -3,7 +3,7 @@
         <div class="flex flex-wrap justify-left items-center gap-2">
             <span class="text-sm text-gray-600 dark:text-gray-400">Compare</span>
             <div
-                class="w-48 relative inline-flex items-center px-1 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg">
+                class="min-w-[12rem] max-w-[16rem] w-fit relative inline-flex items-center px-3 py-1 bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-700 rounded-lg">
                 <div class="flex items-center gap-2 flex-1">
                     <img :src="currentCountry?.img" :alt="currentCountry?.name"
                         class="w-6 h-6 rounded-full object-cover" />
@@ -14,7 +14,8 @@
             <USelectMenu v-model="selectedCountry" :avatar="selectedCountry?.avatar" :items="availableCountries"
                 class="w-64" />
             <span class="text-sm text-gray-600 dark:text-gray-400">on</span>
-            <USelectMenu v-model="selectedSport" :avatar="selectedSport?.avatar" :items="availableSports" class="w-64" />
+            <USelectMenu v-model="selectedSport" :avatar="selectedSport?.avatar" :items="availableSports"
+                class="w-64" />
         </div>
         <div ref="chartContainer" class="flex-1 w-full min-h-[40vh]"></div>
         <div class="flex flex-wrap items-center justify-center text-sm mt-2 gap-4">
@@ -111,7 +112,7 @@ const availableSports = computed(() => {
         avatar: {
             src: sport.icon,
             alt: sport.name,
-            class: ''
+            class: 'dark:invert dark:brightness-100 bg-transparent'
         }
     }))
 

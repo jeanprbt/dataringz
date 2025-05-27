@@ -60,12 +60,12 @@
             </UCard>
 
             <div class="grid grid-cols-2 gap-4 md:contents">
-                <UCard v-for="sport in venue.sports" :key="sport.slug" variant="soft"
+                <UCard v-for="sport in venueSports" :key="sport.slug" variant="soft"
                     :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
-                        'col-span-12 md:col-span-12': venue.sports.length === 1 && selected === 0,
-                        'col-span-12 md:col-span-6': venue.sports.length === 2 && selected === 0,
-                        'col-span-6 md:col-span-4': venue.sports.length === 3 && selected === 0,
-                        'col-span-6 md:col-span-3': venue.sports.length >= 4 && selected === 0,
+                        'col-span-12 md:col-span-12': venueSports.length === 1 && selected === 0,
+                        'col-span-12 md:col-span-6': venueSports.length === 2 && selected === 0,
+                        'col-span-6 md:col-span-4': venueSports.length === 3 && selected === 0,
+                        'col-span-6 md:col-span-3': venueSports.length >= 4 && selected === 0,
                         'row-span-2 md:row-span-4': selected === 0,
                         'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                         'hidden': selected !== 0 && selected !== 3,
@@ -91,7 +91,9 @@
 
 <script setup lang="ts">
 import mapboxgl from 'mapbox-gl';
+
 import venues from '~/data/venues.json';
+import sports from '~/data/sports.json';
 
 definePageMeta({
     middleware: ['venue', 'previous', 'breadcrumb'],
@@ -114,6 +116,12 @@ const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
 const venue = venues[slug as keyof typeof venues];
+let venueSports: any[] = [];
+if (venue) {
+    for (const sportSlug of venue.sports) {
+        venueSports.push(sports[sportSlug as keyof typeof sports]);
+    }
+}
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
@@ -178,8 +186,8 @@ onMounted(() => {
 useHead(() => {
     if (venue === undefined) return;
     const name = venue.name;
-    const sports = venue.sports && venue.sports.length > 0
-        ? venue.sports.map((s: any) => s.name).join(', ')
+    const sports = venueSports && venueSports.length > 0
+        ? venueSports.map((s: any) => s.name).join(', ')
         : 'Olympic sports';
 
     const title = `${name} - Olympic Venue | Paris 2024`;

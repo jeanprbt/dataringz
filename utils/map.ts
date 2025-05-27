@@ -3,6 +3,8 @@ import { type Router } from 'vue-router';
 import * as turf from 'turf';
 import { h, render } from 'vue';
 import { MarkerIcon } from '#components';
+
+import sports from '~/data/sports.json';
 import venues from '~/data/venues.json';
 
 let markerCoordinates = new Map<Marker, [number, number]>();
@@ -20,10 +22,11 @@ const setMarkers = async (map: mapboxgl.Map, router: Router, visible: boolean = 
         if (venue.location.longitude === null || venue.location.latitude === null) return;
 
         // retrieve corresponding sports
-        let sports = [];
+        let venueSports = [];
         if (venue && venue.sports && venue.sports.length > 0) {
-            for (const sport of venue.sports) {
-                sports.push({
+            for (const sportSlug of venue.sports) {
+                const sport = sports[sportSlug as keyof typeof sports] as any;
+                venueSports.push({
                     "src": sport.icon,
                     "alt": sport.name
                 });
@@ -46,7 +49,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router, visible: boolean = 
         const popup = new mapboxgl.Popup({
             closeButton: false,
             closeOnClick: false,
-            offset: [0, - (sports.length * (15 + 2))],
+            offset: [0, - (venueSports.length * (15 + 2))],
             className: 'venue-popup'
         }).setHTML(`<div class="text-sm bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-white px-2 py-1 rounded">${venue.name}</div>`);
 
@@ -83,7 +86,7 @@ const setMarkers = async (map: mapboxgl.Map, router: Router, visible: boolean = 
         staticMarkers.set(marker, false);
 
         // render marker in DOM
-        const vnode = h(MarkerIcon, { sports: sports, show: showMarkers.get(marker), direction: markerDirections.get(marker) });
+        const vnode = h(MarkerIcon, { sports: venueSports, show: showMarkers.get(marker), direction: markerDirections.get(marker) });
         render(vnode, el);
 
         // make it appear if it is within the bounds

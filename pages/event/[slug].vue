@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import events from '~/data/events.json';
 import sports from '~/data/sports.json';
 
 definePageMeta({
@@ -42,14 +43,8 @@ const route = useRoute();
 const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
-let sport: any;
-let event: any;
-for (const key of Object.keys(sports)) {
-    if (slug.startsWith(key + '-')) {
-        sport = sports[key as keyof typeof sports];
-        event = sport.events[slug as keyof typeof sport.events];
-    }
-}
+const event = events[slug as keyof typeof events] as any;
+const sport = event ? sports[event.sport as keyof typeof sports] as any : {} as any;
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');

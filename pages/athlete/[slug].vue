@@ -47,10 +47,10 @@
                 'col-span-12 md:col-span-6': profilePicture && selected === 0,
                 'col-span-12 md:col-span-8': !profilePicture && selected === 0,
                 'hidden': selected !== 0 && selected !== 3,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && athlete.events.length > 4,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && athleteEvents.length > 4,
                 'animate-bento-card': selected === 0 && transitioning && previousCard === 3,
                 'animate-full-screen h-full': selected === 3,
-            }" @click="selected === 3 ? () => { } : athlete.events.length > 4 ? toggleCard(3) : () => { }"
+            }" @click="selected === 3 ? () => { } : athleteEvents.length > 4 ? toggleCard(3) : () => { }"
                 @mouseenter="eventsCardHovered = true" @mouseleave="eventsCardHovered = false">
                 <template #default>
                     <div v-if="selected === 3" class="h-full relative flex flex-col gap-2">
@@ -58,7 +58,7 @@
                             @click.stop="toggleCard(3)" />
                         <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
                         <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
-                            <NuxtLink v-for="(event, index) in events" :to="`/event/${event.slug}`" :key="index" :class="[
+                            <NuxtLink v-for="(event, index) in athleteEvents" :to="`/event/${event.slug}`" :key="index" :class="[
                                 'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
                                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50'
                             ]">
@@ -71,7 +71,7 @@
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
                             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
                             leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="eventsCardHovered && athlete.events.length > 4"
+                            <UIcon v-if="eventsCardHovered && athleteEvents.length > 4"
                                 name="i-heroicons-arrow-up-right" class="absolute top-1 right-1" />
                         </transition>
                         <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
@@ -96,12 +96,12 @@
             }">
                 <template #default>
                     <div class="flex items-center h-full gap-4">
-                        <img class="rounded-lg w-1/6" :src="`/img/countries/${athlete.country.code.toLowerCase()}.svg`"
-                            :alt="athlete.country.name" />
+                        <img class="rounded-lg w-1/6" :src="athleteCountry.img"
+                            :alt="athleteCountry.name" />
                         <div class="flex flex-col h-full justify-center">
                             <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Country</h2>
                             <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                                {{ athlete.country.name }}
+                                {{ athleteCountry.name }}
                             </p>
                         </div>
                     </div>
@@ -309,15 +309,15 @@
                 </template>
             </UCard>
 
-            <UCard v-if="athlete.achievements && athlete.achievements.length > 0" variant="soft"
+            <UCard v-if="athlete.medals && athlete.medals.length > 0" variant="soft"
                 :ui="{ 'body': 'h-full' }" :class="{
                     'col-span-12 md:col-span-6 row-span-1 md:row-span-3': selected === 0 && athlete.education,
                     'col-span-12 md:row-span-3': selected === 0 && !athlete.education,
-                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && athlete.achievements.length > 3,
+                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && athlete.medals.length > 3,
                     'animate-bento-card': selected === 0 && transitioning && previousCard === 11,
                     'transition-all duration-500 transform h-full': selected === 11,
                     'hidden': selected !== 0 && selected !== 11
-                }" @click="selected === 11 ? () => { } : athlete.achievements.length > 3 ? toggleCard(11) : () => { }"
+                }" @click="selected === 11 ? () => { } : athlete.medals.length > 3 ? toggleCard(11) : () => { }"
                 @mouseenter="medalsCardHovered = true" @mouseleave="medalsCardHovered = false">
                 <template #default>
                     <div class="w-full h-full rounded-lg">
@@ -331,8 +331,9 @@
                                         class="flex flex-col items-center p-2 bg-zinc-100 dark:bg-zinc-900 rounded-lg">
                                         <div
                                             :class="`w-8 h-8 rounded-full flex items-center justify-center ${medalColorClass(type)} mb-1`">
-                                            <span class="text-white font-bold text-base">{{ medalEmojiMap[type]
-                                            }}</span>
+                                            <span class="text-white font-bold text-base">
+                                                {{ medalEmojiMap[type] }}
+                                            </span>
                                         </div>
                                         <div class="text-xl font-bold text-zinc-800 dark:text-white">{{ count }}</div>
                                         <div class="text-xs text-zinc-600 dark:text-gray-400">{{ type }}</div>
@@ -371,14 +372,14 @@
                                 enter-from-class="opacity-0" enter-to-class="opacity-100"
                                 leave-active-class="transition-opacity duration-500" leave-from-class="opacity-100"
                                 leave-to-class="opacity-0" mode="out-in">
-                                <UIcon v-if="medalsCardHovered && athlete.achievements.length > 3"
+                                <UIcon v-if="medalsCardHovered && athlete.medals.length > 3"
                                     name="i-heroicons-arrow-up-right" class="absolute top-2 right-2" />
                             </transition>
                             <div class="flex flex-col items-left">
                                 <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Olympic
                                     Medals
                                 </h2>
-                                <div class="text-xs text-zinc-500 dark:text-gray-400">{{ athlete.achievements.length }}
+                                <div class="text-xs text-zinc-500 dark:text-gray-400">{{ athlete.medals.length }}
                                     total</div>
                             </div>
                             <div class="flex-1 flex items-center justify-evenly w-full max-w-[250px] mx-auto">
@@ -524,8 +525,10 @@
 <script setup lang="ts">
 import athletes from '~/data/athletes.json';
 import sports from '~/data/sports.json';
+import events from '~/data/events.json';
+import countries from '~/data/countries.json';
 
-definePageMeta({
+definePageMeta({ 
     middleware: ['athlete', 'previous', 'breadcrumb'],
     layout: 'canvas'
 });
@@ -546,18 +549,20 @@ const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
 const athlete = athletes[slug as keyof typeof athletes] as any;
-const mainSport = athlete ? sports[athlete.sports[0] as keyof typeof sports] as any : {} as any;
-let events: any[] = [];
+const athleteCountry = athlete ? countries[athlete.country as keyof typeof countries] as any : {} as any;
+let athleteSports: any[] = [];
 if (athlete) {
     for (const sportSlug of athlete.sports) {
-        let sport = sports[sportSlug as keyof typeof sports] as any;
-        const matchingEvents = Object.values(sport.events).filter((event: any) =>
-            athlete.events.includes(event.slug)
-        );
-        events.push(...matchingEvents);
+        athleteSports.push(sports[sportSlug as keyof typeof sports]);
     }
 }
-
+const mainSport = athlete && athleteSports.length > 0 ? athleteSports[0] as any : {} as any;
+let athleteEvents: any[] = [];
+if (athlete) {
+    for (const eventSlug of athlete.events) {
+        athleteEvents.push(events[eventSlug as keyof typeof events]);
+    }
+}
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
@@ -572,38 +577,6 @@ const closePage = () => {
     router.push('/');
 }
 
-useHead(() => {
-    if (athlete === undefined) return;
-    const name = athlete.name;
-    const country = athlete.country?.name || '';
-    const sports = athlete.sports;
-    const medals = athlete.achievements.length > 0
-        ? `${athlete.achievements.length} Olympic medals`
-        : 'Olympic athlete';
-
-    const title = `${name} - Athlete from ${country}`;
-    const description = `${name} is an Olympic athlete from ${country} competing in ${sports}. ${medals}.`;
-
-    return {
-        title,
-        meta: [
-            { name: 'description', content: description },
-            // Open Graph / Facebook
-            { property: 'og:type', content: 'profile' },
-            { property: 'og:title', content: title },
-            { property: 'og:description', content: description },
-            { property: 'og:url', content: `https://dataringz.martinctl.dev/athlete/${slug}` },
-            { property: 'profile:first_name', content: name.split(' ')[0] },
-            { property: 'profile:last_name', content: name.split(' ').slice(1).join(' ') },
-
-            // Twitter
-            { name: 'twitter:card', content: 'summary' },
-            { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: description }
-        ]
-    };
-});
-
 // UI STATE ------------------------
 const selected = ref(0);
 const previousCard = ref(0);
@@ -615,7 +588,7 @@ const eventsCardHovered = ref(false);
 const coachCard1Hovered = ref(false);
 const coachCard2Hovered = ref(false);
 const bioExpandable = computed(() => {
-    if ((!athlete.achievements || athlete.achievements.length === 0) && athlete.education) return false;
+    if ((!athlete.medals || athlete.medals.length === 0) && athlete.education) return false;
     if (athlete.reason && athlete.philosophy) return true;
     if (athlete.reason) return athlete.reason.length > 60
     if (athlete.philosophy) return athlete.philosophy.length > 60
@@ -638,10 +611,10 @@ const compactCoach = computed(() => {
     if (lastSpaceIndex === -1) return text.substring(0, 35) + '...';
     return text.substring(0, lastSpaceIndex) + '...';
 })
-const compactEvents = computed(() => events.slice(0, 4));
+const compactEvents = computed(() => athleteEvents.slice(0, 4));
 const profilePicture = computed(() => slug && athlete && athlete.image && athlete.image.should_show_image);
-const hasMedals = computed(() => athlete && athlete.achievements && athlete.achievements.length > 0);
-const hasFewInfo = computed(() => athlete && (!athlete.education && !athlete.reason && !athlete.philosophy) || (!athlete.education && !hasMedals.value) || (!hasMedals.value && !athlete.reason && !athlete.philosophy))
+const hasMedals = computed(() => athlete && athlete.medals && athlete.medals.length > 0);
+const hasFewInfo = computed(() => athlete && (!athlete.education && !athlete.reason && !athlete.philosophy) || (!athlete.education && !hasMedals.value) || (!hasMedals.value && !athlete.reason && !athlete.philosophy));
 
 onMounted(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -686,15 +659,13 @@ const medalColorClass = (type: string) => {
     }
 };
 
-// Add these computed properties in the script section:
 const medalCounts = computed(() => {
     const counts = {
         'Gold': 0,
         'Silver': 0,
         'Bronze': 0
     };
-
-    athlete.achievements.forEach((medal: any) => {
+    athlete.medals.forEach((medal: any) => {
         const type = medal.type.split(' ')[0];
         if (type in counts) {
             counts[type as keyof typeof counts]++;
@@ -705,17 +676,46 @@ const medalCounts = computed(() => {
 });
 
 const sortedMedals = computed(
-    () => [...athlete.achievements].sort((a, b) => {
-        // Sort by date (earliest first)
+    () => [...athlete.medals].sort((a, b) => {
         const dateA = new Date(a.date).getTime();
         const dateB = new Date(b.date).getTime();
         if (dateA !== dateB) return dateA - dateB;
-
-        // If same date, sort by medal type (Gold > Silver > Bronze)
         const typeOrder = { 'Gold': 3, 'Silver': 2, 'Bronze': 1 };
         const typeA = typeOrder[a.type.split(' ')[0] as keyof typeof typeOrder] || 0;
         const typeB = typeOrder[b.type.split(' ')[0] as keyof typeof typeOrder] || 0;
         return typeB - typeA;
     })
 );
+
+useHead(() => {
+    if (athlete === undefined) return;
+    const name = athlete.name;
+    const country = athleteCountry.name || '';
+    const sports = athleteSports;
+    const medals = athlete.medals.length > 0
+        ? `${athlete.medals.length} Olympic medals`
+        : 'Olympic athlete';
+
+    const title = `${name} - Athlete from ${country}`;
+    const description = `${name} is an Olympic athlete from ${country} competing in ${sports}. ${medals}.`;
+
+    return {
+        title,
+        meta: [
+            { name: 'description', content: description },
+            // Open Graph / Facebook
+            { property: 'og:type', content: 'profile' },
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: description },
+            { property: 'og:url', content: `https://dataringz.martinctl.dev/athlete/${slug}` },
+            { property: 'profile:first_name', content: name.split(' ')[0] },
+            { property: 'profile:last_name', content: name.split(' ').slice(1).join(' ') },
+
+            // Twitter
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: description }
+        ]
+    };
+});
 </script>

@@ -3,7 +3,7 @@ import type { BreadcrumbItem } from '@nuxt/ui';
 import venues from '~/data/venues.json';
 import sports from '~/data/sports.json';
 import athletes from '~/data/athletes.json';
-import { registerRuntimeCompiler } from 'vue';
+import events from '~/data/events.json';
 
 export default defineNuxtRouteMiddleware((to, _) => {
     const breadcrumb = useState('breadcrumb', () => [] as BreadcrumbItem[]);
@@ -38,7 +38,6 @@ export default defineNuxtRouteMiddleware((to, _) => {
         const athlete = athletes[slug as keyof typeof athletes] as any;
         if (athlete === undefined) return;
         const slugIndex = breadcrumb.value.findIndex(item => item.label === athlete.name)
-
         if (slugIndex !== -1) {
             breadcrumb.value = breadcrumb.value.slice(0, slugIndex + 1);
         } else {
@@ -49,15 +48,8 @@ export default defineNuxtRouteMiddleware((to, _) => {
             })
         }
     } else if (to.fullPath.includes('/event/')) {
-        let sport: any;
-        let event: any;
-        for (const key of Object.keys(sports)) {
-            if (slug.startsWith(key + '-')) {
-                sport = sports[key as keyof typeof sports];
-                event = sport.events[slug as keyof typeof sport.events];
-            }
-        }
-        if (sport === undefined || event === undefined) return;
+        const event = events[slug as keyof typeof events] as any;
+        if (event === undefined) return;
         const slugIndex = breadcrumb.value.findIndex(item => item.label === event.name)
         if (slugIndex !== -1) {
             breadcrumb.value = breadcrumb.value.slice(0, slugIndex + 1);

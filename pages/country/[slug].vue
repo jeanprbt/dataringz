@@ -82,7 +82,7 @@
                     <div class="flex flex-col h-full justify-center gap-1">
                         <div class="flex items-center gap-1">
                             <h2 class="text-lg md:text-3xl font-bold text-zinc-800 dark:text-white">
-                                {{ countryMedals?.rank }}
+                                {{ country.rank }}
                             </h2>
                             <span class="text-lg text-gray-500 font-medium">/ 85</span>
                         </div>
@@ -279,10 +279,9 @@
 import mapboxgl from 'mapbox-gl';
 
 import countries from '~/data/countries.json';
-import medalsTotal from '~/data/medals_total.json';
 import athletes from '~/data/athletes.json';
-import medals from '~/data/medals.json';
 import sports from '~/data/sports.json';
+import medals from '~/data/medals.json';
 
 definePageMeta({
     middleware: ['country'],
@@ -315,14 +314,11 @@ const slug = route.params.slug as string;
 const country = countries[slug as keyof typeof countries] as any;
 const athleteCount = computed(() => {
     return Object.values(athletes)
-        .filter(athlete => athlete.country.name === country.name).length;
+        .filter(athlete => athlete.country === country.slug).length;
 });
-const countryMedals = computed(() => {
-    return medalsTotal.find(m => m.country_code === country.country_code);
-});
+
 const createSportDisciplineMap = () => {
     const disciplineMap = {} as any;
-
     Object.entries(sports).forEach(([sportSlug, sportInfo]) => {
         disciplineMap[sportInfo.name] = sportSlug;
         const variations = [
@@ -369,7 +365,7 @@ const countryTotalMedals = computed(() => {
 });
 const uniqueSportsCount = computed(() => {
     const countryAthletes = Object.values(athletes)
-        .filter(athlete => athlete.country.name === country.name);
+        .filter(athlete => athlete.country === country.slug);
     const uniqueSportsSlugs = new Set();
     countryAthletes.forEach(athlete => {
         if (athlete.sports && athlete.sports.length > 0) {

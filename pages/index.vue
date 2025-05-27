@@ -103,7 +103,7 @@ const getMapItems = (map: mapboxgl.Map) => {
                 },
                 async onSelect() {
                     open.value = false;
-                    const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
+                    const venue = venues[sport["venues"][0] as keyof typeof venues];
                     const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
                     flying = true;
                     await flyToVenue(map, coordinates);
@@ -123,7 +123,7 @@ const getMapItems = (map: mapboxgl.Map) => {
                 async onSelect() {
                     open.value = false;
                     const sport = sports[athlete["sports"][0] as keyof typeof sports]
-                    const venue = venues[sport["venues"][0]["slug"] as keyof typeof venues];
+                    const venue = venues[sport["venues"][0] as keyof typeof venues];
                     const coordinates = [venue.location.longitude, venue.location.latitude] as [number, number];
                     flying = true;
                     await flyToVenue(map, coordinates);

@@ -1,18 +1,24 @@
 /**
  * Sorts items by Olympic medal ranking (gold first, then silver, then bronze)
  */
-export const sortByMedals = <T extends { medals?: any }>(
-    items: T[]
-): T[] => {
-    return [...items].sort((a, b) => {
-        if (!a.medals || !b.medals) return 0;
+export const sortByMedals =  (items: any[]) => {
+    return [...items].sort((a: any, b: any) => {
+        if (a.medals.length === 0 && b.medals.length === 0) return 0;
 
-        if (b.medals.gold !== a.medals.gold) {
-            return b.medals.gold - a.medals.gold;
+        const gold_a = a.medals.filter((m: any) => m.type === "Gold Medal");
+        const gold_b = b.medals.filter((m: any) => m.type === "Gold Medal");
+        if (gold_b !== gold_a) {
+            return gold_b - gold_a;
         }
-        if (b.medals.silver !== a.medals.silver) {
-            return b.medals.silver - a.medals.silver;
+
+        const silver_a = a.medals.filter((m: any) => m.type === "Silver Medal");
+        const silver_b = b.medals.filter((m: any) => m.type === "Silver Medal");
+        if (silver_b !== silver_a) {
+            return silver_b - silver_a;
         }
-        return b.medals.bronze - a.medals.bronze;
+
+        const bronze_a = a.medals.filter((m: any) => m.type === "Bronze Medal");
+        const bronze_b = b.medals.filter((m: any) => m.type === "Bronze Medal");
+        return bronze_b - bronze_a;
     });
 };

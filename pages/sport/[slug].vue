@@ -75,8 +75,8 @@
                                 Events
                             </h2>
                             <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
-                                <NuxtLink v-for="(event, index) in Object.values(sport.events)"
-                                    :to="`/event/${event.slug}`" :key="index" :class="[
+                                <NuxtLink v-for="(event, index) in sportEvents" :to="`/event/${event.slug}`"
+                                    :key="index" :class="[
                                         'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
                                         'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50'
                                     ]">
@@ -131,20 +131,43 @@
                                 Medallists
                             </h2>
                             <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
-                                <NuxtLink v-for="athlete in sport.athletes" :key="athlete.slug"
+                                <NuxtLink v-for="athlete in sportAthletes" :key="athlete.slug"
                                     :to="`/athlete/${athlete.slug}`"
-                                    class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 p-2">
+                                    class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 px-2 py-4">
                                     <span
                                         class="text-center text-xs md:text-sm font-medium text-zinc-800 dark:text-white">
                                         {{ athlete.name }}
                                     </span>
                                     <div v-if="athlete.country" class="flex items-center mt-1">
-                                        <CountryFlag v-if="athlete.countryCode" :code="athlete.countryCode"
-                                            :name="athlete.country" size="sm" class="mr-1" />
-                                        <span class="text-xs text-gray-500 dark:text-gray-400">{{
-                                            athlete.country }}</span>
+                                        <img :src="athlete.country.img" :alt="`Flag of ${athlete.country.name}`"
+                                            class="h-3 w-4 mr-1" />
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                                            {{ athlete.country.name }}
+                                        </span>
                                     </div>
-                                    <MedalDisplay :medals="athlete.medals" class="mt-2" />
+                                    <div v-if="athlete.medals.length > 0" class="flex space-x-1 mt-2">
+                                        <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Gold Medal').length > 0"
+                                            class="flex items-center" title="Gold medals">
+                                            <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
+                                                <span class="text-xs">🥇</span> {{athlete.medals.filter((m: any) =>
+                                                m["type"] === "Gold Medal").length }}
+                                            </span>
+                                        </div>
+                                        <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Silver Medal').length > 0"
+                                            class="flex items-center" title="Silver medals">
+                                            <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
+                                                <span class="text-xs">🥈</span> {{athlete.medals.filter((m: any) =>
+                                                m["type"] === "Silver Medal").length }}
+                                            </span>
+                                        </div>
+                                        <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Bronze Medal').length > 0"
+                                            class="flex items-center" title="Bronze medals">
+                                            <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
+                                                <span class="text-xs">🥉</span> {{athlete.medals.filter((m: any) =>
+                                                m["type"] === "Bronze Medal").length }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </NuxtLink>
                             </div>
                         </div>
@@ -172,12 +195,35 @@
                                         {{ athlete.name }}
                                     </span>
                                     <div v-if="athlete.country" class="flex items-center mt-1">
-                                        <CountryFlag v-if="athlete.countryCode" :code="athlete.countryCode"
-                                            :name="athlete.country" size="sm" class="mr-1" />
-                                        <span class="text-xs text-gray-500 dark:text-gray-400">{{
-                                            athlete.country }}</span>
+                                        <img :src="athlete.country.img" :alt="`Flag of ${athlete.country.name}`"
+                                            class="h-3 w-4 mr-1" />
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                                            {{ athlete.country.name }}
+                                        </span>
                                     </div>
-                                    <MedalDisplay :medals="athlete.medals" class="mt-2" />
+                                    <div v-if="athlete.medals.length > 0" class="flex space-x-1 mt-2">
+                                        <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Gold Medal').length > 0"
+                                            class="flex items-center" title="Gold medals">
+                                            <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
+                                                <span class="text-xs">🥇</span> {{athlete.medals.filter((m: any) =>
+                                                m["type"] === "Gold Medal").length }}
+                                            </span>
+                                        </div>
+                                        <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Silver Medal').length > 0"
+                                            class="flex items-center" title="Silver medals">
+                                            <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
+                                                <span class="text-xs">🥈</span> {{athlete.medals.filter((m: any) =>
+                                                m["type"] === "Silver Medal").length }}
+                                            </span>
+                                        </div>
+                                        <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Bronze Medal').length > 0"
+                                            class="flex items-center" title="Bronze medals">
+                                            <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
+                                                <span class="text-xs">🥉</span> {{athlete.medals.filter((m: any) =>
+                                                m["type"] === "Bronze Medal").length }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </NuxtLink>
                             </div>
                         </div>
@@ -223,6 +269,9 @@
 
 <script setup lang="ts">
 import sports from '~/data/sports.json';
+import athletes from '~/data/athletes.json';
+import events from '~/data/events.json';
+import countries from '~/data/countries.json';
 
 definePageMeta({
     middleware: ['sport', 'previous', 'breadcrumb'],
@@ -245,6 +294,25 @@ const slug = route.params.slug as string;
 
 // DATA MANAGEMENT -----------------
 const sport = sports[slug as keyof typeof sports];
+let sportEvents: any[] = [];
+if (sport) {
+    for (const eventSlug of sport.events) {
+        sportEvents.push(events[eventSlug as keyof typeof events]);
+    }
+}
+
+let sportAthletes: any[] = [];
+if (sport) {
+    for (const athleteSlug of sport.athletes) {
+        const athlete = athletes[athleteSlug as keyof typeof athletes] as any;
+        const countrySlug = athlete["country"];
+        athlete["country"] = countries[countrySlug as keyof typeof countries];
+        sportAthletes.push(athlete);
+    }
+}
+const compactEvents = computed(() => sportEvents.slice(0, 3));
+const compactAthletes = computed(() => sortByMedals(sportAthletes).slice(0, 4));
+
 
 // HANDLE BREADCRUMB ---------------
 const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
@@ -312,8 +380,6 @@ const unhoverAthlete = () => {
     athleteCardHovered.value = true;
     athleteHovered.value = false;
 }
-const compactEvents = computed(() => Object.values(sport.events).slice(0, 3));
-const compactAthletes = computed(() => sortByMedals(sport.athletes).slice(0, 4));
 const eventsExpandable = computed(() => Object.keys(sport.events).length > compactEvents.value.length);
 
 useHead(() => {

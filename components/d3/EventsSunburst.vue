@@ -283,9 +283,7 @@ export default {
 
         if (d.depth === 1 && currentView === root) {
           currentHover = d;
-          console.log('Sport data:', d.data); // Debug log
           self.currentHoverIcon = d.data.icon;
-          console.log('Setting icon:', self.currentHoverIcon); // Debug log
 
           // Only apply hover effects at the sports level and when viewing the root
           if (d.depth === 1 && currentView === root) {

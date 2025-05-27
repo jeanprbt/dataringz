@@ -6,14 +6,19 @@
 </template>
 
 <script setup lang="ts">
-import previousMedals from '~/data/previous_editions_medals.json';
+import countries from '~/data/countries.json';
 import { ref, onMounted, watch, onUnmounted, computed } from 'vue';
 import * as d3 from 'd3';
 
-const props = defineProps<{
-    country: string;
-}>();
+const props = defineProps({
+    country: {
+        type: String,
+        required: true
+    }
+});
 
+const country = countries[props.country as keyof typeof countries] as any;
+const data = country["previous_editions"];
 const chartContainer = ref<HTMLElement | null>(null);
 const items = ref([
     {
@@ -27,6 +32,7 @@ const items = ref([
         icon: 'ion:md-podium'
     }
 ]);
+
 const displayMode = ref(items.value[0]?.value);
 const icon = computed(() => items.value.find(item => item.value === displayMode.value)?.icon);
 const dark = ref(false);
@@ -37,49 +43,13 @@ if (process.client && window.matchMedia) {
         dark.value = e.matches;
     });
 }
-const rank = previousMedals[props.country as keyof typeof previousMedals].at(-1)!["rank"];
-
-// Prepare data for the current country
-const countryData = computed<any>(() => {
-    const data = previousMedals[props.country as keyof typeof previousMedals];
-    if (!data) return [];
-
-    // Process and normalize data
-    const processedData = [...data].map(item => {
-        // Ensure all required properties exist with default values
-        const result = {
-            ...item,
-            total: item.total,
-            gold: item.gold,
-            silver: item.silver,
-            bronze: item.bronze,
-            rank: item.rank,
-            year: item.year,
-            city: item.city 
-        };
-
-        // Ensure we're returning numbers for numeric fields
-        result.total = Number(result.total);
-        result.gold = Number(result.gold);
-        result.silver = Number(result.silver);
-        result.bronze = Number(result.bronze);
-        result.rank = Number(result.rank);
-        result.year = Number(result.year);
-
-        return result;
-    });
-
-    // Sort by year
-    return processedData.sort((a, b) => a.year - b.year);
-});
+const rank = data.at(-1)!["rank"];
 
 const renderChart = () => {
     if (!chartContainer.value) return;
 
     // Clear previous chart
     d3.select(chartContainer.value).selectAll('*').remove();
-
-    const data = countryData.value;
     if (!data || data.length === 0) return;
 
     // Set dimensions
@@ -95,7 +65,7 @@ const renderChart = () => {
         .style('opacity', 0) // Start with opacity 0 for fade-in animation
         .append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
-        
+
     // Define text color based on dark mode
     const textColor = dark.value ? '#ffffff' : '#000000';
 
@@ -119,7 +89,7 @@ const renderChart = () => {
             .call(d3.axisLeft(yScale).tickFormat(d => d.toString()))
             .selectAll('text')
             .attr('fill', textColor);
-            
+
         svg.append('text')
             .attr('fill', textColor)
             .attr('y', -30)
@@ -141,7 +111,7 @@ const renderChart = () => {
             .call(d3.axisLeft(yScale))
             .selectAll('text')
             .attr('fill', textColor);
-            
+
         svg.append('text')
             .attr('fill', textColor)
             .attr('y', -30)
@@ -182,7 +152,7 @@ const renderChart = () => {
                 .attr('cy', (d: any) => yScale(accessor(d)))
                 .attr('r', 4)
                 .attr('fill', dark.value ? 'white' : 'black')
-                .on('mouseover', function(event, d: any) {
+                .on('mouseover', function (event, d: any) {
                     // Show appropriate tooltip based on the name
                     if (name === 'total') {
                         showTooltip(event, d, `${capitalize(d.city)} ${d.year}\nTotal Medals: ${d.total}`);
@@ -238,7 +208,7 @@ const renderChart = () => {
             .attr('opacity', 0.7)
             .attr('d', goldArea)
             .attr('class', 'gold-area');
-            
+
         // Gold+Silver+Bronze dots
         svg.selectAll('.dot-gold')
             .data(data)
@@ -249,7 +219,7 @@ const renderChart = () => {
             .attr('cy', (d: any) => yScale(d.bronze + d.silver + d.gold))
             .attr('r', 4)
             .attr('fill', dark.value ? 'white' : 'black')
-            .on('mouseover', function(event, d: any) {
+            .on('mouseover', function (event, d: any) {
                 showTooltip(event, d, `${capitalize(d.city)} ${d.year}\nGold: ${d.gold}\nSilver: ${d.silver}\nBronze: ${d.bronze}\nTotal: ${d.total}`);
             })
             .on('mouseout', hideTooltip)
@@ -296,7 +266,7 @@ const renderChart = () => {
         .append('g')
         .attr('class', 'city-label-group')
         .attr('transform', (d: any) => `translate(${x(d.year)}, ${height + 20})`);
-    
+
     // Add city and year text
     cityLabels.append('text')
         .attr('class', 'city-label')
@@ -305,7 +275,7 @@ const renderChart = () => {
         .style('font-size', '14px')
         .attr('fill', textColor)
         .text((d: any) => `${capitalize(d.city)} ${d.year}`);
-        
+
     // Add flags if available
     cityLabels.filter((d: any) => d.flag)
         .append('image')
@@ -315,19 +285,19 @@ const renderChart = () => {
         .attr('x', -16) // Adjusted center point for larger size
         .attr('y', 6)  // Position below the text
         .attr('preserveAspectRatio', 'xMidYMid meet');
-        
+
     // Add progressive left-to-right animation for revealing the chart
     // First make the SVG visible
     d3.select(chartContainer.value)
         .select('svg')
         .style('opacity', 1);
-    
+
     // Animate paths with stroke dasharray
     svg.selectAll('path')
-        .each(function() {
+        .each(function () {
             const path = d3.select(this);
             const totalLength = (this as SVGPathElement).getTotalLength();
-            
+
             path
                 .attr('stroke-dasharray', totalLength + ' ' + totalLength)
                 .attr('stroke-dashoffset', totalLength)
@@ -336,34 +306,34 @@ const renderChart = () => {
                 .ease(d3.easeLinear)
                 .attr('stroke-dashoffset', 0);
         });
-    
+
     // Fade in dots with delay based on x-position
     svg.selectAll('circle')
         .style('opacity', 0)
-        .each(function(d: any) {
+        .each(function (d: any) {
             const normalizedX = (x(d.year) - x.range()[0]) / (x.range()[1] - x.range()[0]);
             const delay = normalizedX * 800; // Delay increases from left to right
-            
+
             d3.select(this)
                 .transition()
                 .delay(delay)
                 .duration(400)
                 .style('opacity', 1);
         });
-        
+
     // Fade in areas
     svg.selectAll('.bronze-area, .silver-area, .gold-area')
         .style('opacity', 0)
         .transition()
         .duration(800)
         .style('opacity', 0.7);
-        
+
     // Progressively reveal city labels and flags
     cityLabels.style('opacity', 0)
-        .each(function(d: any) {
+        .each(function (d: any) {
             const normalizedX = (x(d.year) - x.range()[0]) / (x.range()[1] - x.range()[0]);
             const delay = normalizedX * 800; // Delay increases from left to right
-            
+
             d3.select(this)
                 .transition()
                 .delay(delay)
@@ -391,11 +361,11 @@ const showTooltip = (event: MouseEvent, d: any, content: string) => {
     const target = event.currentTarget as SVGCircleElement;
     // Get the bounding rect of the circle
     const rect = target.getBoundingClientRect();
-    
+
     // Calculate tooltip position to center above the dot
     const tooltipX = rect.left + (rect.width / 2);
     const tooltipY = rect.top - 10; // Position above the dot with a small gap
-    
+
     const tooltip = d3.select(chartContainer.value)
         .append('div')
         .attr('class', 'tooltip')
@@ -410,10 +380,10 @@ const showTooltip = (event: MouseEvent, d: any, content: string) => {
         .style('box-shadow', dark.value ? '0 2px 5px rgba(0,0,0,0.3)' : '0 2px 5px rgba(0,0,0,0.1)')
         .style('transform', 'translate(-50%, -100%)') // Center horizontally and position above
         .style('opacity', 0);
-    
+
     // Replace newlines with HTML breaks to properly format the tooltip
     const formattedContent = content.replace(/\n/g, '<br>');
-    
+
     tooltip
         .html(formattedContent)
         .style('left', tooltipX + 'px')

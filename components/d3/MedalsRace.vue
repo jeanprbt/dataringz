@@ -205,7 +205,6 @@ export default {
                     medalsToday.push(medal);
                 }
             }
-            console.log(dailyRankings);
             return dailyRankings;
         },
 
@@ -491,7 +490,6 @@ export default {
                 .attr('x', 0)
                 .attr('href', d => {
                     const flagUrl = this.getCountryFlag(d.countryCode);
-                    console.log('Setting flag for', d.country, ':', flagUrl);
                     return flagUrl;
                 })
                 .on('error', function (event, d) {

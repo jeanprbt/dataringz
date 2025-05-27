@@ -116,12 +116,13 @@
 </template>
 
 <script setup lang="ts">
+import countries from '~/data/countries.json';
+import medals from '~/data/medals.json';
+
 definePageMeta({
     layout: 'canvas'
 })
 
-import medals from '~/data/medals.json';
-import medals_total from '~/data/medals_total.json';
 
 // HANDLE DIRECT URL ---------------
 let directAccess = useState('olympics').value;
@@ -155,6 +156,16 @@ const toggleCard = (index: number = 0) => {
     else selected.value = index;
 }
 
+// MEDALS RANKING ------------------
+const medals_total = Object.values(countries).filter((country: any) => country.rank > 0).map((country: any) => ({
+    rank: country.rank,
+    country: country.name,
+    flag: country.img,
+    bronze: country.bronze,
+    silver: country.silver,
+    gold: country.gold,
+    total: country.total
+})).sort((a, b) => a.rank - b.rank);
 const medalsColumns = [
     {
         accessorKey: 'rank',

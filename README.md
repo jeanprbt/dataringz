@@ -1,4 +1,40 @@
-# Project of Data Visualization (COM-480)
+# DataRingz - An interactive map of Paris 2024 Olympics 🏊
+
+> Course project of Data Visualization (COM-480 @ EPFL)
+
+This repository contains a web app to visualize information from this [extensive dataset](https://www.kaggle.com/datasets/piterfm/paris-2024-olympic-summer-games) about [Paris 2024](https://www.olympics.com/en/olympic-games/paris-2024) Olympics. The app centers around an interactive map of Paris, allowing users to click on olympics venues to view details about the sports held there, the athletes involved, related events, and more. A search bar enables quick navigation to specific venues, sports, athletes, or events, while a “globe mode” offers a global view of the participating countries.
+
+## Technical setup
+
+This project is built using [Nuxt.js](https://nuxt.com), a full-stack development framework based on [Vue.js](https://vuejs.org). It relies on [mapbox](https://www.mapbox.com) for map tiles, and it is mainly written in [TypeScript](https://www.typescriptlang.org).
+
+More specifically, the main layout of the website is defined in `layouts/canvas.vue`, which manages the background map and overall navigation. The root route (`/`) is handled by `pages/index.vue`, where the search bar and the Olympics and globe buttons are located. In contrast, all detailed information—such as venues, athletes, sports, or countries—is displayed on dedicated subpages (e.g., `/venue`, `/athlete`, etc.), each corresponding to its own file within the `pages/` directory.
+
+### Run instructions
+
+Website is hosted live at this [link](https://dataringz.martinctl.dev). For local development, here are the steps to follow.
+
+#### 1. Clone the repository locally
+
+```sh
+git clone https://github.com/com-480-data-visualization/dataringz.git dataringz
+```
+
+#### 2. Install dependencies
+
+```sh
+npm install
+```
+
+#### 3. Run development server
+
+For development purposes, you can run the development server either with or without the **introduction** animation, adding the `-- --intro` flag in the former case.
+
+```sh
+npm run dev (-- --intro)
+```
+
+## Evaluation milestones
 
 | Student's name | SCIPER |
 | -------------- | ------ |
@@ -6,17 +42,17 @@
 | DUCOURAU Maxime | 329544 |
 | PERBET Jean | 341418 |
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2)
 
-## Milestone 1 (21st March, 5pm)
+### Milestone 1
 
 > 10% of the final grade
 
-### Dataset
+#### Dataset
 
 For this project, we selected the dataset **"Paris 2024 Olympic Summer Games"**, available on [Kaggle](https://www.kaggle.com/datasets/piterfm/paris-2024-olympic-summer-games). This dataset provides a rich and detailed compilation of data related to the Paris 2024 Summer Olympics, including athletes, events, medals, and schedules.
 
-#### Dataset Structure
+##### Dataset Structure
 
 The dataset comprises multiple CSV files, each focusing on a specific aspect of the Olympic Games. Below is an overview of each file and its contents:
 
@@ -37,7 +73,7 @@ The dataset comprises multiple CSV files, each focusing on a specific aspect of 
 | `torch_route.csv`        | Locations of the Olympic torch relay                   |
 | `venues.csv`             | List of all Olympic venues                             |
 
-#### Data Quality Assessment
+##### Data Quality Assessment
 
 The dataset is extensive, well-structured, making it highly suitable for visualization tasks without too much data wrangling operations (not the topic of the course). However, a careful review reveals a few points to consider:
 
@@ -47,7 +83,7 @@ The dataset is extensive, well-structured, making it highly suitable for visuali
 
 Overall, the dataset provides an excellent quality baseline and is well-aligned with our objectives for producing meaningful visualizations.
 
-#### Data Preprocessing Plan
+##### Data Preprocessing Plan
 
 Before starting visualization, the following preprocessing steps may be performed:
 
@@ -59,17 +95,17 @@ Before starting visualization, the following preprocessing steps may be performe
    - Merge tables where necessary (e.g., link athletes data with medals, events, NOCs, ...).
    - Restructure for specific analysis, such as computing  medal counts or event participation per country, per event, per capita (some potential ideas), and create new metrics.
 
-#### Why This Dataset?
+##### Why This Dataset?
 
 We chose this dataset because we are passionate about sports, and the Olympics were a pleasure to watch. It provides comprehensive data that allows for a wide variety of visualizations, from medal statistics to participation trends and event schedules.
 
 ---
 
-### Problematic
+#### Problematic
 
 Our goal is to create an easy way to visualize the most important statistics about Paris 2024 Olympics. We thought about an **interactive map**, where users can navigate to discover the venues which welcomed Olympic trials. On click, each venue reveals information about the corresponding trial, althletes and countries. For instance, so as to get information about swimmers, one can navigate to *Paris La Défense Arena* and click the building, which will be displayed in 3D and highlighted.
 
-#### Why This Visualization?
+##### Why This Visualization?
 
 The Olympics are a huge source of information, and this would be a convenient way to access specific statistics.
 
@@ -78,7 +114,7 @@ The Olympics are a huge source of information, and this would be a convenient wa
 - Clicking on an athlete name opens a pop-up with detailed informations such as nicknames, philosophy and other (if available, of course).
 - And many more options !
 
-#### Target Audience
+##### Target Audience
 
 This visualization is designed for:
 
@@ -86,7 +122,7 @@ This visualization is designed for:
 - **Casual viewers** excited to explore Paris 2024,
 - **Data and tech enthusiasts** interested in interactive tools.
 
-#### What We’re Showing
+##### What We’re Showing
 
 - **Venue stats**: Explore Paris locations in 3D.
 - **Country insights**: Discover medals and stats for specific nations.
@@ -94,29 +130,31 @@ This visualization is designed for:
 
 ---
 
-### Exploratory Data Analysis
+#### Exploratory Data Analysis
 
-An exploratory data analysis is available in the `eda/` folder. Check `INSTRUCTIONS.md` for the run instructions!
+An exploratory data analysis is available in the `eda/` folder.
 
-### Originality of our approach & Source of inspiration
+##### 1. Create an environment and install the dependencies
+
+```sh
+pip install -r requirements.txt
+```
+
+##### 2. Run the notebook `eda.ipynb`
+
+It will download the data by itself and save it in the `eda/data/` folder.
+
+#### Source of inspiration
 
 Unlike traditional medal tables and charts, our approach brings the Olympics to life with an **interactive 3D map** of Paris 2024 venues. Users can explore the city, click on venues, countries, and athletes to uncover stats, and see performances in their real-world context. This mix of **data storytelling** and **geospatial visualization** makes for a more engaging and intuitive experience. Below are our main sources of inspiration.
 
 - [laphase5](https://marseille.laphase5.com/fr) - 3D Map with point of interests you can click to get more informations
 - [world athletics](https://worldathletics.org/athletes/sweden/armand-duplantis-14679502) - Athlete page with key statistics and graphs
 
-## Milestone 2 (18th April, 5pm)
+### Milestone 2
 
 > 10% of the final grade
 
-### Project Goal Report
+#### Project Goal Report
 
 The 2-pages report describing the project goal is named `Milestone2.pdf`, you can find it at the root of the repository.
-
-### Functional Project Prototype Review
-
-For the moment, the up-to-date website is hosted [here](https://dataringz.martinctl.dev).
-
-## Milestone 3 (30th May, 5pm)
-
-> 80% of the final grade

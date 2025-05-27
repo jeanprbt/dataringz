@@ -28,7 +28,8 @@
     <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto rounded-xl" :overlay="false"
         :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
         <template #content>
-            <UCommandPalette :groups="groups" :placeholder="searchBarText" @highlight="onHighlight"
+            <UCommandPalette :groups="groups" placeholder="search..." @highlight="onHighlight"
+                :fuse="{ fuseOptions: { ignoreLocation: true, threshold: 0.3, keys: ['label', 'suffix'] }, resultLimit: 3, matchAllWhenSearchEmpty: true }"
                 :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', label: 'text-zinc-500 dark:text-zinc-400', itemLabelBase: 'text-zinc-500 dark:text-zinc-400', viewport: 'divide-zinc-300 dark:divide-zinc-600', itemLeadingAvatar: section === 'globe' ? 'bg-transparent' : 'bg-transparent dark:invert brightness-100' }">
             </UCommandPalette>
         </template>

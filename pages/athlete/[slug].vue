@@ -77,7 +77,7 @@
                         </transition>
                         <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
                         <div
-                            class="grid gap-3 h-full [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] auto-rows-fr">
+                            class="grid gap-3 h-full [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))] auto-rows-fr w-full">
                             <NuxtLink v-for="(event, index) in compactEvents" :to="`/event/${event.slug}`" :key="index"
                                 :class="[
                                     'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',

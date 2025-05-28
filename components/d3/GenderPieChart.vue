@@ -94,11 +94,18 @@ const createPieChart = () => {
         .innerRadius(radius * (innerRadiusRatio - 0.05))
         .outerRadius(radius + (width * 0.02));
 
-    svg.selectAll('path')
+    // Create an arc generator for the initial animation state (zero degrees)
+    const arcAnimStart = d3.arc()
+        .innerRadius(radius * innerRadiusRatio)
+        .outerRadius(radius)
+        .startAngle(d => 0)
+        .endAngle(d => 0);
+        
+    const paths = svg.selectAll('path')
         .data(pie(data))
         .enter()
         .append('path')
-        .attr('d', arc as any)
+        .attr('d', arcAnimStart as any) // Start with zero-degree arcs
         .attr('fill', (d: any) => color(d.data.gender))
         .style('cursor', 'pointer')
         .on('mouseover', function () {
@@ -106,6 +113,20 @@ const createPieChart = () => {
         })
         .on('mouseout', function () {
             d3.select(this).transition().duration(200).attr('d', arc as any);
+        });
+        
+    // Animate the arcs from zero degrees to their final position with a more dynamic animation
+    paths.transition()
+        .duration(1500)
+        .ease(d3.easeCubicOut)
+        .attrTween('d', function(d: any) {
+            const interpolate = d3.interpolate(
+                { startAngle: 0, endAngle: 0 },
+                { startAngle: d.startAngle, endAngle: d.endAngle }
+            );
+            return function(t) {
+                return arc(interpolate(t)) as string;
+            };
         });
 
     // Add percentage labels inside the pie slices
@@ -126,7 +147,12 @@ const createPieChart = () => {
         .style('font-size', `${fontSize}px`)
         .style('fill', '#fff')
         .style('pointer-events', 'none')
-        .text((d: any) => `${d.data.count}`);
+        .style('opacity', 0) // Start invisible
+        .text((d: any) => `${d.data.count}`)
+        .transition() // Add fade-in animation for text
+        .delay(400) // Wait a moment for pie animation to progress
+        .duration(600)
+        .style('opacity', 1);
 
     // Legend group (always visible, on the side)
     // Calculate optimal legend position based on chart size
@@ -143,7 +169,14 @@ const createPieChart = () => {
         .enter()
         .append('g')
         .attr('class', 'legend-item')
-        .attr('transform', (_d, i) => `translate(0, ${i * legendSpacing})`);
+        .attr('transform', (_d, i) => `translate(0, ${i * legendSpacing})`)
+        .style('opacity', 0); // Start invisible
+        
+    // Animate legend items fading in
+    legend.transition()
+        .delay(600) // Wait for pie and text animations
+        .duration(400)
+        .style('opacity', 1);
 
     const legendRectSize = fontSize * 0.9;
 

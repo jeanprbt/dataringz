@@ -211,25 +211,41 @@ const createHistogram = () => {
     const primaryBars = pairs.append('rect')
         .attr('class', 'primary-bar')
         .attr('x', d => x(d.x0!))
-        .attr('y', d => y((d.primary.length / primaryTotal) * 100))
-        .attr('height', d => Math.max(0, y(0) - y((d.primary.length / primaryTotal) * 100)))
+        .attr('y', y(0)) // Start from the bottom
+        .attr('height', 0) // Start with height 0 for animation
         .attr('width', d => calculateBarWidth(d))
         .attr('fill', '#3b82f6')
         .attr('opacity', 0.9)  // slightly increase default opacity
         .attr('rx', 1)
         .attr('cursor', 'pointer');
+        
+    // Animate primary bars growing up
+    primaryBars.transition()
+        .duration(800)
+        .delay((d, i) => i * 40) // Stagger the animations
+        .ease(d3.easeCubicOut) // Smooth easing
+        .attr('y', d => y((d.primary.length / primaryTotal) * 100))
+        .attr('height', d => Math.max(0, y(0) - y((d.primary.length / primaryTotal) * 100)));
 
     // Compare bars (right side of each bin)
     const compareBars = pairs.append('rect')
         .attr('class', 'compare-bar')
         .attr('x', d => x(d.x0!) + calculateBarWidth(d))
-        .attr('y', d => y((d.compare.length / compareTotal) * 100))
-        .attr('height', d => Math.max(0, y(0) - y((d.compare.length / compareTotal) * 100)))
+        .attr('y', y(0)) // Start from bottom for animation
+        .attr('height', 0) // Start with height 0 for animation
         .attr('width', d => calculateBarWidth(d))
         .attr('fill', '#f97316')  // Brighter orange
         .attr('opacity', 0.9)
         .attr('rx', 1)
         .attr('cursor', 'pointer');
+        
+    // Animate comparison bars growing up after a slight delay
+    compareBars.transition()
+        .duration(800)
+        .delay((d, i) => 200 + i * 40) // Slightly delayed compared to primary bars
+        .ease(d3.easeCubicOut) // Smooth easing
+        .attr('y', d => y((d.compare.length / compareTotal) * 100))
+        .attr('height', d => Math.max(0, y(0) - y((d.compare.length / compareTotal) * 100)));
 
     // Add event handlers to primary bars
     primaryBars
@@ -362,7 +378,12 @@ const createHistogram = () => {
         .attr('text-anchor', 'middle')
         .attr('font-size', '10px')
         .attr('fill', '#6b7280')
-        .text('Percentage of Athletes (%)');
+        .text('Percentage of Athletes (%)')
+        .style('opacity', 0) // Start invisible
+        .transition()
+        .duration(600)
+        .delay(800) // Appear after bars have started animating
+        .style('opacity', 1);
 };
 
 // Add resize handler

@@ -20,6 +20,10 @@ interface Match {
     score2?: number;
     team1Code?: string;
     team2Code?: string;
+    team1Img?: string;
+    team2Img?: string;
+    isBronzeMedal?: boolean;
+    isGoldMedal?: boolean;
 }
 
 interface TournamentProps {
@@ -36,6 +40,8 @@ interface TeamPathInfo {
     matchId: string;
     round: number;
     matchNumber: number;
+    isBronzeMedal?: boolean;
+    isGoldMedal?: boolean;
 }
 
 // Props
@@ -47,8 +53,8 @@ const svg = ref<SVGElement | null>(null);
 let resizeObserver: ResizeObserver;
 
 // Constants
-const MATCH_BOX_WIDTH_RATIO = 0.9;
-const MATCH_BOX_HEIGHT_RATIO = 0.9;
+const MATCH_BOX_WIDTH_RATIO = 0.85;
+const MATCH_BOX_HEIGHT_RATIO = 0.8;
 const MARGIN_RATIO = 0.05;
 const CORNER_RADIUS = 10;
 const JOIN_POINT_RATIO = 0.6;
@@ -62,8 +68,9 @@ const FONT_WEIGHT = {
     winner: "bold",
     loser: "normal"
 };
-const TITLE_MARGIN_TOP = 20;
+const TITLE_MARGIN_TOP = 30;
 const TITLE_FONT_SIZE = 14;
+const BRONZE_MEDAL_OFFSET = 0.3; // Offset for bronze medal game positioning
 
 // Default round titles
 const DEFAULT_ROUND_TITLES = [
@@ -85,7 +92,11 @@ const COLORS = {
             text: '#4b5563'
         },
         border: '#d1d5db',
-        title: '#374151'
+        title: '#374151',
+        bronze: {
+            background: '#fef3c7',
+            text: '#d97706'
+        }
     },
     dark: {
         winner: {
@@ -97,7 +108,11 @@ const COLORS = {
             text: '#9ca3af'
         },
         border: '#4b5563',
-        title: '#e5e7eb'
+        title: '#e5e7eb',
+        bronze: {
+            background: '#92400e',
+            text: '#fef3c7'
+        }
     }
 };
 
@@ -122,7 +137,9 @@ const calculateTeamPaths = () => {
         teamPaths.get(match.team1)?.push({
             matchId: match.id,
             round: match.round,
-            matchNumber: match.match
+            matchNumber: match.match,
+            isBronzeMedal: match.isBronzeMedal,
+            isGoldMedal: match.isGoldMedal
         });
         
         // Add match to team2's path
@@ -132,7 +149,9 @@ const calculateTeamPaths = () => {
         teamPaths.get(match.team2)?.push({
             matchId: match.id,
             round: match.round,
-            matchNumber: match.match
+            matchNumber: match.match,
+            isBronzeMedal: match.isBronzeMedal,
+            isGoldMedal: match.isGoldMedal
         });
     });
 };
@@ -150,11 +169,28 @@ const findTeamConnections = (team: string): { source: string, target: string }[]
         const current = sortedMatches[i];
         const currentMatch = props.matches.find(m => m.id === current.matchId);
         
-        if (!currentMatch || currentMatch.winner !== team) continue;
+        if (!currentMatch) continue;
+        
+        // For bronze medal games, only connect if the team lost the previous match
+        if (current.isBronzeMedal) {
+            if (currentMatch.winner === team) {
+                // This team won the bronze medal, no further connections
+                continue;
+            }
+        } else if (currentMatch.winner !== team) {
+            // For regular matches, only connect if the team won
+            continue;
+        }
         
         for (let j = i + 1; j < sortedMatches.length; j++) {
             const next = sortedMatches[j];
-            if (next.round === current.round + 1) {
+            const nextMatch = props.matches.find(m => m.id === next.matchId);
+            
+            if (!nextMatch) continue;
+            
+            // Connect to next round or to bronze medal game if team lost semi-final
+            if (next.round === current.round + 1 || 
+                (next.isBronzeMedal && current.round === next.round - 1 && currentMatch.winner !== team)) {
                 connections.push({
                     source: current.matchId,
                     target: next.matchId
@@ -167,32 +203,47 @@ const findTeamConnections = (team: string): { source: string, target: string }[]
     return connections;
 };
 
-// Calculate match positions
+// Calculate match positions with special handling for bronze medal games
 const calculateMatchPositions = (width: number, height: number, margin: number, roundWidth: number, matchHeight: number): Map<string, MatchPosition> => {
     const positions = new Map<string, MatchPosition>();
     const maxRound = Math.max(...props.matches.map(m => m.round));
     
-    // Calculate first round positions
-    const firstRoundMatches = props.matches.filter(m => m.round === 0);
-    const firstRoundStartY = (height - (firstRoundMatches.length * matchHeight)) / 2;
+    // Separate regular matches from bronze medal matches
+    const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
+    const bronzeMatches = props.matches.filter(m => m.isBronzeMedal);
     
-    firstRoundMatches.forEach((match, index) => {
-        positions.set(match.id, {
-            x: margin + match.round * roundWidth,
-            y: firstRoundStartY + index * matchHeight
+    // Calculate positions for regular tournament matches
+    const firstRoundMatches = regularMatches.filter(m => m.round === 0);
+    const availableHeight = height - 2 * margin - TITLE_MARGIN_TOP;
+    
+    // Adjust vertical spacing based on number of rounds
+    const isShortTournament = maxRound <= 2;
+    const bronzeMedalOffset = isShortTournament ? 0.6 : 0.4; // Larger offset for short tournaments
+    
+    if (firstRoundMatches.length > 0) {
+        const firstRoundStartY = margin + TITLE_MARGIN_TOP + (availableHeight - (firstRoundMatches.length * matchHeight)) / 2;
+        
+        firstRoundMatches.forEach((match, index) => {
+            positions.set(match.id, {
+                x: margin + match.round * roundWidth,
+                y: firstRoundStartY + index * matchHeight
+            });
         });
-    });
+    }
 
-    // Calculate subsequent round positions
+    // Calculate subsequent round positions for regular matches
     for (let round = 1; round <= maxRound; round++) {
-        const currentRoundMatches = props.matches.filter(m => m.round === round);
+        const currentRoundMatches = regularMatches.filter(m => m.round === round);
         currentRoundMatches.forEach(match => {
-            const prevMatch1 = props.matches.find(m => m.round === round - 1 && m.match === match.match * 2);
-            const prevMatch2 = props.matches.find(m => m.round === round - 1 && m.match === match.match * 2 + 1);
+            // Find previous matches that feed into this match
+            const prevMatches = regularMatches.filter(m => 
+                m.round === round - 1 && 
+                Math.floor(m.match / 2) === match.match
+            ).sort((a, b) => a.match - b.match);
             
-            if (prevMatch1 && prevMatch2) {
-                const pos1 = positions.get(prevMatch1.id);
-                const pos2 = positions.get(prevMatch2.id);
+            if (prevMatches.length >= 2) {
+                const pos1 = positions.get(prevMatches[0].id);
+                const pos2 = positions.get(prevMatches[1].id);
                 
                 if (pos1 && pos2) {
                     positions.set(match.id, {
@@ -200,9 +251,39 @@ const calculateMatchPositions = (width: number, height: number, margin: number, 
                         y: (pos1.y + pos2.y) / 2
                     });
                 }
+            } else if (prevMatches.length === 1) {
+                // Single previous match (edge case)
+                const pos1 = positions.get(prevMatches[0].id);
+                if (pos1) {
+                    positions.set(match.id, {
+                        x: margin + round * roundWidth,
+                        y: pos1.y
+                    });
+                }
             }
         });
     }
+    
+    // Position bronze medal matches at the bottom right
+    bronzeMatches.forEach(match => {
+        // Find the final match position
+        const finalMatch = regularMatches.find(m => m.round === maxRound && !m.isBronzeMedal);
+        const finalMatchPos = finalMatch ? positions.get(finalMatch.id) : null;
+            
+        if (finalMatchPos) {
+            // Position bronze medal match at the bottom right
+            positions.set(match.id, {
+                x: finalMatchPos.x, // Same x as final match
+                y: height - margin - matchHeight // At the bottom
+            });
+        } else {
+            // Fallback position if no final match found
+                positions.set(match.id, {
+                x: margin + maxRound * roundWidth,
+                y: height - margin - matchHeight
+                });
+        }
+    });
 
     return positions;
 };
@@ -210,19 +291,17 @@ const calculateMatchPositions = (width: number, height: number, margin: number, 
 // Add flag image to SVG
 const addFlag = (
     group: d3.Selection<SVGGElement, unknown, null, undefined>,
-    countryCode: string,
+    imgPath: string,
     x: number,
     y: number,
     team: string
 ) => {
-    const flagUrl = `/img/countries/${countryCode.toLowerCase()}.svg`;
-    
     group.append("image")
         .attr("x", x)
         .attr("y", y - FLAG_HEIGHT / 2)
         .attr("width", FLAG_WIDTH)
         .attr("height", FLAG_HEIGHT)
-        .attr("href", flagUrl)
+        .attr("href", imgPath)
         .attr("data-team", team)
         .on("mouseenter", () => highlightTeamPath(team))
         .on("mouseleave", () => resetHighlight());
@@ -305,11 +384,16 @@ const resetHighlight = () => {
         .style("stroke-width", LINE_THICKNESS);
 };
 
-// Get round title
-const getRoundTitle = (roundIndex: number, maxRound: number): string => {
+// Get round title with special handling for bronze medal games
+const getRoundTitle = (roundIndex: number, maxRound: number, hasBronzeMedal: boolean = false): string => {
     // If custom titles are provided, use them
     if (props.roundTitles && props.roundTitles[roundIndex]) {
         return props.roundTitles[roundIndex];
+    }
+    
+    // Special handling for bronze medal games
+    if (hasBronzeMedal && roundIndex === maxRound) {
+        return "Bronze Medal";
     }
     
     const titleIndex = maxRound - roundIndex;
@@ -320,16 +404,35 @@ const getRoundTitle = (roundIndex: number, maxRound: number): string => {
     return `Round ${roundIndex + 1}`;
 };
 
-// Draw a single match box
+// Draw a single match box with special styling for bronze medal games
 const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undefined>, match: Match, boxWidth: number, boxHeight: number) => {
     matchGroup.attr("data-match-id", match.id);
     
     const teamHeight = boxHeight / 2;
     const currentColors = getColors();
 
+    // Helper function to get medal emoji
+    const getMedalEmoji = (team: string, isLastRound: boolean) => {
+        if (!isLastRound) return '';
+        if (match.isGoldMedal === true) {
+            if (team === match.winner) return ' 🥇';
+            if (match.winner) return ' 🥈'; // Show silver for the other team if there's a winner
+        }
+        if (match.isBronzeMedal === true && team === match.winner) return ' 🥉';
+        return '';
+    };
+
+    // Check if this is the last round
+    const isLastRound = (match.isGoldMedal === true || match.isBronzeMedal === true);
+
     [0, 1].forEach((index) => {
         const isWinner = index === 0 ? match.winner === match.team1 : match.winner === match.team2;
-        const colors = isWinner ? currentColors.winner : currentColors.loser;
+        let colors = isWinner ? currentColors.winner : currentColors.loser;
+        
+        // Special styling for bronze medal games
+        if (match.isBronzeMedal && isWinner) {
+            colors = currentColors.bronze;
+        }
 
         matchGroup.append("rect")
             .attr("y", index * teamHeight)
@@ -339,7 +442,7 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
             .attr("ry", 5)
             .attr("fill", colors.background)
             .attr("stroke", currentColors.border)
-            .attr("stroke-width", 1)
+            .attr("stroke-width", match.isBronzeMedal ? 2 : 1)
             .attr("data-team", index === 0 ? match.team1 : match.team2)
             .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
             .on("mouseleave", () => resetHighlight());
@@ -350,26 +453,37 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
         .attr("transform", `translate(10, ${teamHeight / 2})`)
         .attr("data-team", match.team1);
 
-    // Add flag for team1 if country code exists
-    const hasTeam1Flag = !!match.team1Code;
+    // Add flag for team1 if image exists
+    const hasTeam1Flag = !!match.team1Img;
     const textX = hasTeam1Flag ? TEXT_PADDING : 0;
     
     if (hasTeam1Flag) {
-        addFlag(team1Group, match.team1Code!, 0, 0, match.team1);
+        addFlag(team1Group, match.team1Img!, 0, 0, match.team1);
     }
     
     // Add team name with font-weight based on winner
     const isTeam1Winner = match.winner === match.team1;
-    const team1Colors = isTeam1Winner ? currentColors.winner : currentColors.loser;
-    team1Group.append("text")
+    let team1Colors = isTeam1Winner ? currentColors.winner : currentColors.loser;
+    if (match.isBronzeMedal && isTeam1Winner) {
+        team1Colors = currentColors.bronze;
+    }
+    
+    // Add team1 name and medal
+    const team1Text = team1Group.append("text")
         .attr("x", textX)
         .attr("dy", "0.32em")
         .attr("fill", team1Colors.text)
         .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
         .attr("data-team", match.team1)
         .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-        .on("mouseleave", () => resetHighlight())
+        .on("mouseleave", () => resetHighlight());
+
+    team1Text.append("tspan")
         .text(match.team1);
+    
+    team1Text.append("tspan")
+        .text(getMedalEmoji(match.team1, isLastRound))
+        .attr("font-weight", "normal");
 
     if (match.score1 !== undefined) {
         team1Group.append("text")
@@ -389,26 +503,37 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
         .attr("transform", `translate(10, ${teamHeight * 1.5})`)
         .attr("data-team", match.team2);
 
-    // Add flag for team2 if country code exists
-    const hasTeam2Flag = !!match.team2Code;
+    // Add flag for team2 if image exists
+    const hasTeam2Flag = !!match.team2Img;
     const team2TextX = hasTeam2Flag ? TEXT_PADDING : 0;
     
     if (hasTeam2Flag) {
-        addFlag(team2Group, match.team2Code!, 0, 0, match.team2);
+        addFlag(team2Group, match.team2Img!, 0, 0, match.team2);
     }
     
     // Add team name with font-weight based on winner
     const isTeam2Winner = match.winner === match.team2;
-    const team2Colors = isTeam2Winner ? currentColors.winner : currentColors.loser;
-    team2Group.append("text")
+    let team2Colors = isTeam2Winner ? currentColors.winner : currentColors.loser;
+    if (match.isBronzeMedal && isTeam2Winner) {
+        team2Colors = currentColors.bronze;
+    }
+    
+    // Add team2 name and medal
+    const team2Text = team2Group.append("text")
         .attr("x", team2TextX)
         .attr("dy", "0.32em")
         .attr("fill", team2Colors.text)
         .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
         .attr("data-team", match.team2)
         .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-        .on("mouseleave", () => resetHighlight())
+        .on("mouseleave", () => resetHighlight());
+
+    team2Text.append("tspan")
         .text(match.team2);
+    
+    team2Text.append("tspan")
+        .text(getMedalEmoji(match.team2, isLastRound))
+        .attr("font-weight", "normal");
 
     if (match.score2 !== undefined) {
         team2Group.append("text")
@@ -436,6 +561,9 @@ const drawConnectingLines = (
     roundWidth: number,
     matchHeight: number
 ) => {
+    // Skip drawing lines for bronze medal matches
+    if (match.isBronzeMedal) return;
+
     const boxWidth = roundWidth * MATCH_BOX_WIDTH_RATIO;
     const boxHeight = matchHeight * MATCH_BOX_HEIGHT_RATIO;
     const teamHeight = boxHeight / 2;
@@ -482,6 +610,7 @@ const drawRoundTitles = (
     maxRound: number
 ) => {
     const currentColors = getColors();
+    const hasBronzeMedal = props.matches.some(m => m.isBronzeMedal);
     
     // For each round, add a title
     for (let round = 0; round <= maxRound; round++) {
@@ -496,6 +625,26 @@ const drawRoundTitles = (
             .attr("font-weight", "bold")
             .attr("fill", currentColors.title)
             .text(getRoundTitle(round, maxRound));
+    }
+    
+    // Add bronze medal title if there are bronze medal games
+    if (hasBronzeMedal) {
+        const bronzeMatches = props.matches.filter(m => m.isBronzeMedal);
+        if (bronzeMatches.length > 0) {
+            const bronzeMatch = bronzeMatches[0];
+            const bronzeMatchPos = calculateMatchPositions(width, height, margin + TITLE_MARGIN_TOP, roundWidth, height / 8).get(bronzeMatch.id);
+            
+            if (bronzeMatchPos) {
+                svgElement.append("text")
+                    .attr("x", bronzeMatchPos.x + (roundWidth * MATCH_BOX_WIDTH_RATIO / 2))
+                    .attr("y", bronzeMatchPos.y - 20) // Position title just above the match
+                    .attr("text-anchor", "middle")
+                    .attr("font-size", TITLE_FONT_SIZE)
+                    .attr("font-weight", "bold")
+                    .attr("fill", currentColors.bronze.text)
+                    .text("Third Place Match");
+            }
+        }
     }
 };
 
@@ -513,7 +662,8 @@ const drawTournament = () => {
 
     const maxRound = Math.max(...props.matches.map(m => m.round));
     const roundWidth = (width - 2 * margin) / (maxRound + 1);
-    const matchHeight = (height - 2 * margin - TITLE_MARGIN_TOP) / (Math.pow(2, maxRound));
+    const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
+    const matchHeight = (height - 2 * margin - TITLE_MARGIN_TOP) / Math.max(1, Math.pow(2, Math.max(...regularMatches.map(m => m.round))));
 
     const svgElement = d3.select(svg.value)
         .attr("width", width)
@@ -536,16 +686,20 @@ const drawTournament = () => {
 
         drawMatchBox(matchGroup, match, boxWidth, boxHeight);
 
-        if (match.round > 0) {
-            const prevMatch1 = props.matches.find(m => m.round === match.round - 1 && m.match === match.match * 2);
-            const prevMatch2 = props.matches.find(m => m.round === match.round - 1 && m.match === match.match * 2 + 1);
+        // Draw connecting lines for regular tournament progression
+        if (match.round > 0 && !match.isBronzeMedal) {
+            const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
+            const prevMatches = regularMatches.filter(m => 
+                m.round === match.round - 1 && 
+                Math.floor(m.match / 2) === match.match
+            ).sort((a, b) => a.match - b.match);
             
-            if (prevMatch1 && prevMatch2) {
-                const pos1 = matchPositions.get(prevMatch1.id);
-                const pos2 = matchPositions.get(prevMatch2.id);
+            if (prevMatches.length >= 2) {
+                const pos1 = matchPositions.get(prevMatches[0].id);
+                const pos2 = matchPositions.get(prevMatches[1].id);
                 
                 if (pos1 && pos2) {
-                    drawConnectingLines(svgElement, match, position, prevMatch1, prevMatch2, pos1, pos2, roundWidth, matchHeight);
+                    drawConnectingLines(svgElement, match, position, prevMatches[0], prevMatches[1], pos1, pos2, roundWidth, matchHeight);
                 }
             }
         }

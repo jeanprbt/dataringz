@@ -59,7 +59,7 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-1 md:row-span-2': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && eventsExpandable,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30 cursor-pointer': selected === 0 && !transitioning && eventsExpandable,
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,
                 'animate-full-screen h-full': selected === 4,
                 'hidden': selected !== 0 && selected !== 4
@@ -74,7 +74,7 @@
                             <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
                                 Events
                             </h2>
-                            <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
+                            <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 flex-1">
                                 <NuxtLink v-for="(event, index) in sportEvents" :to="`/event/${event.slug}`"
                                     :key="index" :class="[
                                         'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
@@ -94,11 +94,11 @@
                             <UIcon v-if="eventCardHovered && eventsExpandable" name="i-heroicons-arrow-up-right"
                                 class="absolute right-0" />
                         </transition>
-                        <div class="flex flex-col justify-center h-full gap-2">
+                        <div class="flex flex-col h-full gap-2">
                             <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
                                 Events
                             </h2>
-                            <div class="grid [grid-template-columns:repeat(auto-fit,minmax(5rem,1fr))] gap-3 h-full w-full">
+                            <div class="grid grid-cols-2 gap-3 flex-1">
                                 <NuxtLink v-for="(event, index) in compactEvents" :to="`/event/${event.slug}`"
                                     :key="index" @mouseenter="hoverEvent()" @mouseleave="unhoverEvent()" :class="[
                                         'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
@@ -106,6 +106,10 @@
                                     ]">
                                     {{ event.name }}
                                 </NuxtLink>
+                                <div v-if="eventsExpandable" 
+                                    class="text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-100/80 dark:bg-zinc-800/80 flex items-center justify-center text-center border-2 border-dashed border-zinc-300 dark:border-zinc-600">
+                                    +{{ sportEvents.length - compactEvents.length }} more
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,7 +118,7 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-6 row-span-3': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30 cursor-pointer': selected === 0 && !transitioning,
                 'animate-bento-card': selected === 0 && transitioning && previous === 5,
                 'transition-all duration-500 transform h-full': selected === 5,
                 'hidden': selected !== 0 && selected !== 5
@@ -181,12 +185,12 @@
                             <UIcon v-if="athleteCardHovered" name="i-heroicons-arrow-up-right"
                                 class="absolute right-0" />
                         </transition>
-                        <div class="flex flex-col justify-center h-full gap-2">
+                        <div class="flex flex-col h-full gap-2">
                             <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
                                 Medallists
                             </h2>
-                            <div class="grid grid-cols-2 grid-rows-2 gap-4 h-full">
-                                <NuxtLink v-for="athlete in compactAthletes" :key="athlete.slug"
+                            <div class="grid grid-cols-2 gap-4 flex-1">
+                                <NuxtLink v-for="athlete in compactAthletes.slice(0, 3)" :key="athlete.slug"
                                     @mouseenter="hoverAthlete()" @mouseleave="unhoverAthlete()"
                                     :to="`/athlete/${athlete.slug}`"
                                     class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 p-2">
@@ -225,6 +229,15 @@
                                         </div>
                                     </div>
                                 </NuxtLink>
+                                <div v-if="sportAthletes.length > 3" 
+                                    class="flex flex-col items-center justify-center rounded-lg bg-zinc-100/80 dark:bg-zinc-800/80 border-2 border-dashed border-zinc-300 dark:border-zinc-600 p-2">
+                                    <span class="text-center text-xs md:text-sm font-medium text-zinc-600 dark:text-gray-300">
+                                        +{{ sportAthletes.length - 3 }} more
+                                    </span>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                        medallists
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

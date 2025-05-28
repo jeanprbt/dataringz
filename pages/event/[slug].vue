@@ -124,8 +124,6 @@ const currentStageData = computed(() => {
 const tournamentMatches = computed(() => {
     if (!event?.tournament || !event?.results) return [];
     
-    console.log('Event results stages:', Object.keys(event.results));
-    
     const matches: any[] = [];
     let matchId = 0;
     
@@ -143,8 +141,6 @@ const tournamentMatches = computed(() => {
             stageName.toLowerCase().includes(pattern.toLowerCase())
         );
     });
-    
-    console.log('Knockout stages found:', knockoutStageEntries.map(([name]) => name));
     
     // Sort stages by tournament progression order
     const stageOrder = [
@@ -183,8 +179,6 @@ const tournamentMatches = computed(() => {
     sortedStages.forEach(([stageName, stageData]: [string, any]) => {
         if (!Array.isArray(stageData)) return;
         
-        console.log(`Processing stage: ${stageName}, participants:`, stageData.length);
-        
         const roundNumber = getRoundNumber(stageName);
         const isBronzeMedal = stageName.toLowerCase().includes('bronze');
         const isGoldMedal = stageName.toLowerCase().includes('gold') || 
@@ -192,8 +186,6 @@ const tournamentMatches = computed(() => {
                             !stageName.toLowerCase().includes('semi') && 
                             !stageName.toLowerCase().includes('quarter') && 
                             !stageName.toLowerCase().includes('bronze'));
-        
-        console.log(`Stage "${stageName}" mapped to round ${roundNumber}, isBronze: ${isBronzeMedal}, isGold: ${isGoldMedal}`);
         
         // Filter participants with results (winners/losers)
         const participants = stageData.filter((result: any) => 
@@ -204,8 +196,6 @@ const tournamentMatches = computed(() => {
         const uniqueParticipants = participants.filter((participant: any, index: number, arr: any[]) => {
             return arr.findIndex(p => p.participant_name === participant.participant_name) === index;
         });
-        
-        console.log(`Stage ${stageName}: ${participants.length} participants, ${uniqueParticipants.length} unique`);
         
         // Group participants into matches (pairs)
         const matchPairs: any[] = [];
@@ -245,8 +235,6 @@ const tournamentMatches = computed(() => {
             }
         }
         
-        console.log(`Stage ${stageName}: ${validMatchups.size} valid matchups created`);
-        
         // Create match objects from valid matchups
         let matchIndex = 0;
         validMatchups.forEach(([team1, team2]) => {
@@ -282,8 +270,6 @@ const tournamentMatches = computed(() => {
         });
     });
     
-    console.log('Final tournament matches:', matches);
-    
     // Normalize round numbers to start from 0
     if (matches.length > 0) {
         const minRound = Math.min(...matches.map(m => m.round));
@@ -291,7 +277,6 @@ const tournamentMatches = computed(() => {
             matches.forEach(match => {
                 match.round = match.round - minRound;
             });
-            console.log('Normalized rounds to start from 0, adjusted by:', minRound);
         }
     }
     

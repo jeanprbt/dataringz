@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full flex flex-col justify-center items-center relative min-h-0">
+    <div class="h-full flex flex-col justify-center items-center relative min-h-0 w-full">
         <div class="w-full flex-1 relative min-h-0">
             <div v-for="(stat, index) in stats" :key="stat.id" :class="[
                 'absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-center px-2',
@@ -9,15 +9,14 @@
                     : 'opacity-0 pointer-events-none',
                 index > currentIndex ? 'transform translate-y-4' : 'transform -translate-y-4'
             ]">
-                <div :class="[
-                    'font-extrabold leading-none drop-shadow-sm mb-2',
-                    stat.id === 'athletes' ? 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl' : 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl',
-                    stat.id === 'wr' ? 'text-amber-500 dark:text-amber-400' :
-                        stat.id === 'or' ? 'text-blue-600 dark:text-blue-500' :
-                            'text-primary dark:text-white'
-                ]">{{ stat.value }}</div>
-                <div
-                    class="text-sm sm:text-base md:text-lg lg:text-xl font-medium text-muted-foreground dark:text-zinc-300 max-w-xs px-2">
+                <div :class="{
+                    'font-bold text-zinc-800 dark:text-white mb-1': true,
+                    'text-4xl sm:text-5xl md:text-6xl lg:text-7xl': stat.id === 'athletes',
+                    'text-5xl sm:text-6xl md:text-7xl lg:text-8xl': stat.id !== 'athletes'
+                }">
+                    {{ stat.value }}
+                </div>
+                <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                     {{ stat.label }}
                 </div>
             </div>

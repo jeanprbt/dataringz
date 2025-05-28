@@ -5,7 +5,6 @@
             @click.stop>
             <div :class="['sticky top-0 z-10 flex items-center py-4 px-4 opacity-0 justify-between', modalHeaderClass]">
                 <UButton v-if="back && isSmallScreen" @click="emit('back')" icon="i-heroicons-chevron-left" variant="ghost" />
-                <img v-else-if="olympics" src="/img/paris_olympics.svg" alt="olympic logo" class="h-[5vh] dark:invert dark:brightness-80" />
                 <UBreadcrumb v-else :items="items" class="text-zinc-500 dark:text-zinc-400"
                     :ui="{ link: 'hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors' }" />
                 <UButton @click="close" icon="i-heroicons-x-mark" variant="ghost"/>
@@ -45,10 +44,6 @@ const props = defineProps({
         default: []
     },
     countries: {
-        type: Boolean,
-        default: false
-    },
-    olympics: {
         type: Boolean,
         default: false
     }

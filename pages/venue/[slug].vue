@@ -76,8 +76,9 @@
                             class="w-full h-full flex flex-col items-center justify-center p-4">
                             <img :src="`/img/sports/SVG/${sport.slug}.svg`" :alt="sport.name"
                                 class="w-12 h-12 mb-2 dark:filter dark:invert dark:brightness-90" />
-                            <span class="text-center text-sm font-medium text-zinc-800 dark:text-white">{{ sport.name
-                            }}</span>
+                            <span class="text-center text-sm font-medium text-zinc-800 dark:text-white">
+                                {{ sport.name }}
+                            </span>
                         </NuxtLink>
                     </template>
                 </UCard>

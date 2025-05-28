@@ -74,6 +74,21 @@ export default defineNuxtRouteMiddleware((to, _) => {
                 icon: 'i-lucide-globe',
             })
         }
+    } else if (to.fullPath.includes('/olympics')) {
+        const slugIndex = breadcrumb.value.findIndex(item => item.label === "Overview");
+        if (slugIndex !== -1) {
+            breadcrumb.value = breadcrumb.value.slice(0, slugIndex + 1);
+        } else {
+            breadcrumb.value.push({
+                label: 'Overview',
+                to: '/olympics',
+                avatar: {
+                    src: '/img/paris_olympics.svg',
+                    size: 'lg',
+                    class: 'bg-transparent rounded-sm pr-1 dark:invert'
+                }
+            })
+        }
     } else {
         breadcrumb.value = [];
     }

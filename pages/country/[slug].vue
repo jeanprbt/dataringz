@@ -122,10 +122,37 @@
 
             <UCard variant="soft" :ui="{ 'body': 'flex h-full items-center' }" :class="{
                 'col-span-12 md:col-span-2 md:row-span-1': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 6,
+                'transition-all duration-500 transform h-full': selected === 6,
                 'hidden': selected !== 0 && selected !== 6
-            }">
+            }" @click="selected === 6 ? () => { } : toggleCard(6)" @mouseenter="sportsCardHovered = true"
+                @mouseleave="sportsCardHovered = false">
                 <template #default>
-                    <div class="flex flex-col h-full justify-center gap-1">
+                    <div v-if="selected === 6" class="h-full w-full relative overflow-auto">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
+                            @click.stop="toggleCard(6)" />
+                        <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full mt-10">
+                            <NuxtLink v-for="(sport, index) in countrySports" :to="`/sport/${sport.slug}`" :key="index"
+                                :class="[
+                                    'w-full h-full flex flex-col items-center justify-center p-4 rounded-lg bg-zinc-200/60 dark:bg-zinc-900',
+                                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50'
+                                ]">
+                                <img :src="`/img/sports/SVG/${sport.slug}.svg`" :alt="sport.name"
+                                    class="w-12 h-12 mb-2 dark:filter dark:invert dark:brightness-90" />
+                                <span class="text-center text-sm font-medium text-zinc-600 dark:text-gray-300">
+                                    {{ sport.name }}
+                                </span>
+                            </NuxtLink>
+                        </div>
+                    </div>
+                    <div v-else class="flex flex-col h-full w-full justify-center gap-1 relative">
+                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                            <UIcon v-if="sportsCardHovered" name="i-heroicons-arrow-up-right"
+                                class="absolute top-0 right-0" />
+                        </transition>
                         <div class="flex items-center gap-1">
                             <h2 class="text-lg md:text-3xl font-bold text-zinc-800 dark:text-white">
                                 {{ uniqueSportsCount }}
@@ -192,13 +219,14 @@
                 </template>
             </UCard>
 
-            <UCard v-if="!isSmallScreen && country.previous_editions.length > 0" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
-                'col-span-12 md:col-span-4 row-span-2': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                'animate-full-screen h-full': selected === 10,
-                'animate-bento-card': selected === 0 && transitioning && previousCard === 10,
-                'hidden': selected !== 0 && selected !== 10
-            }" @click="selected === 10 ? () => { } : toggleCard(10)" @mouseenter="historyCardHovered = true"
+            <UCard v-if="!isSmallScreen && country.previous_editions.length > 0" variant="soft"
+                :ui="{ 'body': 'h-full' }" :class="{
+                    'col-span-12 md:col-span-4 row-span-2': selected === 0,
+                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                    'animate-full-screen h-full': selected === 10,
+                    'animate-bento-card': selected === 0 && transitioning && previousCard === 10,
+                    'hidden': selected !== 0 && selected !== 10
+                }" @click="selected === 10 ? () => { } : toggleCard(10)" @mouseenter="historyCardHovered = true"
                 @mouseleave="historyCardHovered = false">
                 <template #default>
                     <div v-if="selected === 10" class="h-full relative overflow-auto flex flex-col">
@@ -308,37 +336,35 @@ const transition = computed(() => previous.value && previous.value !== '/' && !d
 
 // DATA MANAGEMENT -----------------
 const country = countries[slug as keyof typeof countries] as any;
+
+const countrySports = computed(() => {
+    const countryAthletes = Object.values(athletes).filter(athlete => athlete.country === country.slug);
+    const uniqueSlugs = new Set();
+    countryAthletes.forEach(athlete => {
+        if (athlete.sports && athlete.sports.length > 0) {
+            athlete.sports.forEach((sportSlug: any) => {
+                uniqueSlugs.add(sportSlug);
+            });
+        }
+    });
+    const uniqueSports: any[] = [];
+    uniqueSlugs.forEach(sportSlug => {
+        uniqueSports.push(sports[sportSlug as keyof typeof sports]);
+    })
+    return uniqueSports;
+});
+const uniqueSportsCount = computed(() => countrySports.value.length);
+
 const athleteCount = computed(() => {
     return Object.values(athletes)
         .filter(athlete => athlete.country === country.slug).length;
 });
 
-const createSportDisciplineMap = () => {
-    const disciplineMap = {} as any;
-    Object.entries(sports).forEach(([sportSlug, sportInfo]) => {
-        disciplineMap[sportInfo.name] = sportSlug;
-        const variations = [
-            `${sportInfo.name} - Men`,
-            `${sportInfo.name} - Women`,
-            `Men's ${sportInfo.name}`,
-            `Women's ${sportInfo.name}`
-        ];
-        variations.forEach(variation => {
-            disciplineMap[variation] = sportSlug;
-        });
-    });
-    return disciplineMap;
-};
-const sportDisciplineMap = createSportDisciplineMap();
-const getSportSlugFromDiscipline = (discipline: any) => {
-    if (sportDisciplineMap[discipline]) return sportDisciplineMap[discipline];
-    for (const [key, value] of Object.entries(sportDisciplineMap)) {
-        if (discipline.includes(key) || key.includes(discipline)) {
-            return value;
-        }
-    }
-    return discipline.toLowerCase().replace(/\s+/g, '-');
-};
+const sportDisciplineMap = {} as any;
+Object.entries(sports).forEach(([sportSlug, sportInfo]) => {
+    sportDisciplineMap[sportInfo.name] = sportSlug;
+});
+
 const countryTotalMedals = computed(() => {
     const countryMedals = medals.filter(medal =>
         medal.country_code === country.country_code
@@ -359,19 +385,7 @@ const countryTotalMedals = computed(() => {
     });
     return totalMedals;
 });
-const uniqueSportsCount = computed(() => {
-    const countryAthletes = Object.values(athletes)
-        .filter(athlete => athlete.country === country.slug);
-    const uniqueSportsSlugs = new Set();
-    countryAthletes.forEach(athlete => {
-        if (athlete.sports && athlete.sports.length > 0) {
-            athlete.sports.forEach((sport: any) => {
-                uniqueSportsSlugs.add(sport);
-            });
-        }
-    });
-    return uniqueSportsSlugs.size;
-});
+
 const bestSport = computed<any>(() => {
     const countryMedals = medals.filter(medal => medal.country_code === country.country_code);
     if (countryMedals.length === 0) return null;
@@ -379,7 +393,7 @@ const bestSport = computed<any>(() => {
     const sportMedals = {} as any;
     countryMedals.forEach(medal => {
         const discipline = medal.discipline;
-        const sportSlug = getSportSlugFromDiscipline(discipline);
+        const sportSlug = sportDisciplineMap[discipline] || '';
         const sportName = sports[sportSlug as keyof typeof sports]?.name || discipline;
 
         if (!sportMedals[sportSlug]) {
@@ -436,8 +450,11 @@ const previousCard = ref(0);
 const transitioning = ref(false);
 const compareCardHovered = ref(false);
 const historyCardHovered = ref(false);
+const sportsCardHovered = ref(false);
 const toggleCard = (index = 0) => {
     historyCardHovered.value = false;
+    compareCardHovered.value = false;
+    sportsCardHovered.value = false;
     if (selected.value !== 0) {
         previousCard.value = selected.value;
         transitioning.value = true;

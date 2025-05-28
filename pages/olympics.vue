@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showOlympicsPage" :transition="true" :back="transition" :items="items" @close="closePage">
+    <PageModal :show="showOlympicsPage" :transition="transition" :back="transition" :items="items" @close="closePage">
         <div :class="['gap-4 p-2  h-full flex flex-col md:overflow-hidden', {
             'grid grid-cols-1 md:grid-cols-12 md:grid-rows-4 h-full': selected === 0
         }]">
@@ -52,12 +52,9 @@
                 </template>
             </UCard>
 
-            <UCard variant="soft" @click="selected === 3 ? () => { } : toggleCard(3)"
+            <UCard variant="soft"
                 :ui="{ 'body': 'p-2 sm:p-4 h-full' }" :class="{
                     'col-span-1 md:col-span-3 md:row-span-2': selected === 0,
-                    'transition-all duration-300': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previousCard === 3,
-                    'transition-all duration-500 transform h-full': selected === 3,
                     'hidden': selected !== 0 && selected !== 3
                 }">
 
@@ -164,10 +161,10 @@
 <script setup lang="ts">
 import countries from '~/data/countries.json';
 import medals from '~/data/medals.json';
-import { nextTick, createVNode, render, resolveComponent } from 'vue';
+import { resolveComponent } from 'vue';
 
 definePageMeta({
-    middleware: ['previous', 'breadcrumb'],
+    middleware: ['olympics', 'previous', 'breadcrumb'],
     layout: 'canvas'
 })
 
@@ -229,30 +226,6 @@ const totalMedals = Object.values(countries).filter((country: any) => country.ra
 })).sort((a, b) => a.rank - b.rank);
 const compactMedals = totalMedals.slice(0, 3);
 
-// Preview containers
-const previewContainer = ref(null);
-onMounted(() => {
-    nextTick(() => {
-        if (previewContainer.value) {
-            // Import component dynamically
-            const medalsRaceComponent = resolveComponent('D3MedalsRace');
-            if (medalsRaceComponent) {
-                const instance = createVNode(medalsRaceComponent, { medalData: medals });
-                // Mount the component temporarily to access its methods
-                const container = document.createElement('div');
-                const mounted = render(instance, container);
-
-                // Call the createPreview method
-                if (instance.component?.exposed?.createPreview) {
-                    // Create preview with dimensions based on container
-                    const previewWidth = previewContainer.value.clientWidth || 300;
-                    const previewHeight = previewContainer.value.clientHeight || 200;
-                    instance.component.exposed.createPreview(previewContainer.value, previewWidth, previewHeight);
-                }
-            }
-        }
-    });
-});
 const NuxtLink = resolveComponent('NuxtLink');
 const medalsColumns = [
     {

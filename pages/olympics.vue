@@ -1,12 +1,12 @@
 <template>
-    <PageModal :show="showOlympicsPage" :transition="false" :olympics="true" @close="closePage">
-        <div :class="['gap-4 p-2', {
+    <PageModal :show="showOlympicsPage" :olympics="true" @close="closePage">
+        <div :class="['gap-4 p-2  h-full flex flex-col md:overflow-hidden', {
             'grid grid-cols-1 md:grid-cols-12 h-full': selected === 0
         }]">
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
                 'col-span-1 md:col-span-3': selected === 0,
                 'transition-all duration-300': selected === 0 && !transitioning,
-                'animate-bento-card': selected === 0 && transitioning && previous === 1,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 1,
                 'transition-all duration-500 transform h-full': selected === 1,
                 'hidden': selected !== 0 && selected !== 1
             }">
@@ -28,15 +28,15 @@
                 :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
                     'col-span-1 md:col-span-6': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previous === 2,
+                    'animate-bento-card': selected === 0 && transitioning && previousCard === 2,
                     'transition-all duration-500 transform h-full overflow-auto': selected === 2,
                     'hidden': selected !== 0 && selected !== 2
                 }">
                 <template #default>
                     <!-- full screen -->
                     <div v-if="selected === 2" class="h-full relative overflow-auto">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-50"
-                            @click.stop="toggleCard(2)" />
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in"
+                            class="absolute top-5 right-5 z-50" @click.stop="toggleCard(2)" />
                         <UTable sticky :data="medals_total" :columns="medalsColumns" class="w-11/12" />
                     </div>
                     <!-- bento -->
@@ -55,7 +55,7 @@
                     'col-span-1 md:col-span-3': selected === 0,
                     'row-span-2 h-64 md:row-span-1 md:h-auto': selected === 0,
                     'transition-all duration-300': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previous === 3,
+                    'animate-bento-card': selected === 0 && transitioning && previousCard === 3,
                     'transition-all duration-500 transform h-full': selected === 3,
                     'hidden': selected !== 0 && selected !== 3
                 }">
@@ -72,23 +72,25 @@
                 :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
                     'col-span-1 md:col-span-6': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previous === 4,
+                    'animate-bento-card': selected === 0 && transitioning && previousCard === 4,
                     'transition-all duration-500 transform h-full': selected === 4,
                     'hidden': selected !== 0 && selected !== 4
                 }">
                 <template #default>
                     <!-- full screen -->
                     <div v-if="selected === 4" class="w-full h-full relative">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
-                            @click.stop="toggleCard(4)" />
-                        <D3EventsSunburst />
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in"
+                            class="absolute top-0 right-0 z-50" @click.stop="toggleCard(4)" />
+                        <div class="w-full h-full flex items-center justify-center">
+                            <D3EventsSunburst />
+                        </div>
                     </div>
                     <!-- bento -->
-                    <div v-else class="h-full relative py-2">
+                    <div v-else class="h-full relative py-2 flex flex-col">
                         <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">Events
                             repartition</h2>
                         <div class="flex flex-1 items-center justify-center">
-                            <img class="w-1/3 object-contain" src="/img/foo_sunburst.png" />
+                            <img class="w-2/5 object-contain" src="/img/foo_sunburst.png" />
                         </div>
                     </div>
                 </template>
@@ -98,19 +100,21 @@
                 :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
                     'col-span-1 md:col-span-6': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previous === 5,
+                    'animate-bento-card': selected === 0 && transitioning && previousCard === 5,
                     'transition-all duration-500 transform h-full': selected === 5,
                     'hidden': selected !== 0 && selected !== 5
                 }">
                 <template #default>
                     <!-- full screen -->
                     <div v-if="selected === 5" class="h-full relative">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
-                            @click.stop="toggleCard(5)" />
-                        <D3MedalsRace :medal-data="medals" />
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in"
+                            class="absolute top-0 right-0 z-50" @click.stop="toggleCard(5)" />
+                        <div class="w-full h-full flex items-center justify-center">
+                            <D3MedalsRace :medal-data="medals" />
+                        </div>
                     </div>
                     <!-- bento -->
-                    <div v-else class="h-full relative py-2">
+                    <div v-else class="h-full flex flex-col relative py-2">
                         <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">Medals
                             race</h2>
                         <div class="flex flex-1 items-center justify-center">
@@ -129,6 +133,7 @@ import countries from '~/data/countries.json';
 import medals from '~/data/medals.json';
 
 definePageMeta({
+    middleware: ['olympics', 'previous', 'breadcrumb'],
     layout: 'canvas'
 })
 
@@ -151,11 +156,11 @@ const closePage = () => {
 
 // UI STATE ------------------------
 const selected = ref(0);
-const previous = ref(0);
+const previousCard = ref(0);
 const transitioning = ref(false);
 const toggleCard = (index: number = 0) => {
     if (selected.value !== 0) {
-        previous.value = selected.value;
+        previousCard.value = selected.value;
         transitioning.value = true;
         selected.value = 0;
         setTimeout(() => {
@@ -173,8 +178,10 @@ const medals_total = Object.values(countries).filter((country: any) => country.r
     bronze: country.bronze,
     silver: country.silver,
     gold: country.gold,
-    total: country.total
+    total: country.total,
+    slug: country.slug
 })).sort((a, b) => a.rank - b.rank);
+const NuxtLink = resolveComponent('NuxtLink');
 const medalsColumns = [
     {
         accessorKey: 'rank',
@@ -200,9 +207,13 @@ const medalsColumns = [
         accessorKey: 'country',
         header: 'Country',
         cell: ({ row }: { row: any }) => {
-            const flag = row.original["flag"];
             const countryName = row.getValue('country');
-            return h('div', { class: 'flex items-center' }, [
+            const flag = row.original["flag"];
+            const countrySlug = row.original["slug"];
+            return h(NuxtLink, {
+                class: 'flex items-center justify-left hover:bg-zinc-200/70 dark:hover:bg-zinc-800 hover:px-3 rounded-lg py-3 transition-all duration-300 ease',
+                to: `/country/${countrySlug}`
+            }, () => [
                 h('img', {
                     src: flag,
                     alt: countryName,
@@ -210,19 +221,24 @@ const medalsColumns = [
                 }),
                 countryName
             ]);
-        }
+        },
+        meta: {
+            class: {
+                td: 'w-64'
+            }
+        },
     },
     {
-        accessorKey: 'bronze',
-        header: '🥉',
+        accessorKey: 'gold',
+        header: '🥇'
     },
     {
         accessorKey: 'silver',
         header: '🥈'
     },
     {
-        accessorKey: 'gold',
-        header: '🥇'
+        accessorKey: 'bronze',
+        header: '🥉',
     },
     {
         accessorKey: 'total',

@@ -97,7 +97,8 @@
             </UCard>
 
             <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
-                'col-span-12 md:col-span-4 row-span-2': selected === 0,
+                'col-span-12 md:col-span-4 md:row-span-2': selected === 0 && country.previous_editions.length > 0,
+                'col-span-12 md:col-span-4 md:row-span-4': selected === 0 && country.previous_editions.length === 0,
                 'hidden': selected !== 0 && selected !== 8
             }">
                 <template #default>
@@ -191,7 +192,7 @@
                 </template>
             </UCard>
 
-            <UCard v-if="!isSmallScreen" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+            <UCard v-if="!isSmallScreen && country.previous_editions.length > 0" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'animate-full-screen h-full': selected === 10,

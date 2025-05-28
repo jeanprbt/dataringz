@@ -171,7 +171,8 @@ const medalCounts = computed(() => {
 // Update createHistogram function
 const createHistogram = () => {
     if (!chartContainer.value) return
-
+    
+    // Clear previous chart
     d3.select(chartContainer.value).selectAll('*').remove()
 
     const currentCountryCode = currentCountry.value?.country_code
@@ -188,7 +189,7 @@ const createHistogram = () => {
 
     const margin = { top: 40, right: 30, bottom: 40, left: 40 }
     const width = chartContainer.value.clientWidth - margin.left - margin.right
-    const height = 400 - margin.top - margin.bottom
+    const height = chartContainer.value.clientHeight - margin.top - margin.bottom || 400
 
     const svg = d3
         .select(chartContainer.value)
@@ -215,16 +216,19 @@ const createHistogram = () => {
         .domain([currentCountryCode, compareCountry].filter(Boolean))
         .range(['#3b82f6', '#ed902f'])
 
-    // Calculate max value for bar height scaling
+    // Calculate max value for bar height scaling with some padding for labels
     const maxValue = d3.max(data, (d) => {
         const values = [d[currentCountryCode]]
         if (compareCountry) values.push(d[compareCountry] || 0)
         return Math.max(...values)
     }) || 10
+    
+    // Add some padding to avoid label cutoff
+    const yMaxWithPadding = maxValue * 1.15
 
     const y = d3
         .scaleLinear()
-        .domain([0, maxValue])
+        .domain([0, yMaxWithPadding])
         .nice()
         .range([height, 0])
 
@@ -236,8 +240,8 @@ const createHistogram = () => {
         .attr('transform', (d) => `translate(${x0(d.medal)},0)`)
 
     if (compareCountry) {
-        // Double bars when comparison is selected
-        bars.selectAll('rect')
+        // Create selection for double bars
+        const rectSelection = bars.selectAll('rect')
             .data(d => [currentCountryCode, compareCountry].map(key => ({
                 key,
                 medal: d.medal,
@@ -245,13 +249,15 @@ const createHistogram = () => {
             })))
             .join('rect')
             .attr('x', d => x1!(d.key) || 0)
-            .attr('y', d => y(d.value))
+            .attr('y', height) // Start from bottom for animation
             .attr('width', x1!.bandwidth())
-            .attr('height', d => height - y(d.value))
+            .attr('height', 0) // Start with height 0 for animation
             .attr('fill', d => color(d.key))
             .attr('rx', 4)
-            // Add hover effects...
-            .on('mouseover', (event, d) => {
+        
+        // Set up event handlers before animation
+        rectSelection
+            .on('mouseover', function(event, d) {
                 if (!tooltip.value) return
                 const country = getCountryByCode(d.key)
                 tooltip.value.innerHTML = `${country?.name || d.key} - ${d.medal}: ${d.value}`
@@ -268,6 +274,14 @@ const createHistogram = () => {
                 tooltip.value.style.top = `${event.pageY - 150}px`
             })
 
+        // Apply the animation
+        rectSelection.transition()
+            .duration(800)
+            .delay((d, i) => i * 100) // Stagger the animations
+            .ease(d3.easeCubicOut) // Smoother easing
+            .attr('y', d => y(d.value))
+            .attr('height', d => height - y(d.value))
+
         // Add text labels above bars
         bars.selectAll('text')
             .data(d => [currentCountryCode, compareCountry].map(key => ({
@@ -277,21 +291,28 @@ const createHistogram = () => {
             })))
             .join('text')
             .attr('x', d => (x1!(d.key) || 0) + x1!.bandwidth() / 2)
-            .attr('y', d => y(d.value) - 5)
+            .attr('y', d => Math.max(y(d.value) - 10, 15)) // Ensure text isn't too high with added margin
             .attr('text-anchor', 'middle')
             .attr('fill', 'currentColor')
             .text(d => d.value)
+            .style('opacity', 0) // Start with opacity 0
+            .transition()
+            .delay(600) // Delay appearance until bars are mostly visible
+            .duration(400)
+            .style('opacity', 1) // Fade in
     } else {
         // Single bars when no comparison is selected
-        bars.append('rect')
+        const rectSelection = bars.append('rect')
             .attr('x', 0)
-            .attr('y', d => y(d[currentCountryCode]))
+            .attr('y', height) // Start from bottom for animation
             .attr('width', x0.bandwidth())
-            .attr('height', d => height - y(d[currentCountryCode]))
+            .attr('height', 0) // Start with height 0 for animation
             .attr('fill', color(currentCountryCode))
             .attr('rx', 4)
-            // Add hover effects...
-            .on('mouseover', (event, d) => {
+            
+        // Set up event handlers before animation
+        rectSelection
+            .on('mouseover', function(event, d) {
                 if (!tooltip.value) return
                 const country = getCountryByCode(currentCountryCode)
                 tooltip.value.innerHTML = `${country?.name || currentCountryCode} - ${d.medal}: ${d[currentCountryCode]}`
@@ -307,14 +328,26 @@ const createHistogram = () => {
                 tooltip.value.style.left = `${event.pageX - 100}px`
                 tooltip.value.style.top = `${event.pageY - 150}px`
             })
+            
+        // Apply the animation
+        rectSelection.transition()
+            .duration(800)
+            .ease(d3.easeCubicOut) // Smoother easing
+            .attr('y', d => y(d[currentCountryCode]))
+            .attr('height', d => height - y(d[currentCountryCode]))
 
         // Add text labels above bars
         bars.append('text')
             .attr('x', x0.bandwidth() / 2)
-            .attr('y', d => y(d[currentCountryCode]) - 5)
+            .attr('y', d => Math.max(y(d[currentCountryCode]) - 10, 15)) // Ensure text isn't too high with added margin
             .attr('text-anchor', 'middle')
             .attr('fill', 'currentColor')
             .text(d => d[currentCountryCode])
+            .style('opacity', 0) // Start with opacity 0
+            .transition()
+            .delay(600) // Delay appearance until bars are mostly visible
+            .duration(400)
+            .style('opacity', 1) // Fade in
     }
 
     // Only show x-axis (medal types)

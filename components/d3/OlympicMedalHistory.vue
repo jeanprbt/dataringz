@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full pt-5">
+    <div class="h-full w-full pt-5 relative overflow-hidden">
         <USelect v-model="displayMode" :items="items" :icon="icon" class="w-32" v-if="rank"></USelect>
         <div ref="chartContainer" class="w-full h-full"></div>
     </div>
@@ -53,15 +53,16 @@ const renderChart = () => {
     if (!data || data.length === 0) return;
 
     // Set dimensions
-    const margin = { top: 40, right: 80, bottom: 60, left: 50 };
-    const width = chartContainer.value.clientWidth - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
+    const containerRect = chartContainer.value.getBoundingClientRect();
+    const margin = { top: 40, right: 80, bottom: 100, left: 80 };
+    const width = containerRect.width - margin.left - margin.right;
+    const height = containerRect.height - margin.top - margin.bottom;
 
     // Create SVG with initial opacity 0 for animation
     const svg = d3.select(chartContainer.value)
         .append('svg')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
+        .attr('width','100%')
+        .attr('height', '100%')
         .style('opacity', 0) // Start with opacity 0 for fade-in animation
         .append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);

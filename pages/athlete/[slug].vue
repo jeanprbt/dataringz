@@ -77,7 +77,7 @@
                         </transition>
                         <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
                         <div
-                            class="grid gap-3 h-full [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))] auto-rows-fr w-full">
+                            class="grid gap-3 h-full [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))] auto-rows-fr ">
                             <NuxtLink v-for="(event, index) in compactEvents" :to="`/event/${event.slug}`" :key="index"
                                 :class="[
                                     'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
@@ -325,7 +325,9 @@
                             <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
                                 @click.stop="toggleCard(11)" />
                             <div class="h-full flex flex-col">
-                                <h3 class="text-lg font-medium text-zinc-800 dark:text-white mb-4">Olympic Medals</h3>
+                                <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white mb-2">
+                                    Olympic Medals
+                                </h2>
                                 <div class="grid grid-cols-3 gap-4 mb-4">
                                     <div v-for="(count, type) in medalCounts" :key="type"
                                         class="flex flex-col items-center p-2 bg-zinc-100 dark:bg-zinc-900 rounded-lg">
@@ -376,8 +378,8 @@
                                     name="i-heroicons-arrow-up-right" class="absolute top-2 right-2" />
                             </transition>
                             <div class="flex flex-col items-left">
-                                <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Olympic
-                                    Medals
+                                <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">
+                                    Olympic Medals
                                 </h2>
                                 <div class="text-xs text-zinc-500 dark:text-gray-400">{{ athlete.medals.length }}
                                     total</div>
@@ -388,10 +390,10 @@
                                     <div
                                         :class="`w-6 md:w-8 h-6 md:h-8 rounded-full flex items-center justify-center ${medalColorClass(type)} transition-transform hover:scale-110`">
                                         <span class="text-white font-bold text-sm md:text-base">{{ medalEmojiMap[type]
-                                            }}</span>
+                                        }}</span>
                                     </div>
                                     <div class="text-sm md:text-base font-bold text-zinc-800 dark:text-white">{{ count
-                                        }}
+                                    }}
                                     </div>
                                 </div>
                             </div>
@@ -403,7 +405,7 @@
                                             :class="`w-4 h-4 rounded-full flex shrink-0 items-center justify-center ${medalColorClass(sortedMedals[0].type)}`">
                                             <span class="text-white font-bold text-xs">{{
                                                 medalEmojiMap[sortedMedals[0].type.split(' ')[0]]
-                                                }}</span>
+                                            }}</span>
                                         </div>
                                         <div class="flex-1 truncate text-zinc-700  dark:text-zinc-300">{{
                                             sortedMedals[0].event }}</div>

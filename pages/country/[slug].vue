@@ -1,5 +1,6 @@
 <template>
-    <PageModal :show="showCountryPage" :back="transition" :transition="transition" :items="items" :countries="true" @close="closePage">
+    <PageModal :show="showCountryPage" :back="transition" :transition="transition" :items="items" :countries="true"
+        @close="closePage">
         <div v-if="country"
             :class="['gap-4 p-2 h-full flex flex-col md:overflow-hidden', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 }]">
 
@@ -31,46 +32,50 @@
 
             <UCard v-if="bestSport" variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-5 md:row-span-2': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'hidden': selected !== 0 && selected !== 3
             }">
                 <template #default>
-                    <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
-                        Best sport
-                    </h2>
-                    <div class="flex h-full items-center justify-center gap-4 md:gap-10">
-                        <div class="flex flex-col items-center gap-4">
-                            <div class="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
-                                <img :src="`/img/sports/SVG/${bestSport.slug}.svg`" class="w-full h-full object-contain dark:invert" />
+                    <NuxtLink :to="`/sport/${bestSport.slug}`" class="h-full flex flex-col">
+                        <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
+                            Best sport
+                        </h2>
+                        <div class="flex h-full items-center justify-center gap-4 md:gap-10">
+                            <div class="flex flex-col items-center gap-4">
+                                <div class="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
+                                    <img :src="`/img/sports/SVG/${bestSport.slug}.svg`"
+                                        class="w-full h-full object-contain dark:invert" />
+                                </div>
+                                <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">{{ bestSport.name }}</p>
                             </div>
-                            <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">{{ bestSport.name }}</p>
-                        </div>
 
-                        <div class="flex gap-8">
-                            <div class="flex flex-col gap-1 items-start">
-                                <div
-                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1">
-                                    <span class="text-2xl font-bold text-yellow-500 leading-8">
-                                        {{ bestSport.medals.gold }}
-                                    </span>
-                                    <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Gold</p>
-                                </div>
-                                <div
-                                    class="flex items-center gap-2 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1">
-                                    <span class="text-2xl font-bold text-gray-400 leading-8">
-                                        {{ bestSport.medals.silver }}
-                                    </span>
-                                    <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Silver</p>
-                                </div>
-                                <div
-                                    class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1">
-                                    <span class="text-2xl font-bold text-amber-700 leading-8">
-                                        {{ bestSport.medals.bronze }}
-                                    </span>
-                                    <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Bronze</p>
+                            <div class="flex gap-8">
+                                <div class="flex flex-col gap-1 items-start">
+                                    <div
+                                        class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1">
+                                        <span class="text-2xl font-bold text-yellow-500 leading-8">
+                                            {{ bestSport.medals.gold }}
+                                        </span>
+                                        <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Gold</p>
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-2 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1">
+                                        <span class="text-2xl font-bold text-gray-400 leading-8">
+                                            {{ bestSport.medals.silver }}
+                                        </span>
+                                        <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Silver</p>
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-3 rounded-lg bg-zinc-200/50 dark:bg-zinc-900 px-4 py-1">
+                                        <span class="text-2xl font-bold text-amber-700 leading-8">
+                                            {{ bestSport.medals.bronze }}
+                                        </span>
+                                        <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Bronze</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </NuxtLink>
                 </template>
             </UCard>
 
@@ -136,39 +141,22 @@
                 'col-span-12 md:col-span-4 md:row-span-2': selected === 0,
                 'hidden': selected !== 0 && selected !== 7
             }"><template #default>
-                    <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">
-                        Medals
-                    </h2>
-                    <div class="flex flex-col h-full">
-                        <div class="flex-grow flex items-center justify-center">
-                            <div class="flex justify-around items-center space-x-8">
-                                <div class="flex flex-col items-center">
-                                    <div
-                                        class="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center mb-2">
-                                        <span class="font-bold text-xl text-white dark:text-zinc-900">
-                                            {{ countryTotalMedals.gold }}
-                                        </span>
-                                    </div>
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Gold</span>
+                    <div class="flex flex-col h-full gap-4">
+                        <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">
+                            Medals
+                        </h2>
+                        <div class="grid grid-cols-3 gap-4 mb-4 h-full">
+                            <div v-for="(count, type) in { 'Gold': countryTotalMedals.gold, 'Silver': countryTotalMedals.silver, 'Bronze': countryTotalMedals.bronze }"
+                                :key="type"
+                                class="flex flex-col items-center justify-center p-2 bg-zinc-100 dark:bg-zinc-900 rounded-lg">
+                                <div
+                                    :class="`w-8 h-8 rounded-full flex items-center justify-center ${medalColorClass(type)} mb-1`">
+                                    <span class="text-white font-bold text-base">
+                                        {{ medalEmojiMap[type] }}
+                                    </span>
                                 </div>
-                                <div class="flex flex-col items-center">
-                                    <div
-                                        class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center mb-2">
-                                        <span class="font-bold text-xl text-white dark:text-zinc-900">
-                                            {{ countryTotalMedals.silver }}
-                                        </span>
-                                    </div>
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Silver</span>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <div
-                                        class="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center mb-2">
-                                        <span class="font-bold text-xl text-white dark:text-zinc-900">
-                                            {{ countryTotalMedals.bronze }}
-                                        </span>
-                                    </div>
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Bronze</span>
-                                </div>
+                                <div class="text-xl font-bold text-zinc-800 dark:text-white">{{ count }}</div>
+                                <div class="text-xs text-zinc-600 dark:text-gray-400">{{ type }}</div>
                             </div>
                         </div>
                     </div>
@@ -179,7 +167,7 @@
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-4 md:row-span-3': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && isSmallScreen,
-                'animate-bento-card': selected === 0 && transitioning && previous === 9,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 9,
                 'transition-all duration-500 transform h-full': selected === 9,
                 'hidden': selected !== 0 && selected !== 9
             }" @click="isSmallScreen ? selected === 9 ? () => { } : toggleCard(9) : () => { }">
@@ -207,16 +195,16 @@
                 'col-span-12 md:col-span-4 row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'animate-full-screen h-full': selected === 10,
-                'animate-bento-card': selected === 0 && transitioning && previous === 10,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 10,
                 'hidden': selected !== 0 && selected !== 10
             }" @click="selected === 10 ? () => { } : toggleCard(10)" @mouseenter="historyCardHovered = true"
                 @mouseleave="historyCardHovered = false">
                 <template #default>
-                    <div v-if="selected === 10" class="h-full relative overflow-auto">
+                    <div v-if="selected === 10" class="h-full relative overflow-auto flex flex-col">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
                             @click.stop="toggleCard(10)" />
                         <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">Previous editions</h2>
-                        <D3OlympicMedalHistory :country="country.slug" />
+                        <D3OlympicMedalHistory :country="country.slug" class="h-full" />
                     </div>
                     <div v-else class="h-full relative">
                         <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
@@ -240,16 +228,16 @@
                 'col-span-12 md:col-span-4 row-span-2': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'animate-full-screen h-full': selected === 11,
-                'animate-bento-card': selected === 0 && transitioning && previous === 11,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 11,
                 'hidden': selected !== 0 && selected !== 11
             }" @click="selected === 11 ? () => { } : toggleCard(11)" @mouseenter="compareCardHovered = true"
                 @mouseleave="compareCardHovered = false">
                 <template #default>
-                    <div v-if="selected === 11" class="h-full relative overflow-auto">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
+                    <div v-if="selected === 11" class="h-full relative">
+                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-50"
                             @click.stop="toggleCard(11)" />
                         <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">Medals comparison</h2>
-                        <div class="p-4">
+                        <div class="p-4 h-full">
                             <D3MedalsComparisonHistogram :country-slug="country.slug" />
                         </div>
                     </div>
@@ -450,7 +438,7 @@ const historyCardHovered = ref(false);
 const toggleCard = (index = 0) => {
     historyCardHovered.value = false;
     if (selected.value !== 0) {
-        previous.value = selected.value;
+        previousCard.value = selected.value;
         transitioning.value = true;
         selected.value = 0;
         setTimeout(() => {
@@ -459,6 +447,23 @@ const toggleCard = (index = 0) => {
     }
     else selected.value = index;
 }
+
+// HELPERS ------------------------
+const medalEmojiMap: Record<string, string> = {
+    'Gold': '🥇',
+    'Silver': '🥈',
+    'Bronze': '🥉'
+};
+
+const medalColorClass = (type: string) => {
+    const medalType = type.split(' ')[0];
+    switch (medalType) {
+        case 'Gold': return 'bg-amber-400/60';
+        case 'Silver': return 'bg-zinc-400/60';
+        case 'Bronze': return 'bg-amber-700/60';
+        default: return 'bg-zinc-500/60';
+    }
+};
 
 // MAP -----------------------------
 const config = useRuntimeConfig();

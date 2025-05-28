@@ -2492,22 +2492,22 @@
         "total": 5,
         "slug": "czechia"
     },
-    "c\u00f4te-d'ivoire": {
-        "name": "C\u00f4te d'Ivoire",
+    "cote-d'ivoire": {
+        "name": "Cote d'Ivoire",
         "location": {
             "longitude": -5.5679458,
             "latitude": 7.9897371
         },
         "img": "\/img\/countries\/ci.svg",
         "country_code": "CIV",
-        "name_long": "C\u00f4te d'Ivoire",
+        "name_long": "Cote d'Ivoire",
         "previous_editions": [],
         "gold": 0,
         "silver": 0,
         "bronze": 1,
         "rank": 85,
         "total": 1,
-        "slug": "c\u00f4te-d'ivoire"
+        "slug": "cote-d'ivoire"
     },
     "denmark": {
         "name": "Denmark",
@@ -9470,22 +9470,22 @@
         "total": 0,
         "slug": "turkmenistan"
     },
-    "t\u00fcrkiye": {
-        "name": "T\u00fcrkiye",
+    "turkiye": {
+        "name": "Türkiye",
         "location": {
             "longitude": 35.2316631,
             "latitude": 39.294076
         },
         "img": "\/img\/countries\/tr.svg",
         "country_code": "TUR",
-        "name_long": "T\u00fcrkiye",
+        "name_long": "Türkiye",
         "previous_editions": [],
         "gold": 0,
         "silver": 3,
         "bronze": 5,
         "rank": 65,
         "total": 8,
-        "slug": "t\u00fcrkiye"
+        "slug": "turkiye"
     },
     "ua-emirates": {
         "name": "UA Emirates",

@@ -4,6 +4,7 @@ import venues from '~/data/venues.json';
 import sports from '~/data/sports.json';
 import athletes from '~/data/athletes.json';
 import events from '~/data/events.json';
+import countries from '~/data/countries.json';
 
 export default defineNuxtRouteMiddleware((to, _) => {
     const breadcrumb = useState('breadcrumb', () => [] as BreadcrumbItem[]);
@@ -58,6 +59,19 @@ export default defineNuxtRouteMiddleware((to, _) => {
                 label: event.name,
                 to: `/event/${slug}`,
                 icon: 'i-lucide-medal',
+            })
+        }
+    } else if (to.fullPath.includes('/country/')) {
+        const country = countries[slug as keyof typeof countries] as any;
+        if (country === undefined) return;
+        const slugIndex = breadcrumb.value.findIndex(item => item.label === country.name)
+        if (slugIndex !== -1) {
+            breadcrumb.value = breadcrumb.value.slice(0, slugIndex + 1);
+        } else {
+            breadcrumb.value.push({
+                label: country.name,
+                to: `/country/${slug}`,
+                icon: 'i-lucide-globe',
             })
         }
     } else {

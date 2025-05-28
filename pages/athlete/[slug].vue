@@ -58,10 +58,11 @@
                             @click.stop="toggleCard(3)" />
                         <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
                         <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full">
-                            <NuxtLink v-for="(event, index) in athleteEvents" :to="`/event/${event.slug}`" :key="index" :class="[
-                                'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
-                                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50'
-                            ]">
+                            <NuxtLink v-for="(event, index) in athleteEvents" :to="`/event/${event.slug}`" :key="index"
+                                :class="[
+                                    'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
+                                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50'
+                                ]">
                                 {{ event.name }}
                             </NuxtLink>
 
@@ -92,19 +93,19 @@
             <UCard variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                 'col-span-8 md:col-span-4 row-span-1': selected === 0 && !hasFewInfo,
                 'col-span-8 md:col-span-4 row-span-2': selected === 0 && hasFewInfo,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'hidden': selected !== 0 && selected !== 4
             }">
                 <template #default>
-                    <div class="flex items-center h-full gap-4">
-                        <img class="rounded-lg w-1/6" :src="athleteCountry.img"
-                            :alt="athleteCountry.name" />
+                    <NuxtLink :to="`/country/${athleteCountry.slug}`" class="flex items-center h-full gap-4">
+                        <img class="rounded-lg w-1/6" :src="athleteCountry.img" :alt="athleteCountry.name" />
                         <div class="flex flex-col h-full justify-center">
                             <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Country</h2>
                             <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                                 {{ athleteCountry.name }}
                             </p>
                         </div>
-                    </div>
+                    </NuxtLink>
                 </template>
             </UCard>
 
@@ -178,7 +179,7 @@
                 'col-span-12 md:col-span-6 md:row-span-2': selected === 0 && hasFewInfo,
                 'col-span-12 md:col-span-3 md:row-span-1': selected === 0 && hasMedals && !athlete.education && athlete.coach,
                 'col-span-12 md:col-span-6 md:row-span-4': selected === 0 && !hasMedals && athlete.education,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && bioExpandable,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && bioExpandable,
                 'animate-bento-card': selected === 0 && transitioning && previousCard === 8,
                 'animate-full-screen h-full': selected === 8,
                 'hidden': selected !== 0 && selected !== 8
@@ -309,15 +310,14 @@
                 </template>
             </UCard>
 
-            <UCard v-if="athlete.medals && athlete.medals.length > 0" variant="soft"
-                :ui="{ 'body': 'h-full' }" :class="{
-                    'col-span-12 md:col-span-6 row-span-1 md:row-span-3': selected === 0 && athlete.education,
-                    'col-span-12 md:row-span-3': selected === 0 && !athlete.education,
-                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && athlete.medals.length > 3,
-                    'animate-bento-card': selected === 0 && transitioning && previousCard === 11,
-                    'transition-all duration-500 transform h-full': selected === 11,
-                    'hidden': selected !== 0 && selected !== 11
-                }" @click="selected === 11 ? () => { } : athlete.medals.length > 3 ? toggleCard(11) : () => { }"
+            <UCard v-if="athlete.medals && athlete.medals.length > 0" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+                'col-span-12 md:col-span-6 row-span-1 md:row-span-3': selected === 0 && athlete.education,
+                'col-span-12 md:row-span-3': selected === 0 && !athlete.education,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && athlete.medals.length > 3,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 11,
+                'transition-all duration-500 transform h-full': selected === 11,
+                'hidden': selected !== 0 && selected !== 11
+            }" @click="selected === 11 ? () => { } : athlete.medals.length > 3 ? toggleCard(11) : () => { }"
                 @mouseenter="medalsCardHovered = true" @mouseleave="medalsCardHovered = false">
                 <template #default>
                     <div class="w-full h-full rounded-lg">
@@ -388,10 +388,10 @@
                                     <div
                                         :class="`w-6 md:w-8 h-6 md:h-8 rounded-full flex items-center justify-center ${medalColorClass(type)} transition-transform hover:scale-110`">
                                         <span class="text-white font-bold text-sm md:text-base">{{ medalEmojiMap[type]
-                                        }}</span>
+                                            }}</span>
                                     </div>
                                     <div class="text-sm md:text-base font-bold text-zinc-800 dark:text-white">{{ count
-                                    }}
+                                        }}
                                     </div>
                                 </div>
                             </div>
@@ -403,7 +403,7 @@
                                             :class="`w-4 h-4 rounded-full flex shrink-0 items-center justify-center ${medalColorClass(sortedMedals[0].type)}`">
                                             <span class="text-white font-bold text-xs">{{
                                                 medalEmojiMap[sortedMedals[0].type.split(' ')[0]]
-                                            }}</span>
+                                                }}</span>
                                         </div>
                                         <div class="flex-1 truncate text-zinc-700  dark:text-zinc-300">{{
                                             sortedMedals[0].event }}</div>
@@ -528,7 +528,7 @@ import sports from '~/data/sports.json';
 import events from '~/data/events.json';
 import countries from '~/data/countries.json';
 
-definePageMeta({ 
+definePageMeta({
     middleware: ['athlete', 'previous', 'breadcrumb'],
     layout: 'canvas'
 });

@@ -85,6 +85,7 @@ const unsettleGlobeCanvas = (globe: mapboxgl.Map) => {
     globe.off('mousemove', mouseMoveHandler);
     globe.off("mouseout", mouseOutHandler);
     globe.off('click', clickHandler);
+    globeTooltipRef.value.style.display = 'hidden';
 }
 
 const setTooltipRef = (t: Ref<HTMLElement>) => {

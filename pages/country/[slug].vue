@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showCountryPage" :transition="false" :countries="true" @close="closePage">
+    <PageModal :show="showCountryPage" :back="transition" :transition="transition" :items="items" :countries="true" @close="closePage">
         <div v-if="country"
             :class="['gap-4 p-2 h-full flex flex-col md:overflow-hidden', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 }]">
 
@@ -284,7 +284,7 @@ import sports from '~/data/sports.json';
 import medals from '~/data/medals.json';
 
 definePageMeta({
-    middleware: ['country'],
+    middleware: ['country', 'previous', 'breadcrumb'],
     layout: 'canvas'
 })
 
@@ -309,6 +309,13 @@ onMounted(async () => {
 const router = useRouter();
 const route = useRoute();
 const slug = route.params.slug as string;
+
+// HANDLE BREADCRUMB ---------------
+const items = useState<Array<{ slug: string, to: string }>>('breadcrumb');
+
+// HANDLE TRANSITION ------------------------------
+const previous = useState('previous');
+const transition = computed(() => previous.value && previous.value !== '/' && !directAccess) as ComputedRef<boolean>;
 
 // DATA MANAGEMENT -----------------
 const country = countries[slug as keyof typeof countries] as any;
@@ -436,7 +443,7 @@ const closePage = () => {
 
 // UI STATE
 const selected = ref(0);
-const previous = ref(0);
+const previousCard = ref(0);
 const transitioning = ref(false);
 const compareCardHovered = ref(false);
 const historyCardHovered = ref(false);

@@ -98,7 +98,7 @@
                             <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
                                 Events
                             </h2>
-                            <div class="grid [grid-template-columns:repeat(auto-fill,minmax(5rem,1fr))] gap-3 h-full">
+                            <div class="grid [grid-template-columns:repeat(auto-fit,minmax(5rem,1fr))] gap-3 h-full w-full">
                                 <NuxtLink v-for="(event, index) in compactEvents" :to="`/event/${event.slug}`"
                                     :key="index" @mouseenter="hoverEvent()" @mouseleave="unhoverEvent()" :class="[
                                         'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
@@ -139,10 +139,10 @@
                                         {{ athlete.name }}
                                     </span>
                                     <div v-if="athlete.country" class="flex items-center mt-1">
-                                        <img :src="athlete.country.img" :alt="`Flag of ${athlete.country.name}`"
+                                        <img :src="athlete.countryObj.img" :alt="`Flag of ${athlete.countryObj.name}`"
                                             class="h-3 w-4 mr-1" />
                                         <span class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ athlete.country.name }}
+                                            {{ athlete.countryObj.name }}
                                         </span>
                                     </div>
                                     <div v-if="athlete.medals.length > 0" class="flex space-x-1 mt-2">
@@ -195,10 +195,10 @@
                                         {{ athlete.name }}
                                     </span>
                                     <div v-if="athlete.country" class="flex items-center mt-1">
-                                        <img :src="athlete.country.img" :alt="`Flag of ${athlete.country.name}`"
+                                        <img :src="athlete.countryObj.img" :alt="`Flag of ${athlete.countryObj.name}`"
                                             class="h-3 w-4 mr-1" />
                                         <span class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ athlete.country.name }}
+                                            {{ athlete.countryObj.name }}
                                         </span>
                                     </div>
                                     <div v-if="athlete.medals.length > 0" class="flex space-x-1 mt-2">
@@ -306,7 +306,7 @@ if (sport) {
     for (const athleteSlug of sport.athletes) {
         const athlete = athletes[athleteSlug as keyof typeof athletes] as any;
         const countrySlug = athlete["country"];
-        athlete["country"] = countries[countrySlug as keyof typeof countries];
+        athlete["countryObj"] = countries[countrySlug as keyof typeof countries];
         sportAthletes.push(athlete);
     }
 }

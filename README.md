@@ -2,7 +2,7 @@
 
 > Course project of Data Visualization (COM-480 @ EPFL)
 
-This repository contains a web app to visualize information from this [extensive dataset](https://www.kaggle.com/datasets/piterfm/paris-2024-olympic-summer-games) about [Paris 2024](https://www.olympics.com/en/olympic-games/paris-2024) Olympics. The app centers around an interactive map of Paris, allowing users to click on olympics venues to view details about the sports held there, the athletes involved, related events, and more. A search bar enables quick navigation to specific venues, sports, athletes, or events, while a “globe mode” offers a global view of the participating countries.
+This repository contains a web app to visualize information from this [extensive dataset](https://www.kaggle.com/datasets/piterfm/paris-2024-olympic-summer-games) about [Paris 2024](https://www.olympics.com/en/olympic-games/paris-2024) Olympics. The app centers around an interactive map of Paris, allowing users to click on olympics venues to view details about the sports held there, the athletes involved, related events, and more. A search bar enables quick navigation to specific venues, sports, athletes, or events, while a "globe mode" offers a global view of the participating countries.
 
 ## Technical setup
 
@@ -122,7 +122,7 @@ This visualization is designed for:
 - **Casual viewers** excited to explore Paris 2024,
 - **Data and tech enthusiasts** interested in interactive tools.
 
-##### What We’re Showing
+##### What We're Showing
 
 - **Venue stats**: Explore Paris locations in 3D.
 - **Country insights**: Discover medals and stats for specific nations.
@@ -158,3 +158,18 @@ Unlike traditional medal tables and charts, our approach brings the Olympics to 
 #### Project Goal Report
 
 The 2-pages report describing the project goal is named `Milestone2.pdf`, you can find it at the root of the repository.
+
+
+### Milestone 3
+
+> 80% of the final grade
+
+#### Process Book
+
+The process book for this project can be found in `dataringz_process_book.pdf` at the root of the repository. It details our journey from concept to final product, including our design decisions, challenges faced, and individual team member contributions.
+
+#### Screencast
+
+Watch our 2-minute project [presentation video](https://dataringz.martinctl.dev/storage/Dataringz_Presentation.mp4) demonstrating the key features and main contributions of our visualization:
+
+https://dataringz.martinctl.dev/storage/Dataringz_Presentation.mp4

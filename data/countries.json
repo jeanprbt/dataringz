@@ -47,6 +47,23 @@
         "total": 0,
         "slug": "afghanistan"
     },
+    "ain": {
+        "name": "Individual Neutral Athletes",
+        "location": {
+            "latitude": 61.97728,
+            "longitude": 94.66024
+        },
+        "img": "\/img\/countries\/an.svg",
+        "country_code": "AIN",
+        "name_long": "Individual Neutral Athletes",
+        "previous_editions": [],
+        "gold": 1,
+        "silver": 3,
+        "bronze": 1,
+        "rank": "-",
+        "total": 5,
+        "slug": "ain"
+    },
     "albania": {
         "name": "Albania",
         "location": {

@@ -47,11 +47,9 @@
                 'col-span-12 md:col-span-6': profilePicture && selected === 0,
                 'col-span-12 md:col-span-8': !profilePicture && selected === 0,
                 'hidden': selected !== 0 && selected !== 3,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30': selected === 0 && !transitioning && athleteEvents.length > 4,
                 'animate-bento-card': selected === 0 && transitioning && previousCard === 3,
                 'animate-full-screen h-full': selected === 3,
-            }" @click="selected === 3 ? () => { } : athleteEvents.length > 4 ? toggleCard(3) : () => { }"
-                @mouseenter="eventsCardHovered = true" @mouseleave="eventsCardHovered = false">
+            }">
                 <template #default>
                     <div v-if="selected === 3" class="h-full relative flex flex-col gap-2">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
@@ -69,12 +67,6 @@
                         </div>
                     </div>
                     <div v-else class="w-full h-full rounded-lg flex flex-col gap-2 relative">
-                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
-                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
-                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="eventsCardHovered && athleteEvents.length > 4"
-                                name="i-heroicons-arrow-up-right" class="absolute top-1 right-1" />
-                        </transition>
                         <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Events</h2>
                         <div
                             class="grid gap-3 h-full [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))] auto-rows-fr ">
@@ -85,6 +77,20 @@
                                 ]">
                                 {{ event.name }}
                             </NuxtLink>
+                            <div v-if="athleteEvents.length > 3" @click="toggleCard(3)"
+                                @mouseenter="eventsCardHovered = true" @mouseleave="eventsCardHovered = false" :class="[
+                                    'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-100/80 dark:bg-zinc-800/80 flex items-center justify-center text-center border-2 border-dashed border-zinc-300 dark:border-zinc-600',
+                                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30 cursor-pointer'
+                                ]">
+                                <transition enter-active-class="transition-opacity duration-500"
+                                    enter-from-class="opacity-0" enter-to-class="opacity-100"
+                                    leave-active-class="transition-opacity duration-500" leave-from-class="opacity-100"
+                                    leave-to-class="opacity-0" mode="out-in">
+                                    <UIcon v-if="eventsCardHovered && athlete.events.length > 3"
+                                        name="i-heroicons-arrow-up-right" class="absolute top-2 right-2" />
+                                </transition>
+                                +{{ athleteEvents.length - compactEvents.length }} more
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -164,7 +170,8 @@
 
                                 <div class="flex items-center">
                                     <UIcon v-if="athlete.birth_place" name="i-heroicons-map-pin" />
-                                    <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                    <p
+                                        :class="[{ 'md:text-sm': athlete.birth_place.length <= 25 }, 'text-[9px] text-gray-600 dark:text-gray-400']">
                                         {{ athlete.birth_place }}
                                     </p>
                                 </div>
@@ -174,7 +181,7 @@
                 </template>
             </UCard>
 
-              <UCard v-if="athlete.height && hasMedals && !athlete.education && !athlete.psychology && !athlete.reason"
+            <UCard v-if="athlete.height && hasMedals && !athlete.education && !athlete.psychology && !athlete.reason"
                 variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                     'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
                     'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
@@ -500,7 +507,8 @@
                 </template>
             </UCard>
 
-            <UCard v-if="athlete.height && ((!athlete.reason && !athlete.philosophy && athlete.education && hasMedals) || !hasMedals)"
+            <UCard
+                v-if="athlete.height && ((!athlete.reason && !athlete.philosophy && athlete.education && hasMedals) || !hasMedals)"
                 variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                     'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
                     'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
@@ -608,10 +616,10 @@ const eventsCardHovered = ref(false);
 const coachCard1Hovered = ref(false);
 const coachCard2Hovered = ref(false);
 const bioExpandable = computed(() => {
-    if ((!athlete.medals || athlete.medals.length === 0) && athlete.education) return false;
+    if (!hasMedals && athlete.education) return false;
     if (athlete.reason && athlete.philosophy) return true;
-    if (athlete.reason) return athlete.reason.length > 60
-    if (athlete.philosophy) return athlete.philosophy.length > 60
+    if (athlete.reason) return athlete.coach && !athlete.education ? athlete.reason.length > 30 : athlete.reason.length > 60;
+    if (athlete.philosophy) return athlete.coach && !athlete.education ? athlete.philosophy.length > 30 : athlete.philosophy.length > 60;
     return false;
 });
 const coachExpandable = computed(() => athlete.coach && athlete.coach.length > 35);
@@ -631,7 +639,7 @@ const compactCoach = computed(() => {
     if (lastSpaceIndex === -1) return text.substring(0, 35) + '...';
     return text.substring(0, lastSpaceIndex) + '...';
 })
-const compactEvents = computed(() => athleteEvents.slice(0, 4));
+const compactEvents = computed(() => athleteEvents.slice(0, 3));
 const profilePicture = computed(() => slug && athlete && athlete.image && athlete.image.should_show_image);
 const hasMedals = computed(() => athlete && athlete.medals && athlete.medals.length > 0);
 const hasFewInfo = computed(() => athlete && !hasMedals.value && (!athlete.education || (!athlete.reason && !athlete.philosophy)));

@@ -26,7 +26,7 @@
                 'animate-bento-card': selected === 0 && transitioning && previous === 3,
                 'transition-all duration-500 transform h-full': selected === 3,
                 'hidden': selected !== 0 && selected !== 3
-            }" @click="isSmallScreen ? selected === 3 ? () => { } : toggleCard(3) : () => { }">
+            }">
                 <template #default>
                     <div v-if="selected === 3 && isSmallScreen" class="h-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0"
@@ -86,32 +86,32 @@
 
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
-                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
-                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="eventCardHovered && eventsExpandable" name="i-heroicons-arrow-up-right"
-                                class="absolute right-0" />
-                        </transition>
                         <div class="flex flex-col h-full gap-2">
                             <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
                                 Events
                             </h2>
                             <div class="grid grid-cols-2 gap-3 flex-1">
                                 <NuxtLink v-for="(event, index) in compactEvents" :to="`/event/${event.slug}`"
-                                    :key="index" @mouseenter="hoverEvent()" @mouseleave="unhoverEvent()" :class="[
+                                    :key="index" :class="[
                                         'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-200/60 dark:bg-zinc-900 flex items-center justify-center text-center [text-wrap:balance]',
                                         'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50'
                                     ]">
                                     {{ event.name }}
                                 </NuxtLink>
-                                <div v-if="eventsExpandable" 
-                                    @click="eventsExpandable && selected !== 4 && !eventHovered ? toggleCard(4) : () => { }"
-                                    @mouseenter="eventCardHovered = true" 
-                                    @mouseleave="eventCardHovered = false"
+                                <div v-if="eventsExpandable"
+                                    @click="toggleCard(4)"
+                                    @mouseenter="eventCardHovered = true" @mouseleave="eventCardHovered = false"
                                     :class="[
                                         'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-100/80 dark:bg-zinc-800/80 flex items-center justify-center text-center border-2 border-dashed border-zinc-300 dark:border-zinc-600',
                                         'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30 cursor-pointer'
                                     ]">
+                                    <transition enter-active-class="transition-opacity duration-500"
+                                        enter-from-class="opacity-0" enter-to-class="opacity-100"
+                                        leave-active-class="transition-opacity duration-500"
+                                        leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                                        <UIcon v-if="eventCardHovered && eventsExpandable"
+                                            name="i-heroicons-arrow-up-right" class="absolute top-2 right-2" />
+                                    </transition>
                                     +{{ sportEvents.length - compactEvents.length }} more
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-6 row-span-3': selected === 0,
                 'animate-bento-card': selected === 0 && transitioning && previous === 5,
-                'transition-all duration-500 transform h-full': selected === 5,
+                'animate-full-screen h-full': selected === 5,
                 'hidden': selected !== 0 && selected !== 5
             }">
                 <template #default>
@@ -156,21 +156,21 @@
                                             class="flex items-center" title="Gold medals">
                                             <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
                                                 <span class="text-xs">🥇</span> {{athlete.medals.filter((m: any) =>
-                                                m["type"] === "Gold Medal").length }}
+                                                    m["type"] === "Gold Medal").length}}
                                             </span>
                                         </div>
                                         <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Silver Medal').length > 0"
                                             class="flex items-center" title="Silver medals">
                                             <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
                                                 <span class="text-xs">🥈</span> {{athlete.medals.filter((m: any) =>
-                                                m["type"] === "Silver Medal").length }}
+                                                    m["type"] === "Silver Medal").length}}
                                             </span>
                                         </div>
                                         <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Bronze Medal').length > 0"
                                             class="flex items-center" title="Bronze medals">
                                             <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
                                                 <span class="text-xs">🥉</span> {{athlete.medals.filter((m: any) =>
-                                                m["type"] === "Bronze Medal").length }}
+                                                    m["type"] === "Bronze Medal").length}}
                                             </span>
                                         </div>
                                     </div>
@@ -181,19 +181,12 @@
 
                     <!-- bento -->
                     <div v-else class="h-full relative">
-                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
-                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
-                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="athleteCardHovered" name="i-heroicons-arrow-up-right"
-                                class="absolute right-0" />
-                        </transition>
                         <div class="flex flex-col h-full gap-2">
                             <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
                                 Medallists
                             </h2>
                             <div class="grid grid-cols-2 gap-4 flex-1">
-                                <NuxtLink v-for="athlete in compactAthletes.slice(0, 3)" :key="athlete.slug"
-                                    @mouseenter="hoverAthlete()" @mouseleave="unhoverAthlete()"
+                                <NuxtLink v-for="athlete in compactAthletes" :key="athlete.slug"
                                     :to="`/athlete/${athlete.slug}`"
                                     class="flex flex-col items-center justify-center rounded-lg bg-zinc-200/60 dark:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300 dark:hover:bg-zinc-700/50 p-2">
                                     <span
@@ -212,34 +205,41 @@
                                             class="flex items-center" title="Gold medals">
                                             <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
                                                 <span class="text-xs">🥇</span> {{athlete.medals.filter((m: any) =>
-                                                m["type"] === "Gold Medal").length }}
+                                                    m["type"] === "Gold Medal").length}}
                                             </span>
                                         </div>
                                         <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Silver Medal').length > 0"
                                             class="flex items-center" title="Silver medals">
                                             <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
                                                 <span class="text-xs">🥈</span> {{athlete.medals.filter((m: any) =>
-                                                m["type"] === "Silver Medal").length }}
+                                                    m["type"] === "Silver Medal").length}}
                                             </span>
                                         </div>
                                         <div v-if="athlete.medals.filter((m: any) => m['type'] === 'Bronze Medal').length > 0"
                                             class="flex items-center" title="Bronze medals">
                                             <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">
                                                 <span class="text-xs">🥉</span> {{athlete.medals.filter((m: any) =>
-                                                m["type"] === "Bronze Medal").length }}
+                                                    m["type"] === "Bronze Medal").length}}
                                             </span>
                                         </div>
                                     </div>
                                 </NuxtLink>
-                                <div v-if="sportAthletes.length > 3" 
-                                    @click="selected !== 5 && !athleteHovered ? toggleCard(5) : () => { }"
-                                    @mouseenter="athleteCardHovered = true" 
-                                    @mouseleave="athleteCardHovered = false"
+                                <div v-if="sportAthletes.length > 3"
+                                    @click="toggleCard(5)"
+                                    @mouseenter="athleteCardHovered = true" @mouseleave="athleteCardHovered = false"
                                     :class="[
-                                        'flex flex-col items-center justify-center rounded-lg bg-zinc-100/80 dark:bg-zinc-800/80 border-2 border-dashed border-zinc-300 dark:border-zinc-600 p-2',
+                                        'flex flex-col items-center justify-center rounded-lg bg-zinc-100/80 dark:bg-zinc-800/80 border-2 border-dashed border-zinc-300 dark:border-zinc-600 p-2 relative',
                                         'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30 cursor-pointer'
                                     ]">
-                                    <span class="text-center text-xs md:text-sm font-medium text-zinc-600 dark:text-gray-300">
+                                    <transition enter-active-class="transition-opacity duration-500"
+                                        enter-from-class="opacity-0" enter-to-class="opacity-100"
+                                        leave-active-class="transition-opacity duration-500"
+                                        leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                                        <UIcon v-if="athleteCardHovered" name="i-heroicons-arrow-up-right"
+                                            class="absolute right-2 top-2" />
+                                    </transition>
+                                    <span
+                                        class="text-center text-xs md:text-sm font-medium text-zinc-600 dark:text-gray-300">
                                         +{{ sportAthletes.length - 3 }} more
                                     </span>
                                     <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -332,7 +332,7 @@ if (sport) {
     }
 }
 const compactEvents = computed(() => sportEvents.slice(0, 3));
-const compactAthletes = computed(() => sortByMedals(sportAthletes).slice(0, 4));
+const compactAthletes = computed(() => sortByMedals(sportAthletes).slice(0, 3));
 
 
 // HANDLE BREADCRUMB ---------------
@@ -353,9 +353,7 @@ const selected = ref(0);
 const previous = ref(0);
 const transitioning = ref(false);
 const isSmallScreen = ref(false);
-const eventHovered = ref(false);
 const eventCardHovered = ref(false);
-const athleteHovered = ref(false);
 const athleteCardHovered = ref(false);
 const ageCardHovered = ref(false);
 
@@ -370,9 +368,7 @@ onMounted(() => {
 });
 
 const toggleCard = (index: number = 0) => {
-    eventHovered.value = false;
     eventCardHovered.value = false;
-    athleteHovered.value = false;
     athleteCardHovered.value = false;
     if (selected.value !== 0) {
         previous.value = selected.value;
@@ -385,22 +381,6 @@ const toggleCard = (index: number = 0) => {
     else selected.value = index;
 }
 
-const hoverEvent = () => {
-    eventCardHovered.value = false;
-    eventHovered.value = true;
-}
-const unhoverEvent = () => {
-    eventCardHovered.value = true;
-    eventHovered.value = false;
-}
-const hoverAthlete = () => {
-    athleteCardHovered.value = false;
-    athleteHovered.value = true;
-}
-const unhoverAthlete = () => {
-    athleteCardHovered.value = true;
-    athleteHovered.value = false;
-}
 const eventsExpandable = computed(() => Object.keys(sport.events).length > compactEvents.value.length);
 
 useHead(() => {

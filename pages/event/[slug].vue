@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showEventPage" :transition="transition" :items="items" @close="closePage">
+    <PageModal :show="showEventPage" :transition="transition" :back="transition" :items="items" @close="closePage">
         <div v-if="event" class="h-full">
             <div class="flex flex-col items-center justify-center h-full"
                 :class="{ '!items-stretch': event.tournament && tournamentMatches.length > 0 }">
@@ -345,6 +345,23 @@ const eventColumns = [
         accessorKey: 'participant_name',
         header: 'Athlete',
         cell: ({ row }: { row: any }) => {
+            const athleteNames = row.original["athlete_names"];
+            const athleteSlugs = row.original["athlete_slugs"];
+
+            if (Array.isArray(athleteNames) && Array.isArray(athleteSlugs) && athleteNames.length === athleteSlugs.length) {
+                return h('div', { class: 'flex flex-col gap-2' },
+                    athleteNames.map((name: string, idx: number) => {
+                        const slug = athleteSlugs[idx];
+                        return slug
+                            ? h(resolveComponent('NuxtLink'), {
+                                class: 'flex items-center justify-left hover:bg-zinc-200/70 dark:hover:bg-zinc-800 hover:px-3 rounded-lg py-1 transition-all duration-300 ease',
+                                to: `/athlete/${slug}`,
+                                key: slug
+                            }, () => name)
+                            : h('span', { class: 'px-2' }, name);
+                    })
+                );
+            }
             const athleteName = row.getValue('participant_name') || 'Unknown';
             const athleteSlug = row.original["athlete_slug"];
 

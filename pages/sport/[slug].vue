@@ -370,6 +370,7 @@ onMounted(() => {
 const toggleCard = (index: number = 0) => {
     eventCardHovered.value = false;
     athleteCardHovered.value = false;
+    ageCardHovered.value = false;
     if (selected.value !== 0) {
         previous.value = selected.value;
         transitioning.value = true;

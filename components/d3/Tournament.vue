@@ -554,6 +554,17 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
                 const slashBBox = slash.node()?.getBBox();
                 xOffset += slashBBox ? slashBBox.width : 8;
             }
+
+            if (idx === 1) {
+                const slash = team1Group.append("text")
+                    .attr("x", xOffset - 12)
+                    .attr("dy", "0.32em")
+                    .attr("fill", team1Colors.text)
+                    .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
+                    .text(getMedalEmoji(match.participant1, isLastRound));
+                const slashBBox = slash.node()?.getBBox();
+                xOffset += slashBBox ? slashBBox.width : 8;
+            }
         });
     } else {
         const team1Text = team1Group.append("text")
@@ -691,6 +702,17 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
                     .attr("fill", team2Colors.text)
                     .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
                     .text("|");
+                const slashBBox = slash.node()?.getBBox();
+                xOffset += slashBBox ? slashBBox.width : 8;
+            }
+
+            if (idx === 1) {
+                const slash = team2Group.append("text")
+                    .attr("x", xOffset - 12)
+                    .attr("dy", "0.32em")
+                    .attr("fill", team2Colors.text)
+                    .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
+                    .text(getMedalEmoji(match.participant2, isLastRound));
                 const slashBBox = slash.node()?.getBBox();
                 xOffset += slashBBox ? slashBBox.width : 8;
             }

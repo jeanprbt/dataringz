@@ -59,12 +59,10 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-4 row-span-1 md:row-span-2': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30 cursor-pointer': selected === 0 && !transitioning && eventsExpandable,
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,
                 'animate-full-screen h-full': selected === 4,
                 'hidden': selected !== 0 && selected !== 4
-            }" @click="eventsExpandable && selected !== 4 && !eventHovered ? toggleCard(4) : () => { }"
-                @mouseenter="eventCardHovered = true" @mouseleave="eventCardHovered = false">
+            }">
                 <template #default>
                     <!-- full screen -->
                     <div v-if="selected === 4" class="h-full relative overflow-auto">
@@ -107,7 +105,13 @@
                                     {{ event.name }}
                                 </NuxtLink>
                                 <div v-if="eventsExpandable" 
-                                    class="text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-100/80 dark:bg-zinc-800/80 flex items-center justify-center text-center border-2 border-dashed border-zinc-300 dark:border-zinc-600">
+                                    @click="eventsExpandable && selected !== 4 && !eventHovered ? toggleCard(4) : () => { }"
+                                    @mouseenter="eventCardHovered = true" 
+                                    @mouseleave="eventCardHovered = false"
+                                    :class="[
+                                        'text-sm text-zinc-600 dark:text-gray-300 rounded-lg py-2 px-3 bg-zinc-100/80 dark:bg-zinc-800/80 flex items-center justify-center text-center border-2 border-dashed border-zinc-300 dark:border-zinc-600',
+                                        'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30 cursor-pointer'
+                                    ]">
                                     +{{ sportEvents.length - compactEvents.length }} more
                                 </div>
                             </div>
@@ -118,12 +122,10 @@
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
                 'col-span-12 md:col-span-6 row-span-3': selected === 0,
-                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30 cursor-pointer': selected === 0 && !transitioning,
                 'animate-bento-card': selected === 0 && transitioning && previous === 5,
                 'transition-all duration-500 transform h-full': selected === 5,
                 'hidden': selected !== 0 && selected !== 5
-            }" @click="selected !== 5 && !athleteHovered ? toggleCard(5) : () => { }"
-                @mouseenter="athleteCardHovered = true" @mouseleave="athleteCardHovered = false">
+            }">
                 <template #default>
                     <!-- full screen -->
                     <div v-if="selected === 5" class="h-full relative overflow-auto">
@@ -230,7 +232,13 @@
                                     </div>
                                 </NuxtLink>
                                 <div v-if="sportAthletes.length > 3" 
-                                    class="flex flex-col items-center justify-center rounded-lg bg-zinc-100/80 dark:bg-zinc-800/80 border-2 border-dashed border-zinc-300 dark:border-zinc-600 p-2">
+                                    @click="selected !== 5 && !athleteHovered ? toggleCard(5) : () => { }"
+                                    @mouseenter="athleteCardHovered = true" 
+                                    @mouseleave="athleteCardHovered = false"
+                                    :class="[
+                                        'flex flex-col items-center justify-center rounded-lg bg-zinc-100/80 dark:bg-zinc-800/80 border-2 border-dashed border-zinc-300 dark:border-zinc-600 p-2',
+                                        'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-200/50 dark:hover:bg-zinc-700/30 cursor-pointer'
+                                    ]">
                                     <span class="text-center text-xs md:text-sm font-medium text-zinc-600 dark:text-gray-300">
                                         +{{ sportAthletes.length - 3 }} more
                                     </span>

@@ -1,14 +1,15 @@
 <template>
     <PageModal :show="showEventPage" :transition="transition" :items="items" @close="closePage">
         <div v-if="event" class="h-full">
-            <div class="flex flex-col items-center justify-center h-full" :class="{ '!items-stretch': event.tournament && tournamentMatches.length > 0 }">
+            <div class="flex flex-col items-center justify-center h-full"
+                :class="{ '!items-stretch': event.tournament && tournamentMatches.length > 0 }">
                 <h3 class="font-medium text-center text-zinc-500 dark:text-zinc-400 mb-3">
                     {{ event.sport_name }} | {{ event.name }}
                 </h3>
 
                 <div class="flex-1 min-h-0" :class="{ 'w-full': event.tournament && tournamentMatches.length > 0 }">
-                    <D3Tournament v-if="event.tournament && tournamentMatches.length > 0"
-                        :matches="tournamentMatches" class="w-full h-full" />
+                    <D3Tournament v-if="event.tournament && tournamentMatches.length > 0" :matches="tournamentMatches"
+                        class="w-full h-full" />
 
                     <div v-else-if="stageNames.length > 1" class="h-full flex flex-col gap-4 items-center">
                         <USelect v-model="selectedStage" :items="stageNames" class="w-64"></USelect>
@@ -251,12 +252,20 @@ const tournamentMatches = computed(() => {
             if (team1.participant_type === 'Person') {
                 match["participant1Slug"] = team1.athlete_slug;
                 match["participantType"] = 'Person';
+            }
+            else if (team1.participant_type === 'Doubles') {
+                match['participant1Athlete1Slug'] = team1.athlete_slug_1;
+                match['participant1Athlete2Slug'] = team1.athlete_slug_2;
+                match['participantType'] = "Doubles"
             } else {
                 match["participant1Slug"] = team1.country_slug;
                 match["participantType"] = 'Country';
             }
             if (team2.participant_type === 'Person') {
                 match["participant2Slug"] = team2.athlete_slug;
+            } else if (team2.participant_type === 'Doubles') {
+                match['participant2Athlete1Slug'] = team2.athlete_slug_1;
+                match['participant2Athlete2Slug'] = team2.athlete_slug_2;
             } else {
                 match["participant2Slug"] = team2.country_slug;
             }

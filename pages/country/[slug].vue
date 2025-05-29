@@ -196,7 +196,7 @@
             </UCard>
 
 
-            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
+            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" v-if="!isSmallScreen" :class="{
                 'col-span-12 md:col-span-4 md:row-span-3': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && isSmallScreen,
                 'animate-bento-card': selected === 0 && transitioning && previousCard === 9,
@@ -209,7 +209,7 @@
                             @click.stop="toggleCard(3)" />
                         <D3GenderPieChart :slug="slug" :type="'country'" />
                     </div>
-                    <div v-else-if="isSmallScreen" class="h-full relative flex items-center">
+                    <div v-if="isSmallScreen" class="h-full relative flex items-center">
                         <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">
                             Gender distribution
                         </h2>

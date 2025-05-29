@@ -6,21 +6,26 @@
                     {{ event.sport_name }} | {{ event.name }}
                 </h3>
 
-                <D3Tournament v-if="event.tournament && tournamentMatches.length > 0" :matches="tournamentMatches" />
+                <div class="flex-1 min-h-0">
+                    <D3Tournament v-if="event.tournament && tournamentMatches.length > 0"
+                        :matches="tournamentMatches" />
 
-                <div v-else-if="stageNames.length > 1" class="h-full flex flex-col items-center">
-                    <USelect v-model="selectedStage" :items="stageNames" class="w-64 mb-3"></USelect>
-                    <UTable v-if="currentStageData.length > 0" :data="currentStageData" :columns="eventColumns"
-                        sticky />
+                    <div v-else-if="stageNames.length > 1" class="h-full flex flex-col gap-4 items-center">
+                        <USelect v-model="selectedStage" :items="stageNames" class="w-64"></USelect>
+                        <UTable v-if="currentStageData.length > 0" :data="currentStageData" :columns="eventColumns"
+                            sticky />
+                    </div>
+
+                    <div v-else-if="currentStageData.length > 0" class="h-full overflow-auto">
+                        <UTable :data="currentStageData" :columns="eventColumns" sticky />
+                    </div>
+
+                    <p v-else
+                        class="h-full flex items-center justify-center text-xs md:text-sm text-zinc-600 dark:text-gray-400">
+                        Data is not yet available.
+                    </p>
                 </div>
 
-                <UTable v-else-if="currentStageData.length > 0" :data="currentStageData" :columns="eventColumns"
-                    sticky />
-
-                <p v-else
-                    class="h-full flex items-center justify-center text-xs md:text-sm text-zinc-600 dark:text-gray-400">
-                    Data is not yet available.
-                </p>
             </div>
 
         </div>
@@ -32,7 +37,6 @@
 
 <script setup lang="ts">
 import events from '~/data/events.json';
-import sports from '~/data/sports.json';
 
 definePageMeta({
     middleware: ['event', 'previous', 'breadcrumb'],
@@ -69,6 +73,7 @@ watch(stageNames, (newStages) => {
     if (newStages.length > 0 && !selectedStage.value) {
         // Prioritize stages in order of importance
         const stagePriority = [
+            'Final Results',
             'Final',
             'Gold Medal Game',
             'Bronze Medal Game',

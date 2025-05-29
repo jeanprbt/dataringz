@@ -303,8 +303,8 @@ const addFlag = (
         .attr("height", FLAG_HEIGHT)
         .attr("href", imgPath)
         .attr("data-team", team)
-        // .on("mouseenter", () => highlightTeamPath(team))
-        // .on("mouseleave", () => resetHighlight());
+        .on("mouseenter", () => highlightTeamPath(team))
+        .on("mouseleave", () => resetHighlight());
 };
 
 // Highlight team path
@@ -444,12 +444,9 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
             .attr("stroke", currentColors.border)
             .attr("stroke-width", match.isBronzeMedal ? 2 : 1)
             .attr("data-team", index === 0 ? match.participant1 : match.participant2)
-            // .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-            // .on("mouseleave", () => resetHighlight());
+            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+            .on("mouseleave", () => resetHighlight());
     });
-
-    const paddingX = 8;
-    const paddingY = 5;
 
     // Team 1 info
     const team1Group = matchGroup.append("g")
@@ -481,38 +478,27 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
         .attr("fill", team1Colors.text)
         .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
         .attr("data-team", match.participant2)
-        .style("cursor", "pointer")
+        .style("cursor", match.participant1Slug ? "pointer" : "default")
         .text(match.participant1 + getMedalEmoji(match.participant1, isLastRound))
         .on("mouseenter", (event) => {
-            team1Highlight.attr("fill-opacity", 0.2).attr("fill", team1Colors.text);
-            // highlightTeamPath(event.target.getAttribute("data-team"));
+            team1Text.style("text-decoration", match.participant1Slug ? "underline" : "none");
+            highlightTeamPath(event.target.getAttribute("data-team"));
         })
         .on("mouseleave", () => {
-            team1Highlight.attr("fill-opacity", 0).attr("fill", team1Colors.background);
-            // resetHighlight();
-        })
-        .on("click", () => {
+            team1Text.style("text-decoration", "none");
+            resetHighlight();
+        });
+
+    // Only add click handler if slug exists
+    if (match.participant1Slug) {
+        team1Text.on("click", () => {
             if (isTeamAthlete) {
                 router.push(`/athlete/${match.participant1Slug}`);
             } else {
                 router.push(`/country/${match.participant1Slug}`);
             }
         });
-
-    // Get bounding box of the text to size the highlight rect
-    let bboxNode = team1Text.node();
-    let bbox = bboxNode ? bboxNode.getBBox() : { x: 0, y: 0, width: 100, height: 20 };
-
-    const team1Highlight = team1Group.insert("rect", "text") // Insert before the text
-        .attr("x", bbox.x - paddingX)
-        .attr("y", bbox.y - paddingY)
-        .attr("width", bbox.width + paddingX * 2)
-        .attr("height", bbox.height + paddingY * 2)
-        .attr("rx", 5)
-        .attr("ry", 5)
-        .attr("fill", team1Colors.background)
-        .attr("fill-opacity", 0)
-        .attr("data-team", match.participant2);
+    }
 
     if (match.score1 !== undefined) {
         team1Group.append("text")
@@ -522,8 +508,8 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
             .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
             .attr("text-anchor", "end")
             .attr("data-team", match.participant1)
-            // .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-            // .on("mouseleave", () => resetHighlight())
+            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+            .on("mouseleave", () => resetHighlight())
             .text(match.score1.toString());
     }
 
@@ -547,45 +533,34 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
         team2Colors = currentColors.bronze;
     }
 
-    // Create a clickable group for team2 name (first!)
+    // Create a clickable group for team2 name
     const team2Text = team2Group.append("text")
         .attr("x", team2TextX)
         .attr("dy", "0.32em")
         .attr("fill", team2Colors.text)
         .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
         .attr("data-team", match.participant2)
-        .style("cursor", "pointer")
-        .text(match.participant2 + getMedalEmoji(match.participant2, isLastRound)) // Ensure the text is set before measuring
+        .style("cursor", match.participant2Slug ? "pointer" : "default")
+        .text(match.participant2 + getMedalEmoji(match.participant2, isLastRound))
         .on("mouseenter", (event) => {
-            team2Highlight.attr("fill-opacity", 0.2).attr("fill", team2Colors.text);
-            // highlightTeamPath(event.target.getAttribute("data-team"));
+            team2Text.style("text-decoration", match.participant2Slug ? "underline" : "none");
+            highlightTeamPath(event.target.getAttribute("data-team"));
         })
         .on("mouseleave", () => {
-            team2Highlight.attr("fill-opacity", 0).attr("fill", team2Colors.background);
-            // resetHighlight();
-        })
-        .on("click", () => {
+            team2Text.style("text-decoration", "none");
+            resetHighlight();
+        });
+
+    // Only add click handler if slug exists
+    if (match.participant2Slug) {
+        team2Text.on("click", () => {
             if (isTeamAthlete) {
                 router.push(`/athlete/${match.participant2Slug}`);
             } else {
                 router.push(`/country/${match.participant2Slug}`);
             }
         });
-
-    // Get bounding box of the text to size the highlight rect
-    bboxNode = team2Text.node();
-    bbox = bboxNode ? bboxNode.getBBox() : { x: 0, y: 0, width: 100, height: 20 };
-
-    const team2Highlight = team2Group.insert("rect", "text") // Insert before the text
-        .attr("x", bbox.x - paddingX)
-        .attr("y", bbox.y - paddingY)
-        .attr("width", bbox.width + paddingX * 2)
-        .attr("height", bbox.height + paddingY * 2)
-        .attr("rx", 5)
-        .attr("ry", 5)
-        .attr("fill", team2Colors.background)
-        .attr("fill-opacity", 0)
-        .attr("data-team", match.participant2);
+    }
 
     if (match.score2 !== undefined) {
         team2Group.append("text")

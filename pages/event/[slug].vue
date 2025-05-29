@@ -343,13 +343,21 @@ const eventColumns = [
     },
     {
         accessorKey: 'participant_name',
-        header: 'Athlete',
+        header: () => {
+            return currentStageData.value && 
+                  currentStageData.value.length > 0 && 
+                  currentStageData.value[0]["participant_type"] && 
+                  currentStageData.value[0]["participant_type"] == "Country" ? 
+                  'Athletes' : 'Athlete'
+        },
         cell: ({ row }: { row: any }) => {
             const athleteNames = row.original["athlete_names"];
             const athleteSlugs = row.original["athlete_slugs"];
 
             if (Array.isArray(athleteNames) && Array.isArray(athleteSlugs) && athleteNames.length === athleteSlugs.length) {
-                return h('div', { class: 'flex flex-col gap-2' },
+                return h('div', {
+                    class: 'grid grid-cols-2 gap-2'
+                },
                     athleteNames.map((name: string, idx: number) => {
                         const slug = athleteSlugs[idx];
                         return slug
@@ -362,14 +370,17 @@ const eventColumns = [
                     })
                 );
             }
+
             const athleteName = row.getValue('participant_name') || 'Unknown';
             const athleteSlug = row.original["athlete_slug"];
 
-            return athleteSlug ? h(resolveComponent('NuxtLink'), {
-                class: 'flex items-center justify-left hover:bg-zinc-200/70 dark:hover:bg-zinc-800 hover:px-3 rounded-lg py-1 transition-all duration-300 ease',
-                to: `/athlete/${athleteSlug}`
-            }, () => athleteName) : athleteName;
-        }
+            return athleteSlug
+                ? h(resolveComponent('NuxtLink'), {
+                    class: 'flex items-center justify-left hover:bg-zinc-200/70 dark:hover:bg-zinc-800 hover:px-3 rounded-lg py-2 transition-all duration-300 ease',
+                    to: `/athlete/${athleteSlug}`
+                }, () => athleteName)
+                : athleteName;
+        },
     },
     {
         accessorKey: 'participant_country',
@@ -392,7 +403,7 @@ const eventColumns = [
             ]);
 
             return countrySlug ? h(resolveComponent('NuxtLink'), {
-                class: 'flex items-center justify-left hover:bg-zinc-200/70 dark:hover:bg-zinc-800 hover:px-3 rounded-lg py-1 transition-all duration-300 ease',
+                class: 'flex items-center justify-left hover:bg-zinc-200/70 dark:hover:bg-zinc-800 hover:px-3 rounded-lg py-2 transition-all duration-300 ease',
                 to: `/country/${countrySlug}`
             }, countryContent) : countryContent();
         }

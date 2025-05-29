@@ -69,7 +69,7 @@
                 </template>
             </UCard>
 
-            <UCard variant="soft" @click="selected === 2 ? () => { } : toggleCard(2)"
+            <UCard variant="soft" @click="selected === 2 || rankingsHovered ? () => { } : toggleCard(2)"
                 :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
                     'col-span-1 md:col-span-6 md:row-span-2': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
@@ -92,19 +92,18 @@
                         </transition>
                         <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">Medals
                             ranking</h2>
-                        <div class="flex flex-1 items-center justify-center">
-                            <!-- <img class="w-1/3 object-contain mx-auto" src="/img/podium.png" /> -->
+                        <div class="flex flex-1 items-center justify-center" @mouseenter="rankingsHovered = true"
+                            @mouseleave="rankingsHovered = false">
                             <UTable :data="compactMedals" :columns="compactColumns" />
                         </div>
                     </div>
                 </template>
             </UCard>
 
-            <UCard variant="soft"
-                :ui="{ 'body': 'p-2 sm:p-4 h-full' }" :class="{
-                    'hidden md:block col-span-1 md:col-span-3 md:row-span-2': selected === 0,
-                    'hidden': selected !== 0 && selected !== 3
-                }">
+            <UCard variant="soft" :ui="{ 'body': 'p-2 sm:p-4 h-full' }" :class="{
+                'hidden md:block col-span-1 md:col-span-3 md:row-span-2': selected === 0,
+                'hidden': selected !== 0 && selected !== 3
+            }">
 
                 <template #default>
                     <div class="flex flex-col justify-center items-center h-full text-center py-4">
@@ -163,8 +162,8 @@
                         </transition>
                         <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">Events
                             repartition</h2>
-                        <div class="flex flex-1 items-center justify-center">
-                            <img class="w-2/5 object-contain" src="/img/foo_sunburst.png" />
+                        <div class="flex items-center justify-center h-full">
+                            <D3PreviewFooEventsSunburst class="h-full w-auto" />
                         </div>
                     </div>
                 </template>
@@ -196,7 +195,7 @@
                             Medals race
                         </h2>
                         <div class="flex flex-1 items-center justify-center">
-                            <D3FooPreviewMedalsRace class="w-full h-full" />
+                            <D3PreviewFooMedalsRace class="w-full h-full" />
                         </div>
                     </div>
                 </template>
@@ -244,12 +243,14 @@ const selected = ref(0);
 const previousCard = ref(0);
 const transitioning = ref(false);
 const rankingsCardHovered = ref(false);
+const rankingsHovered = ref(false);
 const sunburstCardHovered = ref(false);
 const raceCardHovered = ref(false);
 const toggleCard = (index: number = 0) => {
     rankingsCardHovered.value = false;
     sunburstCardHovered.value = false;
     raceCardHovered.value = false;
+    rankingsHovered.value = false;
     if (selected.value !== 0) {
         previousCard.value = selected.value;
         transitioning.value = true;
@@ -375,7 +376,7 @@ const compactColumns = [
             const countrySlug = row.original["slug"];
             return h(NuxtLink, {
                 class: 'flex items-center justify-left hover:bg-zinc-300/70 dark:hover:bg-zinc-900 hover:px-3 rounded-lg hover:py-2 transition-all duration-300 ease',
-                to: `/country/${countrySlug}`
+                to: `/country/${countrySlug}`,
             }, () => [
                 h('img', {
                     src: flag,

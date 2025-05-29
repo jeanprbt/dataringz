@@ -30,7 +30,7 @@
         <template #content>
             <UCommandPalette :groups="groups" placeholder="search..." @highlight="onHighlight"
                 :fuse="{ fuseOptions: { ignoreLocation: true, threshold: 0.3, keys: ['label', 'suffix'] }, resultLimit: 5, matchAllWhenSearchEmpty: true }"
-                :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', label: 'text-zinc-500 dark:text-zinc-400', itemLabelBase: 'text-zinc-500 dark:text-zinc-400', viewport: 'divide-zinc-300 dark:divide-zinc-600', itemLeadingAvatar: section === 'globe' ? 'bg-transparent' : 'bg-transparent dark:invert brightness-100' }">
+                :ui="{ root: 'divide-zinc-300 dark:divide-zinc-600', label: 'text-zinc-500 dark:text-zinc-400', itemLabelBase: 'text-zinc-500 dark:text-zinc-400', viewport: 'divide-zinc-300 dark:divide-zinc-600' }">
             </UCommandPalette>
         </template>
     </UModal>
@@ -76,7 +76,7 @@ const getItems = (canvas: mapboxgl.Map) => {
             return {
                 label: venue.name,
                 avatar: {
-                    src: venue.img
+                    src: venue.img,
                 },
                 async onSelect() {
                     open.value = false;
@@ -101,7 +101,8 @@ const getItems = (canvas: mapboxgl.Map) => {
             return {
                 label: sport.name,
                 avatar: {
-                    src: sport.icon
+                    src: sport.icon,
+                    class: 'bg-transparent dark:invert brightness-100'
                 },
                 async onSelect() {
                     open.value = false;
@@ -178,7 +179,8 @@ const getItems = (canvas: mapboxgl.Map) => {
             return {
                 label: `${sport.name} > ${event.name}`,
                 avatar: {
-                    src: sport.icon
+                    src: sport.icon,
+                    class: 'bg-transparent dark:invert brightness-100'
                 },
                 async onSelect() {
                     open.value = false;

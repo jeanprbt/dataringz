@@ -7,7 +7,7 @@
                 <UButton v-if="isDetailView" @click="zoomToRoot" icon="i-heroicons-arrow-uturn-left" variant="soft"
                     class="rounded-full" size="xl" color="gray" />
                 <div v-else-if="currentHoverIcon" class="w-full h-full p-2 flex items-center justify-center">
-                    <img :src="currentHoverIcon" class="w-16 h-16 object-contain transition-opacity duration-200"
+                    <img :src="currentHoverIcon" class="w-16 h-16 object-contain transition-opacity duration-200 dark:invert"
                         alt="Sport icon" />
                 </div>
             </div>

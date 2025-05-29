@@ -276,8 +276,9 @@
                         <h2 class="text-sm md:text-xl font-bold text-zinc-800 dark:text-white">
                             Age Distribution
                         </h2>
-                        <img v-if="!isSmallScreen" class="w-full h-full p-12" src="/img/foo_age_chart.png"
-                            alt="Foo chart" />
+                        <div class="h-full p-5">
+                            <D3PreviewFooAgeHistogram />
+                        </div>
                     </div>
                 </template>
             </UCard>
@@ -293,6 +294,7 @@ import sports from '~/data/sports.json';
 import athletes from '~/data/athletes.json';
 import events from '~/data/events.json';
 import countries from '~/data/countries.json';
+import D3PreviewFooAgeHistogram from '~/components/d3/preview/FooAgeHistogram.vue';
 
 definePageMeta({
     middleware: ['sport', 'previous', 'breadcrumb'],

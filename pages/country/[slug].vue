@@ -249,9 +249,8 @@
                         <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">
                             Previous editions
                         </h2>
-                        <div class="flex items-center justify-center h-[calc(110%)]">
-                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain dark:invert"
-                                src="/img/history_book.png" alt="History Book" />
+                        <div class="flex items-center justify-center h-[80%]">
+                            <D3PreviewFooMedalHistory class="w-full h-full" />
                         </div>
                     </div>
                 </template>
@@ -282,9 +281,8 @@
                                 class="absolute right-0" />
                         </transition>
                         <h2 class="text-base md:text-xl font-bold text-zinc-800 dark:text-white">Medals comparison</h2>
-                        <div class="flex items-center justify-center h-full">
-                            <img v-if="!isSmallScreen" class="w-auto h-full p-12 object-contain dark:invert"
-                                src="/img/comparison.png" alt="Foo chart" />
+                        <div class="flex items-center justify-center h-[80%]">
+                            <D3PreviewFooMedalsComparison class="w-full h-full" />
                         </div>
                     </div>
                 </template>

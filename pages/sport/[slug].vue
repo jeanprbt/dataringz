@@ -2,10 +2,34 @@
     <PageModal :show="showSportPage" :back="transition" :transition="transition" :items="items" @close="closePage"
         @back="router.back()">
 
-        <div v-if="sport" :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 grid-rows-6': selected === 0 }]">
+        <div v-if="sport" :class="['gap-4 p-2 h-full flex flex-col overflow-y-auto', { 'md:grid md:grid-cols-12 md:grid-rows-6 md:overflow-hidden': selected === 0 }]">
 
+            <!-- Combined header for mobile only -->
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-4 h-full' }" :class="{
-                'col-span-12 md:col-span-6 row-span-1': selected === 0,
+                'flex-shrink-0 md:hidden': selected === 0,
+                'hidden': selected !== 0 && selected !== 2
+            }">
+                <template #default>
+                    <div class="flex items-center gap-4 h-full">
+                        <div class="flex-shrink-0 w-16 h-16">
+                            <img class="w-full h-full dark:filter dark:invert dark:brightness-90"
+                                :src="`/img/sports/SVG/${slug}.svg`" :alt="`Icon of ${sport.name}`" />
+                        </div>
+                        <div class="flex flex-col justify-center flex-1 min-w-0">
+                            <h2 class="text-lg font-bold text-zinc-800 dark:text-white truncate">
+                                {{ sport.name }}
+                            </h2>
+                            <p v-if="sport.description" class="text-sm text-zinc-600 dark:text-gray-400 line-clamp-2">
+                                {{ sport.description }}
+                            </p>
+                        </div>
+                    </div>
+                </template>
+            </UCard>
+
+            <!-- Separate sport name/description for desktop -->
+            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-4 h-full' }" :class="{
+                'hidden md:block col-span-12 md:col-span-6 row-span-1': selected === 0,
                 'hidden': selected !== 0 && selected !== 2
             }">
                 <template #default>
@@ -20,8 +44,9 @@
                 </template>
             </UCard>
 
+            <!-- Gender distribution for desktop only -->
             <UCard variant="soft" :ui="{ 'body': 'p-6 h-full' }" :class="{
-                'col-span-8 md:col-span-6 row-span-1 md:row-span-3': selected === 0,
+                'hidden md:block col-span-8 md:col-span-6 row-span-1 md:row-span-3': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning && isSmallScreen,
                 'animate-bento-card': selected === 0 && transitioning && previous === 3,
                 'transition-all duration-500 transform h-full': selected === 3,
@@ -47,8 +72,9 @@
                 </template>
             </UCard>
 
+            <!-- Separate icon for desktop only -->
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-8 h-full' }" :class="{
-                'col-span-4 md:col-span-2 row-span-1 md:row-span-2': selected === 0,
+                'hidden md:block col-span-4 md:col-span-2 row-span-1 md:row-span-2': selected === 0,
                 'hidden': selected !== 0 && selected !== 1
             }">
                 <template #default>
@@ -58,7 +84,7 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
-                'col-span-12 md:col-span-4 row-span-1 md:row-span-2': selected === 0,
+                'col-span-12 md:col-span-4 row-span-1 md:row-span-2 flex-shrink-0 h-64 md:h-auto': selected === 0,
                 'animate-bento-card': selected === 0 && transitioning && previous === 4,
                 'animate-full-screen h-full': selected === 4,
                 'hidden': selected !== 0 && selected !== 4
@@ -121,7 +147,7 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 sm:p-6 md:p-6 h-full' }" :class="{
-                'col-span-12 md:col-span-6 row-span-3': selected === 0,
+                'col-span-12 md:col-span-6 row-span-3 flex-shrink-0 h-64 md:h-auto': selected === 0,
                 'animate-bento-card': selected === 0 && transitioning && previous === 5,
                 'animate-full-screen h-full': selected === 5,
                 'hidden': selected !== 0 && selected !== 5
@@ -253,7 +279,7 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'p-6 h-full' }" :class="{
-                'col-span-12 md:col-span-6 row-span-1 md:row-span-3': selected === 0,
+                'col-span-12 md:col-span-6 row-span-1 md:row-span-3 flex-shrink-0 h-64 md:h-auto': selected === 0,
                 'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                 'animate-bento-card': selected === 0 && transitioning && previous === 6,
                 'transition-all duration-500 transform h-full': selected === 6,

@@ -132,7 +132,7 @@
                     <div v-if="selected === 6" class="h-full w-full relative overflow-auto">
                         <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute right-0 z-30"
                             @click.stop="toggleCard(6)" />
-                        <div class="grid [grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))] gap-4 h-full mt-10">
+                        <div class="grid [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))] gap-4 h-full w-full mt-10">
                             <NuxtLink v-for="(sport, index) in countrySports" :to="`/sport/${sport.slug}`" :key="index"
                                 :class="[
                                     'w-full h-full flex flex-col items-center justify-center p-4 rounded-lg bg-zinc-200/60 dark:bg-zinc-900',

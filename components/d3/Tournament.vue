@@ -13,15 +13,16 @@ interface Match {
     id: string;
     round: number;
     match: number;
-    team1: string;
-    team2: string;
+    participant1: string;
+    participant2: string;
     winner?: string;
     score1?: number;
     score2?: number;
-    team1Code?: string;
-    team2Code?: string;
-    team1Img?: string;
-    team2Img?: string;
+    participantType?: string;
+    participant1Slug?: string;
+    participant2Slug?: string;
+    participant1Img?: string;
+    participant2Img?: string;
     isBronzeMedal?: boolean;
     isGoldMedal?: boolean;
 }
@@ -48,6 +49,7 @@ interface TeamPathInfo {
 const props = defineProps<TournamentProps>();
 
 // Refs
+const router = useRouter();
 const container = ref<HTMLElement | null>(null);
 const svg = ref<SVGElement | null>(null);
 let resizeObserver: ResizeObserver;
@@ -63,20 +65,19 @@ const LINE_THICKNESS_DIM = 0.8;
 const OPACITY_DIM = 0.3;
 const FLAG_WIDTH = 18;
 const FLAG_HEIGHT = 12;
-const TEXT_PADDING = 22;
+const TEXT_PADDING = 30;
 const FONT_WEIGHT = {
     winner: "bold",
     loser: "normal"
 };
 const TITLE_MARGIN_TOP = 30;
 const TITLE_FONT_SIZE = 14;
-const BRONZE_MEDAL_OFFSET = 0.3; // Offset for bronze medal game positioning
 
 // Default round titles
 const DEFAULT_ROUND_TITLES = [
-    "Round of 16", 
-    "Quarter-Finals", 
-    "Semi-Finals", 
+    "Round of 16",
+    "Quarter-Finals",
+    "Semi-Finals",
     "Final"
 ];
 
@@ -128,25 +129,25 @@ const teamPaths = new Map<string, TeamPathInfo[]>();
 // Calculate team paths
 const calculateTeamPaths = () => {
     teamPaths.clear();
-    
+
     props.matches.forEach(match => {
         // Add match to team1's path
-        if (!teamPaths.has(match.team1)) {
-            teamPaths.set(match.team1, []);
+        if (!teamPaths.has(match.participant1)) {
+            teamPaths.set(match.participant1, []);
         }
-        teamPaths.get(match.team1)?.push({
+        teamPaths.get(match.participant1)?.push({
             matchId: match.id,
             round: match.round,
             matchNumber: match.match,
             isBronzeMedal: match.isBronzeMedal,
             isGoldMedal: match.isGoldMedal
         });
-        
+
         // Add match to team2's path
-        if (!teamPaths.has(match.team2)) {
-            teamPaths.set(match.team2, []);
+        if (!teamPaths.has(match.participant2)) {
+            teamPaths.set(match.participant2, []);
         }
-        teamPaths.get(match.team2)?.push({
+        teamPaths.get(match.participant2)?.push({
             matchId: match.id,
             round: match.round,
             matchNumber: match.match,
@@ -160,17 +161,17 @@ const calculateTeamPaths = () => {
 const findTeamConnections = (team: string): { source: string, target: string }[] => {
     const connections: { source: string, target: string }[] = [];
     const teamMatches = teamPaths.get(team);
-    
+
     if (!teamMatches || teamMatches.length <= 1) return connections;
-    
+
     const sortedMatches = [...teamMatches].sort((a, b) => a.round - b.round);
-    
+
     for (let i = 0; i < sortedMatches.length - 1; i++) {
         const current = sortedMatches[i];
         const currentMatch = props.matches.find(m => m.id === current.matchId);
-        
+
         if (!currentMatch) continue;
-        
+
         // For bronze medal games, only connect if the team lost the previous match
         if (current.isBronzeMedal) {
             if (currentMatch.winner === team) {
@@ -181,15 +182,15 @@ const findTeamConnections = (team: string): { source: string, target: string }[]
             // For regular matches, only connect if the team won
             continue;
         }
-        
+
         for (let j = i + 1; j < sortedMatches.length; j++) {
             const next = sortedMatches[j];
             const nextMatch = props.matches.find(m => m.id === next.matchId);
-            
+
             if (!nextMatch) continue;
-            
+
             // Connect to next round or to bronze medal game if team lost semi-final
-            if (next.round === current.round + 1 || 
+            if (next.round === current.round + 1 ||
                 (next.isBronzeMedal && current.round === next.round - 1 && currentMatch.winner !== team)) {
                 connections.push({
                     source: current.matchId,
@@ -199,30 +200,29 @@ const findTeamConnections = (team: string): { source: string, target: string }[]
             }
         }
     }
-    
+
     return connections;
 };
 
 // Calculate match positions with special handling for bronze medal games
-const calculateMatchPositions = (width: number, height: number, margin: number, roundWidth: number, matchHeight: number): Map<string, MatchPosition> => {
+const calculateMatchPositions = (height: number, margin: number, roundWidth: number, matchHeight: number): Map<string, MatchPosition> => {
     const positions = new Map<string, MatchPosition>();
     const maxRound = Math.max(...props.matches.map(m => m.round));
-    
+
     // Separate regular matches from bronze medal matches
     const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
     const bronzeMatches = props.matches.filter(m => m.isBronzeMedal);
-    
+
     // Calculate positions for regular tournament matches
     const firstRoundMatches = regularMatches.filter(m => m.round === 0);
     const availableHeight = height - 2 * margin - TITLE_MARGIN_TOP;
-    
+
     // Adjust vertical spacing based on number of rounds
     const isShortTournament = maxRound <= 2;
-    const bronzeMedalOffset = isShortTournament ? 0.6 : 0.4; // Larger offset for short tournaments
-    
+
     if (firstRoundMatches.length > 0) {
         const firstRoundStartY = margin + TITLE_MARGIN_TOP + (availableHeight - (firstRoundMatches.length * matchHeight)) / 2;
-        
+
         firstRoundMatches.forEach((match, index) => {
             positions.set(match.id, {
                 x: margin + match.round * roundWidth,
@@ -236,15 +236,15 @@ const calculateMatchPositions = (width: number, height: number, margin: number, 
         const currentRoundMatches = regularMatches.filter(m => m.round === round);
         currentRoundMatches.forEach(match => {
             // Find previous matches that feed into this match
-            const prevMatches = regularMatches.filter(m => 
-                m.round === round - 1 && 
+            const prevMatches = regularMatches.filter(m =>
+                m.round === round - 1 &&
                 Math.floor(m.match / 2) === match.match
             ).sort((a, b) => a.match - b.match);
-            
+
             if (prevMatches.length >= 2) {
                 const pos1 = positions.get(prevMatches[0].id);
                 const pos2 = positions.get(prevMatches[1].id);
-                
+
                 if (pos1 && pos2) {
                     positions.set(match.id, {
                         x: margin + round * roundWidth,
@@ -263,13 +263,13 @@ const calculateMatchPositions = (width: number, height: number, margin: number, 
             }
         });
     }
-    
+
     // Position bronze medal matches at the bottom right
     bronzeMatches.forEach(match => {
         // Find the final match position
         const finalMatch = regularMatches.find(m => m.round === maxRound && !m.isBronzeMedal);
         const finalMatchPos = finalMatch ? positions.get(finalMatch.id) : null;
-            
+
         if (finalMatchPos) {
             // Position bronze medal match at the bottom right
             positions.set(match.id, {
@@ -278,10 +278,10 @@ const calculateMatchPositions = (width: number, height: number, margin: number, 
             });
         } else {
             // Fallback position if no final match found
-                positions.set(match.id, {
+            positions.set(match.id, {
                 x: margin + maxRound * roundWidth,
                 y: height - margin - matchHeight
-                });
+            });
         }
     });
 
@@ -294,7 +294,7 @@ const addFlag = (
     imgPath: string,
     x: number,
     y: number,
-    team: string
+    team: string,
 ) => {
     group.append("image")
         .attr("x", x)
@@ -303,32 +303,32 @@ const addFlag = (
         .attr("height", FLAG_HEIGHT)
         .attr("href", imgPath)
         .attr("data-team", team)
-        .on("mouseenter", () => highlightTeamPath(team))
-        .on("mouseleave", () => resetHighlight());
+        // .on("mouseenter", () => highlightTeamPath(team))
+        // .on("mouseleave", () => resetHighlight());
 };
 
 // Highlight team path
 const highlightTeamPath = (team: string) => {
     if (!team) return;
-    
+
     const teamMatches = teamPaths.get(team);
     if (!teamMatches) return;
-    
+
     const connections = findTeamConnections(team);
-    
+
     const opponents = new Set<string>();
     const matchesWithTeam = new Set<string>();
-    
+
     teamMatches.forEach(pathInfo => {
         const match = props.matches.find(m => m.id === pathInfo.matchId);
         if (!match) return;
-        
+
         matchesWithTeam.add(pathInfo.matchId);
-        
-        if (match.team1 === team) {
-            opponents.add(match.team2);
+
+        if (match.participant1 === team) {
+            opponents.add(match.participant2);
         } else {
-            opponents.add(match.team1);
+            opponents.add(match.participant1);
         }
     });
 
@@ -336,7 +336,7 @@ const highlightTeamPath = (team: string) => {
     d3.select(svg.value)
         .selectAll("rect, text, path, image")
         .style("opacity", OPACITY_DIM);
-        
+
     // Dim path lines
     d3.select(svg.value)
         .selectAll("path")
@@ -346,24 +346,24 @@ const highlightTeamPath = (team: string) => {
     d3.select(svg.value)
         .selectAll(`rect[data-team="${team}"], text[data-team="${team}"], image[data-team="${team}"], g[data-team="${team}"]`)
         .style("opacity", 1);
-    
+
     // Highlight opponents
     opponents.forEach(opponent => {
         const matchIds = Array.from(matchesWithTeam);
-        const selector = matchIds.map(id => 
+        const selector = matchIds.map(id =>
             `g[data-match-id="${id}"] rect[data-team="${opponent}"], 
              g[data-match-id="${id}"] text[data-team="${opponent}"], 
              g[data-match-id="${id}"] image[data-team="${opponent}"], 
              g[data-match-id="${id}"] g[data-team="${opponent}"]`
         ).join(', ');
-        
+
         if (selector) {
             d3.select(svg.value)
                 .selectAll(selector)
                 .style("opacity", 1);
         }
     });
-    
+
     // Highlight the connection lines
     connections.forEach(conn => {
         d3.select(svg.value)
@@ -378,7 +378,7 @@ const resetHighlight = () => {
     d3.select(svg.value)
         .selectAll("rect, text, path, image, g")
         .style("opacity", 1);
-        
+
     d3.select(svg.value)
         .selectAll("path")
         .style("stroke-width", LINE_THICKNESS);
@@ -390,24 +390,24 @@ const getRoundTitle = (roundIndex: number, maxRound: number, hasBronzeMedal: boo
     if (props.roundTitles && props.roundTitles[roundIndex]) {
         return props.roundTitles[roundIndex];
     }
-    
+
     // Special handling for bronze medal games
     if (hasBronzeMedal && roundIndex === maxRound) {
         return "Bronze Medal";
     }
-    
+
     const titleIndex = maxRound - roundIndex;
     if (titleIndex >= 0 && titleIndex < DEFAULT_ROUND_TITLES.length) {
         return DEFAULT_ROUND_TITLES[DEFAULT_ROUND_TITLES.length - 1 - titleIndex];
     }
-    
+
     return `Round ${roundIndex + 1}`;
 };
 
 // Draw a single match box with special styling for bronze medal games
 const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undefined>, match: Match, boxWidth: number, boxHeight: number) => {
     matchGroup.attr("data-match-id", match.id);
-    
+
     const teamHeight = boxHeight / 2;
     const currentColors = getColors();
 
@@ -426,9 +426,9 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
     const isLastRound = (match.isGoldMedal === true || match.isBronzeMedal === true);
 
     [0, 1].forEach((index) => {
-        const isWinner = index === 0 ? match.winner === match.team1 : match.winner === match.team2;
+        const isWinner = index === 0 ? match.winner === match.participant1 : match.winner === match.participant2;
         let colors = isWinner ? currentColors.winner : currentColors.loser;
-        
+
         // Special styling for bronze medal games
         if (match.isBronzeMedal && isWinner) {
             colors = currentColors.bronze;
@@ -443,47 +443,76 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
             .attr("fill", colors.background)
             .attr("stroke", currentColors.border)
             .attr("stroke-width", match.isBronzeMedal ? 2 : 1)
-            .attr("data-team", index === 0 ? match.team1 : match.team2)
-            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-            .on("mouseleave", () => resetHighlight());
+            .attr("data-team", index === 0 ? match.participant1 : match.participant2)
+            // .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+            // .on("mouseleave", () => resetHighlight());
     });
+
+    const paddingX = 8;
+    const paddingY = 5;
 
     // Team 1 info
     const team1Group = matchGroup.append("g")
         .attr("transform", `translate(10, ${teamHeight / 2})`)
-        .attr("data-team", match.team1);
+        .attr("data-team", match.participant1);
 
     // Add flag for team1 if image exists
-    const hasTeam1Flag = !!match.team1Img;
-    const textX = hasTeam1Flag ? TEXT_PADDING : 0;
-    
+    const hasTeam1Flag = !!match.participant1Img;
+    const team1TextX = hasTeam1Flag ? TEXT_PADDING : 0;
+
     if (hasTeam1Flag) {
-        addFlag(team1Group, match.team1Img!, 0, 0, match.team1);
+        addFlag(team1Group, match.participant1Img!, 0, 0, match.participant1);
     }
-    
+
     // Add team name with font-weight based on winner
-    const isTeam1Winner = match.winner === match.team1;
+    const isTeam1Winner = match.winner === match.participant1;
     let team1Colors = isTeam1Winner ? currentColors.winner : currentColors.loser;
     if (match.isBronzeMedal && isTeam1Winner) {
         team1Colors = currentColors.bronze;
     }
-    
-    // Add team1 name and medal
+
+    // Determine if teams are athletes or countries
+    const isTeamAthlete = match.participantType === 'Person';
+
+    // Create a clickable group for team2 name (first!)
     const team1Text = team1Group.append("text")
-        .attr("x", textX)
+        .attr("x", team1TextX)
         .attr("dy", "0.32em")
         .attr("fill", team1Colors.text)
         .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
-        .attr("data-team", match.team1)
-        .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-        .on("mouseleave", () => resetHighlight());
+        .attr("data-team", match.participant2)
+        .style("cursor", "pointer")
+        .text(match.participant1 + getMedalEmoji(match.participant1, isLastRound))
+        .on("mouseenter", (event) => {
+            team1Highlight.attr("fill-opacity", 0.2).attr("fill", team1Colors.text);
+            // highlightTeamPath(event.target.getAttribute("data-team"));
+        })
+        .on("mouseleave", () => {
+            team1Highlight.attr("fill-opacity", 0).attr("fill", team1Colors.background);
+            // resetHighlight();
+        })
+        .on("click", () => {
+            if (isTeamAthlete) {
+                router.push(`/athlete/${match.participant1Slug}`);
+            } else {
+                router.push(`/country/${match.participant1Slug}`);
+            }
+        });
 
-    team1Text.append("tspan")
-        .text(match.team1);
-    
-    team1Text.append("tspan")
-        .text(getMedalEmoji(match.team1, isLastRound))
-        .attr("font-weight", "normal");
+    // Get bounding box of the text to size the highlight rect
+    let bboxNode = team1Text.node();
+    let bbox = bboxNode ? bboxNode.getBBox() : { x: 0, y: 0, width: 100, height: 20 };
+
+    const team1Highlight = team1Group.insert("rect", "text") // Insert before the text
+        .attr("x", bbox.x - paddingX)
+        .attr("y", bbox.y - paddingY)
+        .attr("width", bbox.width + paddingX * 2)
+        .attr("height", bbox.height + paddingY * 2)
+        .attr("rx", 5)
+        .attr("ry", 5)
+        .attr("fill", team1Colors.background)
+        .attr("fill-opacity", 0)
+        .attr("data-team", match.participant2);
 
     if (match.score1 !== undefined) {
         team1Group.append("text")
@@ -492,48 +521,71 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
             .attr("fill", team1Colors.text)
             .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
             .attr("text-anchor", "end")
-            .attr("data-team", match.team1)
-            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-            .on("mouseleave", () => resetHighlight())
+            .attr("data-team", match.participant1)
+            // .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+            // .on("mouseleave", () => resetHighlight())
             .text(match.score1.toString());
     }
 
     // Team 2 info
     const team2Group = matchGroup.append("g")
         .attr("transform", `translate(10, ${teamHeight * 1.5})`)
-        .attr("data-team", match.team2);
+        .attr("data-team", match.participant2);
 
     // Add flag for team2 if image exists
-    const hasTeam2Flag = !!match.team2Img;
+    const hasTeam2Flag = !!match.participant2Img;
     const team2TextX = hasTeam2Flag ? TEXT_PADDING : 0;
-    
+
     if (hasTeam2Flag) {
-        addFlag(team2Group, match.team2Img!, 0, 0, match.team2);
+        addFlag(team2Group, match.participant2Img!, 0, 0, match.participant2);
     }
-    
+
     // Add team name with font-weight based on winner
-    const isTeam2Winner = match.winner === match.team2;
+    const isTeam2Winner = match.winner === match.participant2;
     let team2Colors = isTeam2Winner ? currentColors.winner : currentColors.loser;
     if (match.isBronzeMedal && isTeam2Winner) {
         team2Colors = currentColors.bronze;
     }
-    
-    // Add team2 name and medal
+
+    // Create a clickable group for team2 name (first!)
     const team2Text = team2Group.append("text")
         .attr("x", team2TextX)
         .attr("dy", "0.32em")
         .attr("fill", team2Colors.text)
         .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
-        .attr("data-team", match.team2)
-        .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-        .on("mouseleave", () => resetHighlight());
+        .attr("data-team", match.participant2)
+        .style("cursor", "pointer")
+        .text(match.participant2 + getMedalEmoji(match.participant2, isLastRound)) // Ensure the text is set before measuring
+        .on("mouseenter", (event) => {
+            team2Highlight.attr("fill-opacity", 0.2).attr("fill", team2Colors.text);
+            // highlightTeamPath(event.target.getAttribute("data-team"));
+        })
+        .on("mouseleave", () => {
+            team2Highlight.attr("fill-opacity", 0).attr("fill", team2Colors.background);
+            // resetHighlight();
+        })
+        .on("click", () => {
+            if (isTeamAthlete) {
+                router.push(`/athlete/${match.participant2Slug}`);
+            } else {
+                router.push(`/country/${match.participant2Slug}`);
+            }
+        });
 
-    team2Text.append("tspan")
-        .text(match.team2);
-    
-    team2Text.append("tspan")
-        .text(getMedalEmoji(match.team2, isLastRound))
-        .attr("font-weight", "normal");
+    // Get bounding box of the text to size the highlight rect
+    bboxNode = team2Text.node();
+    bbox = bboxNode ? bboxNode.getBBox() : { x: 0, y: 0, width: 100, height: 20 };
+
+    const team2Highlight = team2Group.insert("rect", "text") // Insert before the text
+        .attr("x", bbox.x - paddingX)
+        .attr("y", bbox.y - paddingY)
+        .attr("width", bbox.width + paddingX * 2)
+        .attr("height", bbox.height + paddingY * 2)
+        .attr("rx", 5)
+        .attr("ry", 5)
+        .attr("fill", team2Colors.background)
+        .attr("fill-opacity", 0)
+        .attr("data-team", match.participant2);
 
     if (match.score2 !== undefined) {
         team2Group.append("text")
@@ -542,7 +594,7 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
             .attr("fill", team2Colors.text)
             .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
             .attr("text-anchor", "end")
-            .attr("data-team", match.team2)
+            .attr("data-team", match.participant2)
             .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
             .on("mouseleave", () => resetHighlight())
             .text(match.score2.toString());
@@ -576,7 +628,7 @@ const drawConnectingLines = (
     const startY2 = pos2.y + teamHeight;
     const endX = position.x + boxCornerRadius;
     const endY = position.y + teamHeight;
-    
+
     const joinX = startX1 + (endX - startX1) * JOIN_POINT_RATIO;
     const midY = (startY1 + startY2) / 2;
 
@@ -603,20 +655,20 @@ const drawConnectingLines = (
 // Draw round titles
 const drawRoundTitles = (
     svgElement: d3.Selection<SVGElement, unknown, null, undefined>,
-    width: number, 
-    height: number, 
+    width: number,
+    height: number,
     margin: number,
     roundWidth: number,
     maxRound: number
 ) => {
     const currentColors = getColors();
     const hasBronzeMedal = props.matches.some(m => m.isBronzeMedal);
-    
+
     // For each round, add a title
     for (let round = 0; round <= maxRound; round++) {
         const x = margin + round * roundWidth + (roundWidth / 2);
         const y = margin / 2;
-        
+
         svgElement.append("text")
             .attr("x", x)
             .attr("y", y)
@@ -625,26 +677,6 @@ const drawRoundTitles = (
             .attr("font-weight", "bold")
             .attr("fill", currentColors.title)
             .text(getRoundTitle(round, maxRound));
-    }
-    
-    // Add bronze medal title if there are bronze medal games
-    if (hasBronzeMedal) {
-        const bronzeMatches = props.matches.filter(m => m.isBronzeMedal);
-        if (bronzeMatches.length > 0) {
-            const bronzeMatch = bronzeMatches[0];
-            const bronzeMatchPos = calculateMatchPositions(width, height, margin + TITLE_MARGIN_TOP, roundWidth, height / 8).get(bronzeMatch.id);
-            
-            if (bronzeMatchPos) {
-                svgElement.append("text")
-                    .attr("x", bronzeMatchPos.x + (roundWidth * MATCH_BOX_WIDTH_RATIO / 2))
-                    .attr("y", bronzeMatchPos.y - 20) // Position title just above the match
-                    .attr("text-anchor", "middle")
-                    .attr("font-size", TITLE_FONT_SIZE)
-                    .attr("font-weight", "bold")
-                    .attr("fill", currentColors.bronze.text)
-                    .text("Third Place Match");
-            }
-        }
     }
 };
 
@@ -668,11 +700,11 @@ const drawTournament = () => {
     const svgElement = d3.select(svg.value)
         .attr("width", width)
         .attr("height", height);
-        
+
     // Draw round titles
     drawRoundTitles(svgElement, width, height, margin, roundWidth, maxRound);
 
-    const matchPositions = calculateMatchPositions(width, height, margin + TITLE_MARGIN_TOP, roundWidth, matchHeight);
+    const matchPositions = calculateMatchPositions(height, margin + TITLE_MARGIN_TOP, roundWidth, matchHeight);
 
     props.matches.forEach(match => {
         const position = matchPositions.get(match.id);
@@ -689,15 +721,15 @@ const drawTournament = () => {
         // Draw connecting lines for regular tournament progression
         if (match.round > 0 && !match.isBronzeMedal) {
             const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
-            const prevMatches = regularMatches.filter(m => 
-                m.round === match.round - 1 && 
+            const prevMatches = regularMatches.filter(m =>
+                m.round === match.round - 1 &&
                 Math.floor(m.match / 2) === match.match
             ).sort((a, b) => a.match - b.match);
-            
+
             if (prevMatches.length >= 2) {
                 const pos1 = matchPositions.get(prevMatches[0].id);
                 const pos2 = matchPositions.get(prevMatches[1].id);
-                
+
                 if (pos1 && pos2) {
                     drawConnectingLines(svgElement, match, position, prevMatches[0], prevMatches[1], pos1, pos2, roundWidth, matchHeight);
                 }
@@ -715,7 +747,7 @@ watch(() => props.matches, () => {
 const checkDarkMode = () => {
     const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
     isDarkMode.value = darkModeQuery.matches;
-    
+
     // Listen for changes in user preference
     darkModeQuery.addEventListener('change', (e) => {
         isDarkMode.value = e.matches;
@@ -727,11 +759,11 @@ const checkDarkMode = () => {
 onMounted(() => {
     checkDarkMode();
     drawTournament();
-    
+
     resizeObserver = new ResizeObserver(() => {
         drawTournament();
     });
-    
+
     if (container.value) {
         resizeObserver.observe(container.value);
     }

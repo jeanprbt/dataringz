@@ -174,6 +174,24 @@
                 </template>
             </UCard>
 
+              <UCard v-if="athlete.height && hasMedals && !athlete.education && !athlete.psychology && !athlete.reason"
+                variant="soft" :ui="{ 'body': 'h-full' }" :class="{
+                    'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
+                    'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
+                    'hidden': selected !== 0 && selected !== 14
+                }">
+                <template #default>
+                    <div class="flex items-center h-full rounded-lg">
+                        <div>
+                            <h2 class="text-lg md:text-xl font-bold text-zinc-800 dark:text-white">Height</h2>
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                {{ formatHeight(athlete.height) }}
+                            </p>
+                        </div>
+                    </div>
+                </template>
+            </UCard>
+
             <UCard v-if="athlete.reason || athlete.psychology" variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                 'col-span-12 md:col-span-6 md:row-span-1': selected === 0 && (hasMedals && (athlete.education || !athlete.coach)) || (!hasMedals && !athlete.education),
                 'col-span-12 md:col-span-6 md:row-span-2': selected === 0 && hasFewInfo,
@@ -482,7 +500,7 @@
                 </template>
             </UCard>
 
-            <UCard v-if="athlete.height && ((!athlete.reason && !athlete.philosophy && hasMedals) || !hasMedals)"
+            <UCard v-if="athlete.height && ((!athlete.reason && !athlete.philosophy && athlete.education && hasMedals) || !hasMedals)"
                 variant="soft" :ui="{ 'body': 'h-full' }" :class="{
                     'col-span-6 md:col-span-2 md:row-span-1': selected === 0 && !hasFewInfo,
                     'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && hasFewInfo,
@@ -616,7 +634,7 @@ const compactCoach = computed(() => {
 const compactEvents = computed(() => athleteEvents.slice(0, 4));
 const profilePicture = computed(() => slug && athlete && athlete.image && athlete.image.should_show_image);
 const hasMedals = computed(() => athlete && athlete.medals && athlete.medals.length > 0);
-const hasFewInfo = computed(() => athlete && (!athlete.education && !athlete.reason && !athlete.philosophy) || (!athlete.education && !hasMedals.value) || (!hasMedals.value && !athlete.reason && !athlete.philosophy));
+const hasFewInfo = computed(() => athlete && !hasMedals.value && (!athlete.education || (!athlete.reason && !athlete.philosophy)));
 
 onMounted(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');

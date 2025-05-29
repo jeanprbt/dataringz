@@ -37,6 +37,8 @@ export default defineEventHandler(async (event) => {
             setResponseHeader(event, "Content-Type", "image/webp");
         } else if (ext === "svg") {
             setResponseHeader(event, "Content-Type", "image/svg+xml");
+        } else if (ext === "mp4") {
+            setResponseHeader(event, "Content-Type", "video/mp4");
         }
 
         // stream the file as response

@@ -1,10 +1,58 @@
 <template>
     <PageModal :show="showOlympicsPage" :transition="transition" :back="transition" :items="items" @close="closePage">
-        <div :class="['gap-4 p-2  h-full flex flex-col md:overflow-hidden', {
-            'grid grid-cols-1 md:grid-cols-12 md:grid-rows-4 h-full': selected === 0
+        <div :class="['gap-4 p-2 h-full', {
+            'grid grid-cols-1 md:grid-cols-12 md:grid-rows-4 h-full md:overflow-hidden': selected === 0,
+            'flex flex-col md:overflow-hidden': selected === 0
         }]">
+            <!-- Small screen layout: Key info cards at top -->
+            <div class="flex flex-col gap-4 md:hidden" v-if="selected === 0">
+                <!-- Info cards row -->
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- XXXIIIth Olympics card - larger on small screens -->
+                    <UCard variant="soft" :ui="{ 'body': 'p-4 h-full' }">
+                        <template #default>
+                            <div class="flex items-center justify-center h-full rounded-lg">
+                                <div class="text-center">
+                                    <h2 class="text-4xl sm:text-5xl font-bold text-zinc-800 dark:text-white mb-2">
+                                        XXXIII<sup class="text-xl relative -top-6">th</sup>
+                                    </h2>
+                                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                                        Olympics of the modern era
+                                    </p>
+                                </div>
+                            </div>
+                        </template>
+                    </UCard>
+
+                    <!-- 203 National Olympic Committees card - larger on small screens -->
+                    <UCard variant="soft" :ui="{ 'body': 'p-4 h-full' }">
+                        <template #default>
+                            <div class="flex items-center justify-center h-full rounded-lg">
+                                <div class="text-center">
+                                    <h2 class="text-4xl sm:text-5xl font-bold text-zinc-800 dark:text-white mb-2">
+                                        203</h2>
+                                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                                        National Olympic Committees
+                                    </p>
+                                </div>
+                            </div>
+                        </template>
+                    </UCard>
+                </div>
+
+                <!-- Stats Carousel - bigger on small screens -->
+                <UCard variant="soft" :ui="{ 'body': 'p-4 h-full min-h-[200px]' }">
+                    <template #default>
+                        <div class="flex flex-col justify-center items-center h-full text-center py-2">
+                            <StatsCaroussel />
+                        </div>
+                    </template>
+                </UCard>
+            </div>
+
+            <!-- Medium+ screen layout: Original grid -->
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
-                'col-span-1 md:col-span-3 md:row-span-1': selected === 0,
+                'hidden md:block col-span-1 md:col-span-3 md:row-span-1': selected === 0,
                 'hidden': selected !== 0 && selected !== 1
             }">
                 <template #default>
@@ -54,7 +102,7 @@
 
             <UCard variant="soft"
                 :ui="{ 'body': 'p-2 sm:p-4 h-full' }" :class="{
-                    'col-span-1 md:col-span-3 md:row-span-2': selected === 0,
+                    'hidden md:block col-span-1 md:col-span-3 md:row-span-2': selected === 0,
                     'hidden': selected !== 0 && selected !== 3
                 }">
 
@@ -66,7 +114,7 @@
             </UCard>
 
             <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
-                'col-span-1 md:col-span-3 md:row-span-1': selected === 0,
+                'hidden md:block col-span-1 md:col-span-3 md:row-span-1': selected === 0,
                 'transition-all duration-300': selected === 0 && !transitioning,
                 'animate-bento-card': selected === 0 && transitioning && previousCard === 6,
                 'transition-all duration-500 transform h-full': selected === 6,

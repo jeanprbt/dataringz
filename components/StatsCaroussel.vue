@@ -11,8 +11,8 @@
             ]">
                 <div :class="{
                     'font-bold text-zinc-800 dark:text-white mb-1': true,
-                    'text-4xl sm:text-5xl md:text-6xl lg:text-7xl': stat.id === 'athletes',
-                    'text-5xl sm:text-6xl md:text-7xl lg:text-8xl': stat.id !== 'athletes'
+                    'text-6xl lg:text-7xl': stat.id === 'athletes',
+                    'text-7xl lg:text-8xl': stat.id !== 'athletes'
                 }">
                     {{ stat.value }}
                 </div>

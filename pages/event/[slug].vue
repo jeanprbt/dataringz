@@ -1,14 +1,14 @@
 <template>
     <PageModal :show="showEventPage" :transition="transition" :items="items" @close="closePage">
         <div v-if="event" class="h-full">
-            <div class="flex flex-col items-center justify-center h-full">
+            <div class="flex flex-col items-center justify-center h-full" :class="{ '!items-stretch': event.tournament && tournamentMatches.length > 0 }">
                 <h3 class="font-medium text-center text-zinc-500 dark:text-zinc-400 mb-3">
                     {{ event.sport_name }} | {{ event.name }}
                 </h3>
 
-                <div class="flex-1 min-h-0">
+                <div class="flex-1 min-h-0" :class="{ 'w-full': event.tournament && tournamentMatches.length > 0 }">
                     <D3Tournament v-if="event.tournament && tournamentMatches.length > 0"
-                        :matches="tournamentMatches" />
+                        :matches="tournamentMatches" class="w-full h-full" />
 
                     <div v-else-if="stageNames.length > 1" class="h-full flex flex-col gap-4 items-center">
                         <USelect v-model="selectedStage" :items="stageNames" class="w-64"></USelect>

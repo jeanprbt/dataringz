@@ -8,8 +8,11 @@
                 </h3>
 
                 <div class="flex-1 min-h-0" :class="{ 'w-full': event.tournament && tournamentMatches.length > 0 }">
-                    <D3Tournament v-if="event.tournament && tournamentMatches.length > 0" :matches="tournamentMatches"
-                        class="w-full h-full" />
+                    <div v-if="event.tournament && tournamentMatches.length > 0" class="w-full h-full overflow-x-auto">
+                        <div class="min-w-[1200px] md:min-w-auto h-full">
+                            <D3Tournament :matches="tournamentMatches" class="w-full h-full" />
+                        </div>
+                    </div>
 
                     <div v-else-if="stageNames.length > 1" class="h-full flex flex-col gap-4 items-center">
                         <USelect v-model="selectedStage" :items="stageNames" class="w-64"></USelect>
@@ -17,7 +20,7 @@
                             sticky />
                     </div>
 
-                    <div v-else-if="currentStageData.length > 0" class="h-full overflow-auto">
+                    <div v-else-if="currentStageData.length > 0" class="h-full overflow-x-auto">
                         <UTable :data="currentStageData" :columns="eventColumns" sticky />
                     </div>
 
@@ -26,9 +29,7 @@
                         Data is not yet available.
                     </p>
                 </div>
-
             </div>
-
         </div>
         <div v-else class="h-full flex items-center justify-center">
             <p class="text-sm md:text-sm text-gray-600 dark:text-gray-400">Event not found.</p>
@@ -356,7 +357,7 @@ const eventColumns = [
 
             if (Array.isArray(athleteNames) && Array.isArray(athleteSlugs) && athleteNames.length === athleteSlugs.length) {
                 return h('div', {
-                    class: 'grid grid-cols-2 gap-2'
+                    class: 'grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2'
                 },
                     athleteNames.map((name: string, idx: number) => {
                         const slug = athleteSlugs[idx];
@@ -390,16 +391,16 @@ const eventColumns = [
             const countrySlug = row.original["country_slug"];
             const imgPath = row.original["img"];
 
-            const countryContent = () => h('div', { class: 'flex items-center' }, [
+            const countryContent = () => h('div', { class: 'flex items-center md:justify-start justify-center w-full' }, [
                 imgPath ? h('img', {
                     src: imgPath,
                     alt: countryName,
-                    class: 'w-5 h-5 mr-2 rounded-full object-cover',
+                    class: 'w-5 h-5 md:mr-2 rounded-full object-cover',
                     onError: (e: any) => {
                         e.target.style.display = 'none';
                     }
                 }) : null,
-                countryName
+                h('span', { class: 'hidden md:inline' }, countryName)
             ]);
 
             return countrySlug ? h(resolveComponent('NuxtLink'), {

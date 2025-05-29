@@ -1,6 +1,6 @@
 <template>
-    <div class="w-[40vw] h-full flex items-center justify-center">
-        <div ref="sunburstContainer" class="relative flex-1 aspect-square">
+    <div class="w-full sm:w-[40vw] h-full flex items-center justify-center">
+        <div ref="sunburstContainer" class="relative aspect-square w-[min(100vw,100vh)] h-[min(100vw,100vh)] sm:w-[min(40vw,100vh)] sm:h-[min(40vw,100vh)] max-w-full max-h-full">
             <!-- Center Icon Container -->
             <div ref="centerIcon"
                 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-50 w-20 h-20">
@@ -24,11 +24,15 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import * as d3 from 'd3';
 import sports from '~/data/sports.json';
 import events from '~/data/events.json';
+import { useRouter } from 'vue-router';
 
 // Refs for DOM elements
 const sunburstContainer = ref(null);
 const centerIcon = ref(null);
 const tooltip = ref(null);
+
+// Router for navigation
+const router = useRouter();
 
 // Reactive state
 const tooltipTimer = ref(null);
@@ -47,7 +51,11 @@ function transformSportsData(sports) {
         children: Object.values(sports).map(sport => {
             const sportEvents = [];
             for (const eventSlug of sport.events) {
-                sportEvents.push(events[eventSlug]);
+                const event = events[eventSlug];
+                sportEvents.push({
+                    ...event,
+                    slug: eventSlug // Preserve the slug for navigation
+                });
             }
             
             // Apply minimum size for sports with few events
@@ -69,6 +77,7 @@ function transformSportsData(sports) {
                 size: effectiveSize, // Set size at the sport level for minimum angle
                 children: sportEvents.map(event => ({
                     name: event.name,
+                    slug: event.slug, // Preserve the slug for navigation
                     size: 1 // Each event has equal weight within its sport
                 }))
             };
@@ -206,8 +215,8 @@ function createSunburstChart() {
     // SVG container - make it responsive
     const svg = d3.select(container)
         .append("svg")
-        .attr("width", size)
-        .attr("height", size)
+        .attr("width", "100%")
+        .attr("height", "100%")
         .attr("viewBox", [-size / 2, -size / 2, size, size])
         .style("font", "10px sans-serif")
         .style("max-width", "100%")
@@ -263,7 +272,10 @@ function createSunburstChart() {
         .on("mouseleave", () => mouseLeft())
         .on("mousemove", (event, d) => {
             // Show tooltip with full name on mousemove
-            showTooltip(d.data.name, event);
+            const tooltipText = d.depth === 2 
+                ? `${d.data.name}<br><small style="color: #6b7280; font-style: italic;">Click to view details</small>`
+                : d.data.name;
+            showTooltip(tooltipText, event);
         })
         .on("mouseout", () => {
             // Hide tooltip on mouseout
@@ -566,8 +578,10 @@ function createSunburstChart() {
                 .attr("fill-opacity", d => +labelVisible(d.target))
                 .attrTween("transform", d => () => labelTransform(d.current));
         } else if (p.depth === 2) {
-            // Handle clicking on an event - you could add specific behavior here
-            // For now we'll do nothing specific
+            // Handle clicking on an event - navigate to the event page
+            if (p.data.slug) {
+                router.push(`/event/${p.data.slug}`);
+            }
         }
     }
 

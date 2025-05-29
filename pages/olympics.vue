@@ -79,8 +79,12 @@
                 }" @mouseenter="rankingsCardHovered = true" @mouseleave="rankingsCardHovered = false">
                 <template #default>
                     <div v-if="selected === 2" class="h-full relative overflow-auto">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in"
-                            class="absolute top-5 right-5 z-50" @click.stop="toggleCard(2)" />
+                        <div class="sticky top-0 right-0 z-50 -mb-8">
+                            <div class="flex justify-end">
+                                <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in"
+                                    @click.stop="toggleCard(2)" />
+                            </div>
+                        </div>
                         <UTable sticky :data="totalMedals" :columns="medalsColumns" class="w-11/12" />
                     </div>
                     <div v-else class="h-full relative py-2">
@@ -135,6 +139,7 @@
             <UCard variant="soft" @click="selected === 4 ? () => { } : toggleCard(4)"
                 :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
                     'col-span-1 md:col-span-6 md:row-span-2': selected === 0,
+                    'h-[400px] md:h-full': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                     'animate-bento-card': selected === 0 && transitioning && previousCard === 4,
                     'transition-all duration-500 transform h-full': selected === 4,
@@ -172,6 +177,7 @@
             <UCard variant="soft" @click="selected === 5 ? () => { } : toggleCard(5)"
                 :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
                     'col-span-1 md:col-span-6 md:row-span-2': selected === 0,
+                    'hidden md:block': selected === 0,
                     'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
                     'animate-bento-card': selected === 0 && transitioning && previousCard === 5,
                     'transition-all duration-500 transform h-full': selected === 5,

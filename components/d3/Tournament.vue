@@ -23,8 +23,6 @@ interface Match {
     participant2Slug?: string;
     participant1Img?: string;
     participant2Img?: string;
-    participant1SlugBis?: string;
-    participant2SlugBis?: string;
     isBronzeMedal?: boolean;
     isGoldMedal?: boolean;
 }
@@ -428,6 +426,7 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
         }
     };
 
+
     const teamHeight = boxHeight / 2;
     const currentColors = getColors();
 
@@ -436,7 +435,7 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
         if (!isLastRound) return '';
         if (match.isGoldMedal === true) {
             if (team === match.winner) return ' 🥇';
-            if (match.winner) return ' 🥈';
+            if (match.winner) return ' 🥈'; // Show silver for the other team if there's a winner
         }
         if (match.isBronzeMedal === true && team === match.winner) return ' 🥉';
         return '';
@@ -501,36 +500,14 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
         .attr("fill", team1Colors.text)
         .attr("font-weight", isTeam1Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
         .attr("data-team", match.participant2)
-        .style("cursor", match.participant1Slug ? "pointer" : "default")
+        .style("cursor", "pointer")
         .text(match.participant1 + getMedalEmoji(match.participant1, isLastRound))
-        .on("mouseenter", (event) => {
-            team1Text.style("text-decoration", match.participant1Slug ? "underline" : "none");
-            highlightTeamPath(event.target.getAttribute("data-team"));
-        })
-        .on("mouseleave", () => {
-            team1Text.style("text-decoration", "none");
-            resetHighlight();
-        });
-
-    // Only add click handler if slug exists
-    if (match.participant1Slug) {
-        team1Text.on("click", () => {
-            if (isTeamAthlete) {
-                router.push(`/athlete/${match.participant1Slug}`);
-            } else {
-                router.push(`/country/${match.participant1Slug}`);
-            }
-        });
-    }
-
-
-    fitTextToWidth(team1Text, boxWidth - 80);
 
     // Get bounding box of the text to size the highlight rect
     let bboxNode = team1Text.node();
     let bbox = bboxNode ? bboxNode.getBBox() : { x: 0, y: 0, width: 100, height: 20 };
 
-    const team1Highlight = team1Group.insert("rect", "text") // Insert before the text
+    const team1Highlight = team1Group.append("rect")
         .attr("x", bbox.x - paddingX)
         .attr("y", bbox.y - paddingY)
         .attr("width", bbox.width + paddingX * 2)
@@ -539,7 +516,28 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
         .attr("ry", 5)
         .attr("fill", team1Colors.background)
         .attr("fill-opacity", 0)
-        .attr("data-team", match.participant2);
+        .attr("data-team", match.participant1)
+
+
+    if (match.participant1Slug) {
+        team1Highlight
+            .on("mouseenter", (event) => {
+                team1Highlight.attr("fill-opacity", 0.2).attr("fill", team1Colors.text);
+                highlightTeamPath(event.target.getAttribute("data-team"));
+            })
+            .on("mouseleave", () => {
+                team1Highlight.attr("fill-opacity", 0).attr("fill", team1Colors.background);
+                resetHighlight();
+            })
+            .on("click", () => {
+                if (isTeamAthlete) {
+                    router.push(`/athlete/${match.participant1Slug}`);
+                } else {
+                    router.push(`/country/${match.participant1Slug}`);
+                }
+            });
+    }
+
 
     if (match.score1 !== undefined) {
         team1Group.append("text")
@@ -553,7 +551,6 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
             .on("mouseleave", () => resetHighlight())
             .text(match.score1.toString());
     }
-
 
     // Team 2 info
     const team2Group = matchGroup.append("g")
@@ -575,236 +572,237 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
         team2Colors = currentColors.bronze;
     }
 
-    // Create a clickable group for team2 name
+    // Create a clickable group for team2 name (first!)
     const team2Text = team2Group.append("text")
         .attr("x", team2TextX)
         .attr("dy", "0.32em")
         .attr("fill", team2Colors.text)
         .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
         .attr("data-team", match.participant2)
-        .style("cursor", match.participant2Slug ? "pointer" : "default")
-        .text(match.participant2 + getMedalEmoji(match.participant2, isLastRound))
-        .on("mouseenter", (event) => {
-            team2Text.style("text-decoration", match.participant2Slug ? "underline" : "none");
-            highlightTeamPath(event.target.getAttribute("data-team"));
-        })
-        .on("mouseleave", () => {
-            team2Text.style("text-decoration", "none");
-            resetHighlight();
-        });
+        .style("cursor", "pointer")
+        .text(match.participant2 + getMedalEmoji(match.participant2, isLastRound)) // Ensure the text is set before measuring
+
+    // Get bounding box of the text to size the highlight rect
+    bboxNode = team2Text.node();
+    bbox = bboxNode ? bboxNode.getBBox() : { x: 0, y: 0, width: 100, height: 20 };
+
+    const team2Highlight = team2Group.append("rect") // Insert before the text
+        .attr("x", bbox.x - paddingX)
+        .attr("y", bbox.y - paddingY)
+        .attr("width", bbox.width + paddingX * 2)
+        .attr("height", bbox.height + paddingY * 2)
+        .attr("rx", 5)
+        .attr("ry", 5)
+        .attr("fill", team2Colors.background)
+        .attr("fill-opacity", 0)
+        .attr("data-team", match.participant2);
+
 
     // Only add click handler if slug exists
     if (match.participant2Slug) {
-        team2Text.on("click", () => {
-            if (isTeamAthlete) {
-                router.push(`/athlete/${match.participant2Slug}`);
-            } else {
-                router.push(`/country/${match.participant2Slug}`);
-            }
-        });
+        team2Highlight
+            .on("mouseenter", (event) => {
+                team2Highlight.attr("fill-opacity", 0.2).attr("fill", team2Colors.text);
+                highlightTeamPath(event.target.getAttribute("data-team"));
+            })
+            .on("mouseleave", () => {
+                team2Highlight.attr("fill-opacity", 0).attr("fill", team2Colors.background);
+                resetHighlight();
+            })
+            .on("click", () => {
+                if (isTeamAthlete) {
+                    router.push(`/athlete/${match.participant2Slug}`);
+                } else {
+                    router.push(`/country/${match.participant2Slug}`);
+                }
+            });
+    }
 
-        fitTextToWidth(team2Text, boxWidth - 80);
+    if (match.score2 !== undefined) {
+        team2Group.append("text")
+            .attr("x", boxWidth - 30)
+            .attr("dy", "0.32em")
+            .attr("fill", team2Colors.text)
+            .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
+            .attr("text-anchor", "end")
+            .attr("data-team", match.participant2)
+            .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
+            .on("mouseleave", () => resetHighlight())
+            .text(match.score2.toString());
+    }
+};
 
-        // Get bounding box of the text to size the highlight rect
-        bboxNode = team2Text.node();
-        bbox = bboxNode ? bboxNode.getBBox() : { x: 0, y: 0, width: 100, height: 20 };
+// Draw connecting lines between matches
+const drawConnectingLines = (
+    svgElement: d3.Selection<SVGElement, unknown, null, undefined>,
+    match: Match,
+    position: MatchPosition,
+    prevMatch1: Match,
+    prevMatch2: Match,
+    pos1: MatchPosition,
+    pos2: MatchPosition,
+    roundWidth: number,
+    matchHeight: number
+) => {
+    // Skip drawing lines for bronze medal matches
+    if (match.isBronzeMedal) return;
 
-        const team2Highlight = team2Group.insert("rect", "text") // Insert before the text
-            .attr("x", bbox.x - paddingX)
-            .attr("y", bbox.y - paddingY)
-            .attr("width", bbox.width + paddingX * 2)
-            .attr("height", bbox.height + paddingY * 2)
-            .attr("rx", 5)
-            .attr("ry", 5)
-            .attr("fill", team2Colors.background)
-            .attr("fill-opacity", 0)
-            .attr("data-team", match.participant2);
+    const boxWidth = roundWidth * MATCH_BOX_WIDTH_RATIO;
+    const boxHeight = matchHeight * MATCH_BOX_HEIGHT_RATIO;
+    const teamHeight = boxHeight / 2;
+    const boxCornerRadius = 5;
+    const currentColors = getColors();
 
-        if (match.score2 !== undefined) {
-            team2Group.append("text")
-                .attr("x", boxWidth - 30)
-                .attr("dy", "0.32em")
-                .attr("fill", team2Colors.text)
-                .attr("font-weight", isTeam2Winner ? FONT_WEIGHT.winner : FONT_WEIGHT.loser)
-                .attr("text-anchor", "end")
-                .attr("data-team", match.participant2)
-                .on("mouseenter", (event) => highlightTeamPath(event.target.getAttribute("data-team")))
-                .on("mouseleave", () => resetHighlight())
-                .text(match.score2.toString());
-        }
-    };
+    const startX1 = pos1.x + boxWidth - boxCornerRadius;
+    const startY1 = pos1.y + teamHeight;
+    const startX2 = pos2.x + boxWidth - boxCornerRadius;
+    const startY2 = pos2.y + teamHeight;
+    const endX = position.x + boxCornerRadius;
+    const endY = position.y + teamHeight;
 
-    // Draw connecting lines between matches
-    const drawConnectingLines = (
-        svgElement: d3.Selection<SVGElement, unknown, null, undefined>,
-        match: Match,
-        position: MatchPosition,
-        prevMatch1: Match,
-        prevMatch2: Match,
-        pos1: MatchPosition,
-        pos2: MatchPosition,
-        roundWidth: number,
-        matchHeight: number
-    ) => {
-        // Skip drawing lines for bronze medal matches
-        if (match.isBronzeMedal) return;
+    const joinX = startX1 + (endX - startX1) * JOIN_POINT_RATIO;
+    const midY = (startY1 + startY2) / 2;
 
-        const boxWidth = roundWidth * MATCH_BOX_WIDTH_RATIO;
-        const boxHeight = matchHeight * MATCH_BOX_HEIGHT_RATIO;
-        const teamHeight = boxHeight / 2;
-        const boxCornerRadius = 5;
-        const currentColors = getColors();
-
-        const startX1 = pos1.x + boxWidth - boxCornerRadius;
-        const startY1 = pos1.y + teamHeight;
-        const startX2 = pos2.x + boxWidth - boxCornerRadius;
-        const startY2 = pos2.y + teamHeight;
-        const endX = position.x + boxCornerRadius;
-
-        const joinX = startX1 + (endX - startX1) * JOIN_POINT_RATIO;
-        const midY = (startY1 + startY2) / 2;
-
-        [
-            { startY: startY1, prevMatch: prevMatch1 },
-            { startY: startY2, prevMatch: prevMatch2 }
-        ].forEach((data, index) => {
-            const isTop = index === 0;
-            svgElement.append("path")
-                .attr("d", `M ${isTop ? startX1 : startX2} ${data.startY} 
+    [
+        { startY: startY1, prevMatch: prevMatch1 },
+        { startY: startY2, prevMatch: prevMatch2 }
+    ].forEach((data, index) => {
+        const isTop = index === 0;
+        svgElement.append("path")
+            .attr("d", `M ${isTop ? startX1 : startX2} ${data.startY} 
                        H ${joinX - CORNER_RADIUS}
                        Q ${joinX} ${data.startY}, ${joinX} ${data.startY + (isTop ? CORNER_RADIUS : -CORNER_RADIUS)}
                        V ${midY + (isTop ? -CORNER_RADIUS : CORNER_RADIUS)}
                        Q ${joinX} ${midY}, ${joinX + CORNER_RADIUS} ${midY}
                        H ${endX}`)
-                .attr("stroke", currentColors.border)
-                .attr("stroke-width", LINE_THICKNESS)
-                .attr("fill", "none")
-                .attr("data-match", match.id)
-                .attr("data-prev-match", data.prevMatch.id);
-        });
-    };
+            .attr("stroke", currentColors.border)
+            .attr("stroke-width", LINE_THICKNESS)
+            .attr("fill", "none")
+            .attr("data-match", match.id)
+            .attr("data-prev-match", data.prevMatch.id);
+    });
+};
+
+// Draw round titles
+const drawRoundTitles = (
+    svgElement: d3.Selection<SVGElement, unknown, null, undefined>,
+    width: number,
+    height: number,
+    margin: number,
+    roundWidth: number,
+    maxRound: number
+) => {
+    const currentColors = getColors();
+    const hasBronzeMedal = props.matches.some(m => m.isBronzeMedal);
+
+    // For each round, add a title
+    for (let round = 0; round <= maxRound; round++) {
+        const x = margin + round * roundWidth + (roundWidth / 2);
+        const y = margin / 2;
+
+        svgElement.append("text")
+            .attr("x", x)
+            .attr("y", y)
+            .attr("text-anchor", "middle")
+            .attr("font-size", TITLE_FONT_SIZE)
+            .attr("font-weight", "bold")
+            .attr("fill", currentColors.title)
+            .text(getRoundTitle(round, maxRound));
+    }
+};
+
+// Main drawing function
+const drawTournament = () => {
+    if (!svg.value || !container.value) return;
+
+    calculateTeamPaths();
+
+    const width = container.value.clientWidth;
+    const height = container.value.clientHeight;
+    const margin = Math.min(width, height) * MARGIN_RATIO;
+
+    d3.select(svg.value).selectAll("*").remove();
+
+    const maxRound = Math.max(...props.matches.map(m => m.round));
+    const roundWidth = (width - 2 * margin) / (maxRound + 1);
+    const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
+    const matchHeight = (height - 2 * margin - TITLE_MARGIN_TOP) / Math.max(1, Math.pow(2, Math.max(...regularMatches.map(m => m.round))));
+
+    const svgElement = d3.select(svg.value)
+        .attr("width", width)
+        .attr("height", height);
 
     // Draw round titles
-    const drawRoundTitles = (
-        svgElement: d3.Selection<SVGElement, unknown, null, undefined>,
-        width: number,
-        height: number,
-        margin: number,
-        roundWidth: number,
-        maxRound: number
-    ) => {
-        const currentColors = getColors();
-        const hasBronzeMedal = props.matches.some(m => m.isBronzeMedal);
+    drawRoundTitles(svgElement, width, height, margin, roundWidth, maxRound);
 
-        // For each round, add a title
-        for (let round = 0; round <= maxRound; round++) {
-            const x = margin + round * roundWidth + (roundWidth / 2);
-            const y = margin / 2;
+    const matchPositions = calculateMatchPositions(height, margin + TITLE_MARGIN_TOP, roundWidth, matchHeight);
 
-            svgElement.append("text")
-                .attr("x", x)
-                .attr("y", y)
-                .attr("text-anchor", "middle")
-                .attr("font-size", TITLE_FONT_SIZE)
-                .attr("font-weight", "bold")
-                .attr("fill", currentColors.title)
-                .text(getRoundTitle(round, maxRound));
-        }
-    };
+    props.matches.forEach(match => {
+        const position = matchPositions.get(match.id);
+        if (!position) return;
 
-    // Main drawing function
-    const drawTournament = () => {
-        if (!svg.value || !container.value) return;
+        const matchGroup = svgElement.append("g")
+            .attr("transform", `translate(${position.x}, ${position.y})`);
 
-        calculateTeamPaths();
+        const boxWidth = roundWidth * MATCH_BOX_WIDTH_RATIO;
+        const boxHeight = matchHeight * MATCH_BOX_HEIGHT_RATIO;
 
-        const width = container.value.clientWidth;
-        const height = container.value.clientHeight;
-        const margin = Math.min(width, height) * MARGIN_RATIO;
+        drawMatchBox(matchGroup, match, boxWidth, boxHeight);
 
-        d3.select(svg.value).selectAll("*").remove();
+        // Draw connecting lines for regular tournament progression
+        if (match.round > 0 && !match.isBronzeMedal) {
+            const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
+            const prevMatches = regularMatches.filter(m =>
+                m.round === match.round - 1 &&
+                Math.floor(m.match / 2) === match.match
+            ).sort((a, b) => a.match - b.match);
 
-        const maxRound = Math.max(...props.matches.map(m => m.round));
-        const roundWidth = (width - 2 * margin) / (maxRound + 1);
-        const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
-        const matchHeight = (height - 2 * margin - TITLE_MARGIN_TOP) / Math.max(1, Math.pow(2, Math.max(...regularMatches.map(m => m.round))));
+            if (prevMatches.length >= 2) {
+                const pos1 = matchPositions.get(prevMatches[0].id);
+                const pos2 = matchPositions.get(prevMatches[1].id);
 
-        const svgElement = d3.select(svg.value)
-            .attr("width", width)
-            .attr("height", height);
-
-        // Draw round titles
-        drawRoundTitles(svgElement, width, height, margin, roundWidth, maxRound);
-
-        const matchPositions = calculateMatchPositions(height, margin + TITLE_MARGIN_TOP, roundWidth, matchHeight);
-
-        props.matches.forEach(match => {
-            const position = matchPositions.get(match.id);
-            if (!position) return;
-
-            const matchGroup = svgElement.append("g")
-                .attr("transform", `translate(${position.x}, ${position.y})`);
-
-            const boxWidth = roundWidth * MATCH_BOX_WIDTH_RATIO;
-            const boxHeight = matchHeight * MATCH_BOX_HEIGHT_RATIO;
-
-            drawMatchBox(matchGroup, match, boxWidth, boxHeight);
-
-            // Draw connecting lines for regular tournament progression
-            if (match.round > 0 && !match.isBronzeMedal) {
-                const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
-                const prevMatches = regularMatches.filter(m =>
-                    m.round === match.round - 1 &&
-                    Math.floor(m.match / 2) === match.match
-                ).sort((a, b) => a.match - b.match);
-
-                if (prevMatches.length >= 2) {
-                    const pos1 = matchPositions.get(prevMatches[0].id);
-                    const pos2 = matchPositions.get(prevMatches[1].id);
-
-                    if (pos1 && pos2) {
-                        drawConnectingLines(svgElement, match, position, prevMatches[0], prevMatches[1], pos1, pos2, roundWidth, matchHeight);
-                    }
+                if (pos1 && pos2) {
+                    drawConnectingLines(svgElement, match, position, prevMatches[0], prevMatches[1], pos1, pos2, roundWidth, matchHeight);
                 }
             }
-        });
-    };
-
-    // Watch for changes in matches
-    watch(() => props.matches, () => {
-        drawTournament();
-    }, { deep: true });
-
-    // Watch for dark mode changes
-    const checkDarkMode = () => {
-        const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        isDarkMode.value = darkModeQuery.matches;
-
-        // Listen for changes in user preference
-        darkModeQuery.addEventListener('change', (e) => {
-            isDarkMode.value = e.matches;
-            drawTournament();
-        });
-    };
-
-    // Lifecycle hooks
-    onMounted(() => {
-        checkDarkMode();
-        drawTournament();
-
-        resizeObserver = new ResizeObserver(() => {
-            drawTournament();
-        });
-
-        if (container.value) {
-            resizeObserver.observe(container.value);
         }
     });
+};
 
-    onUnmounted(() => {
-        if (resizeObserver) {
-            resizeObserver.disconnect();
-        }
+// Watch for changes in matches
+watch(() => props.matches, () => {
+    drawTournament();
+}, { deep: true });
+
+// Watch for dark mode changes
+const checkDarkMode = () => {
+    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    isDarkMode.value = darkModeQuery.matches;
+
+    // Listen for changes in user preference
+    darkModeQuery.addEventListener('change', (e) => {
+        isDarkMode.value = e.matches;
+        drawTournament();
     });
-}
+};
+
+// Lifecycle hooks
+onMounted(() => {
+    checkDarkMode();
+    drawTournament();
+
+    resizeObserver = new ResizeObserver(() => {
+        drawTournament();
+    });
+
+    if (container.value) {
+        resizeObserver.observe(container.value);
+    }
+});
+
+onUnmounted(() => {
+    if (resizeObserver) {
+        resizeObserver.disconnect();
+    }
+});
 </script>

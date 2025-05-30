@@ -1,13 +1,13 @@
 <template>
-    <div class="absolute flex top-5 left-1/2 transform -translate-x-1/2">
+    <div class="absolute flex top-5 left-1/2 transform -translate-x-1/2 gap-2">
         <button ref="olympicsButton" @click="router.push('/olympics')" v-show="showOlympicsButton"
-            class="flex items-center justify-center mr-2 px-1 rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 w-[50px] h-[40px] bg-white dark:bg-zinc-900">
+            class="flex items-center justify-center px-1 rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 w-[50px] h-[40px] bg-white dark:bg-zinc-900">
             <img src="/img/olympics.svg" alt="olympics logo" class="size-9" />
         </button>
 
         <button ref="searchButton" @click="searchButtonClicked" v-show="showSearchButton"
             class="flex items-center text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 hover:dark:text-zinc-300 px-4 py-2 rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 whitespace-nowrap bg-white dark:bg-zinc-900">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                 <path fill-rule="evenodd"
                     d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
                     clip-rule="evenodd" />
@@ -21,9 +21,16 @@
 
         <button ref="globeButton" @click="section === 'map' ? zoomOutToGlobe(false) : zoomInToMap(false)"
             v-show="showGlobeButton"
-            class="flex items-center justify-center text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 hover:dark:text-zinc-300 ml-2 px-[9px] rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 bg-white dark:bg-zinc-900">
+            class="flex items-center justify-center text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 hover:dark:text-zinc-300 px-[9px] rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 bg-white dark:bg-zinc-900">
             <UIcon :name="globeIcon" class="size-6" />
         </button>
+
+        <ClientOnly v-if="!colorMode?.forced">
+            <button ref="darkModeButton" @click="toggleColorMode()" v-show="showDarkModeButton"
+                class="flex items-center justify-center text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 hover:dark:text-zinc-300 px-[9px] rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 bg-white dark:bg-zinc-900">
+                <UIcon :name="colorModeIcon" class="size-5" />
+            </button>
+        </ClientOnly>
     </div>
     <UModal v-model:open="open" class="w-[80%] md:w-[35%] h-auto rounded-xl" :overlay="false"
         :ui="{ content: 'ring-zinc-300 dark:ring-zinc-600' }">
@@ -81,6 +88,25 @@ const router = useRouter();
 const { canvas } = useCanvas();
 const { intro, introPlaying } = useIntro();
 const { section, setSection } = useSection();
+const colorMode = useColorMode()
+const toggleColorMode = () => {
+    if (colorMode.preference === 'system') {
+        colorMode.preference = 'dark'
+    } else if (colorMode.preference === 'dark') {
+        colorMode.preference = 'light'
+    } else {
+        colorMode.preference = 'system'
+    }
+}
+const colorModeIcon = computed(() => {
+    if (colorMode.preference === 'system') {
+        return 'i-heroicons-computer-desktop-solid'
+    } else if (colorMode.preference === 'dark') {
+        return 'i-heroicons-sun-solid'
+    } else {
+        return 'i-heroicons-moon-solid'
+    }
+})
 
 // UI STATE --------------------------------------------------------------------------------------------------------- //
 const tooltipRef = ref<HTMLElement | null>(null);
@@ -260,6 +286,8 @@ const globeButton = ref<HTMLElement | null>(null);
 const showGlobeButton = ref<boolean>(false);
 const olympicsButton = ref<HTMLElement | null>(null);
 const showOlympicsButton = ref<boolean>(false);
+const darkModeButton = ref<HTMLElement | null>(null);
+const showDarkModeButton = ref<boolean>(false);
 const isSmallScreen = ref(false);
 
 const searchButtonClicked = () => {
@@ -267,6 +295,7 @@ const searchButtonClicked = () => {
     hideButton(showSearchButton, searchButton, 0)
     hideButton(showGlobeButton, globeButton, 0)
     hideButton(showOlympicsButton, olympicsButton, 0)
+    hideButton(showDarkModeButton, darkModeButton, 0)
 }
 
 const zoomInToMap = async (
@@ -276,6 +305,7 @@ const zoomInToMap = async (
     hideButton(showSearchButton, searchButton, 0.5);
     hideButton(showGlobeButton, globeButton, 0.5);
     hideButton(showOlympicsButton, olympicsButton, 0.5);
+    hideButton(showDarkModeButton, darkModeButton, 0.5)
 
     // @ts-ignore
     unsettleGlobeCanvas(canvas.value);
@@ -304,6 +334,7 @@ const zoomInToMap = async (
         displayButton(showSearchButton, searchButton, 0.5, 0.5);
         displayButton(showGlobeButton, globeButton, 0.5, 0.5);
         displayButton(showOlympicsButton, olympicsButton, 0.5, 0.5);
+        displayButton(showDarkModeButton, darkModeButton, 0.5, 0.5);
     }
     addMarkers();
 }
@@ -317,6 +348,7 @@ const zoomOutToGlobe = async (
     hideButton(showSearchButton, searchButton, 0.5);
     hideButton(showGlobeButton, globeButton, 0.5);
     hideButton(showOlympicsButton, olympicsButton, 0.5);
+    hideButton(showDarkModeButton, darkModeButton, 0.5);
 
     // @ts-ignore
     unsettleMapCanvas(canvas.value);
@@ -346,6 +378,7 @@ const zoomOutToGlobe = async (
         displayButton(showSearchButton, searchButton, 0.5, 0.5);
         displayButton(showGlobeButton, globeButton, 0.5, 0.5);
         displayButton(showOlympicsButton, olympicsButton, 0.5, 0.5);
+        displayButton(showDarkModeButton, darkModeButton, 0.5, 0.5);
     }
 }
 
@@ -360,10 +393,12 @@ watch(open, (newVal) => {
         hideButton(showSearchButton, searchButton, 0);
         hideButton(showGlobeButton, globeButton, 0);
         hideButton(showOlympicsButton, olympicsButton, 0);
+        hideButton(showDarkModeButton, darkModeButton, 0);
     } else if (!flying) {
         displayButton(showSearchButton, searchButton, 0.2, 0.5);
         displayButton(showGlobeButton, globeButton, 0.2, 0.5);
         displayButton(showOlympicsButton, olympicsButton, 0.2, 0.5);
+        displayButton(showDarkModeButton, darkModeButton, 0.2, 0.5);
     }
 })
 watch(introPlaying, (newVal) => {
@@ -371,10 +406,12 @@ watch(introPlaying, (newVal) => {
         hideButton(showSearchButton, searchButton, 1);
         hideButton(showGlobeButton, globeButton, 1);
         hideButton(showOlympicsButton, olympicsButton, 1);
+        hideButton(showDarkModeButton, darkModeButton, 1);
     } else {
         displayButton(showSearchButton, searchButton, 2, 1);
         displayButton(showGlobeButton, globeButton, 2, 1);
         displayButton(showOlympicsButton, olympicsButton, 2, 1);
+        displayButton(showDarkModeButton, darkModeButton, 2, 1);
     }
 });
 
@@ -383,6 +420,7 @@ onMounted(() => {
         displayButton(showSearchButton, searchButton, 0, 0.8);
         displayButton(showGlobeButton, globeButton, 0, 0.8);
         displayButton(showOlympicsButton, olympicsButton, 0, 0.8);
+        displayButton(showDarkModeButton, darkModeButton, 0, 0.8);
     }
 
     const mediaQuery = window.matchMedia('(max-width: 768px)');

@@ -35,14 +35,8 @@ const items = ref([
 
 const displayMode = ref(items.value[0]?.value);
 const icon = computed(() => items.value.find(item => item.value === displayMode.value)?.icon);
-const dark = ref(false);
-if (process.client && window.matchMedia) {
-    const matcher = window.matchMedia('(prefers-color-scheme: dark)');
-    dark.value = matcher.matches;
-    matcher.addEventListener('change', e => {
-        dark.value = e.matches;
-    });
-}
+const colorMode = useColorMode();
+const isDark = computed(() => colorMode.value === 'dark');
 const rank = data.at(-1)!["rank"];
 
 const renderChart = () => {
@@ -68,7 +62,7 @@ const renderChart = () => {
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
     // Define text color based on dark mode
-    const textColor = dark.value ? '#ffffff' : '#000000';
+    const textColor = isDark.value ? '#ffffff' : '#000000';
 
     // X scale
     const x = d3.scaleLinear()
@@ -152,7 +146,7 @@ const renderChart = () => {
                 .attr('cx', (d: any) => x(d.year))
                 .attr('cy', (d: any) => yScale(accessor(d)))
                 .attr('r', 4)
-                .attr('fill', dark.value ? 'white' : 'black')
+                .attr('fill', isDark.value ? 'white' : 'black')
                 .on('mouseover', function (event, d: any) {
                     // Show appropriate tooltip based on the name
                     if (name === 'total') {
@@ -168,7 +162,7 @@ const renderChart = () => {
     // Add lines based on display mode
     if (displayMode.value === 'medals') {
         // First add the totals line as reference
-        addLine(d => d.total, dark.value ? '#EEEEEE' : '#333333', 'total', yScale, true);
+        addLine(d => d.total, isDark.value ? '#EEEEEE' : '#333333', 'total', yScale, true);
 
         // For cumulative/stacked medal display
         // Bronze at the bottom
@@ -219,7 +213,7 @@ const renderChart = () => {
             .attr('cx', (d: any) => x(d.year))
             .attr('cy', (d: any) => yScale(d.bronze + d.silver + d.gold))
             .attr('r', 4)
-            .attr('fill', dark.value ? 'white' : 'black')
+            .attr('fill', isDark.value ? 'white' : 'black')
             .on('mouseover', function (event, d: any) {
                 showTooltip(event, d, `${capitalize(d.city)} ${d.year}\nGold: ${d.gold}\nSilver: ${d.silver}\nBronze: ${d.bronze}\nTotal: ${d.total}`);
             })
@@ -371,14 +365,14 @@ const showTooltip = (event: MouseEvent, d: any, content: string) => {
         .append('div')
         .attr('class', 'tooltip')
         .style('position', 'fixed') // Use fixed instead of absolute for more reliable positioning
-        .style('background-color', dark.value ? '#333' : 'white')
-        .style('color', dark.value ? 'white' : 'black')
-        .style('border', dark.value ? '1px solid #555' : '1px solid #ddd')
+        .style('background-color', isDark.value ? '#333' : 'white')
+        .style('color', isDark.value ? 'white' : 'black')
+        .style('border', isDark.value ? '1px solid #555' : '1px solid #ddd')
         .style('border-radius', '4px')
         .style('padding', '6px')
         .style('pointer-events', 'none')
         .style('font-size', '12px')
-        .style('box-shadow', dark.value ? '0 2px 5px rgba(0,0,0,0.3)' : '0 2px 5px rgba(0,0,0,0.1)')
+        .style('box-shadow', isDark.value ? '0 2px 5px rgba(0,0,0,0.3)' : '0 2px 5px rgba(0,0,0,0.1)')
         .style('transform', 'translate(-50%, -100%)') // Center horizontally and position above
         .style('opacity', 0);
 

@@ -29,11 +29,14 @@ import sports from '~/data/sports.json';
 import athletes from '~/data/athletes.json';
 import countries from '~/data/countries.json';
 
+
 // COMPOSABLES ------------------------------------------------------------------------------------------------------ //
 const router = useRouter();
 const config = useRuntimeConfig();
 const { setCanvas } = useCanvas();
 const { intro, setIntro, introPlaying, setIntroPlaying } = useIntro();
+const colorMode = useColorMode()
+const isDark = computed(() => colorMode.value === 'dark');
 
 // MAPBOX API & INTRO ----------------------------------------------------------------------------------------------- //
 const isClient = import.meta.client;
@@ -48,19 +51,6 @@ const currentText = ref<string>('');
 const skipButton = ref<HTMLElement | null>(null);
 const showSkipButton = ref<boolean>(false);
 const otherTooltipRef = ref<HTMLElement | null>(null);
-
-
-// COLOR SCHEME ----------------------------------------------------------------------------------------------------- //
-const colorScheme = computed(() => {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ?
-        {
-            style: 'mapbox://styles/mapbox/dark-v11',
-            extrusionColor: '#444444'
-        } : {
-            style: 'mapbox://styles/mapbox/light-v11',
-            extrusionColor: '#DDDDDD'
-        }
-});
 
 let canvas: mapboxgl.Map;
 let lastZoom: number = 0;
@@ -124,7 +114,7 @@ onMounted(async () => {
         // globe view
         canvas = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
-            style: colorScheme.value.style,
+            style: isDark.value ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11',
             dragRotate: false,
             center: [5, 43],
             zoom: 2,
@@ -136,7 +126,7 @@ onMounted(async () => {
         // space view
         canvas = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
-            style: colorScheme.value.style,
+            style: isDark.value ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11',
             dragRotate: false,
             center: [0, 0],
             zoom: 0,
@@ -148,7 +138,7 @@ onMounted(async () => {
         // paris view
         canvas = new mapboxgl.Map({
             container: mapContainer.value as HTMLElement,
-            style: colorScheme.value.style,
+            style: isDark.value ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11',
             dragRotate: false,
             center: [2.294694, 48.858093],
             zoom: 15.5,
@@ -226,7 +216,7 @@ onMounted(async () => {
             "source": "cbs",
             "layout": {},
             "paint": {
-                "fill-extrusion-color": colorScheme.value.extrusionColor,
+                "fill-extrusion-color": isDark.value ? '#444444' : '#DDDDDD',
                 "fill-extrusion-height": 2,
                 "fill-extrusion-opacity": 0.7
             },
@@ -303,7 +293,9 @@ onMounted(async () => {
         canvas.touchZoomRotate.disableRotation();
         canvas.on('touchmove', updatePitchBasedOnZoom);
         canvas.on('zoomend', updatePitchBasedOnZoom);
+    });
 
+    canvas.on('load', async () => {
         if (directGlobeAccess) {
             // @ts-ignore
             settleGlobeCanvas(canvas, otherTooltipRef, router);
@@ -312,7 +304,7 @@ onMounted(async () => {
             settleMapCanvas(canvas);
             await setMarkers(canvas, router);
         }
-    });
+    })
 
     // MARKERS UPDATE LOGIC ----------------------------------------------------------------------------------------- //
     canvas.on('move', () => {
@@ -322,12 +314,15 @@ onMounted(async () => {
     })
 
     // MAKE COLOR MODE REACTIVE ------------------------------------------------------------------------------------- //
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    mediaQuery.addEventListener('change', () => {
+    watch(colorMode, (newVal) => {
         if (canvas) {
-            canvas.setStyle(colorScheme.value.style);
+            if (canvas.getStyle().name === 'Mapbox Light' && newVal.value === 'dark') {
+                canvas.setStyle('mapbox://styles/mapbox/dark-v11')
+            } else if (canvas.getStyle().name === 'Mapbox Dark' && newVal.value === 'light') {
+                canvas.setStyle('mapbox://styles/mapbox/light-v11')
+            }
         }
-    });
+    })
 });
 
 onUnmounted(() => {

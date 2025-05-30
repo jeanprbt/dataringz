@@ -122,10 +122,11 @@ const COLORS = {
 };
 
 // Reactive state
-const isDarkMode = ref(false);
+const colorMode = useColorMode();
+const isDark = computed(() => colorMode.value === 'dark');
 
 // Function to get current color scheme
-const getColors = () => isDarkMode.value ? COLORS.dark : COLORS.light;
+const getColors = () => isDark.value ? COLORS.dark : COLORS.light;
 
 // Track team paths
 const teamPaths = new Map<string, TeamPathInfo[]>();
@@ -877,7 +878,7 @@ const drawRoundTitles = (
             if (bronzeMatchPos) {
                 svgElement.append("text")
                     .attr("x", bronzeMatchPos.x + (roundWidth * MATCH_BOX_WIDTH_RATIO / 2))
-                    .attr("y", maxRound < 3 ? bronzeMatchPos.y - 70 : bronzeMatchPos.y)
+                    .attr("y", maxRound < 3 ? bronzeMatchPos.y - 20 : bronzeMatchPos.y)
                     .attr("text-anchor", "middle")
                     .attr("font-size", TITLE_FONT_SIZE)
                     .attr("font-weight", "bold")
@@ -955,23 +956,9 @@ watch(() => props.matches, () => {
     drawTournament();
 }, { deep: true });
 
-// Watch for dark mode changes
-const checkDarkMode = () => {
-    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    isDarkMode.value = darkModeQuery.matches;
-
-    // Listen for changes in user preference
-    darkModeQuery.addEventListener('change', (e) => {
-        isDarkMode.value = e.matches;
-        drawTournament();
-    });
-};
-
 // Lifecycle hooks
 onMounted(() => {
-    checkDarkMode();
     drawTournament();
-
     resizeObserver = new ResizeObserver(() => {
         drawTournament();
     });

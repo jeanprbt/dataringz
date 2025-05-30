@@ -11,7 +11,7 @@
                     rounded-lg p-[3px] md:p-[5px] shadow-md 
                 ">
                 <div v-for="(sport, index) in sports" :key="index"
-                    :class="['w-[25px] md:w-[30px] h-[25px] md:h-[30px] md:m-[2px]', { 'filter invert brightness-80': dark }]">
+                    :class="['w-[25px] md:w-[30px] h-[25px] md:h-[30px] md:m-[2px] dark:invert']">
                     <img class="w-full h-full" :src="sport.src" :alt="sport.alt" />
                 </div>
             </div>
@@ -19,7 +19,7 @@
                 enter-to-class="opacity-100" leave-from-class="opacity-100" leave-active-class="duration-300 ease-in"
                 leave-to-class="opacity-0">
                 <img v-if="direction !== 0" src="/img/arrow.svg" alt="direction arrow"
-                    :class="['absolute w-[10px] top-1/2 left-1/2 -translate-1/2 animate-arrow', { 'filter invert brightness-80': dark }]"
+                    :class="['absolute w-[10px] top-1/2 left-1/2 -translate-1/2 animate-arrow dark:invert']"
                     :style="arrowStyle" />
             </transition>
         </div>
@@ -52,16 +52,7 @@ const props = defineProps({
 })
 
 const direction = toRef(props, "direction");
-const show = toRef(props, "show");
-
-const dark = ref(false);
-if (process.client && window.matchMedia) {
-    const matcher = window.matchMedia('(prefers-color-scheme: dark)');
-    dark.value = matcher.matches;
-    matcher.addEventListener('change', e => {
-        dark.value = e.matches;
-    });
-}
+const show = toRef(props, "show"); 
 
 const isSmallScreen = ref(false);
 onMounted(() => {

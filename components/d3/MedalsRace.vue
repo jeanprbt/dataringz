@@ -16,14 +16,14 @@
             <UCard class="bg-zinc-500/10" :ui="{ body: 'px-2.5 py-1.5 md:px-2.5 md:py-1.5', root: 'ring-0' }">
                 <template #default>
                     <div class="flex items-center gap-2 px-2 py-1">
-                        <UIcon name="i-heroicons-chevron-double-right" class="text-zinc-500" />
-                        <p class="text-zinc-500 text-sm font-medium">Speed</p>
-                        <USlider v-model="speed" :min="1" :max="10" :default-value="5" size="xs" class="w-32" />
+                        <UIcon name="i-heroicons-calendar" class="text-zinc-500" />
+                        <p class="text-zinc-500 text-sm font-medium">Progression</p>
+                        <USlider v-model="progressionValue" :min="0" :max="100" :default-value="0" size="xs" class="w-32" @update:model-value="handleProgressionChange" />
                     </div>
                 </template>
             </UCard>
         </div>
-        <div class="w-full aspect-[3/2] my-5 overflow-hidden relative" ref="chartContainer"></div>
+        <div class="w-full min-h-[350px] aspect-[3/2] my-5 overflow-hidden relative flex items-center justify-center" ref="chartContainer"></div>
     </div>
 </template>
 
@@ -57,7 +57,7 @@ const xScale = ref(null);
 const yScale = ref(null);
 const countryColors = ref({});
 const currentDate = ref(null);
-const speed = ref(5);
+const progressionValue = ref(0);
 const countries = ref({});
 const width = ref(0);
 const height = ref(0);
@@ -80,10 +80,22 @@ const currentDateFormatted = computed(() => {
 });
 
 const effectiveAnimationDelay = computed(() => {
-    return props.animationDelay / (speed.value / 5);
+    return props.animationDelay;
 });
 
 // Methods
+const handleProgressionChange = (value) => {
+    // Calculate the date index based on the slider position
+    const newIndex = Math.floor((value / 100) * (dates.value.length - 1));
+    
+    // Update date and animation state
+    currentDateIndex.value = newIndex;
+    currentDate.value = dates.value[newIndex];
+    
+    // Update chart without animation when sliding
+    updateChart(true);
+};
+
 const processData = () => {
     dailyRankings.value = createCumulativeMedalRankings(props.medalData);
     dates.value = Object.keys(dailyRankings.value).sort();
@@ -270,10 +282,8 @@ const initializeChart = () => {
 
     // Add axes
     const xAxis = d3.axisBottom(xScale.value)
-        .tickFormat(d => {
-            const date = new Date(d);
-            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        });
+        .tickFormat(() => '') // Empty string for tick labels
+        .tickSize(0);         // No tick marks
 
     const yAxis = d3.axisLeft(yScale.value)
         .tickValues([...d3.range(1, 21), 20]);
@@ -379,8 +389,27 @@ const updateChart = (immediate = false) => {
     // Update the lines
     const linesGroup = svg.value.select('.lines-group');
 
+    // Filter out countries that should not be shown in the timeline yet
+    // Only keep countries that have appeared in the top 20 by the current date
+    const filteredLineData = lineData.filter(country => {
+        // Check if the country has ever appeared in top 20 by the current date
+        const countryEverInTop = country.points.some((point, idx) => {
+            const pointDate = country.points[idx].date;
+            // Only check points up to current date
+            return pointDate <= currentDate.value && point.rank <= 20;
+        });
+        return countryEverInTop;
+    });
+
     const lines = linesGroup.selectAll('.country-line')
-        .data(lineData, d => d.countryCode);
+        .data(filteredLineData, d => d.countryCode);
+    
+    // Remove lines for countries that haven't appeared yet when going backwards
+    lines.exit()
+        .transition()
+        .duration(duration)
+        .attr('opacity', 0)
+        .remove();
 
     // Enter: Add new lines
     const enterLines = lines.enter()
@@ -548,7 +577,10 @@ const animateNextFrame = () => {
     if (currentDateIndex.value < dates.value.length - 1) {
         currentDateIndex.value++;
         currentDate.value = dates.value[currentDateIndex.value];
-
+        
+        // Update progression slider value to match current position
+        progressionValue.value = (currentDateIndex.value / (dates.value.length - 1)) * 100;
+        
         updateChart();
 
         animationTimer.value = setTimeout(() => {
@@ -571,11 +603,12 @@ const resetAnimation = () => {
     clearAnimation();
     currentDateIndex.value = 0;
     currentDate.value = dates.value[0];
+    progressionValue.value = 0;
     isAnimating.value = false;
     updateChart(true);
     // Clear old lines
     svg.value.selectAll('.country-line').remove();
-    svg.value.selectAll('.label').remove();
+    svg.value.selectAll('.country-label').remove();
 };
 
 const clearAnimation = () => {
@@ -590,6 +623,9 @@ onMounted(() => {
     processData();
     initializeChart();
     window.addEventListener('resize', handleResize);
+    setTimeout(() => {
+        startAnimation();
+    }, 500);
 });
 
 onBeforeUnmount(() => {

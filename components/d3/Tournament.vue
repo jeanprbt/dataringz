@@ -479,7 +479,7 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
     });
 
     const paddingX = 4;
-    const paddingY = 5;
+    const paddingY = 2;
 
     // Team 1 info
     const team1Group = matchGroup.append("g")
@@ -521,7 +521,7 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
                 .style("cursor", "pointer")
                 .text(name.trim());
 
-            fitTextToWidth(tspan, (boxWidth - 80) / 2);
+            fitTextToWidth(tspan, (boxWidth - 90) / 2);
 
             // Get bbox for highlight
             const bboxNode = tspan.node();
@@ -583,7 +583,7 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
             .style("cursor", "pointer")
             .text(match.participant1.replace('/', '\u00A0\u00A0|\u00A0\u00A0') + getMedalEmoji(match.participant1, isLastRound));
 
-        fitTextToWidth(team1Text, boxWidth - 80);
+        fitTextToWidth(team1Text, boxWidth - 90);
 
         // Get bounding box of the text to size the highlight rect
         let bboxNode = team1Text.node();
@@ -672,7 +672,7 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
                 .style("cursor", "pointer")
                 .text(name.trim());
 
-            fitTextToWidth(tspan, (boxWidth - 80) / 2);
+            fitTextToWidth(tspan, (boxWidth - 90) / 2);
 
             // Get bbox for highlight
             const bboxNode = tspan.node();
@@ -736,7 +736,7 @@ const drawMatchBox = (matchGroup: d3.Selection<SVGGElement, unknown, null, undef
             .style("cursor", "pointer")
             .text(match.participant2.replace('/', '\u00A0\u00A0|\u00A0\u00A0') + getMedalEmoji(match.participant2, isLastRound));
 
-        fitTextToWidth(team2Text, boxWidth - 80);
+        fitTextToWidth(team2Text, boxWidth - 90);
 
         // Get bounding box of the text to size the highlight rect
         let bboxNode = team2Text.node();
@@ -865,6 +865,26 @@ const drawRoundTitles = (
             .attr("font-weight", "bold")
             .attr("fill", currentColors.title)
             .text(getRoundTitle(round, maxRound));
+    }
+
+    // Add bronze medal title if there are bronze medal games
+    if (hasBronzeMedal) {
+        const bronzeMatches = props.matches.filter(m => m.isBronzeMedal);
+        if (bronzeMatches.length > 0) {
+            const bronzeMatch = bronzeMatches[0];
+            const bronzeMatchPos = calculateMatchPositions(height, margin + TITLE_MARGIN_TOP, roundWidth, height / 8).get(bronzeMatch.id);
+
+            if (bronzeMatchPos) {
+                svgElement.append("text")
+                    .attr("x", bronzeMatchPos.x + (roundWidth * MATCH_BOX_WIDTH_RATIO / 2))
+                    .attr("y", maxRound < 3 ? bronzeMatchPos.y - 70 : bronzeMatchPos.y)
+                    .attr("text-anchor", "middle")
+                    .attr("font-size", TITLE_FONT_SIZE)
+                    .attr("font-weight", "bold")
+                    .attr("fill", currentColors.bronze.text)
+                    .text("Bronze Medal Match");
+            }
+        }
     }
 };
 

@@ -119,7 +119,7 @@ const tournamentMatches = computed(() => {
 
     // Define knockout stage patterns (these are the ones we want to show in tournament bracket)
     const knockoutStages = [
-        'Round of 16', 'Quarterfinal', 'Quarter-Final', 'Quarterfinals', 'Quarter-Finals',
+        'Round of 32', 'Round of 16', 'Quarterfinal', 'Quarter-Final', 'Quarterfinals', 'Quarter-Finals',
         'Semifinal', 'Semi-Final', 'Semifinals', 'Semi-Finals',
         'Final', 'Gold Medal Game', 'Gold Medal Match', 'Gold Medal Battle', 'Gold Medal Bout', 'Gold Medal Contest',
         'Bronze Medal Game', 'Bronze Medal Match', 'Bronze Medal Battle', 'Bronze Medal Bout', 'Bronze Medal Contest'
@@ -301,13 +301,14 @@ const getRoundNumber = (stageName: string): number => {
     const stage = stageName.toLowerCase();
 
     // Map stages to sequential round numbers for proper tournament progression
-    if (stage.includes('round of 16')) return 0;
-    if (stage.includes('quarterfinal') || stage.includes('quarter-final') || stage.includes('quarter final')) return 1;
-    if (stage.includes('semifinal') || stage.includes('semi-final') || stage.includes('semi final')) return 2;
+    if (stage.includes('round of 32')) return 0;
+    if (stage.includes('round of 16')) return 1;
+    if (stage.includes('quarterfinal') || stage.includes('quarter-final') || stage.includes('quarter final')) return 2;
+    if (stage.includes('semifinal') || stage.includes('semi-final') || stage.includes('semi final')) return 3;
 
     // Final round (3) - both gold and bronze medal matches/contests
-    if (stage.includes('final') && !stage.includes('semi')) return 3;
-    if (stage.includes('gold') || stage.includes('bronze')) return 3;
+    if (stage.includes('final') && !stage.includes('semi')) return 4;
+    if (stage.includes('gold') || stage.includes('bronze')) return 4;
 
     // Default fallback
     return 0;

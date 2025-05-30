@@ -42,7 +42,7 @@ npm run dev (-- --intro)
 | DUCOURAU Maxime | 329544 |
 | PERBET Jean | 341418 |
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2)
+[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
 ### Milestone 1
 
@@ -166,7 +166,7 @@ The 2-pages report describing the project goal is named `Milestone2.pdf`, you ca
 
 #### Process Book
 
-The process book for this project can be found in `dataringz_process_book.pdf` at the root of the repository. It details our journey from concept to final product, including our design decisions, challenges faced, and individual team member contributions.
+The process book for this project can be found in `process_book_M3.pdf` at the root of the repository. It details our journey from concept to final product, including our design decisions, challenges faced, and individual team member contributions.
 
 #### Screencast
 

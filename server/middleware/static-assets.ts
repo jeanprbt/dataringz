@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
             });
         }
 
-        // Set appropriate content type based on file extension
+        // set appropriate content type based on file extension
         const ext = storagePath.split(".").pop()?.toLowerCase();
         if (ext === "jpg" || ext === "jpeg") {
             setResponseHeader(event, "Content-Type", "image/jpeg");
@@ -39,6 +39,23 @@ export default defineEventHandler(async (event) => {
             setResponseHeader(event, "Content-Type", "image/svg+xml");
         } else if (ext === "mp4") {
             setResponseHeader(event, "Content-Type", "video/mp4");
+            setResponseHeader(event, "Accept-Ranges", "bytes");
+            setResponseHeader(event, "Content-Length", Number(stats.size));
+
+            const range = getHeader(event, "range");
+            if (range) {
+                const parts = range.replace(/bytes=/, "").split("-");
+                const start = parseInt(parts[0], 10);
+                const end = parts[1] ? parseInt(parts[1], 10) : stats.size - 1;
+                const chunksize = (end - start) + 1;
+                
+                // set partial content status
+                event.node.res.statusCode = 206;
+                setResponseHeader(event, "Content-Range", `bytes ${start}-${end}/${stats.size}`);
+                setResponseHeader(event, "Content-Length", chunksize);
+                
+                return sendStream(event, createReadStream(storagePath, { start, end }));
+            }
         }
 
         // stream the file as response

@@ -57,6 +57,7 @@ definePageMeta({
 useHead({
     title: 'DataRingz - Paris 2024 Olympic Games Visualization',
     meta: [
+        { name: 'google-site-verification', content: 'YpwQQt7TLD_0_F63wR85H2LF8mFNpYpwlaOotVuRfsg' },
         { name: 'description', content: 'Interactive data visualization for the Paris 2024 Olympic Games. Explore athletes, sports, venues, and events through immersive visualizations.' },
         // Open Graph
         { property: 'og:title', content: 'DataRingz - Paris 2024 Olympic Games Visualization' },

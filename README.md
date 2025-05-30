@@ -170,4 +170,4 @@ The process book for this project can be found in `process_book_M3.pdf` at the r
 
 #### Screencast
 
-Watch our 2-minute project [presentation video](https://dataringz.martinctl.dev/storage/Dataringz_Presentation.mp4) demonstrating the key features and main contributions of our visualization.
+Watch our 2-minute project [presentation video](https://dataringz.martinctl.dev/storage/Dataringz_Presentation.mp4) demonstrating the key features and main contributions of our visualization. You can also find it on YouTube [here](https://youtu.be/g1Jm5Clbjf8).

@@ -1,17 +1,22 @@
 <template>
     <div class="flex flex-col gap-4 h-full">
         <div class="flex flex-wrap justify-left items-center gap-2">
-            <span class="text-sm text-gray-600 dark:text-gray-400">Compare</span>
-            <div
-                class="min-w-[12rem] max-w-[16rem] w-fit relative inline-flex items-center px-3 py-1 bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-700 rounded-lg">
-                <div class="flex items-center gap-2 flex-1">
-                    <img :src="currentSportIcon" :alt="currentSportName"
-                        class="w-6 h-6 rounded-full object-cover dark:invert dark:brightness-100" />
-                    <span class="text-sm text-gray-900 dark:text-white truncate">{{ currentSportName }}</span>
+            <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                <span class="text-sm text-gray-600 dark:text-gray-400">Compare</span>
+                <div
+                    class="w-40 md:w-64 relative inline-flex items-center px-3 py-1 bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-700 rounded-lg">
+                    <div class="flex items-center gap-2 flex-1">
+                        <img :src="currentSportIcon" :alt="currentSportName"
+                            class="w-6 h-6 rounded-full object-cover dark:invert dark:brightness-100" />
+                        <span class="text-sm text-gray-900 dark:text-white truncate">{{ currentSportName }}</span>
+                    </div>
                 </div>
             </div>
-            <span class="text-sm text-gray-600 dark:text-gray-400">with</span>
-            <USelectMenu v-model="selectedItem" :avatar="selectedItem?.avatar" :items="items" class="w-64" />
+            <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                <span class="text-sm text-gray-600 dark:text-gray-400">with</span>
+                <USelectMenu v-model="selectedItem" :avatar="selectedItem?.avatar" :items="items"
+                    class="w-48 md:w-64" />
+            </div>
         </div>
         <div ref="chartContainer" class="flex-1 w-full min-h-[40vh]"></div>
         <div class="flex flex-wrap items-center justify-center text-sm mt-2 gap-4">
@@ -218,7 +223,7 @@ const createHistogram = () => {
         .attr('opacity', 0.9)  // slightly increase default opacity
         .attr('rx', 1)
         .attr('cursor', 'pointer');
-        
+
     // Animate primary bars growing up
     primaryBars.transition()
         .duration(800)
@@ -238,7 +243,7 @@ const createHistogram = () => {
         .attr('opacity', 0.9)
         .attr('rx', 1)
         .attr('cursor', 'pointer');
-        
+
     // Animate comparison bars growing up after a slight delay
     compareBars.transition()
         .duration(800)
@@ -374,7 +379,7 @@ const createHistogram = () => {
     svg.append('text')
         .attr('transform', 'rotate(-90)')
         .attr('x', -(height / 2))
-        .attr('y', 1)
+        .attr('y', 4)
         .attr('text-anchor', 'middle')
         .attr('font-size', '10px')
         .attr('fill', '#6b7280')
@@ -386,26 +391,31 @@ const createHistogram = () => {
         .style('opacity', 1);
 };
 
-// Add resize handler
-const handleResize = () => {
-    createHistogram();
-};
-
+let resizeObserver: ResizeObserver | null = null;
 onMounted(() => {
-    createHistogram();
-    window.addEventListener('resize', handleResize);
+    if (chartContainer.value) {
+        nextTick(() => {
+            createHistogram();
+            resizeObserver = new ResizeObserver(() => {
+                createHistogram();
+            });
+            resizeObserver.observe(chartContainer.value!);
+        });
+    }
 });
 
 onUnmounted(() => {
-    window.removeEventListener('resize', handleResize);
+    if (resizeObserver && chartContainer.value) {
+        resizeObserver.unobserve(chartContainer.value);
+        resizeObserver = null;
+    }
 });
+
 
 watch(() => [props.sportSlug, compareSlug.value], createHistogram);
 watch(selectedItem, (newVal) => {
     compareSlug.value = newVal.value;
 });
-
-// Update selectedItem to use the first item when sport changes
 watch(() => props.sportSlug, () => {
     selectedItem.value = items.value[0];
 }, { immediate: true });

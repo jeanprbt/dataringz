@@ -1,5 +1,5 @@
 <template>
-    <PageModal :show="showVenuePage" :transition="transition" :items="items" @close="closePage">
+    <PageModal :show="showVenuePage" :transition="transition" :items="items" @close="closePage" @back="router.back()">
         <div v-if="venue"
             :class="['gap-4 p-2 h-full flex flex-col overflow-y-auto', { 'md:grid md:grid-cols-12 md:grid-rows-12 md:overflow-hidden': selected === 0 }]">
             <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
@@ -51,7 +51,7 @@
             </div>
 
             <UCard variant="soft" :ui="{ 'body': 'p-0 sm:p-0 h-full' }" :class="{
-                'col-span-12 md:col-span-4 row-span-4 flex-shrink-0 h-64 md:h-auto': selected === 0,
+                'col-span-12 md:col-span-4 row-span-4 flex-shrink-0 h-32 md:h-auto': selected === 0,
                 'hidden': selected !== 0 && selected !== 3
             }">
                 <template #default>

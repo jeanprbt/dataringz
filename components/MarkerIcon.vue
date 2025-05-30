@@ -5,13 +5,13 @@
             <div class="
                     thumbnail 
                     flex flex-wrap justify-center 
-                    w-[50px] h-auto
+                    w-[35px] md:w-[50px] h-auto
                     bg-zinc-50 hover:bg-zinc-200 dark:bg-zinc-800 hover:dark:bg-zinc-700
                     border-[0.5px] border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600
-                    rounded-lg p-[5px] shadow-md 
+                    rounded-lg p-[3px] md:p-[5px] shadow-md 
                 ">
                 <div v-for="(sport, index) in sports" :key="index"
-                    :class="['w-[30px] h-[30px] m-[2px]', { 'filter invert brightness-80': dark }]">
+                    :class="['w-[25px] md:w-[30px] h-[25px] md:h-[30px] md:m-[2px]', { 'filter invert brightness-80': dark }]">
                     <img class="w-full h-full" :src="sport.src" :alt="sport.alt" />
                 </div>
             </div>
@@ -63,8 +63,18 @@ if (process.client && window.matchMedia) {
     });
 }
 
+const isSmallScreen = ref(false);
+onMounted(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const updateScreenSize = () => {
+        isSmallScreen.value = mediaQuery.matches;
+    };
+    updateScreenSize();
+    mediaQuery.addEventListener('change', updateScreenSize);
+});
+
 const arrowStyle = computed(() => {
-    const radius = 40;
+    const radius = isSmallScreen.value ? 25 : 40;
     const angleInRadians = (direction.value * Math.PI) / 180;
     const x = radius * Math.sin(angleInRadians);
     const y = -radius * Math.cos(angleInRadians) * (1 + (props.sports.length - 1) / 2);

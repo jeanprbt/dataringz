@@ -3,13 +3,13 @@
         @click="close">
         <div :class="['relative rounded-xl flex flex-col max-w-7xl p-1 w-[95%] md:w-[90%] h-[95%] md:h-[90%] overflow-hidden', modalShapeClass]"
             @click.stop>
-            <div :class="['sticky top-0 z-10 flex items-center py-4 px-4 opacity-0 justify-between', modalHeaderClass]">
-                <UButton v-if="back && isSmallScreen" @click="emit('back')" icon="i-heroicons-chevron-left" variant="ghost" />
+            <div :class="['sticky top-0 z-10 flex items-center py-2 md:py-4 px-2 md:px-4 opacity-0 justify-between', modalHeaderClass]">
+                <UButton v-if="back && isSmallScreen" @click="emit('back')" icon="i-heroicons-chevron-left" variant="ghost" size="xl"/>
                 <UBreadcrumb v-else :items="items" class="text-zinc-500 dark:text-zinc-400"
                     :ui="{ link: 'hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors' }" />
-                <UButton @click="close" icon="i-heroicons-x-mark" variant="ghost"/>
+                <UButton @click="close" icon="i-heroicons-x-mark" variant="ghost" size="xl"/>
             </div>
-            <div :class="['flex-1 px-4 pb-4 overflow-auto h-full', modalContentContainerClass]">
+            <div :class="['flex-1 px-2 md:px-4 pb-2 md:pb-4 overflow-auto h-full', modalContentContainerClass]">
                 <div :class="['opacity-0 h-full', modalContentClass]">
                     <slot></slot>
                 </div>

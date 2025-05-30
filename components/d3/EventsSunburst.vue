@@ -1,7 +1,6 @@
 <template>
-    <div class="w-full sm:w-[40vw] h-full flex items-center justify-center">
+    <div class="w-[100vw] sm:w-[40vw] h-full flex items-center justify-center">
         <div ref="sunburstContainer" class="relative aspect-square w-[min(100vw,100vh)] h-[min(100vw,100vh)] sm:w-[min(40vw,100vh)] sm:h-[min(40vw,100vh)] max-w-full max-h-full">
-            <!-- Center Icon Container -->
             <div ref="centerIcon"
                 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-50 w-20 h-20">
                 <UButton v-if="isDetailView" @click="zoomToRoot" icon="i-heroicons-arrow-uturn-left" variant="soft"
@@ -11,9 +10,6 @@
                         alt="Sport icon" />
                 </div>
             </div>
-        </div>
-        <div ref="tooltip"
-            class="absolute hidden bg-white dark:bg-zinc-800 p-2 rounded shadow-lg border border-gray-200 dark:border-zinc-700 text-sm z-10">
         </div>
     </div>
 </template>
@@ -29,17 +25,14 @@ import { useRouter } from 'vue-router';
 // Refs for DOM elements
 const sunburstContainer = ref(null);
 const centerIcon = ref(null);
-const tooltip = ref(null);
 
 // Router for navigation
 const router = useRouter();
 
 // Reactive state
-const tooltipTimer = ref(null);
 const currentHoverIcon = ref(null);
 const isDetailView = ref(false);
 const rootZoomFunction = ref(null);
-const tooltipDelay = 500;
 
 // Transform sports data to the format needed for D3
 function transformSportsData(sports) {
@@ -86,35 +79,6 @@ function transformSportsData(sports) {
 }
 
 const sunburstData = transformSportsData(sports);
-
-// Tooltip methods
-function showTooltip(text, event) {
-    // Clear any existing timer
-    if (tooltipTimer.value) clearTimeout(tooltipTimer.value);
-
-    // Set a new timer to show the tooltip after delay
-    tooltipTimer.value = setTimeout(() => {
-        const tooltipEl = tooltip.value;
-        tooltipEl.innerHTML = text;
-
-        tooltipEl.style.left = `${event.clientX - 100}px`;
-        tooltipEl.style.top = `${event.clientY - 150}px`;
-        tooltipEl.classList.remove('hidden');
-    }, tooltipDelay);
-}
-
-function hideTooltip() {
-    // Clear any existing timer
-    if (tooltipTimer.value) {
-        clearTimeout(tooltipTimer.value);
-        tooltipTimer.value = null;
-    }
-
-    // Hide tooltip immediately
-    if (tooltip.value) {
-        tooltip.value.classList.add('hidden');
-    }
-}
 
 // Method to handle zooming back to root view
 function zoomToRoot() {
@@ -224,24 +188,6 @@ function createSunburstChart() {
         .style("margin", "auto")
         .style("display", "block");
 
-    // Add a clickable background for the center area
-    const centerClickArea = svg.append("circle")
-        .datum(root)
-        .attr("r", radius) // Make this large enough to cover the first ring
-        .attr("fill", "none")
-        .attr("pointer-events", "all")
-        .style("cursor", "pointer")
-        .on("click", (event) => {
-            // Only trigger if click is within the inner circle area
-            const [x, y] = d3.pointer(event);
-            const distance = Math.sqrt(x * x + y * y);
-
-            // If distance from center is less than the inner radius of the first ring
-            if (distance < radius) {
-                centerClicked(event);
-            }
-        });
-
     // Append arcs with initial state for animation
     const path = svg.append("g")
         .selectAll("path")
@@ -270,17 +216,6 @@ function createSunburstChart() {
         .on("click", (event, d) => clicked(event, d))
         .on("mouseenter", (event, d) => mouseEntered(event, d))
         .on("mouseleave", () => mouseLeft())
-        .on("mousemove", (event, d) => {
-            // Show tooltip with full name on mousemove
-            const tooltipText = d.depth === 2 
-                ? `${d.data.name}<br><small style="color: #6b7280; font-style: italic;">Click to view details</small>`
-                : d.data.name;
-            showTooltip(tooltipText, event);
-        })
-        .on("mouseout", () => {
-            // Hide tooltip on mouseout
-            hideTooltip();
-        });
         
     // Animate the arcs in a circular pie-chart-like reveal
     path.transition()
@@ -309,8 +244,8 @@ function createSunburstChart() {
         .text(d => {
             // Truncate label if it's too long
             const name = d.data.name;
-            if (name.length > 16) {
-                return name.substring(0, 14) + "..";
+            if (name.length > 10) {
+                return name.substring(0, 10) + "..";
             }
             return name;
         })
@@ -605,14 +540,10 @@ function createSunburstChart() {
 // Lifecycle hooks
 onMounted(() => {
     createSunburstChart();
-    // Add resize event listener to make chart responsive
     window.addEventListener('resize', handleResize);
 });
 
 onBeforeUnmount(() => {
-    // Clean up event listener
     window.removeEventListener('resize', handleResize);
-    // Clear any pending tooltip timers
-    if (tooltipTimer.value) clearTimeout(tooltipTimer.value);
 });
 </script>

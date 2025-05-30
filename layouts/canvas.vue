@@ -1,5 +1,6 @@
 <template>
-    <div ref="mapContainer" :class="['flex-1 relative overflow-hidden', { 'pointer-events-none': introPlaying }]"></div>
+    <div ref="mapContainer"
+        :class="['fixed inset-0 w-full overflow-hidden z-0', { 'pointer-events-none': introPlaying }]"></div>
     <button ref="skipButton" v-show="showSkipButton" @click="skipIntro"
         class="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-zinc-500 hover:text-zinc-400 dark:text-zinc-400 hover:dark:text-zinc-500 px-4 py-2 rounded-lg shadow-sm backdrop-blur-3xl border-1 border-zinc-300 hover:border-zinc-200 dark:border-zinc-600 hover:dark:border-zinc-700">
         skip intro
@@ -289,6 +290,18 @@ onMounted(async () => {
             }
             return result;
         };
+
+        const updatePitchBasedOnZoom = () => {
+            const currentZoom = canvas.getZoom();
+            if (currentZoom > canvas.getMinZoom() + 2) {
+                const newPitch = Math.max(0, Math.min(60, (currentZoom - 10) * 10));
+                canvas.setPitch(newPitch);
+            }
+        }
+        canvas.touchPitch.disable();
+        canvas.touchZoomRotate.disableRotation();
+        canvas.on('touchmove', updatePitchBasedOnZoom);
+        canvas.on('zoomend', updatePitchBasedOnZoom);
 
         if (directGlobeAccess) {
             // @ts-ignore

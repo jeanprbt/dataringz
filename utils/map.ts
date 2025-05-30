@@ -77,6 +77,12 @@ const setMarkers = async (map: mapboxgl.Map, router: Router, visible: boolean = 
                     border-top-color: rgb(63, 63, 70);
                 }
             }
+
+            @media (max-width: 767px) {
+                .venue-popup {
+                    display: none !important;
+                }
+            }
         `;
         document.head.appendChild(style);
 
@@ -257,7 +263,7 @@ const flyToVenue = async (map: mapboxgl.Map, venueCoordinates: [number, number])
 }
 
 // PRIVATE METHODS -------------------------------
-const _getPaddedMapBounds = (mapBounds: LngLatBounds, paddingFactor: number = 0.1) => {
+const _getPaddedMapBounds = (mapBounds: LngLatBounds, paddingFactor: number = 0.12) => {
     // sw and ne corners
     const { lng: swLng, lat: swLat } = mapBounds.getSouthWest();
     const { lng: neLng, lat: neLat } = mapBounds.getNorthEast();

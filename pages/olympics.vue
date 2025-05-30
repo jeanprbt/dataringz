@@ -1,211 +1,200 @@
 <template>
-    <PageModal :show="showOlympicsPage" :transition="transition" :back="transition" :items="items" @close="closePage">
-        <div :class="['gap-4 p-2 h-full', {
-            'grid grid-cols-1 md:grid-cols-12 md:grid-rows-4 h-full md:overflow-hidden': selected === 0,
-            'flex flex-col md:overflow-hidden': selected === 0
-        }]">
-            <!-- Small screen layout: Key info cards at top -->
-            <div class="flex flex-col gap-4 md:hidden" v-if="selected === 0">
-                <!-- Info cards row -->
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- XXXIIIth Olympics card - larger on small screens -->
-                    <UCard variant="soft" :ui="{ 'body': 'p-4 h-full' }">
-                        <template #default>
-                            <div class="flex items-center justify-center h-full rounded-lg">
-                                <div class="text-center">
-                                    <h2 class="text-4xl sm:text-5xl font-bold text-zinc-800 dark:text-white mb-2">
-                                        XXXIII<sup class="text-xl relative -top-6">th</sup>
-                                    </h2>
-                                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                                        Olympics of the modern era
-                                    </p>
-                                </div>
-                            </div>
-                        </template>
-                    </UCard>
-
-                    <!-- 203 National Olympic Committees card - larger on small screens -->
-                    <UCard variant="soft" :ui="{ 'body': 'p-4 h-full' }">
-                        <template #default>
-                            <div class="flex items-center justify-center h-full rounded-lg">
-                                <div class="text-center">
-                                    <h2 class="text-4xl sm:text-5xl font-bold text-zinc-800 dark:text-white mb-2">
-                                        203</h2>
-                                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                                        National Olympic Committees
-                                    </p>
-                                </div>
-                            </div>
-                        </template>
-                    </UCard>
-                </div>
-
-                <!-- Stats Carousel - bigger on small screens -->
-                <UCard variant="soft" :ui="{ 'body': 'p-4 h-full min-h-[200px]' }">
+    <PageModal :show="showOlympicsPage" :transition="transition" :back="transition" :items="items" @close="closePage"
+        @back="router.back()">
+        <div
+            :class="['gap-4 p-2 h-full flex flex-col overflow-y-auto', { 'md:grid md:grid-cols-12 md:grid-rows-4 md:overflow-hidden': selected === 0 }]">
+        <div class="flex flex-col gap-4 md:hidden" v-if="selected === 0">
+            <div class="grid grid-cols-2 gap-4">
+                <UCard variant="soft" :ui="{ 'body': 'p-10 h-full' }">
                     <template #default>
-                        <div class="flex flex-col justify-center items-center h-full text-center py-2">
-                            <StatsCaroussel />
+                        <div class="flex items-center justify-center h-full rounded-lg">
+                            <div class="text-center">
+                                <h2 class="text-4xl sm:text-5xl font-bold text-zinc-800 dark:text-white mb-2">
+                                    XXXIII<sup class="text-xl relative -top-6">th</sup>
+                                </h2>
+                                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                                    Olympics of the modern era
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+                </UCard>
+                <UCard variant="soft" :ui="{ 'body': 'p-10 h-full' }">
+                    <template #default>
+                        <div class="flex items-center justify-center h-full rounded-lg">
+                            <div class="text-center">
+                                <h2 class="text-4xl sm:text-5xl font-bold text-zinc-800 dark:text-white mb-2">
+                                    203</h2>
+                                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                                    National Olympic Committees
+                                </p>
+                            </div>
                         </div>
                     </template>
                 </UCard>
             </div>
-
-            <!-- Medium+ screen layout: Original grid -->
-            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
-                'hidden md:block col-span-1 md:col-span-3 md:row-span-1': selected === 0,
-                'hidden': selected !== 0 && selected !== 1
-            }">
+            <UCard variant="soft" :ui="{ 'body': 'p-4 h-full min-h-[200px]' }">
                 <template #default>
-                    <div class="flex items-center h-full rounded-lg">
-                        <div>
-                            <h2 class="text-xl md:text-5xl font-bold text-zinc-800 dark:text-white mb-1">
-                                XXXIII<sup class="text-[1rem] relative -top-6">th</sup>
-                            </h2>
-                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                                Olympics of the modern era
-                            </p>
-                        </div>
-                    </div>
-                </template>
-            </UCard>
-
-            <UCard variant="soft" @click="selected === 2 || rankingsHovered ? () => { } : toggleCard(2)"
-                :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
-                    'col-span-1 md:col-span-6 md:row-span-2': selected === 0,
-                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previousCard === 2,
-                    'transition-all duration-500 transform h-full overflow-auto': selected === 2,
-                    'hidden': selected !== 0 && selected !== 2
-                }" @mouseenter="rankingsCardHovered = true" @mouseleave="rankingsCardHovered = false">
-                <template #default>
-                    <div v-if="selected === 2" class="h-full relative overflow-auto">
-                        <div class="sticky top-0 right-0 z-50 -mb-8">
-                            <div class="flex justify-end">
-                                <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in"
-                                    @click.stop="toggleCard(2)" />
-                            </div>
-                        </div>
-                        <UTable sticky :data="totalMedals" :columns="medalsColumns" class="w-11/12" />
-                    </div>
-                    <div v-else class="h-full relative py-2">
-                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
-                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
-                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="rankingsCardHovered" name="i-heroicons-arrow-up-right"
-                                class="absolute right-0" />
-                        </transition>
-                        <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">Medals
-                            ranking</h2>
-                        <div class="flex flex-1 items-center justify-center" @mouseenter="rankingsHovered = true"
-                            @mouseleave="rankingsHovered = false">
-                            <UTable :data="compactMedals" :columns="compactColumns" />
-                        </div>
-                    </div>
-                </template>
-            </UCard>
-
-            <UCard variant="soft" :ui="{ 'body': 'p-2 sm:p-4 h-full' }" :class="{
-                'hidden md:block col-span-1 md:col-span-3 md:row-span-2': selected === 0,
-                'hidden': selected !== 0 && selected !== 3
-            }">
-
-                <template #default>
-                    <div class="flex flex-col justify-center items-center h-full text-center py-4">
+                    <div class="flex flex-col justify-center items-center h-full text-center py-2">
                         <StatsCaroussel />
                     </div>
                 </template>
             </UCard>
+        </div>
 
-            <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
-                'hidden md:block col-span-1 md:col-span-3 md:row-span-1': selected === 0,
-                'transition-all duration-300': selected === 0 && !transitioning,
-                'animate-bento-card': selected === 0 && transitioning && previousCard === 6,
-                'transition-all duration-500 transform h-full': selected === 6,
-                'hidden': selected !== 0 && selected !== 6
-            }">
-                <template #default>
-                    <div class="flex items-center h-full rounded-lg">
-                        <div>
-                            <h2 class="text-xl md:text-5xl font-bold text-zinc-800 dark:text-white mb-1">
-                                203</h2>
-                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                                National Olympic Comittees
-                            </p>
-                        </div>
-                    </div>
-                </template>
-            </UCard>
-
-            <UCard variant="soft" @click="selected === 4 ? () => { } : toggleCard(4)"
-                :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
-                    'col-span-1 md:col-span-6 md:row-span-2': selected === 0,
-                    'h-[400px] md:h-full': selected === 0,
-                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previousCard === 4,
-                    'transition-all duration-500 transform h-full': selected === 4,
-                    'hidden': selected !== 0 && selected !== 4
-                }" @mouseenter="sunburstCardHovered = true" @mouseleave="sunburstCardHovered = false">
-                <template #default>
-                    <div v-if="selected === 4" class="w-full h-full relative">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in"
-                            class="absolute top-0 right-0 z-50" @click.stop="toggleCard(4)" />
-                        <div class="w-full h-full flex flex-col">
-                            <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">
-                                Events repartition
-                            </h2>
-                            <div class="w-full h-full flex items-center justify-center">
-                                <D3EventsSunburst />
-                            </div>
-                        </div>
-                    </div>
-                    <div v-else class="h-full relative py-2 flex flex-col">
-                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
-                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
-                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="sunburstCardHovered" name="i-heroicons-arrow-up-right"
-                                class="absolute right-0" />
-                        </transition>
-                        <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">Events
-                            repartition</h2>
-                        <div class="flex items-center justify-center h-full">
-                            <D3PreviewFooEventsSunburst class="h-full w-auto" />
-                        </div>
-                    </div>
-                </template>
-            </UCard>
-
-            <UCard variant="soft" @click="selected === 5 ? () => { } : toggleCard(5)"
-                :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
-                    'col-span-1 md:col-span-6 md:row-span-2': selected === 0,
-                    'hidden md:block': selected === 0,
-                    'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
-                    'animate-bento-card': selected === 0 && transitioning && previousCard === 5,
-                    'transition-all duration-500 transform h-full': selected === 5,
-                    'hidden': selected !== 0 && selected !== 5
-                }" @mouseenter="raceCardHovered = true" @mouseleave="raceCardHovered = false">
-                <template #default>
-                    <div v-if="selected === 5" class="h-full relative">
-                        <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in"
-                            class="absolute top-0 right-0 z-50" @click.stop="toggleCard(5)" />
-                        <div class="w-full h-full flex items-center justify-center">
-                            <D3MedalsRace :medal-data="medals" />
-                        </div>
-                    </div>
-                    <div v-else class="h-full flex flex-col relative py-2">
-                        <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
-                            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
-                            leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
-                            <UIcon v-if="raceCardHovered" name="i-heroicons-arrow-up-right" class="absolute right-0" />
-                        </transition>
-                        <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">
-                            Medals race
+        <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
+            'hidden md:block col-span-1 md:col-span-3 md:row-span-1': selected === 0,
+            'hidden': selected !== 0 && selected !== 1
+        }">
+            <template #default>
+                <div class="flex items-center h-full rounded-lg">
+                    <div>
+                        <h2 class="text-xl md:text-5xl font-bold text-zinc-800 dark:text-white mb-1">
+                            XXXIII<sup class="text-[1rem] relative -top-6">th</sup>
                         </h2>
-                        <div class="flex flex-1 items-center justify-center">
-                            <D3PreviewFooMedalsRace class="w-full h-full" />
+                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                            Olympics of the modern era
+                        </p>
+                    </div>
+                </div>
+            </template>
+        </UCard>
+
+        <UCard variant="soft" @click="selected === 2 || rankingsHovered ? () => { } : toggleCard(2)"
+            :ui="{ 'body': 'p-4 sm:p-6 h-full' }" :class="{
+                'col-span-1 md:col-span-6 md:row-span-2': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 2,
+                'transition-all duration-500 transform h-full overflow-auto': selected === 2,
+                'hidden': selected !== 0 && selected !== 2
+            }" @mouseenter="rankingsCardHovered = true" @mouseleave="rankingsCardHovered = false">
+            <template #default>
+                <div v-if="selected === 2" class="h-full relative overflow-auto">
+                    <div class="sticky top-0 right-0 z-50 -mb-8">
+                        <div class="flex justify-end">
+                            <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in"
+                                @click.stop="toggleCard(2)" />
                         </div>
                     </div>
-                </template>
-            </UCard>
+                    <UTable sticky :data="totalMedals" :columns="medalsColumns" class="w-11/12" />
+                </div>
+                <div v-else class="h-full relative py-2">
+                    <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                        enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                        leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                        <UIcon v-if="rankingsCardHovered" name="i-heroicons-arrow-up-right" class="absolute right-0" />
+                    </transition>
+                    <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">Medals
+                        ranking</h2>
+                    <div class="flex flex-1 items-center justify-center" @mouseenter="rankingsHovered = true"
+                        @mouseleave="rankingsHovered = false">
+                        <UTable :data="compactMedals" :columns="compactColumns" />
+                    </div>
+                </div>
+            </template>
+        </UCard>
+
+        <UCard variant="soft" :ui="{ 'body': 'p-2 sm:p-4 h-full' }" :class="{
+            'hidden md:block col-span-1 md:col-span-3 md:row-span-2': selected === 0,
+            'hidden': selected !== 0 && selected !== 3
+        }">
+
+            <template #default>
+                <div class="flex flex-col justify-center items-center h-full text-center py-4">
+                    <StatsCaroussel />
+                </div>
+            </template>
+        </UCard>
+
+        <UCard variant="soft" :ui="{ 'body': 'p-4 md:p-6 h-full' }" :class="{
+            'hidden md:block col-span-1 md:col-span-3 md:row-span-1': selected === 0,
+            'transition-all duration-300': selected === 0 && !transitioning,
+            'animate-bento-card': selected === 0 && transitioning && previousCard === 6,
+            'transition-all duration-500 transform h-full': selected === 6,
+            'hidden': selected !== 0 && selected !== 6
+        }">
+            <template #default>
+                <div class="flex items-center h-full rounded-lg">
+                    <div>
+                        <h2 class="text-xl md:text-5xl font-bold text-zinc-800 dark:text-white mb-1">
+                            203</h2>
+                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                            National Olympic Comittees
+                        </p>
+                    </div>
+                </div>
+            </template>
+        </UCard>
+
+        <UCard variant="soft" @click="selected === 4 ? () => { } : toggleCard(4)" :ui="{ 'body': 'p-4 sm:p-6 h-full' }"
+            :class="{
+                'col-span-1 md:col-span-6 md:row-span-2': selected === 0,
+                'h-[400px] md:h-full': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 4,
+                'transition-all duration-500 transform h-full': selected === 4,
+                'hidden': selected !== 0 && selected !== 4
+            }" @mouseenter="sunburstCardHovered = true" @mouseleave="sunburstCardHovered = false">
+            <template #default>
+                <div v-if="selected === 4" class="w-full h-full relative">
+                    <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute top-0 right-0 z-50"
+                        @click.stop="toggleCard(4)" />
+                    <div class="w-full h-full flex flex-col">
+                        <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">
+                            Events repartition
+                        </h2>
+                        <div class="w-full h-full flex items-center justify-center">
+                            <D3EventsSunburst />
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="h-full relative py-2 flex flex-col">
+                    <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                        enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                        leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                        <UIcon v-if="sunburstCardHovered" name="i-heroicons-arrow-up-right" class="absolute right-0" />
+                    </transition>
+                    <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">Events
+                        repartition</h2>
+                    <div class="flex items-center justify-center h-full">
+                        <D3PreviewFooEventsSunburst class="h-full w-auto" />
+                    </div>
+                </div>
+            </template>
+        </UCard>
+
+        <UCard variant="soft" @click="selected === 5 ? () => { } : toggleCard(5)" :ui="{ 'body': 'p-4 sm:p-6 h-full' }"
+            :class="{
+                'col-span-1 md:col-span-6 md:row-span-2': selected === 0,
+                'hidden md:block': selected === 0,
+                'transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50': selected === 0 && !transitioning,
+                'animate-bento-card': selected === 0 && transitioning && previousCard === 5,
+                'transition-all duration-500 transform h-full': selected === 5,
+                'hidden': selected !== 0 && selected !== 5
+            }" @mouseenter="raceCardHovered = true" @mouseleave="raceCardHovered = false">
+            <template #default>
+                <div v-if="selected === 5" class="h-full relative">
+                    <UButton variant="ghost" icon="i-heroicons-arrows-pointing-in" class="absolute top-0 right-0 z-50"
+                        @click.stop="toggleCard(5)" />
+                    <div class="w-full h-full flex items-center justify-center">
+                        <D3MedalsRace :medal-data="medals" />
+                    </div>
+                </div>
+                <div v-else class="h-full flex flex-col relative py-2">
+                    <transition enter-active-class="transition-opacity duration-500" enter-from-class="opacity-0"
+                        enter-to-class="opacity-100" leave-active-class="transition-opacity duration-500"
+                        leave-from-class="opacity-100" leave-to-class="opacity-0" mode="out-in">
+                        <UIcon v-if="raceCardHovered" name="i-heroicons-arrow-up-right" class="absolute right-0" />
+                    </transition>
+                    <h2 class="text-base md:text-lg lg:text-xl font-bold text-zinc-800 dark:text-white mb-2">
+                        Medals race
+                    </h2>
+                    <div class="flex flex-1 items-center justify-center">
+                        <D3PreviewFooMedalsRace class="w-full h-full" />
+                    </div>
+                </div>
+            </template>
+        </UCard>
         </div>
     </PageModal>
 </template>

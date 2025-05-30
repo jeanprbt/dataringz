@@ -1,8 +1,8 @@
 <template>
     <PageModal :show="showCountryPage" :back="transition" :transition="transition" :items="items" :countries="true"
-        @close="closePage">
+        @close="closePage" @back="router.back()">
         <div v-if="country"
-            :class="['gap-4 p-2 h-full flex flex-col md:overflow-hidden', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 }]">
+            :class="['gap-4 p-2 h-full flex flex-col md:overflow-hidden overflow-y-auto', { 'md:grid md:grid-cols-12 md:grid-rows-6': selected === 0 }]">
 
             <UCard variant="soft" :ui="{ 'body': 'p-0 md:p-0 h-full' }" :class="{
                 'col-span-6 md:col-span-4 md:row-span-2': selected === 0,

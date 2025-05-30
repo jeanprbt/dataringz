@@ -3,8 +3,7 @@
         @back="router.back()">
 
         <div v-if="athlete"
-            :class="['gap-4 p-2 h-full', { 'grid grid-cols-12 md:grid-rows-6': selected === 0 && !hasFewInfo, 'grid grid-cols-12 md:grid-rows-10': selected === 0 && hasFewInfo }]">
-
+            :class="['gap-4 p-2 h-full flex flex-col overflow-y-auto', { 'md:grid md:grid-cols-12 md:overflow-hidden': selected === 0, 'md:grid-rows-6': selected === 0 && !hasFewInfo, 'md:grid-rows-10': selected === 0 && hasFewInfo }]">
             <UCard v-if="profilePicture" variant="soft" :ui="{ 'body': 'p-0 md:p-0 h-full' }" :class="{
                 'col-span-6 md:col-span-2 md:row-span-2': selected === 0 && !hasFewInfo,
                 'col-span-6 md:col-span-2 md:row-span-4': selected === 0 && hasFewInfo,
@@ -415,10 +414,10 @@
                                     <div
                                         :class="`w-6 md:w-8 h-6 md:h-8 rounded-full flex items-center justify-center ${medalColorClass(type)} transition-transform hover:scale-110`">
                                         <span class="text-white font-bold text-sm md:text-base">{{ medalEmojiMap[type]
-                                        }}</span>
+                                            }}</span>
                                     </div>
                                     <div class="text-sm md:text-base font-bold text-zinc-800 dark:text-white">{{ count
-                                    }}
+                                        }}
                                     </div>
                                 </div>
                             </div>
@@ -430,7 +429,7 @@
                                             :class="`w-4 h-4 rounded-full flex shrink-0 items-center justify-center ${medalColorClass(sortedMedals[0].type)}`">
                                             <span class="text-white font-bold text-xs">{{
                                                 medalEmojiMap[sortedMedals[0].type.split(' ')[0]]
-                                            }}</span>
+                                                }}</span>
                                         </div>
                                         <div class="flex-1 truncate text-zinc-700  dark:text-zinc-300">{{
                                             sortedMedals[0].event }}</div>

@@ -35,7 +35,7 @@
         </template>
     </UModal>
     <div ref="tooltipRef"
-        class="absolute bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white p-2 rounded shadow pointer-events-none hidden">
+        class="absolute bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white p-2 rounded shadow pointer-events-none hidden invisible md:visible">
     </div>
 </template>
 

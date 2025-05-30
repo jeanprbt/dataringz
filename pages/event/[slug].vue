@@ -1,5 +1,6 @@
 <template>
-    <PageModal :show="showEventPage" :transition="transition" :back="transition" :items="items" @close="closePage">
+    <PageModal :show="showEventPage" :transition="transition" :back="transition" :items="items" @close="closePage"
+        @back="router.back()">
         <div v-if="event" class="h-full">
             <div class="flex flex-col items-center justify-center h-full"
                 :class="{ '!items-stretch': event.tournament && tournamentMatches.length > 0 }">
@@ -335,7 +336,7 @@ useHead(() => {
     const hasResults = event.results && Object.keys(event.results).length > 0;
 
     const title = `${eventName} - ${sportName} | Paris 2024 Olympic Games`;
-    const description = `Follow the ${eventName} ${isTournament ? 'tournament ' : ''}in ${sportName} at the Paris 2024 Olympic Games. ${hasResults ? 'View results and standings.' : 'Competition details and schedule.'}`; 
+    const description = `Follow the ${eventName} ${isTournament ? 'tournament ' : ''}in ${sportName} at the Paris 2024 Olympic Games. ${hasResults ? 'View results and standings.' : 'Competition details and schedule.'}`;
 
     return {
         title,
@@ -378,11 +379,11 @@ const eventColumns = [
     {
         accessorKey: 'participant_name',
         header: () => {
-            return currentStageData.value && 
-                  currentStageData.value.length > 0 && 
-                  currentStageData.value[0]["participant_type"] && 
-                  currentStageData.value[0]["participant_type"] == "Country" ? 
-                  'Athletes' : 'Athlete'
+            return currentStageData.value &&
+                currentStageData.value.length > 0 &&
+                currentStageData.value[0]["participant_type"] &&
+                currentStageData.value[0]["participant_type"] == "Country" ?
+                'Athletes' : 'Athlete'
         },
         cell: ({ row }: { row: any }) => {
             const athleteNames = row.original["athlete_names"];

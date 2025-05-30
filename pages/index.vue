@@ -53,6 +53,28 @@ definePageMeta({
     layout: 'canvas'
 });
 
+// Add metadata
+useHead({
+    title: 'DataRingz - Paris 2024 Olympic Games Visualization',
+    meta: [
+        { name: 'description', content: 'Interactive data visualization for the Paris 2024 Olympic Games. Explore athletes, sports, venues, and events through immersive visualizations.' },
+        // Open Graph
+        { property: 'og:title', content: 'DataRingz - Paris 2024 Olympic Games Visualization' },
+        { property: 'og:description', content: 'Interactive data visualization for the Paris 2024 Olympic Games. Explore athletes, sports, venues, and events through immersive visualizations.' },
+        { property: 'og:url', content: 'https://dataringz.martinctl.dev' },
+        { property: 'og:type', content: 'website' },
+
+        // Twitter
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'DataRingz - Paris 2024 Olympic Games Visualization' },
+        { name: 'twitter:description', content: 'Interactive data visualization for the Paris 2024 Olympic Games. Explore athletes, sports, venues, and events through immersive visualizations.' }
+    ],
+    link: [
+        { rel: 'canonical', href: 'https://dataringz.martinctl.dev' },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
+});
+
 // COMPOSABLES ------------------------------------------------------------------------------------------------------ //
 const router = useRouter();
 const { canvas } = useCanvas();

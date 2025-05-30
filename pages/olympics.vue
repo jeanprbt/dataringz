@@ -214,7 +214,6 @@
 <script setup lang="ts">
 import countries from '~/data/countries.json';
 import medals from '~/data/medals.json';
-import { resolveComponent } from 'vue';
 
 definePageMeta({
     middleware: ['olympics', 'previous', 'breadcrumb'],
@@ -420,4 +419,26 @@ const compactColumns = [
         }
     }
 ]
+
+// Add metadata
+useHead({
+    title: 'Olympics Overview - Paris 2024 | DataRingz',
+    meta: [
+        { name: 'description', content: 'Explore the XXXIII Olympic Games in Paris 2024. View medal rankings, event distribution, and key statistics from 203 participating countries.' },
+        // Open Graph
+        { property: 'og:title', content: 'Olympics Overview - Paris 2024 | DataRingz' },
+        { property: 'og:description', content: 'Explore the XXXIII Olympic Games in Paris 2024. View medal rankings, event distribution, and key statistics from 203 participating countries.' },
+        { property: 'og:url', content: 'https://dataringz.martinctl.dev/olympics' },
+        { property: 'og:type', content: 'website' },
+
+        // Twitter
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Olympics Overview - Paris 2024 | DataRingz' },
+        { name: 'twitter:description', content: 'Explore the XXXIII Olympic Games in Paris 2024. View medal rankings, event distribution, and key statistics from 203 participating countries.' }
+    ],
+    link: [
+        { rel: 'canonical', href: 'https://dataringz.martinctl.dev/olympics' },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
+});
 </script>

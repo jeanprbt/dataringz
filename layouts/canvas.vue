@@ -291,6 +291,7 @@ onMounted(async () => {
             return result;
         };
 
+        // apply same behavior to mobiles
         const updatePitchBasedOnZoom = () => {
             const currentZoom = canvas.getZoom();
             if (currentZoom > canvas.getMinZoom() + 2) {
@@ -387,6 +388,19 @@ const skipIntro = async () => {
         }
         return result;
     };
+
+    // apply same behavior to mobiles
+    const updatePitchBasedOnZoom = () => {
+        const currentZoom = canvas.getZoom();
+        if (currentZoom > canvas.getMinZoom() + 2) {
+            const newPitch = Math.max(0, Math.min(60, (currentZoom - 10) * 10));
+            canvas.setPitch(newPitch);
+        }
+    }
+    canvas.touchPitch.disable();
+    canvas.touchZoomRotate.disableRotation();
+    canvas.on('touchmove', updatePitchBasedOnZoom);
+    canvas.on('zoomend', updatePitchBasedOnZoom);
 
     // settle canvas
     settleMapCanvas(canvas);

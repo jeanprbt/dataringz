@@ -553,6 +553,10 @@ useHead(() => {
             { name: 'twitter:title', content: title },
             { name: 'twitter:description', content: description },
             { name: 'twitter:image', content: country.img }
+        ],
+        link: [
+            { rel: 'canonical', href: `https://dataringz.martinctl.dev/country/${slug}` },
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         ]
     };
 });

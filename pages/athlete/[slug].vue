@@ -743,6 +743,10 @@ useHead(() => {
             { name: 'twitter:card', content: 'summary' },
             { name: 'twitter:title', content: title },
             { name: 'twitter:description', content: description }
+        ],
+        link: [
+            { rel: 'canonical', href: `https://dataringz.martinctl.dev/athlete/${slug}` },
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         ]
     };
 });

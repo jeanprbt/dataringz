@@ -300,7 +300,7 @@ const searchButtonClicked = () => {
 
 const zoomInToMap = async (
     openPage: boolean,
-    center: [number, number] = [2.294694, 48.858093],
+    center: [number, number] = paris.center,
 ) => {
     hideButton(showSearchButton, searchButton, 0.5);
     hideButton(showGlobeButton, globeButton, 0.5);

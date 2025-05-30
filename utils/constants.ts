@@ -83,7 +83,7 @@ const nice: IntroLocation = {
     name: "Nice"
 }
 const paris: IntroLocation = {
-    center: [2.294694, 48.858093],
+    center: [2.312772, 48.856091],
     zoom: 15.5,
     bearing: 0,
     pitch: 55,

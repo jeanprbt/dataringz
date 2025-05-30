@@ -29,6 +29,8 @@ import sports from '~/data/sports.json';
 import athletes from '~/data/athletes.json';
 import countries from '~/data/countries.json';
 
+import { paris } from '~/utils/constants';
+
 
 // COMPOSABLES ------------------------------------------------------------------------------------------------------ //
 const router = useRouter();
@@ -101,8 +103,7 @@ onMounted(async () => {
         directCoordinates = [venue.location.longitude, venue.location.latitude];
     } else if (olympicsAccess.value) {
         directMapAccess = true;
-        // paris view
-        directCoordinates = [2.294694, 48.858093]
+        directCoordinates = paris.center;
     } else if (countryAccess.value) {
         directGlobeAccess = true;
         const country = countries[countryAccess.value as keyof typeof countries] as any;
@@ -140,7 +141,7 @@ onMounted(async () => {
             container: mapContainer.value as HTMLElement,
             style: isDark.value ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11',
             dragRotate: false,
-            center: [2.294694, 48.858093],
+            center: paris.center,
             zoom: 15.5,
             pitch: 55,
             bearing: 0,
@@ -222,6 +223,9 @@ onMounted(async () => {
             },
             "filter": ["==", "name", ""]
         });
+    });
+
+    canvas.on('load', async () => {
 
         // HANDLE FIRST ANIMATION ------------------------------------------------------------------------------------ //
         if (intro.value && !directMapAccess && !directGlobeAccess) {
@@ -293,9 +297,7 @@ onMounted(async () => {
         canvas.touchZoomRotate.disableRotation();
         canvas.on('touchmove', updatePitchBasedOnZoom);
         canvas.on('zoomend', updatePitchBasedOnZoom);
-    });
 
-    canvas.on('load', async () => {
         if (directGlobeAccess) {
             // @ts-ignore
             settleGlobeCanvas(canvas, otherTooltipRef, router);
@@ -345,7 +347,7 @@ const skipIntro = async () => {
     // fly to paris
     await new Promise<void>((resolve) => {
         canvas.flyTo({
-            center: [2.294694, 48.858093],
+            center: paris.center,
             zoom: 15.5,
             pitch: 55,
             bearing: 0,

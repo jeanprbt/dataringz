@@ -157,7 +157,7 @@ Unlike traditional medal tables and charts, our approach brings the Olympics to 
 
 #### Project Goal Report
 
-The 2-pages report describing the project goal is named `Milestone2.pdf`, you can find it at the root of the repository.
+The 2-pages report describing the project goal is named `project_goal_report_M2.pdf`, you can find it at the root of the repository.
 
 
 ### Milestone 3

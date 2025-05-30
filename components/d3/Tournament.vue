@@ -223,14 +223,17 @@ const calculateMatchPositions = (height: number, margin: number, roundWidth: num
 
     // Adjust vertical spacing based on number of rounds
     const isShortTournament = maxRound <= 2;
+    
+    // For short tournaments, use larger spacing between matches while keeping boxes thin
+    const matchSpacing = isShortTournament ? matchHeight * 1.5 : matchHeight;
 
     if (firstRoundMatches.length > 0) {
-        const firstRoundStartY = margin + TITLE_MARGIN_TOP + (availableHeight - (firstRoundMatches.length * matchHeight)) / 2;
+        const firstRoundStartY = margin + TITLE_MARGIN_TOP + (availableHeight - (firstRoundMatches.length * matchSpacing)) / 2;
 
         firstRoundMatches.forEach((match, index) => {
             positions.set(match.id, {
                 x: margin + match.round * roundWidth,
-                y: firstRoundStartY + index * matchHeight
+                y: firstRoundStartY + index * matchSpacing
             });
         });
     }
@@ -275,16 +278,20 @@ const calculateMatchPositions = (height: number, margin: number, roundWidth: num
         const finalMatchPos = finalMatch ? positions.get(finalMatch.id) : null;
 
         if (finalMatchPos) {
-            // Position bronze medal match at the bottom right
+            // Position bronze medal match at the bottom right with better spacing for short tournaments
+            const adjustedMatchHeight = isShortTournament ? matchHeight * 0.6 : matchHeight;
+            const bronzeYOffset = adjustedMatchHeight * 1.5
             positions.set(match.id, {
                 x: finalMatchPos.x, // Same x as final match
-                y: height - margin - matchHeight // At the bottom
+                y: height - margin - bronzeYOffset // At the bottom with proper spacing
             });
         } else {
             // Fallback position if no final match found
+            const adjustedMatchHeight = isShortTournament ? matchHeight * 0.6 : matchHeight;
+            const bronzeYOffset = isShortTournament ? adjustedMatchHeight * 4 : adjustedMatchHeight * 2;
             positions.set(match.id, {
                 x: margin + maxRound * roundWidth,
-                y: height - margin - matchHeight
+                y: height - margin - bronzeYOffset
             });
         }
     });
@@ -876,7 +883,11 @@ const drawTournament = () => {
     const maxRound = Math.max(...props.matches.map(m => m.round));
     const roundWidth = (width - 2 * margin) / (maxRound + 1);
     const regularMatches = props.matches.filter(m => !m.isBronzeMedal);
-    const matchHeight = (height - 2 * margin - TITLE_MARGIN_TOP) / Math.max(1, Math.pow(2, Math.max(...regularMatches.map(m => m.round))));
+    const baseMatchHeight = (height - 2 * margin - TITLE_MARGIN_TOP) / Math.max(1, Math.pow(2, Math.max(...regularMatches.map(m => m.round))));
+    
+    // Adjust match height for short tournaments
+    const isShortTournament = maxRound <= 2;
+    const matchHeight = isShortTournament ? baseMatchHeight * 0.6 : baseMatchHeight;
 
     const svgElement = d3.select(svg.value)
         .attr("width", width)

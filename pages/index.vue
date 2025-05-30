@@ -25,7 +25,7 @@
             <UIcon :name="globeIcon" class="size-6" />
         </button>
 
-        <ClientOnly v-if="!colorMode?.forced">
+        <ClientOnly>
             <button ref="darkModeButton" @click="toggleColorMode()" v-show="showDarkModeButton"
                 class="flex items-center justify-center text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 hover:dark:text-zinc-300 px-[9px] rounded-lg shadow-sm border-1 border-zinc-300 hover:border-zinc-500 dark:border-zinc-600 hover:dark:border-zinc-400 bg-white dark:bg-zinc-900">
                 <UIcon :name="colorModeIcon" class="size-5" />
@@ -88,18 +88,19 @@ const router = useRouter();
 const { canvas } = useCanvas();
 const { intro, introPlaying } = useIntro();
 const { section, setSection } = useSection();
-const colorMode = useColorMode()
+const colorMode = useColorMode();
+console.log(colorMode.preference);
 const toggleColorMode = () => {
-    if (colorMode.preference === 'system') {
-        colorMode.preference = 'dark'
+    if (colorMode.preference === 'light') {
+        colorMode.preference = 'system'
     } else if (colorMode.preference === 'dark') {
         colorMode.preference = 'light'
     } else {
-        colorMode.preference = 'system'
+        colorMode.preference = 'dark'
     }
 }
 const colorModeIcon = computed(() => {
-    if (colorMode.preference === 'system') {
+    if (colorMode.preference === 'light') {
         return 'i-heroicons-computer-desktop-solid'
     } else if (colorMode.preference === 'dark') {
         return 'i-heroicons-sun-solid'

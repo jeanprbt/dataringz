@@ -326,6 +326,34 @@ const closePage = () => {
     router.push('/');
 }
 
+useHead(() => {
+    if (event === undefined) return;
+    const eventName = event.name;
+    const sportName = event.sport_name;
+    const isTournament = event.tournament;
+    const hasResults = event.results && Object.keys(event.results).length > 0;
+
+    const title = `${eventName} - ${sportName} | Paris 2024 Olympic Games`;
+    const description = `Follow the ${eventName} ${isTournament ? 'tournament ' : ''}in ${sportName} at the Paris 2024 Olympic Games. ${hasResults ? 'View results and standings.' : 'Competition details and schedule.'}`; 
+
+    return {
+        title,
+        meta: [
+            { name: 'description', content: description },
+            // Open Graph
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: description },
+            { property: 'og:url', content: `https://dataringz.martinctl.dev/event/${slug}` },
+            { property: 'og:type', content: 'website' },
+
+            // Twitter
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: description }
+        ]
+    };
+});
+
 // UI STATE
 const eventColumns = [
     {

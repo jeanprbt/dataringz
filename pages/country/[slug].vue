@@ -526,4 +526,35 @@ onMounted(() => {
     }
 });
 
+useHead(() => {
+    if (country === undefined) return;
+    const countryName = country.name;
+    const totalMedals = countryTotalMedals.value;
+    const totalAthletes = athleteCount.value;
+    const sportsCount = uniqueSportsCount.value;
+    const hasPreviousEditions = country.previous_editions && country.previous_editions.length > 0;
+
+    const title = `${countryName} - Paris 2024 Olympic Games`;
+    const description = `Follow Team ${countryName} at the Paris 2024 Olympics. ${totalAthletes} athletes competing in ${sportsCount} sports.${totalMedals.gold + totalMedals.silver + totalMedals.bronze > 0 ? ` Current medal count: ${totalMedals.gold} gold, ${totalMedals.silver} silver, and ${totalMedals.bronze} bronze medals.` : ''}${hasPreviousEditions ? ' View historical Olympic performance.' : ''}`;
+
+    return {
+        title,
+        meta: [
+            { name: 'description', content: description },
+            // Open Graph
+            { property: 'og:title', content: title },
+            { property: 'og:description', content: description },
+            { property: 'og:url', content: `https://dataringz.martinctl.dev/country/${slug}` },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:image', content: country.img },
+
+            // Twitter
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: description },
+            { name: 'twitter:image', content: country.img }
+        ]
+    };
+});
+
 </script>

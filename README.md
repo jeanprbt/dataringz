@@ -4,6 +4,8 @@
 
 This repository contains a web app to visualize information from this [extensive dataset](https://www.kaggle.com/datasets/piterfm/paris-2024-olympic-summer-games) about [Paris 2024](https://www.olympics.com/en/olympic-games/paris-2024) Olympics. The app centers around an interactive map of Paris, allowing users to click on olympics venues to view details about the sports held there, the athletes involved, related events, and more. A search bar enables quick navigation to specific venues, sports, athletes, or events, while a "globe mode" offers a global view of the participating countries.
 
+<img width="1092" height="682" alt="dataringz_light" src="https://github.com/user-attachments/assets/bdd48b98-5588-4fdf-803c-900e51a6a993" />
+
 ## Technical setup
 
 This project is built using [Nuxt.js](https://nuxt.com), a full-stack development framework based on [Vue.js](https://vuejs.org). It relies on [mapbox](https://www.mapbox.com) for map tiles, and it is mainly written in [TypeScript](https://www.typescriptlang.org).
